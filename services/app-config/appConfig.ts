@@ -1,5 +1,5 @@
 import { locales } from '../../localization/locales';
-import { OutOfContext } from '@/app/utils/OutOfContext';
+import { OutOfContext } from '@/utils/OutOfContext';
 import { use, createContext } from 'react';
 
 type Config = {

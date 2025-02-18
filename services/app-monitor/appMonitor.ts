@@ -1,5 +1,5 @@
 import { createContext, use } from 'react';
-import { OutOfContext } from '@/app/utils/OutOfContext';
+import { OutOfContext } from '@/utils/OutOfContext';
 
 type Store = {
  isLargeDevice: boolean;

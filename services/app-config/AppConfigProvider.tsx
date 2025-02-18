@@ -2,7 +2,7 @@
 import { useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
 import { type Config, appConfigContext } from './appConfig';
 import { useParams } from 'next/navigation';
-import { locales } from '@/app/localization/locales';
+import { locales } from '@/localization/locales';
 import {
  getMode as getStorageMode,
  setMode as setStorageMode,
