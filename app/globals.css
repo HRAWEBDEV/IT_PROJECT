@@ -6,28 +6,31 @@
  :root {
   /* color pallete */
   /* #0369a0 */
-  --primary: theme(colors.sky.600);
+  --primary: 200.41 98% 39%;
   /* #0284c5 */
-  --primary-light: theme(colors.sky.500);
+  --primary-light: 199 89% 48%;
   /* #075783 */
-  --primary-dark: theme(colors.sky.700);
+  --primary-dark: 201.27 96.34% 32.16%;
   /* #fff */
   --primary-foreground: 0 0% 100%;
   /* #db7706 */
-  --secondary: theme(colors.teal.600);
+  --secondary: 174.67 83.58% 31.57%;
   /* #fcd44f */
-  --secondary-light: theme(colors.teal.500);
+  --secondary-light: 173.41 80.39% 40%;
   /* #b35309 */
-  --secondary-dark: theme(colors.teal.700);
+  --secondary-dark: 175.34 77.44% 26.08%;
   /* #fff */
   --secondary-foreground: 0 0% 100%;
   /* #fff */
   --background: 0 0% 100%;
   /* #262626 */
-  --foreground: 0 0% 15%;
+  --foreground: 0 0% 0%;
 
   /* z indexes */
   --mobile-bottom-nav-zindex: 100;
-  --mobile-bottom-height: 4rem;
+  --mobile-bottom-height: 3.8rem;
+
+  --header-zindex: 100;
+  --header-height: 3.8rem;
  }
 }

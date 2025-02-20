@@ -11,8 +11,8 @@ import Tab from '@mui/material/Tab';
 export default function MobileBottomNav() {
  const [activeTab, setActiveTab] = useState('home');
  return (
-  <nav className='fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-100'>
-   <div className='shadow-[0px_0px_10px_2px] shadow-neutral-300'>
+  <nav className='fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-200 lg:hidden'>
+   <div className='shadow-[0px_0px_10px_3px] shadow-neutral-400/60'>
     <Tabs
      value={activeTab}
      onChange={(_, newValue) => setActiveTab(newValue)}
@@ -34,7 +34,7 @@ export default function MobileBottomNav() {
        transition: 'transform 0.2s ease',
       },
       '& .MuiButtonBase-root[aria-selected="true"] svg': {
-       transform: 'scale(1.3)',
+       transform: 'scale(1.4)',
       },
      }}
     >

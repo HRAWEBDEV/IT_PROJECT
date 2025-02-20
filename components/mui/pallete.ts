@@ -21,19 +21,19 @@ declare module '@mui/material/styles' {
 
 export const pallete = {
  primary: {
-  light: 'var(--primary-light)',
-  main: 'var(--primary)',
-  dark: 'var(--primary-dark)',
-  contrastText: 'var(--primary-foreground)',
+  light: 'hsl(var(--primary-light))',
+  main: 'hsl(var(--primary))',
+  dark: 'hsl(var(--primary-dark))',
+  contrastText: 'hsl(var(--primary-foreground))',
  },
  secondary: {
-  light: 'var(--secondary-light)',
-  main: 'var(--secondary)',
-  dark: 'var(--secondary-dark)',
-  contrastText: 'var(--secondary-foreground)',
+  light: 'hsl(var(--secondary-light))',
+  main: 'hsl(var(--secondary))',
+  dark: 'hsl(var(--secondary-dark))',
+  contrastText: 'hsl(var(--secondary-foreground))',
  },
  text: {
-  primary: 'var(--foreground)',
+  primary: 'hsl(var(--foreground))',
  },
  ...colors,
 };
