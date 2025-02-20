@@ -1,4 +1,5 @@
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { TfiInstagram } from 'react-icons/tfi';
@@ -19,16 +20,29 @@ export const Hero = () => {
      زیرساخت شبکه های کامپیوتری و مخابراتی و همچنین سیستم های حفاظتی و نظارتی
      آماده خدمت رسانی به شرکت ها و موسسات می باشد
     </p>
-    <div className='flex gap-4 flex-wrap'>
-     <IconButton>
+    <div className='flex gap-4 flex-wrap mb-4'>
+     <IconButton color='secondary'>
       <FaPhoneSquareAlt fontSize={'2rem'} />
      </IconButton>
-     <IconButton>
+     <IconButton color='error'>
       <TfiInstagram fontSize={'2rem'} />
      </IconButton>
-     <IconButton>
+     <IconButton color='info'>
       <FaTelegramPlane fontSize={'2rem'} />
      </IconButton>
+    </div>
+    <div className='flex gap-4 flex-wrap'>
+     <Button
+      size='large'
+      sx={{ minWidth: '10rem' }}
+      variant='contained'
+      color='secondary'
+     >
+      مشاهده خدمات
+     </Button>
+     <Button size='large' sx={{ minWidth: '10rem' }} variant='outlined'>
+      تماس باما
+     </Button>
     </div>
    </article>
   </section>
