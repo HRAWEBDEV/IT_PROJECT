@@ -36,10 +36,6 @@ export default {
      light: 'hsl(var(--accent-light))',
      dark: 'hsl(var(--accent-dark))',
     },
-    accent: {
-     DEFAULT: 'hsl(var(--accent))',
-     foreground: 'hsl(var(--accent-foreground))',
-    },
    },
   },
  },

@@ -4,32 +4,30 @@
 
 @layer base {
  :root {
+  /* color pallete */
   /* #0369a0 */
-  --primary: 201 96% 32%;
+  --primary: theme(colors.sky.600);
   /* #0284c5 */
-  --primary-light: 200 98% 39%;
+  --primary-light: theme(colors.sky.500);
   /* #075783 */
-  --primary-dark: 201 90% 27%;
+  --primary-dark: theme(colors.sky.700);
   /* #fff */
   --primary-foreground: 0 0% 100%;
   /* #db7706 */
-  --accent: 32 95% 44%;
+  --secondary: theme(colors.teal.600);
   /* #fcd44f */
-  --accent-light: 46 97% 65%;
+  --secondary-light: theme(colors.teal.500);
   /* #b35309 */
-  --accent-dark: 26 90% 37%;
-  /* #fff */
-  /* #db7706 */
-  --secondary: 32 95% 44%;
-  /* #fcd44f */
-  --secondary-light: 46 97% 65%;
-  /* #b35309 */
-  --secondary-dark: 26 90% 37%;
+  --secondary-dark: theme(colors.teal.700);
   /* #fff */
   --secondary-foreground: 0 0% 100%;
   /* #fff */
   --background: 0 0% 100%;
   /* #262626 */
   --foreground: 0 0% 15%;
+
+  /* z indexes */
+  --mobile-bottom-nav-zindex: 100;
+  --mobile-bottom-height: 4rem;
  }
 }

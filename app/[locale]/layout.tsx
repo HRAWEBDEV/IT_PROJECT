@@ -72,7 +72,7 @@ export default async function RootLayout({
    </Script>
    <body
     data-lang={locale}
-    className='data-[lang="fa"]:font-irs data-[lang="fa"]:text-start text-foreground bg-foreground antialiased'
+    className='data-[lang="fa"]:font-irs font-normal text-sm lg:text-base data-[lang="fa"]:text-start text-foreground bg-foreground antialiased'
    >
     <AppConfigProvider>
      <MuiCache>
