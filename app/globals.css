@@ -25,11 +25,9 @@
   --background: 0 0% 100%;
   /* #262626 */
   --foreground: 0 0% 0%;
-
   /* z indexes */
   --mobile-bottom-nav-zindex: 100;
-  --mobile-bottom-height: 3.8rem;
-
+  --mobile-bottom-nav-height: 3.8rem;
   --header-zindex: 100;
   --header-height: 3.8rem;
  }

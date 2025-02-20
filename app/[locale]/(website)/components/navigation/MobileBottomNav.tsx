@@ -3,15 +3,24 @@ import { useState } from 'react';
 import RoofingOutlinedIcon from '@mui/icons-material/RoofingOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
+import { useNavigationContext } from '../../services/NavigationContext';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import { addClass } from '@/utils/addClass';
 // import Link from 'next/link';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
 export default function MobileBottomNav() {
+ const { mobileBottomNavIsVisible } = useNavigationContext();
  const [activeTab, setActiveTab] = useState('home');
+
  return (
-  <nav className='fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-200 lg:hidden'>
+  <nav
+   className={`fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-200 lg:hidden ${addClass(
+    !mobileBottomNavIsVisible,
+    'translate-y-[--mobile-bottom-nav-height]'
+   )} transition-transform`}
+  >
    <div className='shadow-[0px_0px_10px_3px] shadow-neutral-400/60'>
     <Tabs
      value={activeTab}
