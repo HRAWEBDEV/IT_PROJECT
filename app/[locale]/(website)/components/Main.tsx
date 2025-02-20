@@ -1,9 +1,9 @@
-import React from 'react';
+import { PropsWithChildren } from 'react';
 
-export default function Main() {
+export default function Main({ children }: PropsWithChildren) {
  return (
   <main className='pt-[--header-height] pb-[--mobile-bottom-height]'>
-   <div className='h-[200rem]'>مطالب اصلی</div>
+   {children}
   </main>
  );
 }

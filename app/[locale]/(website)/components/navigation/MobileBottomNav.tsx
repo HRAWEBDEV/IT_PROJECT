@@ -16,7 +16,7 @@ export default function MobileBottomNav() {
 
  return (
   <nav
-   className={`fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-200 lg:hidden ${addClass(
+   className={`fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-100 lg:hidden ${addClass(
     !mobileBottomNavIsVisible,
     'translate-y-[--mobile-bottom-nav-height]'
    )} transition-transform`}
