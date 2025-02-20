@@ -5,6 +5,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 import { useNavigationContext } from '../../services/NavigationContext';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { addClass } from '@/utils/addClass';
 // import Link from 'next/link';
 import Tabs from '@mui/material/Tabs';
@@ -16,12 +17,12 @@ export default function MobileBottomNav() {
 
  return (
   <nav
-   className={`fixed bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-100 lg:hidden ${addClass(
+   className={`fixed h-[--mobile-bottom-nav-height] bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-100 ${addClass(
     !mobileBottomNavIsVisible,
     'translate-y-[--mobile-bottom-nav-height]'
    )} transition-transform`}
   >
-   <div className='shadow-[0px_0px_10px_3px] shadow-neutral-400/60'>
+   <div className='h-full shadow-[0px_0px_10px_3px] shadow-neutral-400/60'>
     <Tabs
      value={activeTab}
      onChange={(_, newValue) => setActiveTab(newValue)}
@@ -34,10 +35,11 @@ export default function MobileBottomNav() {
       '& .MuiButtonBase-root': {
        flexGrow: 1,
        flexBasis: 0,
-       padding: '0.5rem',
+       padding: '0.61rem 0',
        fontSize: '0.75rem',
        fontWeight: 500,
        minHeight: 'unset',
+       minWidth: 'unset',
       },
       '& svg': {
        transition: 'transform 0.2s ease',
@@ -56,6 +58,11 @@ export default function MobileBottomNav() {
       value='menu'
       icon={<DashboardCustomizeOutlinedIcon fontSize='small' />}
       label='منو'
+     />
+     <Tab
+      value='profile'
+      icon={<AccountCircleOutlinedIcon fontSize='small' />}
+      label='پروفایل'
      />
      <Tab
       value='search'

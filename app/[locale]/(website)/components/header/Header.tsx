@@ -32,7 +32,7 @@ export default function Header() {
      <IconButton color='primary'>
       <WbSunnyOutlinedIcon />
      </IconButton>
-     <IconButton color='primary'>
+     <IconButton color='secondary'>
       <PersonIcon />
      </IconButton>
     </div>
