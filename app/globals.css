@@ -4,6 +4,8 @@
 
 @layer base {
  :root {
+  scroll-snap-type: mandatory;
+  scroll-behavior: smooth;
   /* color pallete */
   /* #0369a0 */
   --primary: 200.41 98% 39%;

@@ -5,11 +5,15 @@ import Button from '@mui/material/Button';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { TfiInstagram } from 'react-icons/tfi';
+import Link from 'next/link';
 
-export const Hero = () => {
+export default function Hero() {
  return (
-  <section className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'>
-   <div className='h-full bg-gradient-to-b from-white to-purple-100/90 dark:from-transparent dark:to-purple-700/5'></div>
+  <section
+   id='hero'
+   className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'
+  >
+   <div className='h-full bg-gradient-to-b from-white to-purple-100/90 dark:from-transparent dark:to-purple-700/5 shadow-[0px_0px_10px_10px] shadow-purple-100/90 dark:shadow-purple-700/5'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
     <h1 className='text-3xl text-center leading-[1.7] font-bold mb-2'>
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
@@ -80,10 +84,14 @@ export const Hero = () => {
     </div> */}
    </article>
    <div className='absolute bottom-0 start-0 end-0 flex justify-center pb-4'>
-    <IconButton className='!text-secondary'>
+    <IconButton
+     LinkComponent={Link}
+     href='#services'
+     className='!text-secondary'
+    >
      <ScrollDownIcon width='1.8rem' fill='currentColor' />
     </IconButton>
    </div>
   </section>
  );
-};
+}
