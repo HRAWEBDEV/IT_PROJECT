@@ -45,7 +45,7 @@ export default function MobileMenu() {
      {menuOptions.map((menu) => (
       <li key={menu.title}>
        <IconButton sx={menuItemStyles}>
-        <div className='border border-primary w-full min-h-[7rem] rounded-lg flex flex-col justify-center items-center gap-1 shadow-[-4px_4px_4px_0px] shadow-primary/10 text-primary bg-neutral-100'>
+        <div className='border border-primary w-full min-h-[7rem] rounded-lg flex flex-col justify-center items-center gap-1 shadow-[-4px_4px_4px_0px] shadow-primary/10 text-primary bg-neutral-100 dark:bg-neutral-800'>
          <div>{menu.icon}</div>
          <div>
           <span className='font-medium text-base'>{menu.title}</span>
