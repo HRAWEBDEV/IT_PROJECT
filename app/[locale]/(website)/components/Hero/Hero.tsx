@@ -7,7 +7,7 @@ import { TfiInstagram } from 'react-icons/tfi';
 
 export const Hero = () => {
  return (
-  <section className='relative h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'>
+  <section className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'>
    <div className='h-full bg-gradient-to-b from-white to-purple-100/90 dark:from-transparent dark:to-purple-700/5'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
     <h1 className='text-3xl text-center leading-[1.7] font-bold mb-6'>
