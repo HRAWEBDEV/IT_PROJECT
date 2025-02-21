@@ -11,7 +11,7 @@ export default function Hero() {
  return (
   <section
    id='hero'
-   className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'
+   className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))] mb-12'
   >
    <div className='h-full bg-gradient-to-b from-white to-purple-100 dark:from-transparent dark:to-purple-950/30 dark:shadow-purple-700/5 blur-3xl'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>

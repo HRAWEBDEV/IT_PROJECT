@@ -1,6 +1,5 @@
 'use client';
 import Button from '@mui/material/Button';
-import Link from 'next/link';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
@@ -23,7 +22,7 @@ const projects = [
 export default function Services() {
  return (
   <section id='services'>
-   <div className='container py-12'>
+   <div className='container mb-12'>
     <header className='text-center mb-8'>
      <h2 className='text-2xl font-bold'>خدمـــــات</h2>
     </header>
