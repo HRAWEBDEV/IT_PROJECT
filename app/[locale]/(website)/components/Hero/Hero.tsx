@@ -1,3 +1,4 @@
+'use client';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
@@ -36,7 +37,15 @@ export const Hero = () => {
     <div className='flex gap-4 flex-wrap'>
      <Button
       size='large'
-      sx={{ minWidth: '10rem' }}
+      sx={{
+       minWidth: '10rem',
+       background: (theme) =>
+        `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.light})`,
+       '&:is(:hover,:focus)': {
+        background: (theme) =>
+         `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.light})`,
+       },
+      }}
       variant='contained'
       color='secondary'
      >
