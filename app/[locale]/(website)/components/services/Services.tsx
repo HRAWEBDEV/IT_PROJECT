@@ -1,7 +1,9 @@
 'use client';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import IconButton from '@mui/material/IconButton';
 
 const projects = [
  {
@@ -28,10 +30,7 @@ export default function Services() {
     <ul className='grid gap-4'>
      {projects.map((item) => (
       <li key={item.title} className='[&]:[--img-height:15rem]'>
-       <Link
-        className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
-        href={'#'}
-       >
+       <div className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'>
         <div className='h-[--img-height]'></div>
         <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/7)] w-full h-full p-4 -skew-y-[9deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
         <div className='p-4 relative z-[2] -mt-4'>
@@ -42,7 +41,12 @@ export default function Services() {
           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
           استفاده هدفابزارهای کاربردی می باشد
          </p>
-         <div className='flex justify-end'>
+         <div className='flex justify-between gap-4'>
+          <div>
+           <IconButton color='primary'>
+            <ShareOutlinedIcon />
+           </IconButton>
+          </div>
           <Button
            sx={{
             background: (theme) =>
@@ -62,7 +66,7 @@ export default function Services() {
           </Button>
          </div>
         </div>
-       </Link>
+       </div>
       </li>
      ))}
     </ul>
