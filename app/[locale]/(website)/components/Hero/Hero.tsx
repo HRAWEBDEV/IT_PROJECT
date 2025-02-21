@@ -13,7 +13,7 @@ export default function Hero() {
    id='hero'
    className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'
   >
-   <div className='h-full bg-gradient-to-b from-white to-purple-100/90 dark:from-transparent dark:to-purple-700/5 shadow-[0px_0px_10px_10px] shadow-purple-100/90 dark:shadow-purple-700/5'></div>
+   <div className='h-full bg-gradient-to-b from-white to-purple-100 dark:from-transparent dark:to-purple-950/30 dark:shadow-purple-700/5 blur-3xl'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
     <h1 className='text-3xl text-center leading-[1.7] font-bold mb-2'>
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
@@ -25,9 +25,9 @@ export default function Hero() {
      </span>
     </h1>
     <p className='w-[min(100%,32rem)] text-center leading-7 mb-10'>
-     ---- با کادری مجرب و تجهیزات بروز با بیش از 10 سال سابقه درخشان در زمینه
-     زیرساخت شبکه های کامپیوتری و مخابراتی و همچنین سیستم های حفاظتی و نظارتی
-     آماده خدمت رسانی به شرکت ها و موسسات می باشد
+     لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+     طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+     که لازم است، و برای شرایط فعلی تکنولوژی
     </p>
     <div className='flex gap-4 flex-wrap mb-4'>
      <IconButton color='secondary'>
