@@ -8,13 +8,7 @@ import { TfiInstagram } from 'react-icons/tfi';
 export const Hero = () => {
  return (
   <section className='relative h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'>
-   <div className='h-full'>
-    <img
-     src='/images/tech-hero.jpg'
-     className='h-full w-full opacity-10 object-cover'
-     alt='tech-image'
-    />
-   </div>
+   <div className='h-full bg-purple-100/20'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
     <h1 className='text-3xl text-center leading-[1.7] font-bold mb-6'>
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
@@ -58,7 +52,14 @@ export const Hero = () => {
      >
       مشاهده خدمات
      </Button>
-     <Button size='large' sx={{ minWidth: '10rem' }} variant='outlined'>
+     <Button
+      size='large'
+      className='!bg-background'
+      sx={{
+       minWidth: '10rem',
+      }}
+      variant='outlined'
+     >
       تماس باما
      </Button>
     </div>
