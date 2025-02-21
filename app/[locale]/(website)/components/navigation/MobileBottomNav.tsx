@@ -1,11 +1,11 @@
 'use client';
 import { useState } from 'react';
 import RoofingOutlinedIcon from '@mui/icons-material/RoofingOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
 import { useNavigationContext } from '../../services/NavigationContext';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import { addClass } from '@/utils/addClass';
 // import Link from 'next/link';
 import Tabs from '@mui/material/Tabs';
@@ -60,14 +60,14 @@ export default function MobileBottomNav() {
       label='منو'
      />
      <Tab
-      value='profile'
-      icon={<AccountCircleOutlinedIcon fontSize='small' />}
-      label='پروفایل'
+      value='services'
+      icon={<EngineeringOutlinedIcon fontSize='small' />}
+      label='خدمات'
      />
      <Tab
-      value='search'
-      icon={<SearchOutlinedIcon fontSize='small' />}
-      label='جستجو'
+      value='news'
+      icon={<NewspaperOutlinedIcon fontSize='small' />}
+      label='اخبار و مقالات'
      />
      <Tab
       value='support'
