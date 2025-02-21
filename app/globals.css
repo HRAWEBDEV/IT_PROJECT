@@ -56,3 +56,16 @@
   --foreground: 0 0% 100%;
  }
 }
+
+@keyframes scroll {
+ 0% {
+  transform: translateY(0);
+ }
+ 30% {
+  transform: translateY(60px);
+ }
+}
+
+svg #wheel {
+ animation: scroll ease 2s infinite;
+}

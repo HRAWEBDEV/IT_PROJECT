@@ -1,4 +1,5 @@
 'use client';
+import ScrollDownIcon from '@/components/icons/ScrollDownIcon';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
@@ -10,7 +11,7 @@ export const Hero = () => {
   <section className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))]'>
    <div className='h-full bg-gradient-to-b from-white to-purple-100/90 dark:from-transparent dark:to-purple-700/5'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
-    <h1 className='text-3xl text-center leading-[1.7] font-bold mb-6'>
+    <h1 className='text-3xl text-center leading-[1.7] font-bold mb-2'>
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
       متخصص در حوزه فناوری
      </span>
@@ -35,7 +36,7 @@ export const Hero = () => {
       <FaTelegramPlane fontSize={'2rem'} />
      </IconButton>
     </div>
-    <div className='flex gap-4 flex-wrap'>
+    <div className='flex gap-4 flex-wrap mb-8'>
      <Button
       size='large'
       sx={{
@@ -63,7 +64,26 @@ export const Hero = () => {
       تماس باما
      </Button>
     </div>
+    {/* <div className='flex gap-20 items-center flex-wrap'>
+     <div className='flex flex-col gap-2 items-center'>
+      <p className='font-medium text-base text-purple-600'>پروژه‌ها</p>
+      <span className='text-purple-600 font-bold text-xl'>۱۲۰۰</span>
+     </div>
+     <div className='flex flex-col gap-2 items-center'>
+      <p className='font-medium text-base text-purple-600'>مشتریان</p>
+      <span className='text-purple-600 font-bold text-xl'>400</span>
+     </div>
+     <div className='flex flex-col gap-2 items-center'>
+      <p className='font-medium text-base text-purple-600'>مشتریان</p>
+      <span className='text-purple-600 font-bold text-xl'>400</span>
+     </div>
+    </div> */}
    </article>
+   <div className='absolute bottom-0 start-0 end-0 flex justify-center pb-4'>
+    <IconButton className='!text-secondary'>
+     <ScrollDownIcon width='1.8rem' fill='currentColor' />
+    </IconButton>
+   </div>
   </section>
  );
 };
