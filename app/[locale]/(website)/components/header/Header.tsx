@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useNavigationContext } from '../../services/NavigationContext';
 import { addClass } from '@/utils/addClass';
@@ -21,7 +22,7 @@ export default function Header() {
   >
    <div className='container flex-grow flex items-center'>
     <div className='basis-0 flex-grow flex gap-2'>
-     <IconButton color='primary'>
+     <IconButton color='primary' LinkComponent={Link} href='/menu'>
       <DehazeIcon />
      </IconButton>
      <IconButton color='primary'>

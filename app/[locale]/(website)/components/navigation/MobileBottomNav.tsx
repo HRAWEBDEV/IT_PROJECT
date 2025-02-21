@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { useState } from 'react';
 import RoofingOutlinedIcon from '@mui/icons-material/RoofingOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
@@ -50,11 +51,15 @@ export default function MobileBottomNav() {
      }}
     >
      <Tab
+      LinkComponent={Link}
+      href='/'
       value='home'
       icon={<RoofingOutlinedIcon fontSize='small' />}
       label='خانه'
      />
      <Tab
+      LinkComponent={Link}
+      href='/menu'
       value='menu'
       icon={<DashboardCustomizeOutlinedIcon fontSize='small' />}
       label='منو'

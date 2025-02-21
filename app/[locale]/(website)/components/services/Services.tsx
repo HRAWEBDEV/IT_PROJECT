@@ -23,7 +23,7 @@ export default function Services() {
   <section id='services'>
    <div className='container py-12'>
     <header className='text-center mb-8'>
-     <h2 className='text-2xl font-bold'>خدمات</h2>
+     <h2 className='text-2xl font-bold'>خدمـــــات</h2>
     </header>
     <ul className='grid gap-4'>
      {projects.map((item) => (
