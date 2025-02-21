@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import RoofingOutlinedIcon from '@mui/icons-material/RoofingOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 import DashboardCustomizeOutlinedIcon from '@mui/icons-material/DashboardCustomizeOutlined';
@@ -11,10 +11,33 @@ import { addClass } from '@/utils/addClass';
 // import Link from 'next/link';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { usePathname } from 'next/navigation';
 
 export default function MobileBottomNav() {
  const { mobileBottomNavIsVisible } = useNavigationContext();
  const [activeTab, setActiveTab] = useState('home');
+ const pathname = usePathname();
+
+ useEffect(() => {
+  const activeMenu = pathname.split('/')[2];
+  switch (activeMenu) {
+   case undefined:
+    setActiveTab('home');
+    break;
+   case 'menu':
+    setActiveTab('menu');
+    break;
+   case 'services':
+    setActiveTab('services');
+    break;
+   case 'news':
+    setActiveTab('news');
+    break;
+   case 'support':
+    setActiveTab('support');
+    break;
+  }
+ }, [pathname]);
 
  return (
   <nav
