@@ -65,16 +65,19 @@ export default function MobileBottomNav() {
       label='منو'
      />
      <Tab
+      disabled
       value='services'
       icon={<EngineeringOutlinedIcon fontSize='small' />}
       label='خدمات'
      />
      <Tab
+      disabled
       value='news'
       icon={<NewspaperOutlinedIcon fontSize='small' />}
       label='اخبار و مقالات'
      />
      <Tab
+      disabled
       value='support'
       icon={<SupportAgentOutlinedIcon fontSize='small' />}
       label='تماس با ما'
