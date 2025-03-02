@@ -25,7 +25,12 @@ export default function Services() {
   <section id='services'>
    <div className='container mb-12'>
     <header className='text-center mb-8'>
-     <h2 className='text-2xl font-bold'>خدمـــــات</h2>
+     <h2 className='text-2xl font-bold mb-4'>خدمـــــات</h2>
+     <p className='w-[min(100%,32rem)] text-center leading-7 mb-10'>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی
+     </p>{' '}
     </header>
     <ul className='grid gap-4'>
      {projects.map((item) => (
@@ -34,7 +39,7 @@ export default function Services() {
         <div className='h-[--img-height]'></div>
         <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/7)] w-full h-full p-4 -skew-y-[9deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
         <div className='p-4 relative z-[2] -mt-4'>
-         <h3 className='text-lg font-medium text-primary-light mb-2'>
+         <h3 className='text-xl font-medium text-primary-light mb-2'>
           {item.title}
          </h3>
          <p className='mb-8 text-neutral-500 dark:text-neutral-200'>
