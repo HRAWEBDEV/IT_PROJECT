@@ -15,6 +15,11 @@ export default function Hero() {
    className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))] mb-12'
   >
    <div className='h-full bg-gradient-to-b from-white to-purple-100 dark:from-transparent dark:to-purple-950/30 dark:shadow-purple-700/5 blur-3xl'></div>
+   <img
+    className='absolute top-0 w-full bottom-2/4 h-[100%] object-cover object-center opacity-40 dark:hidden'
+    src='/patterns/pattern-two.jpg'
+    alt='pattern'
+   />
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
     <h1 className='text-3xl text-center leading-[1.7] font-bold mb-2'>
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
