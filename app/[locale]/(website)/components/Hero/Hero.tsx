@@ -42,7 +42,14 @@ export default function Hero() {
      </IconButton>
     </div>
     <div className='flex gap-4 flex-wrap mb-8'>
-     <GradientButton size='large'>مشاهده خدمات</GradientButton>
+     <GradientButton
+      size='large'
+      sx={{
+       minWidth: '10rem',
+      }}
+     >
+      مشاهده خدمات
+     </GradientButton>
      <Button
       size='large'
       className='!bg-background'
