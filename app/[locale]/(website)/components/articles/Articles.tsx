@@ -42,6 +42,7 @@ export default function Articles() {
     </div>
     <div className='mb-2'>
      <Swiper
+      spaceBetween={20}
       pagination
       modules={[Pagination]}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--secondary-foreground))] [&]:[--swiper-pagination-color:hsl(var(--secondary-foreground))]'
