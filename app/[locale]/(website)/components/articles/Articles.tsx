@@ -51,7 +51,7 @@ export default function Articles() {
        <SwiperSlide key={item}>
         <Link
          href='#'
-         className='block bg-secondary-foreground rounded-lg text-foreground'
+         className='block bg-background rounded-lg text-foreground'
         >
          <div className='p-2'>
           <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[16rem]'>
@@ -70,7 +70,7 @@ export default function Articles() {
             </span>
            </div>
           </div>
-          <h3 className='text-lg font-medium text-secondary-dark mb-3'>
+          <h3 className='text-lg font-medium text-secondary mb-3'>
            تفاوت پشتیبانی شبکه فیزیکی و نرم افزاری
           </h3>
           <p className='mb-6 leading-6'>
