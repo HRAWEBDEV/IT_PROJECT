@@ -44,7 +44,7 @@ export default function Articles() {
        size='large'
        variant='outlined'
        color='secondary'
-       className='w-full !text-secondary-foreground'
+       className='w-[10rem] !text-secondary-foreground !border-secondary-foreground'
       >
        <div className='flex gap-4'>
         <span className='font-medium'>مشاهده همه</span>

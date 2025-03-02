@@ -44,7 +44,7 @@ export default function Projects() {
        size='large'
        variant='outlined'
        color='primary'
-       className='w-full !text-primary-foreground'
+       className='w-[10rem] !text-primary-foreground !border-primary-foreground'
       >
        <div className='flex gap-4'>
         <span className='font-medium'>مشاهده همه</span>

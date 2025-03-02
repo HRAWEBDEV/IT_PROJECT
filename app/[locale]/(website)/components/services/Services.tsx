@@ -85,17 +85,19 @@ export default function Services() {
        </li>
       ))}
      </ul>
-     <Button
-      size='large'
-      variant='outlined'
-      color='secondary'
-      className='w-full'
-     >
-      <div className='flex gap-4'>
-       <span className='font-medium'>موارد بیشتر</span>
-       <KeyboardBackspaceIcon />
-      </div>
-     </Button>
+     <div className='flex justify-end'>
+      <Button
+       className='w-[10rem]'
+       size='large'
+       variant='outlined'
+       color='secondary'
+      >
+       <div className='flex gap-4'>
+        <span className='font-medium'>موارد بیشتر</span>
+        <KeyboardBackspaceIcon />
+       </div>
+      </Button>
+     </div>
     </div>
    </div>
   </section>
