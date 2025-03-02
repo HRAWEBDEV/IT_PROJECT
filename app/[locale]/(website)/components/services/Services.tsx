@@ -26,13 +26,13 @@ export default function Services() {
    <div className='container mb-12'>
     <header className='text-center mb-8'>
      <h2 className='text-2xl font-bold mb-4'>خدمـــــات</h2>
-     <p className='w-[min(100%,32rem)] text-center leading-7 mb-10'>
+     <p className='w-[min(100%,40rem)] text-center leading-7 mb-10 container'>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
       که لازم است، و برای شرایط فعلی تکنولوژی
      </p>{' '}
     </header>
-    <ul className='grid gap-4'>
+    <ul className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
      {projects.map((item) => (
       <li key={item.title} className='[&]:[--img-height:20rem]'>
        <Link
