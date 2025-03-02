@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import HandymanIcon from '@mui/icons-material/Handyman';
 
 const projects = [
  {
@@ -39,9 +40,9 @@ export default function Services() {
      </p>
     </div>
     <div>
-     <ul className='grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-4'>
+     <ul className='grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4'>
       {projects.map((item) => (
-       <li key={item.title} className='[&]:[--img-height:20rem]'>
+       <li key={item.title} className='[&]:[--img-height:18rem]'>
         <Link
          href={'#'}
          className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
@@ -56,9 +57,12 @@ export default function Services() {
          </div>
          <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
          <div className='p-4 relative z-[2] -mt-4'>
-          <h3 className='text-xl font-medium text-primary-light mb-2'>
-           {item.title}
-          </h3>
+          <div className='flex gap-2'>
+           <HandymanIcon color='error' />
+           <h3 className='text-lg font-medium text-primary-light mb-2'>
+            {item.title}
+           </h3>
+          </div>
           <p className='mb-8 text-neutral-500 dark:text-neutral-200'>
            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
            استفاده هدفابزارهای کاربردی می باشد
