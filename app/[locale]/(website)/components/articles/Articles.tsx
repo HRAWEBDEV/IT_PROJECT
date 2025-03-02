@@ -27,7 +27,7 @@ export default function Articles() {
    className='bg-secondary-dark text-secondary-foreground py-8 rounded-2xl'
   >
    <div className='container'>
-    <div className='text-center mb-6'>
+    <div className='text-center mb-8'>
      <h2 className='text-2xl font-bold'>مقـــالات و اخبــار</h2>
     </div>
     <div className='flex justify-end mb-2'>
@@ -40,11 +40,16 @@ export default function Articles() {
       </IconButton>
      </div>
     </div>
-    <div className='mb-2'>
+    <div className='mb-6'>
      <Swiper
       spaceBetween={20}
       pagination
       modules={[Pagination]}
+      breakpoints={{
+       1024: {
+        slidesPerView: 4,
+       },
+      }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--secondary-foreground))] [&]:[--swiper-pagination-color:hsl(var(--secondary-foreground))]'
      >
       {[1, 2, 3].map((item) => (
