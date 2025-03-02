@@ -2,6 +2,7 @@
 import ScrollDownIcon from '@/components/icons/ScrollDownIcon';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import { GradientButton } from '@/components/Button/GradientButton';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { TfiInstagram } from 'react-icons/tfi';
@@ -41,22 +42,7 @@ export default function Hero() {
      </IconButton>
     </div>
     <div className='flex gap-4 flex-wrap mb-8'>
-     <Button
-      size='large'
-      sx={{
-       minWidth: '10rem',
-       background: (theme) =>
-        `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.light})`,
-       '&:is(:hover,:focus)': {
-        background: (theme) =>
-         `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.light})`,
-       },
-      }}
-      variant='contained'
-      color='secondary'
-     >
-      مشاهده خدمات
-     </Button>
+     <GradientButton size='large'>مشاهده خدمات</GradientButton>
      <Button
       size='large'
       className='!bg-background'
@@ -68,20 +54,6 @@ export default function Hero() {
       تماس باما
      </Button>
     </div>
-    {/* <div className='flex gap-20 items-center flex-wrap'>
-     <div className='flex flex-col gap-2 items-center'>
-      <p className='font-medium text-base text-purple-600'>پروژه‌ها</p>
-      <span className='text-purple-600 font-bold text-xl'>۱۲۰۰</span>
-     </div>
-     <div className='flex flex-col gap-2 items-center'>
-      <p className='font-medium text-base text-purple-600'>مشتریان</p>
-      <span className='text-purple-600 font-bold text-xl'>400</span>
-     </div>
-     <div className='flex flex-col gap-2 items-center'>
-      <p className='font-medium text-base text-purple-600'>مشتریان</p>
-      <span className='text-purple-600 font-bold text-xl'>400</span>
-     </div>
-    </div> */}
    </article>
    <div className='absolute bottom-0 start-0 end-0 flex justify-center pb-4'>
     <IconButton

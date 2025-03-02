@@ -1,4 +1,5 @@
 'use client';
+import { GradientButton } from '@/components/Button/GradientButton';
 import Button from '@mui/material/Button';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -46,23 +47,12 @@ export default function Services() {
             <ShareOutlinedIcon />
            </IconButton>
           </div>
-          <Button
-           sx={{
-            background: (theme) =>
-             `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.light})`,
-            '&:is(:hover,:focus)': {
-             background: (theme) =>
-              `linear-gradient(90deg, ${theme.palette.primary.dark}, ${theme.palette.secondary.light})`,
-            },
-           }}
-           variant='contained'
-           color='secondary'
-          >
+          <GradientButton>
            <div className='flex gap-3 items-center'>
             <span>ادامه مطالب</span>
             <VisibilityIcon />
            </div>
-          </Button>
+          </GradientButton>
          </div>
         </div>
        </div>
