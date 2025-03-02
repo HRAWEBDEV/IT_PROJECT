@@ -11,6 +11,7 @@ import { locales } from '@/localization/locales';
 import '../globals.css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const irs = LocalFont({
  variable: '--irs-font',
