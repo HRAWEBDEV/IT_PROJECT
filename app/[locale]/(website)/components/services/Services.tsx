@@ -30,7 +30,7 @@ export default function Services() {
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
       که لازم است، و برای شرایط فعلی تکنولوژی
-     </p>{' '}
+     </p>
     </header>
     <ul className='grid gap-4 md:grid-cols-2 lg:grid-cols-3'>
      {projects.map((item) => (
@@ -39,8 +39,9 @@ export default function Services() {
         href={'#'}
         className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
        >
-        <div className='h-[--img-height]'>
+        <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>
          <img
+          loading='lazy'
           className='h-full w-full object-cover object-center'
           src={item.image}
           alt='services imageg'
