@@ -34,8 +34,8 @@ export default {
     secondary: {
      DEFAULT: 'hsl(var(--secondary))',
      foreground: 'hsl(var(--secondary-foreground))',
-     light: 'hsl(var(--accent-light))',
-     dark: 'hsl(var(--accent-dark))',
+     light: 'hsl(var(--secondary-light))',
+     dark: 'hsl(var(--secondary-dark))',
     },
    },
   },

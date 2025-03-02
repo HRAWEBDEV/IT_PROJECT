@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import HandymanIcon from '@mui/icons-material/Handyman';
+// import HandymanIcon from '@mui/icons-material/Handyman';
 
 const projects = [
  {
@@ -58,8 +58,8 @@ export default function Services() {
          <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
          <div className='p-4 relative z-[2] -mt-4'>
           <div className='flex gap-2'>
-           <HandymanIcon color='error' />
-           <h3 className='text-lg font-medium text-primary-light mb-2'>
+           {/* <HandymanIcon color='primary' /> */}
+           <h3 className='text-lg font-medium text-primary-dark mb-2'>
             {item.title}
            </h3>
           </div>

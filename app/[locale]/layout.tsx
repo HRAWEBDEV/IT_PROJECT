@@ -9,6 +9,8 @@ import MuiLocalization from '@/components/mui/MuiLocalization';
 import { AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
 import '../globals.css';
+import 'swiper/css/bundle';
+import 'swiper/css/navigation';
 
 const irs = LocalFont({
  variable: '--irs-font',
