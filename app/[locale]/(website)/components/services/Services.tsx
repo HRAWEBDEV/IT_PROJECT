@@ -1,22 +1,22 @@
 'use client';
 import { GradientButton } from '@/components/Button/GradientButton';
-import Button from '@mui/material/Button';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import IconButton from '@mui/material/IconButton';
+import Link from 'next/link';
 
 const projects = [
  {
   title: 'نصب دوربین',
+  image: '/services/security-camera-installation.jpg',
  },
  {
   title: 'نصب سرور',
+  image: '/services/server-installation.jpg',
  },
  {
   title: 'نصب دزدگیر',
- },
- {
-  title: 'نصب سی پی یو',
+  image: '/services/security-camera-installation.jpg',
  },
 ];
 
@@ -34,10 +34,19 @@ export default function Services() {
     </header>
     <ul className='grid gap-4'>
      {projects.map((item) => (
-      <li key={item.title} className='[&]:[--img-height:15rem]'>
-       <div className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'>
-        <div className='h-[--img-height]'></div>
-        <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/7)] w-full h-full p-4 -skew-y-[9deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
+      <li key={item.title} className='[&]:[--img-height:20rem]'>
+       <Link
+        href={'#'}
+        className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
+       >
+        <div className='h-[--img-height]'>
+         <img
+          className='h-full w-full object-cover object-center'
+          src={item.image}
+          alt='services imageg'
+         />
+        </div>
+        <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
         <div className='p-4 relative z-[2] -mt-4'>
          <h3 className='text-xl font-medium text-primary-light mb-2'>
           {item.title}
@@ -48,7 +57,7 @@ export default function Services() {
          </p>
          <div className='flex justify-between gap-4'>
           <div>
-           <IconButton color='primary'>
+           <IconButton color='secondary'>
             <ShareOutlinedIcon />
            </IconButton>
           </div>
@@ -60,7 +69,7 @@ export default function Services() {
           </GradientButton>
          </div>
         </div>
-       </div>
+       </Link>
       </li>
      ))}
     </ul>
