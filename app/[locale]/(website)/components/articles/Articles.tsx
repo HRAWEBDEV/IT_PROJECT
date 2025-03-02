@@ -24,13 +24,13 @@ export default function Articles() {
  return (
   <section
    id='articles'
-   className='bg-secondary-dark text-secondary-foreground py-8'
+   className='relative bg-secondary-dark text-secondary-foreground py-8'
   >
    <div className='container'>
-    <div className='text-center mb-8'>
+    <div className='text-center mb-10'>
      <h2 className='text-2xl font-bold'>مقـــالات و اخبــار</h2>
     </div>
-    <div className='flex justify-end mb-2'>
+    <div className='flex justify-between mb-2'>
      <div className='flex gap-4'>
       <IconButton className='!text-secondary-foreground !border !border-solid !border-secondary-foreground'>
        <ArrowForwardIosOutlinedIcon />
@@ -39,8 +39,21 @@ export default function Articles() {
        <ArrowBackIosNewOutlinedIcon />
       </IconButton>
      </div>
+     <div>
+      <Button
+       size='large'
+       variant='outlined'
+       color='secondary'
+       className='w-full !text-secondary-foreground'
+      >
+       <div className='flex gap-4'>
+        <span className='font-medium'>مشاهده همه</span>
+        <KeyboardBackspaceIcon />
+       </div>
+      </Button>
+     </div>
     </div>
-    <div className='mb-6'>
+    <div className='mb-4'>
      <Swiper
       spaceBetween={20}
       pagination
@@ -52,7 +65,7 @@ export default function Articles() {
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--secondary-foreground))] [&]:[--swiper-pagination-color:hsl(var(--secondary-foreground))]'
      >
-      {[1, 2, 3].map((item) => (
+      {[1, 2, 3, 4].map((item) => (
        <SwiperSlide key={item}>
         <Link
          href='#'
@@ -106,19 +119,7 @@ export default function Articles() {
       ))}
      </Swiper>
     </div>
-    <div>
-     <Button
-      size='large'
-      variant='outlined'
-      color='secondary'
-      className='w-full !text-secondary-foreground'
-     >
-      <div className='flex gap-4'>
-       <span className='font-medium'>مشاهده همه</span>
-       <KeyboardBackspaceIcon />
-      </div>
-     </Button>
-    </div>
+    <div></div>
    </div>
   </section>
  );

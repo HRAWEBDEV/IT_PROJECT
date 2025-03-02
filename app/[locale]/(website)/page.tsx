@@ -9,6 +9,7 @@ export default function page() {
    <Hero />
    <Services />
    <Articles />
+   <div className='h-[6rem]'></div>
    <Projects />
   </div>
  );

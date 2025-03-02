@@ -27,10 +27,10 @@ export default function Projects() {
    className='bg-primary-dark text-primary-foreground py-8'
   >
    <div className='container'>
-    <div className='text-center mb-8'>
+    <div className='text-center mb-10'>
      <h2 className='text-2xl font-bold'>پروژه‌هـــا</h2>
     </div>
-    <div className='flex justify-end mb-2'>
+    <div className='flex justify-between mb-2'>
      <div className='flex gap-4'>
       <IconButton className='!text-primary-foreground !border !border-solid !border-primary-foreground'>
        <ArrowForwardIosOutlinedIcon />
@@ -39,8 +39,21 @@ export default function Projects() {
        <ArrowBackIosNewOutlinedIcon />
       </IconButton>
      </div>
+     <div>
+      <Button
+       size='large'
+       variant='outlined'
+       color='primary'
+       className='w-full !text-primary-foreground'
+      >
+       <div className='flex gap-4'>
+        <span className='font-medium'>مشاهده همه</span>
+        <KeyboardBackspaceIcon />
+       </div>
+      </Button>
+     </div>
     </div>
-    <div className='mb-6'>
+    <div className='mb-4'>
      <Swiper
       spaceBetween={20}
       pagination
@@ -52,7 +65,7 @@ export default function Projects() {
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--primary-foreground))] [&]:[--swiper-pagination-color:hsl(var(--primary-foreground))]'
      >
-      {[1, 2, 3].map((item) => (
+      {[1, 2, 3, 4].map((item) => (
        <SwiperSlide key={item}>
         <Link
          href='#'
@@ -105,19 +118,6 @@ export default function Projects() {
        </SwiperSlide>
       ))}
      </Swiper>
-    </div>
-    <div>
-     <Button
-      size='large'
-      variant='outlined'
-      color='primary'
-      className='w-full !text-primary-foreground'
-     >
-      <div className='flex gap-4'>
-       <span className='font-medium'>مشاهده همه</span>
-       <KeyboardBackspaceIcon />
-      </div>
-     </Button>
     </div>
    </div>
   </section>
