@@ -35,22 +35,22 @@ export default function Header() {
     <div>
      <div className='text-xl text-primary font-bold'>LOGO</div>
     </div>
-    <menu className='hidden lg:flex lg:flex-grow ms-20 me-10'>
-     <li>
+    <menu className='hidden lg:flex lg:flex-grow ms-20 me-10 lg:self-stretch'>
+     <li className='flex'>
       <Link
        href={'#'}
-       className='transition-colors block p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
-       <div className='flex gap-1'>
+       <div className='flex'>
         <span>خدمـــات</span>
         <ArrowDropDownIcon />
        </div>
       </Link>
      </li>
-     <li>
+     <li className='flex'>
       <Link
        href={'#'}
-       className='transition-colors block p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
         <span>پروژه‌ها</span>
@@ -58,20 +58,20 @@ export default function Header() {
        </div>
       </Link>
      </li>
-     <li>
+     <li className='flex'>
       <Link
        href={'#'}
-       className='transition-colors block p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
         <span>اخبار و مقـــالات</span>
        </div>
       </Link>
      </li>
-     <li>
+     <li className='flex'>
       <Link
        href={'#'}
-       className='transition-colors block p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
         <span>درباره مــا</span>
