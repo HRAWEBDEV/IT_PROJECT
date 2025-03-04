@@ -39,7 +39,7 @@ export default function MobileMenu() {
       <li key={menu.title}>
        <Link
         href={'#'}
-        className='flex justify-between py-4 ps-4 border-b border-neutral-300'
+        className='flex justify-between py-4 ps-4 border-b border-neutral-300 dark:border-neutral-600'
        >
         <div className='font-medium text-base flex items-center gap-2'>
          {menu.icon}
