@@ -75,5 +75,6 @@ svg #wheel {
 @media screen(lg) {
  body {
   --header-height: 5rem;
+  --mobile-bottom-nav-height: 0.01rem;
  }
 }
