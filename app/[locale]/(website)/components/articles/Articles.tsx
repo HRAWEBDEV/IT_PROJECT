@@ -28,7 +28,7 @@ export default function Articles() {
   >
    <div className='container'>
     <div className='text-center mb-10'>
-     <h2 className='text-2xl font-bold'>مقـــالات و اخبــار</h2>
+     <h2 className='text-2xl font-bold lg:text-3xl'>مقـــالات و اخبــار</h2>
     </div>
     <div className='flex justify-between mb-2'>
      <div className='flex gap-4'>
@@ -59,13 +59,16 @@ export default function Articles() {
       pagination
       modules={[Pagination]}
       breakpoints={{
+       768: {
+        slidesPerView: 2,
+       },
        1024: {
         slidesPerView: 4,
        },
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--secondary-foreground))] [&]:[--swiper-pagination-color:hsl(var(--secondary-foreground))]'
      >
-      {[1, 2, 3, 4].map((item) => (
+      {[1, 2, 3, 4, 5].map((item) => (
        <SwiperSlide key={item}>
         <Link
          href='#'

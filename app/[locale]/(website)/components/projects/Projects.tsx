@@ -28,7 +28,7 @@ export default function Projects() {
   >
    <div className='container'>
     <div className='text-center mb-10'>
-     <h2 className='text-2xl font-bold'>پروژه‌هـــا</h2>
+     <h2 className='text-2xl font-bold lg:text-3xl'>پروژه‌هـــا</h2>
     </div>
     <div className='flex justify-between mb-2'>
      <div className='flex gap-4'>
@@ -59,13 +59,16 @@ export default function Projects() {
       pagination
       modules={[Pagination]}
       breakpoints={{
+       768: {
+        slidesPerView: 2,
+       },
        1024: {
         slidesPerView: 4,
        },
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--primary-foreground))] [&]:[--swiper-pagination-color:hsl(var(--primary-foreground))]'
      >
-      {[1, 2, 3, 4].map((item) => (
+      {[1, 2, 3, 4, 5].map((item) => (
        <SwiperSlide key={item}>
         <Link
          href='#'

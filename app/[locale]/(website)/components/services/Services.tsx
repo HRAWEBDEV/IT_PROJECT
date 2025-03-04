@@ -32,8 +32,8 @@ export default function Services() {
   <section id='services'>
    <div className='container mb-12'>
     <div className='text-center mb-8'>
-     <h2 className='text-2xl font-bold mb-4'>خدمـــــات</h2>
-     <p className='w-[min(100%,40rem)] text-center leading-7 mb-10 container'>
+     <h2 className='text-2xl font-bold mb-4 lg:text-3xl'>خدمـــــات</h2>
+     <p className='w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
       که لازم است، و برای شرایط فعلی تکنولوژی
