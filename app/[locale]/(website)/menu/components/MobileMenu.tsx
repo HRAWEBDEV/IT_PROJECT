@@ -1,18 +1,11 @@
 'use client';
-import IconButton from '@mui/material/IconButton';
+import Link from 'next/link';
 import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined';
-import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
-const iconStyles = { fontSize: '2.3rem' };
-
-const menuItemStyles = {
- borderRadius: '0.5rem',
- width: '100%',
- padding: 0,
- color: 'inherit',
-};
+const iconStyles = { fontSize: '1.5rem' };
 
 const menuOptions = [
  {
@@ -41,18 +34,21 @@ export default function MobileMenu() {
  return (
   <section className='p-4'>
    <nav>
-    <ul className='grid grid-cols-2 gap-4'>
+    <ul>
      {menuOptions.map((menu) => (
       <li key={menu.title}>
-       <IconButton sx={menuItemStyles}>
-        <div className='border border-primary w-full min-h-[7rem] rounded-lg flex flex-col justify-center items-center gap-1 shadow-[-4px_4px_4px_0px] shadow-primary/10 text-primary bg-neutral-100 dark:bg-neutral-800'>
-         <div>{menu.icon}</div>
-         <div>
-          <span className='font-medium text-base'>{menu.title}</span>
-          {menu.hasSubGategories && <ArrowDropDownOutlinedIcon />}
-         </div>
+       <Link
+        href={'#'}
+        className='flex justify-between py-4 ps-4 border-b border-neutral-300'
+       >
+        <div className='font-medium text-base flex items-center gap-2'>
+         {menu.icon}
+         <span>{menu.title}</span>
         </div>
-       </IconButton>
+        <div className='text-neutral-500'>
+         <ArrowLeftIcon />
+        </div>
+       </Link>
       </li>
      ))}
     </ul>

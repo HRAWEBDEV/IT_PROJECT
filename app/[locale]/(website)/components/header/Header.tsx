@@ -12,8 +12,10 @@ import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 export default function Header() {
+ const { isLargeDevice } = useAppMonitorConfig();
  const { headerIsVisible } = useNavigationContext();
  const { mode, changeMode } = useAppConfig();
  return (
@@ -79,7 +81,7 @@ export default function Header() {
       </Link>
      </li>
     </menu>
-    <div className='basis-0 flex-grow flex justify-end gap-2 lg:flex-grow-0 lg:gap-4 items-center'>
+    <div className='basis-0 flex-grow flex justify-end gap-2 lg:flex-grow-0 items-center'>
      <div className='hidden lg:flex'>
       <TextField
        className='transition-[width_0.3s_ease] w-[13rem] [&_::placeholder]:text-[0.9rem]'
@@ -106,12 +108,13 @@ export default function Header() {
       />
      </div>
      <IconButton
+      size={isLargeDevice ? 'large' : 'medium'}
       color={mode === 'dark' ? 'primary' : 'warning'}
       onClick={() => changeMode(mode === 'dark' ? 'light' : 'dark')}
      >
       {mode === 'dark' ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
      </IconButton>
-     <IconButton color='secondary'>
+     <IconButton size={isLargeDevice ? 'large' : 'medium'} color='secondary'>
       <PersonIcon />
      </IconButton>
     </div>
