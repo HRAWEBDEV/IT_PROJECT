@@ -16,7 +16,6 @@ export default function NavigationProvider({ children }: PropsWithChildren) {
   const limit = 100;
   const windowScrollWatcher = () => {
    const bodyTopPosition = document.body.getBoundingClientRect().top;
-   console.log(scrollPosition, bodyTopPosition);
    const scrollDirection = scrollPosition <= bodyTopPosition ? 'up' : 'down';
    const scrollChange = Math.abs(
     Math.abs(scrollPosition) - Math.abs(bodyTopPosition)

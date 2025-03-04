@@ -71,3 +71,9 @@
 svg #wheel {
  animation: scroll ease 2s infinite;
 }
+
+@media screen(lg) {
+ body {
+  --header-height: 5rem;
+ }
+}

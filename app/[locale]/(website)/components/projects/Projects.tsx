@@ -24,7 +24,7 @@ export default function Projects() {
  return (
   <section
    id='projects'
-   className='bg-primary-dark text-primary-foreground py-8'
+   className='bg-primary-dark text-primary-foreground py-8 pb-2'
   >
    <div className='container'>
     <div className='text-center mb-10'>
@@ -82,7 +82,7 @@ export default function Projects() {
          </div>
          <div className='px-4 py-2 pb-4'>
           <div className='mb-1 flex'>
-           <div className='text-primary-dark font-medium'>
+           <div className='text-secondary-dark font-medium'>
             <span className='text-[0.7rem]'>
              {dateFormatter.format(new Date())}
             </span>

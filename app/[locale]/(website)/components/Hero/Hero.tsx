@@ -21,16 +21,17 @@ export default function Hero() {
    />
    <div className='absolute w-full h-full bg-gradient-to-b from-transparent to-purple-100 dark:from-transparent dark:to-purple-950/30 dark:shadow-purple-700/5 blur-3xl'></div>
    <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
-    <h1 className='text-3xl text-center leading-[1.7] font-bold mb-2'>
+    <h1 className='text-3xl lg:text-4xl text-center leading-[1.7] lg:leading-[1.75] font-bold mb-2 lg:mb-4'>
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
       متخصص در حوزه فناوری
      </span>
-     <br />
+     <span className='hidden lg:inline-block ms-4'> </span>
+     <br className='lg:hidden' />
      <span className='bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300 text-transparent bg-clip-text'>
       اطلاعات و ارتباطات
      </span>
     </h1>
-    <p className='w-[min(100%,32rem)] text-center leading-7 mb-10'>
+    <p className='w-[min(100%,32rem)] text-center leading-7 mb-10 lg:text-base lg:leading-8'>
      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
      که لازم است، و برای شرایط فعلی تکنولوژی

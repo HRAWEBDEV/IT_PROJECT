@@ -24,7 +24,7 @@ export default function Articles() {
  return (
   <section
    id='articles'
-   className='relative bg-secondary-dark text-secondary-foreground py-8'
+   className='relative bg-secondary-dark text-secondary-foreground py-8 pb-2'
   >
    <div className='container'>
     <div className='text-center mb-10'>

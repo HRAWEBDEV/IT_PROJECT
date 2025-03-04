@@ -41,7 +41,7 @@ export default function MobileBottomNav() {
 
  return (
   <nav
-   className={`fixed h-[--mobile-bottom-nav-height] bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-100 dark:bg-neutral-900 shadow-[0px_0px_10px_3px] shadow-neutral-400/60 dark:shadow-neutral-700/60 ${addClass(
+   className={`lg:hidden fixed h-[--mobile-bottom-nav-height] bottom-0 start-0 end-0 z-[--mobile-bottom-nav-zindex] bg-neutral-100 dark:bg-neutral-900 shadow-[0px_0px_10px_3px] shadow-neutral-400/60 dark:shadow-neutral-700/60 ${addClass(
     !mobileBottomNavIsVisible,
     'translate-y-[--mobile-bottom-nav-height]'
    )} transition-transform`}
