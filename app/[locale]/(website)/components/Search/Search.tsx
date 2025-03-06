@@ -71,7 +71,7 @@ export default function Search({ onClose }: Props) {
      />
     </div>
     <section className='p-4 pt-0'>
-     {['خدمــات', 'پروژهـــا'].map((item) => (
+     {['خدمــات', 'پروژه‌هـــا'].map((item) => (
       <article key={item} className='mb-6'>
        <div className='flex gap-4 items-center mb-4'>
         <h3 className='text-primary-dark text-base font-medium'>{item}</h3>
