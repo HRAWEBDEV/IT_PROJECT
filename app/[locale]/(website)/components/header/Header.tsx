@@ -5,7 +5,7 @@ import { useNavigationContext } from '../../services/NavigationContext';
 import { addClass } from '@/utils/addClass';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import IconButton from '@mui/material/IconButton';
-import PersonIcon from '@mui/icons-material/Person';
+import Avatar from '@mui/material/Avatar';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
@@ -13,10 +13,17 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Search from '../Search/Search';
+import Profile from '../../profile/Profile';
 import { useQueryToggler } from '@/hooks/useQueryToggler';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { useState } from 'react';
 
 export default function Header() {
+ const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
+  useQueryToggler('show-profile');
+ const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(
+  null
+ );
  const { isQueryTrue: isSearchOpen, handleToggle: handleToggleSearch } =
   useQueryToggler('show-search');
  const { isLargeDevice } = useAppMonitorConfig();
@@ -120,12 +127,27 @@ export default function Header() {
      >
       {mode === 'dark' ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
      </IconButton>
-     <IconButton size={isLargeDevice ? 'large' : 'medium'} color='secondary'>
-      <PersonIcon />
+     <IconButton
+      sx={{ padding: 0 }}
+      color='secondary'
+      onClick={(e) => {
+       setProfileAnchor(e.currentTarget);
+       handleToggleProfile();
+      }}
+     >
+      <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />
      </IconButton>
     </div>
    </div>
-   {isSearchOpen && <Search onClose={() => handleToggleSearch()} />}
+   <Search isOpen={isSearchOpen} onClose={() => handleToggleSearch()} />
+   <Profile
+    isOpen={isProfileOpen && Boolean(profileAnchor)}
+    profileAnchor={profileAnchor}
+    onClose={() => {
+     setProfileAnchor(null);
+     handleToggleProfile();
+    }}
+   />
   </header>
  );
 }

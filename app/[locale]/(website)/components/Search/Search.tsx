@@ -12,9 +12,10 @@ import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 type Props = {
  onClose: () => void;
+ isOpen: boolean;
 };
 
-export default function Search({ onClose }: Props) {
+export default function Search({ onClose, isOpen }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
  return (
   <Dialog
@@ -23,7 +24,7 @@ export default function Search({ onClose }: Props) {
      padding: 0,
     },
    }}
-   open
+   open={isOpen}
    fullWidth
    fullScreen={!isLargeDevice}
    maxWidth='sm'
