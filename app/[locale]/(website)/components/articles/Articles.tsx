@@ -26,6 +26,7 @@ export default function Articles() {
    id='articles'
    className='relative bg-secondary-dark text-secondary-foreground py-8 pb-2'
   >
+   <div className='absolute inset-0 bg-gradient-to-b from-transparent to-black/55'></div>
    <div className='container'>
     <div className='text-center mb-10'>
      <h2 className='text-2xl font-bold lg:text-3xl'>مقـــالات و اخبــار</h2>
