@@ -45,12 +45,15 @@ export default function Services() {
        <li key={item.title} className='[&]:[--img-height:18rem]'>
         <Link
          href={'#'}
-         className='overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
+         className='group overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
         >
          <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>
           <img
+           style={{
+            transition: 'transform 0.5s ease',
+           }}
            loading='lazy'
-           className='h-full w-full object-cover object-center'
+           className='h-full w-full object-cover object-center group-hover:scale-110'
            src={item.image}
            alt='services imageg'
           />
@@ -69,14 +72,19 @@ export default function Services() {
           </p>
           <div className='flex justify-between gap-4'>
            <div>
-            <IconButton color='secondary'>
+            <IconButton
+             color='warning'
+             className='!bg-orange-300/20 dark:!bg-orange-700/20 group-hover:!bg-orange-300/30 group-hover:dark:!bg-orange-700/30'
+            >
              <ShareOutlinedIcon />
             </IconButton>
            </div>
            <GradientButton>
             <div className='flex gap-3 items-center'>
              <span>ادامه مطالب</span>
-             <VisibilityIcon />
+             <div className='text-neutral-300 group-hover:text-primary-foreground'>
+              <VisibilityIcon />
+             </div>
             </div>
            </GradientButton>
           </div>

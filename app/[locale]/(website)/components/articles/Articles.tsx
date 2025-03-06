@@ -101,11 +101,17 @@ export default function Articles() {
            برای حفظ ....
           </p>
           <div className='flex justify-between items-center'>
-           <div>
-            <IconButton color='primary'>
+           <div className='flex gap-1'>
+            <IconButton
+             color='primary'
+             className='!bg-sky-300/20 !dark:bg-sky-700/20'
+            >
              <ShareOutlinedIcon />
             </IconButton>
-            <IconButton color='error'>
+            <IconButton
+             color='error'
+             className='!bg-red-300/20 !dark:bg-red-700/20'
+            >
              <FavoriteBorderOutlinedIcon />
             </IconButton>
            </div>

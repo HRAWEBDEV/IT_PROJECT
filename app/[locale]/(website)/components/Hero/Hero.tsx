@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import { GradientButton } from '@/components/Button/GradientButton';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 import { FaTelegramPlane } from 'react-icons/fa';
+import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
 import Link from 'next/link';
 
@@ -37,8 +38,11 @@ export default function Hero() {
      که لازم است، و برای شرایط فعلی تکنولوژی
     </p>
     <div className='flex gap-4 flex-wrap mb-4'>
-     <IconButton color='secondary'>
+     <IconButton color='warning'>
       <FaPhoneSquareAlt fontSize={'2rem'} />
+     </IconButton>
+     <IconButton color='secondary'>
+      <IoLogoWhatsapp fontSize={'2rem'} />
      </IconButton>
      <IconButton color='error'>
       <TfiInstagram fontSize={'2rem'} />

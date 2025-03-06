@@ -8,9 +8,8 @@ export default function page() {
   <div id='home-page'>
    <Hero />
    <Services />
-   <Articles />
-   <div className='h-[6rem]'></div>
    <Projects />
+   <Articles />
   </div>
  );
 }

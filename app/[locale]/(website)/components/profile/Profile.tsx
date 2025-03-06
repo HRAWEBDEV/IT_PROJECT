@@ -26,7 +26,7 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
   <Divider key={'divider'} />,
   <MenuItem key={'exit'}>
    <div className='flex gap-3'>
-    <LogoutIcon color='error' />
+    <LogoutIcon color='warning' />
     <span>خروج</span>
    </div>
   </MenuItem>,
@@ -42,6 +42,9 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
     vertical: 'top',
    }}
    sx={{
+    '& .MuiButtonBase-root': {
+     fontSize: 'inherif',
+    },
     '& .MuiPaper-root': {
      minWidth: '12rem',
     },
@@ -56,8 +59,11 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
  ) : (
   <Drawer
    sx={{
+    '& .MuiButtonBase-root': {
+     fontSize: 'inherif',
+    },
     '& .MuiPaper-root': {
-     minWidth: '12rem',
+     minWidth: '15rem',
     },
    }}
    anchor='right'

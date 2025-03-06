@@ -13,7 +13,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Search from '../Search/Search';
-import Profile from '../../profile/Profile';
+import Profile from '../profile/Profile';
 import { useQueryToggler } from '@/hooks/useQueryToggler';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useState } from 'react';
