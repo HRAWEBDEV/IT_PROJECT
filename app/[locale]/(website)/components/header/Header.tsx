@@ -12,9 +12,13 @@ import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
+import Search from '../Search/Search';
+import { useQueryToggler } from '@/hooks/useQueryToggler';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 export default function Header() {
+ const { isQueryTrue: isSearchOpen, handleToggle: handleToggleSearch } =
+  useQueryToggler('show-search');
  const { isLargeDevice } = useAppMonitorConfig();
  const { headerIsVisible } = useNavigationContext();
  const { mode, changeMode } = useAppConfig();
@@ -30,7 +34,7 @@ export default function Header() {
      <IconButton color='primary' LinkComponent={Link} href='/menu'>
       <DehazeIcon />
      </IconButton>
-     <IconButton color='primary'>
+     <IconButton color='primary' onClick={() => handleToggleSearch()}>
       <SearchOutlinedIcon />
      </IconButton>
     </div>
@@ -81,10 +85,11 @@ export default function Header() {
       </Link>
      </li>
     </menu>
-    <div className='basis-0 flex-grow flex justify-end gap-2 lg:flex-grow-0 items-center'>
-     <div className='hidden lg:flex'>
+    <div className='basis-0 flex-grow flex justify-end gap-2 lg:flex-grow-0 items-center self-stretch'>
+     <div className='relative hidden lg:flex self-stretch items-center'>
       <TextField
        className='transition-[width_0.3s_ease] w-[13rem] [&_::placeholder]:text-[0.9rem]'
+       onClick={() => handleToggleSearch()}
        size='small'
        placeholder='جستجو....'
        sx={{
@@ -98,6 +103,7 @@ export default function Header() {
        }}
        slotProps={{
         input: {
+         readOnly: true,
          endAdornment: (
           <InputAdornment position='end' className='-me-2'>
            <SearchOutlinedIcon color='primary' />
@@ -119,6 +125,7 @@ export default function Header() {
      </IconButton>
     </div>
    </div>
+   {isSearchOpen && <Search onClose={() => handleToggleSearch()} />}
   </header>
  );
 }
