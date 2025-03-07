@@ -17,11 +17,11 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
 
  const profileList = [
-  <MenuItem key={'fav'}>
-   <Link href={'/favorites'} className='flex gap-3'>
+  <MenuItem key={'fav'} LinkComponent={Link} href={'/favorites'}>
+   <div className='flex gap-3'>
     <FavoriteIcon color='error' />
     <span>علاقه مندی‌ها</span>
-   </Link>
+   </div>
   </MenuItem>,
 
   <Divider key={'divider'} />,
