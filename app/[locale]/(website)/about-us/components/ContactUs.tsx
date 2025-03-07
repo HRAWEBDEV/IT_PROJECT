@@ -58,7 +58,7 @@ export default function ContactUs() {
        </div>
        <div className='flex gap-2 items-center'>
         <PhoneEnabledIcon fontSize='large' color='secondary' />
-        <p className='font-medium'>ادرس شرکت ....</p>
+        <p className='font-medium'>شماره تماس شرکت ....</p>
        </div>
       </div>
      </div>
@@ -66,7 +66,7 @@ export default function ContactUs() {
     <form>
      <div className='grid gap-4 grid-cols-2 mb-4'>
       <TextField label='نام' />
-      <TextField label='نام' />
+      <TextField label='نام‌ خانوادگی' />
       <TextField label='شماره همراه' />
       <TextField label='موضوع' />
       <TextField
