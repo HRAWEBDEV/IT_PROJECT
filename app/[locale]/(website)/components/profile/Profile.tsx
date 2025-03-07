@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Menu from '@mui/material/Menu';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,10 +18,10 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
 
  const profileList = [
   <MenuItem key={'fav'}>
-   <div className='flex gap-3'>
+   <Link href={'/favorites'} className='flex gap-3'>
     <FavoriteIcon color='error' />
     <span>علاقه مندی‌ها</span>
-   </div>
+   </Link>
   </MenuItem>,
 
   <Divider key={'divider'} />,
