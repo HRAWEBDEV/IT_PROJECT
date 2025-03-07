@@ -42,6 +42,8 @@ export default function Articles() {
      </div>
      <div>
       <Button
+       LinkComponent={Link}
+       href='/articles'
        size='large'
        variant='outlined'
        color='secondary'

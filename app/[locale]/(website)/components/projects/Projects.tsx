@@ -42,6 +42,8 @@ export default function Projects() {
      </div>
      <div>
       <Button
+       LinkComponent={Link}
+       href='/projects'
        size='large'
        variant='outlined'
        color='primary'

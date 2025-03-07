@@ -94,13 +94,15 @@ export default function MobileBottomNav() {
       label='خدمات'
      />
      <Tab
-      disabled
+      LinkComponent={Link}
+      href='/articles'
       value='news'
       icon={<NewspaperOutlinedIcon fontSize='small' />}
       label='اخبار و مقالات'
      />
      <Tab
-      disabled
+      LinkComponent={Link}
+      href='/about-us'
       value='support'
       icon={<SupportAgentOutlinedIcon fontSize='small' />}
       label='تماس با ما'
