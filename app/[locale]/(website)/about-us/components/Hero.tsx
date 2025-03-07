@@ -1,9 +1,14 @@
 export default function Hero() {
  return (
-  <section className='bg-neutral-200 dark:bg-neutral-800 h-44 lg:h-56 mb-8'>
-   <div className='container flex flex-col justify-center h-full'>
-    <div className='text-center font-bold text-2xl lg:text-3xl text-orange-500'>
-     ارتباط با مـــا
+  <section className='mb-8 grid justify-center pt-10'>
+   <div className='grid'>
+    <div className='text-center font-bold text-2xl lg:text-3xl text-orange-500 dark:text-orange-600'>
+     تماس با مـــا
+    </div>
+    <div>
+     <div className='dark:brightness-[80%]'>
+      <img src='/images/about-us.png' alt='about-us-image' draggable={false} />
+     </div>
     </div>
    </div>
   </section>

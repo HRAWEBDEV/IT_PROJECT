@@ -99,7 +99,7 @@ export default function Header() {
        className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
-        <span>درباره مــا</span>
+        <span>تماس با مــــا</span>
        </div>
       </Link>
      </li>

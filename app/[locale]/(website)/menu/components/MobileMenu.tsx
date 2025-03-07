@@ -12,21 +12,25 @@ const menuOptions = [
   icon: <EngineeringOutlinedIcon sx={iconStyles} />,
   title: 'خدمــــــات',
   hasSubGategories: true,
+  href: '#',
  },
  {
   icon: <EngineeringOutlinedIcon sx={iconStyles} />,
   title: 'پروژه‌هـــا',
   hasSubGategories: false,
+  href: '/projects',
  },
  {
   icon: <NewspaperOutlinedIcon sx={iconStyles} />,
   title: 'اخبار و مقـــالات',
   hasSubGategories: false,
+  href: '/articles',
  },
  {
   icon: <SupportAgentOutlinedIcon sx={iconStyles} />,
-  title: 'ارتباط‌ بامـــا',
+  title: 'تماس با مـــــا',
   hasSubGategories: false,
+  href: '/about-us',
  },
 ];
 
@@ -38,7 +42,7 @@ export default function MobileMenu() {
      {menuOptions.map((menu) => (
       <li key={menu.title}>
        <Link
-        href={'#'}
+        href={menu.href}
         className='flex justify-between py-4 ps-4 border-b border-neutral-300 dark:border-neutral-600'
        >
         <div className='font-medium text-base flex items-center gap-2'>
