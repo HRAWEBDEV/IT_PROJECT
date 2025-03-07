@@ -50,7 +50,17 @@ export default function Header() {
       LOGO
      </Link>
     </div>
-    <menu className='hidden lg:flex lg:flex-grow ms-20 me-10 lg:self-stretch'>
+    <menu className='hidden lg:flex lg:flex-grow ms-5 me-10 lg:self-stretch'>
+     <li className='flex'>
+      <Link
+       href={'/'}
+       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+      >
+       <div className='flex'>
+        <span>خـــانه</span>
+       </div>
+      </Link>
+     </li>
      <li className='flex'>
       <Link
        href={'#'}
