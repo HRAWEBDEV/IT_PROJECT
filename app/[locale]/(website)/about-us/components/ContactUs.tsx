@@ -1,8 +1,8 @@
 'use client';
+import SendIcon from '@mui/icons-material/Send';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import SendIcon from '@mui/icons-material/Send';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 import IconButton from '@mui/material/IconButton';
 import { FaTelegramPlane } from 'react-icons/fa';

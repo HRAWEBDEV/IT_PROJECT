@@ -12,7 +12,6 @@ export default function layout({ children }: PropsWithChildren) {
     <Main>{children}</Main>
     <MobileBottomNav />
    </NavigationProvider>
-   {/* <Footer /> */}
   </>
  );
 }
