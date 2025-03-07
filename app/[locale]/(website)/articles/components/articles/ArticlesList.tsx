@@ -22,7 +22,10 @@ export default function ArticlesList() {
      <li key={item}>
       <Link
        href='#'
-       className='border border-neutral-300 dark:border-neutral-700 block bg-background rounded-lg text-foreground'
+       style={{
+        transition: 'transform 0.5s ease',
+       }}
+       className='border border-neutral-300 dark:border-neutral-700 block bg-background rounded-lg text-foreground hover:scale-105'
       >
        <div className='p-2'>
         <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[16rem]'>
@@ -50,11 +53,17 @@ export default function ArticlesList() {
          حفظ ....
         </p>
         <div className='flex justify-between items-center'>
-         <div>
-          <IconButton color='primary'>
+         <div className='flex gap-1'>
+          <IconButton
+           color='primary'
+           className='!bg-sky-300/20 !dark:bg-sky-700/20'
+          >
            <ShareOutlinedIcon />
           </IconButton>
-          <IconButton color='error'>
+          <IconButton
+           color='error'
+           className='!bg-red-300/20 !dark:bg-red-700/20'
+          >
            <FavoriteBorderOutlinedIcon />
           </IconButton>
          </div>

@@ -46,7 +46,9 @@ export default function Header() {
      </IconButton>
     </div>
     <div>
-     <div className='text-xl text-primary font-bold'>LOGO</div>
+     <Link href={'/'} className='text-xl text-primary font-bold'>
+      LOGO
+     </Link>
     </div>
     <menu className='hidden lg:flex lg:flex-grow ms-20 me-10 lg:self-stretch'>
      <li className='flex'>
@@ -62,7 +64,7 @@ export default function Header() {
      </li>
      <li className='flex'>
       <Link
-       href={'#'}
+       href={'/projects'}
        className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
@@ -73,7 +75,7 @@ export default function Header() {
      </li>
      <li className='flex'>
       <Link
-       href={'#'}
+       href={'/articles'}
        className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>

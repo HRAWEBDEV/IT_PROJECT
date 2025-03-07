@@ -43,7 +43,7 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
    }}
    sx={{
     '& .MuiButtonBase-root': {
-     fontSize: 'inherif',
+     fontSize: 'inherit',
     },
     '& .MuiPaper-root': {
      minWidth: '12rem',
@@ -60,7 +60,7 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
   <Drawer
    sx={{
     '& .MuiButtonBase-root': {
-     fontSize: 'inherif',
+     fontSize: 'inherit',
     },
     '& .MuiPaper-root': {
      minWidth: '15rem',
