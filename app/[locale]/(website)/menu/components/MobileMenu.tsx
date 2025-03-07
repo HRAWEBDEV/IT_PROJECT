@@ -22,7 +22,7 @@ const menuOptions = [
  },
  {
   icon: <NewspaperOutlinedIcon sx={iconStyles} />,
-  title: 'اخبار و مقـــالات',
+  title: 'اخبار و مقالــــه‌ها',
   hasSubGategories: false,
   href: '/articles',
  },

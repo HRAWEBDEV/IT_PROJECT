@@ -98,7 +98,7 @@ export default function MobileBottomNav() {
       href='/articles'
       value='news'
       icon={<NewspaperOutlinedIcon fontSize='small' />}
-      label='اخبار و مقالات'
+      label='اخبار و مقالــــه‌ها'
      />
      <Tab
       LinkComponent={Link}
