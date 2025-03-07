@@ -7,7 +7,6 @@ export default function page() {
   <div>
    <Hero />
    <ContactUs />
-
    <Footer />
   </div>
  );

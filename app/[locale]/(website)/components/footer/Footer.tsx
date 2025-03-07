@@ -12,7 +12,7 @@ import Link from 'next/link';
 
 export default function Footer() {
  return (
-  <footer className='pt-8 bg-neutral-300'>
+  <footer className='pt-8 bg-neutral-300 dark:bg-neutral-700'>
    <div className='container'>
     <section className='grid gap-10 lg:grid-cols-3'>
      <div>
@@ -89,7 +89,7 @@ export default function Footer() {
      </div>
     </section>
    </div>
-   <div className='py-2 mt-2 border-t border-neutral-400'>
+   <div className='py-2 mt-2 border-t border-neutral-400 dark:border-neutral-600'>
     <div className='text-center'>
      <span className='me-4'>
       <CopyrightIcon />
