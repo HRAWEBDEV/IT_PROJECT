@@ -8,21 +8,58 @@ import { FaTelegramPlane } from 'react-icons/fa';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
 import Link from 'next/link';
+import { motion, Variants } from 'motion/react';
+
+const textVariants: Variants = {
+ init: {
+  opacity: 0,
+  y: -20,
+ },
+ animate: {
+  opacity: 1,
+  y: 0,
+ },
+};
 
 export default function Hero() {
  return (
   <section
    id='hero'
-   className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))] mb-12'
+   className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))] mb-12 overflow-hidden'
   >
    <img
-    className='absolute top-0 w-full bottom-2/4 h-[100%] object-cover object-center opacity-40 dark:hidden'
+    className='absolute top-0 w-full bottom-2/4 h-[100%] object-cover object-center opacity-30 dark:hidden'
     src='/patterns/pattern-two.jpg'
     alt='pattern'
    />
+   <div className='absolute end-[50%] -translate-x-1/2 -rotate-12 top-[1rem] w-[15rem] aspect-square dark:brightness-75'></div>
+   <div className='absolute end-[calc(50%_+8rem)] -rotate-12 top-[50%] w-[20rem] aspect-square opacity-40 dark:hidden'>
+    <img
+     className='w-full h-full object-contain'
+     src='/images/landing/landing-1.png'
+     alt='landing image'
+    />
+   </div>
    <div className='absolute w-full h-full bg-gradient-to-b from-transparent to-purple-100 dark:from-transparent dark:to-purple-950/30 dark:shadow-purple-700/5 blur-3xl'></div>
-   <article className='absolute inset-0 container flex flex-col items-center justify-center h-full'>
-    <h1 className='text-3xl lg:text-4xl text-center leading-[1.7] lg:leading-[1.75] font-bold mb-2 lg:mb-4'>
+   <article className='absolute inset-0 container flex flex-col items-center h-full'>
+    <motion.div
+     variants={textVariants}
+     initial={'init'}
+     animate={'animate'}
+     className='aspect-square w-[14rem] mb-2 2xl:w-[15rem]'
+    >
+     <img
+      className='w-full h-full object-contain dark:brightness-75'
+      src='/images/landing/landing-6.png'
+      alt='landing image'
+     />
+    </motion.div>
+    <motion.h1
+     variants={textVariants}
+     initial={'init'}
+     animate={'animate'}
+     className='text-3xl lg:text-4xl text-center leading-[1.7] lg:leading-[1.75] font-bold mb-2 lg:mb-4'
+    >
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
       متخصص در حوزه فناوری
      </span>
@@ -31,13 +68,26 @@ export default function Hero() {
      <span className='bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300 text-transparent bg-clip-text'>
       اطلاعات و ارتباطات
      </span>
-    </h1>
-    <p className='w-[min(100%,32rem)] text-center leading-7 mb-10 lg:text-base lg:leading-8'>
+    </motion.h1>
+    <motion.p
+     variants={textVariants}
+     initial={'init'}
+     animate={'animate'}
+     className='w-[min(100%,32rem)] text-center leading-7 mb-6 lg:text-base lg:leading-8'
+    >
      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
      که لازم است، و برای شرایط فعلی تکنولوژی
-    </p>
-    <div className='flex gap-4 flex-wrap mb-4'>
+    </motion.p>
+    <motion.div
+     initial={{
+      opacity: 0,
+     }}
+     animate={{
+      opacity: 1,
+     }}
+     className='flex gap-4 flex-wrap mb-4'
+    >
      <IconButton color='warning'>
       <FaPhoneSquareAlt fontSize={'2rem'} />
      </IconButton>
@@ -50,26 +100,48 @@ export default function Hero() {
      <IconButton color='info'>
       <FaTelegramPlane fontSize={'2rem'} />
      </IconButton>
-    </div>
+    </motion.div>
     <div className='flex gap-4 flex-wrap mb-8'>
-     <GradientButton
-      size='large'
-      sx={{
-       minWidth: '10rem',
+     <motion.div
+      initial={{
+       opacity: 0,
+       x: 20,
+      }}
+      animate={{
+       opacity: 1,
+       x: 0,
       }}
      >
-      مشاهده خدمات
-     </GradientButton>
-     <Button
-      size='large'
-      className='!bg-background'
-      sx={{
-       minWidth: '10rem',
+      <GradientButton
+       size='large'
+       sx={{
+        minWidth: '10rem',
+       }}
+      >
+       مشاهده خدمات
+      </GradientButton>
+     </motion.div>
+     <motion.div
+      initial={{
+       opacity: 0,
+       x: -20,
       }}
-      variant='outlined'
+      animate={{
+       opacity: 1,
+       x: 0,
+      }}
      >
-      تماس باما
-     </Button>
+      <Button
+       size='large'
+       className='!bg-background'
+       sx={{
+        minWidth: '10rem',
+       }}
+       variant='outlined'
+      >
+       تماس باما
+      </Button>
+     </motion.div>
     </div>
    </article>
    <div className='absolute bottom-0 start-0 end-0 flex justify-center pb-4'>
