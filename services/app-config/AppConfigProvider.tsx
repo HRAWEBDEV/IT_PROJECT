@@ -14,16 +14,7 @@ export default function AppConfigProvider({
  children: ReactNode;
 }) {
  const { locale: localeParam } = useParams();
- const [mode, setMode] = useState<Config['mode']>(() => {
-  try {
-   const mode = getStorageMode();
-   document.documentElement.setAttribute('data-app-mode', mode);
-   document.body.setAttribute('data-app-mode', mode);
-   return mode;
-  } catch {
-   return 'light';
-  }
- });
+ const [mode, setMode] = useState<Config['mode']>('light');
  const [locale, setLocale] = useState<Config['locale']>(() => {
   return localeParam as Config['locale'];
  });
@@ -53,6 +44,9 @@ export default function AppConfigProvider({
   document.documentElement.setAttribute('data-app-mode', mode);
   document.body.setAttribute('data-app-mode', mode);
  }, [mode]);
+ useEffect(() => {
+  setMode(getStorageMode() || 'light');
+ }, []);
  return (
   <appConfigContext.Provider value={ctxValue}>
    {children}
