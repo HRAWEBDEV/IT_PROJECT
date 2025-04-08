@@ -19,6 +19,7 @@ export default function Search({ onClose, isOpen }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
  return (
   <Dialog
+   className='[&_.MuiPaper-root]:backdrop-blur-sm'
    sx={{
     '& .MuiDialogContent-root': {
      padding: 0,

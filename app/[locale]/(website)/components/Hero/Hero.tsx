@@ -25,7 +25,7 @@ export default function Hero() {
  return (
   <section
    id='hero'
-   className='relative min-h-[30rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))] mb-12 overflow-hidden'
+   className='relative min-h-[40rem] h-[calc(100vh_-_(var(--header-height)_+_var(--mobile-bottom-nav-height)))] mb-12 overflow-hidden'
   >
    <img
     className='absolute top-0 w-full bottom-2/4 h-[100%] object-cover object-center opacity-30 dark:hidden'
@@ -33,7 +33,7 @@ export default function Hero() {
     alt='pattern'
    />
    <div className='absolute end-[50%] -translate-x-1/2 -rotate-12 top-[1rem] w-[15rem] aspect-square dark:brightness-75'></div>
-   <div className='absolute end-[calc(50%_+8rem)] -rotate-12 top-[50%] w-[20rem] aspect-square opacity-40 dark:hidden'>
+   <div className='absolute end-[50%] -translate-x-[50%] bottom-[-1rem] w-[30rem] lg:w-[40rem] aspect-square opacity-40 dark:hidden'>
     <img
      className='w-full h-full object-contain'
      src='/images/landing/landing-1.png'
@@ -46,7 +46,7 @@ export default function Hero() {
      variants={textVariants}
      initial={'init'}
      animate={'animate'}
-     className='aspect-square w-[14rem] mb-2 2xl:w-[15rem]'
+     className='aspect-square w-[11rem] lg:w-[14rem] mb-2 2xl:w-[15rem]'
     >
      <img
       className='w-full h-full object-contain dark:brightness-75'

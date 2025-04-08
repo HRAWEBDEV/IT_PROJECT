@@ -31,7 +31,7 @@ export default function Header() {
  const { mode, changeMode } = useAppConfig();
  return (
   <header
-   className={`fixed top-0 start-0 end-0 bg-neutral-100 dark:bg-neutral-900 z-[--header-zindex] shadow-[0px_0px_10px_3px] shadow-neutral-400/60 dark:shadow-neutral-700/60 h-[--header-height] flex ${addClass(
+   className={`fixed backdrop-blur-sm top-0 start-0 end-0 bg-neutral-100/80 dark:bg-neutral-900/80 z-[--header-zindex] shadow-[0px_0px_10px_3px] shadow-neutral-400/60 dark:shadow-neutral-700/60 h-[--header-height] flex ${addClass(
     !headerIsVisible,
     '-translate-y-[--header-height]'
    )} transition-transform`}
