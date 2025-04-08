@@ -91,11 +91,9 @@ export default function Footer() {
    </div>
    <div className='py-2 mt-2 border-t border-neutral-400 dark:border-neutral-600'>
     <div className='text-center'>
-     <span className='me-4'>
-      <CopyrightIcon />
-      {new Date().getFullYear()}
-     </span>
+     <CopyrightIcon />
      <span>تمامی حقوق این سایت محفوظ است.</span>
+     {new Date().getFullYear()}
     </div>
    </div>
   </footer>

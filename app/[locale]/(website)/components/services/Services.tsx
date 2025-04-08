@@ -1,29 +1,32 @@
 'use client';
-import { GradientButton } from '@/components/Button/GradientButton';
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
 import Link from 'next/link';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import StorageIcon from '@mui/icons-material/Storage';
+import WifiIcon from '@mui/icons-material/Wifi';
+import HandymanIcon from '@mui/icons-material/Handyman';
+import SecurityIcon from '@mui/icons-material/Security';
 // import HandymanIcon from '@mui/icons-material/Handyman';
 
+const iconSize = '3rem';
 const projects = [
  {
-  title: 'نصب دوربین',
-  image: '/services/security-camera-installation.jpg',
- },
- {
   title: 'نصب سرور',
-  image: '/services/server-installation.jpg',
+  icon: <StorageIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-sky-600 dark:bg-sky-300',
  },
  {
-  title: 'نصب دزدگیر',
-  image: '/services/security-camera-installation.jpg',
+  title: 'نصب وای فای',
+  icon: <WifiIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
-  title: 'نصب دوربین',
-  image: '/services/security-camera-installation.jpg',
+  title: 'امنیت',
+  icon: <SecurityIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-red-600 dark:bg-red-300',
+ },
+ {
+  title: 'خدمات',
+  icon: <HandymanIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-orange-600 dark:bg-orange-300',
  },
 ];
 
@@ -31,81 +34,32 @@ export default function Services() {
  return (
   <section id='services'>
    <div className='container mb-12'>
-    <div className='text-center mb-8'>
-     <h2 className='text-2xl font-bold mb-4 lg:text-3xl'>خدمـــــات</h2>
-     <p className='w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
-      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
-      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-      که لازم است، و برای شرایط فعلی تکنولوژی
-     </p>
-    </div>
-    <div>
-     <ul className='grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-4'>
-      {projects.map((item) => (
-       <li key={item.title} className='[&]:[--img-height:18rem]'>
+    <div className='mx-auto w-[min(100%,60rem)]'>
+     <ul className='grid gap-8 md:grid-cols-2'>
+      {projects.map((item, i) => (
+       <li key={item.title}>
         <Link
-         href={'#'}
-         className='group overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
+         className='flex gap-4 p-2 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
+         href='#'
         >
-         <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>
-          <img
-           style={{
-            transition: 'transform 0.5s ease',
-           }}
-           loading='lazy'
-           className='h-full w-full object-cover object-center group-hover:scale-110'
-           src={item.image}
-           alt='services imageg'
-          />
+         <div
+          className={`flex-shrink-0 aspect-square w-[6rem] rounded-lg grid place-content-center text-background ${
+           item.color
+          } ${(i + 1) % 2 != 0 ? 'md:order-2' : ''}`}
+         >
+          {item.icon}
          </div>
-         <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
-         <div className='p-4 relative z-[2] -mt-4'>
-          <div className='flex gap-2'>
-           {/* <HandymanIcon color='primary' /> */}
-           <h3 className='text-lg font-medium text-primary-dark mb-2'>
-            {item.title}
-           </h3>
-          </div>
-          <p className='mb-8 text-neutral-500 dark:text-neutral-200'>
+         <div className={`flex-grow ${(i + 1) % 2 != 0 ? 'md:order-1' : ''}`}>
+          <h3 className='font-medium text-lg'>{item.title}</h3>
+          <p className='text-justify text-[0.85rem] text-neutral-500 dark:text-neutral-200'>
            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-           استفاده هدفابزارهای کاربردی می باشد
+           استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
           </p>
-          <div className='flex justify-between gap-4'>
-           <div>
-            <IconButton
-             color='warning'
-             className='!bg-orange-300/20 dark:!bg-orange-700/20 group-hover:!bg-orange-300/30 group-hover:dark:!bg-orange-700/30'
-            >
-             <ShareOutlinedIcon />
-            </IconButton>
-           </div>
-           <GradientButton>
-            <div className='flex gap-3 items-center'>
-             <span>ادامه مطالب</span>
-             <div className='text-neutral-300 group-hover:text-primary-foreground'>
-              <VisibilityIcon />
-             </div>
-            </div>
-           </GradientButton>
-          </div>
          </div>
         </Link>
        </li>
       ))}
      </ul>
-     <div className='flex justify-end'>
-      <Button
-       className='w-[10rem]'
-       size='large'
-       variant='outlined'
-       color='secondary'
-      >
-       <div className='flex gap-4'>
-        <span className='font-medium'>موارد بیشتر</span>
-        <KeyboardBackspaceIcon />
-       </div>
-      </Button>
-     </div>
     </div>
    </div>
   </section>
