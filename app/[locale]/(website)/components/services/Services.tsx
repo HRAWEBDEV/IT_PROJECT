@@ -53,11 +53,11 @@ export default function Services() {
      </p>
     </div>
     <div className='container mx-auto w-[min(100%,60rem)] mb-6'>
-     <ul className='grid gap-8 md:grid-cols-2'>
+     <ul className='grid md:grid-cols-2'>
       {projects.map((item, i) => (
        <li key={item.title}>
         <Link
-         className='flex gap-4 p-2 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
+         className='flex gap-4 p-6 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
          href='#'
         >
          <div
