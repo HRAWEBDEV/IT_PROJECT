@@ -63,6 +63,16 @@ export default function Projects() {
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
      >
+      <SwiperSlide key='intro' className='self-center'>
+       <div className='hidden lg:flex items-center'>
+        <img
+         className='w-full max-w-[20rem]'
+         src='/images/projects.png'
+         alt='about-us-image'
+         draggable={false}
+        />
+       </div>
+      </SwiperSlide>
       {projects.map((item) => (
        <SwiperSlide key={item.title} className='[&]:[--img-height:18rem]'>
         <Link
