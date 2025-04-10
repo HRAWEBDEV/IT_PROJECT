@@ -24,7 +24,10 @@ const dateFormatter = new Intl.DateTimeFormat('fa', {
 
 export default function Articles() {
  return (
-  <section id='articles' className='relative mb-4 bg-neutral-100 py-8'>
+  <section
+   id='articles'
+   className='relative mb-4 bg-neutral-100 dark:bg-neutral-900 py-8'
+  >
    <div className='container'>
     <div className='text-center mb-8'>
      <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[50%] after:bottom-0 after:w-[10rem] after:translate-x-[50%] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[50%] before:bottom-[1px] before:w-[15rem] before:translate-x-[50%] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
