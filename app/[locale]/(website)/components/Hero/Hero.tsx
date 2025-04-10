@@ -33,7 +33,7 @@ export default function Hero() {
     alt='pattern'
    />
    <div className='absolute end-[50%] -translate-x-1/2 -rotate-12 top-[1rem] w-[15rem] aspect-square dark:brightness-75'></div>
-   <div className='absolute end-[50%] -translate-x-[50%] bottom-[-1rem] w-[30rem] lg:w-[40rem] aspect-square opacity-40 dark:hidden'>
+   <div className='absolute end-[50%] -translate-x-[50%] bottom-[-1rem] w-[30rem] lg:w-[35rem] aspect-square opacity-40 dark:hidden'>
     <img
      className='w-full h-full object-contain'
      src='/images/landing/landing-1.png'
