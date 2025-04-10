@@ -63,7 +63,9 @@ export default function Services() {
          <div
           className={`flex-shrink-0 aspect-square w-[5.5rem] rounded-lg grid place-content-center text-background shadow-lg ${
            item.color
-          } ${(i + 1) % 2 != 0 ? 'md:order-2' : ''}`}
+          } bg-gradient-to-b from-transparent to-black/20 ${
+           (i + 1) % 2 != 0 ? 'md:order-2' : ''
+          }`}
          >
           {item.icon}
          </div>
