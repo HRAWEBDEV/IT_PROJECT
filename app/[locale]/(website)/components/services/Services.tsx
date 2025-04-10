@@ -3,10 +3,10 @@ import Link from 'next/link';
 import StorageIcon from '@mui/icons-material/Storage';
 import WifiIcon from '@mui/icons-material/Wifi';
 import HandymanIcon from '@mui/icons-material/Handyman';
-import SecurityIcon from '@mui/icons-material/Security';
+import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 // import HandymanIcon from '@mui/icons-material/Handyman';
 
-const iconSize = '3rem';
+const iconSize = '2.5rem';
 const projects = [
  {
   title: 'نصب سرور',
@@ -19,8 +19,10 @@ const projects = [
   color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
-  title: 'امنیت',
-  icon: <SecurityIcon sx={{ fontSize: iconSize }} />,
+  title: 'نصب دوربین',
+  icon: (
+   <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
+  ),
   color: 'bg-red-600 dark:bg-red-300',
  },
  {
@@ -43,7 +45,7 @@ export default function Services() {
          href='#'
         >
          <div
-          className={`flex-shrink-0 aspect-square w-[6rem] rounded-lg grid place-content-center text-background ${
+          className={`flex-shrink-0 aspect-square w-[5.5rem] rounded-lg grid place-content-center text-background ${
            item.color
           } ${(i + 1) % 2 != 0 ? 'md:order-2' : ''}`}
          >
@@ -52,8 +54,8 @@ export default function Services() {
          <div className={`flex-grow ${(i + 1) % 2 != 0 ? 'md:order-1' : ''}`}>
           <h3 className='font-medium text-lg'>{item.title}</h3>
           <p className='text-justify text-[0.85rem] text-neutral-500 dark:text-neutral-200'>
-           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
-           استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در
+           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با فیک
+           است، چاپگرها و متون بلکه روزنامه و مجله در
           </p>
          </div>
         </Link>
