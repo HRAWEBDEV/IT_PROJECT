@@ -36,8 +36,8 @@ const projects = [
 
 export default function Projects() {
  return (
-  <section id='services'>
-   <div className='container mb-12'>
+  <section id='services' className='mb-14'>
+   <div className='container'>
     <div className='text-center mb-8'>
      <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[50%] after:bottom-0 after:w-[10rem] after:translate-x-[50%] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[50%] before:bottom-[1px] before:w-[15rem] before:translate-x-[50%] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
       <h2 className='text-2xl font-bold lg:text-3xl'>پروژه‌هـــا</h2>
@@ -63,8 +63,8 @@ export default function Projects() {
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
      >
-      <SwiperSlide key='intro' className='self-center'>
-       <div className='hidden lg:flex items-center'>
+      <SwiperSlide key='intro' className='!hidden lg:!block self-center'>
+       <div className='lg:flex items-center'>
         <img
          className='w-full max-w-[20rem]'
          src='/images/projects.png'
@@ -98,7 +98,7 @@ export default function Projects() {
             {item.title}
            </h3>
           </div>
-          <p className='mb-8 text-neutral-500 dark:text-neutral-200'>
+          <p className='mb-8 text-neutral-500 dark:text-neutral-200 text-justify'>
            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با
            استفاده هدفابزارهای کاربردی می باشد
           </p>

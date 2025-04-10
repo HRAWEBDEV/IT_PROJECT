@@ -40,7 +40,7 @@ const projects = [
 
 export default function Services() {
  return (
-  <section id='services' className='mb-20'>
+  <section id='services' className='mb-14'>
    <div>
     <div className='container text-center mb-8'>
      <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[50%] after:bottom-0 after:w-[10rem] after:translate-x-[50%] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[50%] before:bottom-[1px] before:w-[15rem] before:translate-x-[50%] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
@@ -133,7 +133,7 @@ export default function Services() {
      </div>
      <div className='flex gap-4 justify-center'>
       <Button
-       className='w-[12rem] !bg-secondary-foreground'
+       className='lg:w-[12rem] !bg-secondary-foreground'
        size='large'
        variant='outlined'
        color='warning'
@@ -143,7 +143,7 @@ export default function Services() {
         مشاوره خدمات
        </div>
       </Button>
-      <GradientButton className='w-[12rem]' size='large'>
+      <GradientButton className='lg:w-[12rem]' size='large'>
        مشاهده تمام خدمات
       </GradientButton>
      </div>
