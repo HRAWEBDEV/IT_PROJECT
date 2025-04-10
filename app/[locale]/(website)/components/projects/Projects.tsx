@@ -58,6 +58,9 @@ export default function Projects() {
         slidesPerView: 2,
        },
        1024: {
+        slidesPerView: 3,
+       },
+       1258: {
         slidesPerView: 4,
        },
       }}
