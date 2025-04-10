@@ -1,3 +1,5 @@
+'use client';
+import Button from '@mui/material/Button';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -8,12 +10,27 @@ import IconButton from '@mui/material/IconButton';
 import { FaTelegramPlane } from 'react-icons/fa';
 import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Link from 'next/link';
 
 export default function Footer() {
  return (
   <footer className='pt-8 bg-neutral-300 dark:bg-neutral-700'>
    <div className='container'>
+    <div className='flex justify-end'>
+     <Button
+      variant='outlined'
+      className='w-[10rem] !border-neutral-600 !text-neutral-600'
+      onClick={() => {
+       document.documentElement.scrollTop = 0;
+      }}
+     >
+      <div className='flex gap-2 items-center'>
+       <span>برو بالا</span>
+       <ArrowUpwardIcon fontSize='small' />
+      </div>
+     </Button>
+    </div>
     <section className='grid gap-10 lg:grid-cols-3'>
      <div>
       <div>
