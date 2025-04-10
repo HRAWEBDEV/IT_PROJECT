@@ -9,6 +9,7 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
 import Link from 'next/link';
 import { motion, Variants } from 'motion/react';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 const textVariants: Variants = {
  init: {
@@ -139,7 +140,10 @@ export default function Hero() {
        }}
        variant='outlined'
       >
-       تماس باما
+       <div className='flex gap-2 items-center'>
+        <SupportAgentIcon />
+        <span>تماس باما</span>
+       </div>
       </Button>
      </motion.div>
     </div>
