@@ -34,8 +34,18 @@ const projects = [
 
 export default function Services() {
  return (
-  <section id='services'>
-   <div className='container mb-12'>
+  <section id='services' className='mb-20'>
+   <div className='container'>
+    <div className='text-center mb-8'>
+     <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[50%] after:bottom-0 after:w-[10rem] after:translate-x-[50%] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[50%] before:bottom-[1px] before:w-[15rem] before:translate-x-[50%] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
+      <h2 className='text-2xl font-bold lg:text-3xl'>خدمــــات</h2>
+     </div>
+     <p className='text-neutral-500 dark:text-neutral-200 w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی
+     </p>
+    </div>
     <div className='mx-auto w-[min(100%,60rem)]'>
      <ul className='grid gap-8 md:grid-cols-2'>
       {projects.map((item, i) => (
