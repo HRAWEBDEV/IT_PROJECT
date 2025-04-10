@@ -79,7 +79,7 @@ export default function Services() {
       ))}
      </ul>
     </div>
-    <div className='bg-neutral-100 py-8'>
+    <div className='bg-neutral-100 dark:bg-neutral-800 py-8'>
      <div className='mb-4 container'>
       <Swiper
        spaceBetween={20}
