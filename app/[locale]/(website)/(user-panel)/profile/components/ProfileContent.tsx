@@ -1,5 +1,9 @@
+'use client';
+import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import ProfileMenu from './ProfileMenu';
 function ProfileContent() {
- return <div>profile content</div>;
+ const { isLargeDevice } = useAppMonitorConfig();
+ return <>{!isLargeDevice && <ProfileMenu />}</>;
 }
 
 export default ProfileContent;

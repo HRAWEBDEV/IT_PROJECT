@@ -1,4 +1,3 @@
-import Footer from '../../../components/footer/Footer';
 import Hero from './components/Hero';
 import Favorites from './components/favorites/Favorites';
 
@@ -7,8 +6,6 @@ export default function page() {
   <div>
    <Hero />
    <Favorites />
-
-   <Footer />
   </div>
  );
 }

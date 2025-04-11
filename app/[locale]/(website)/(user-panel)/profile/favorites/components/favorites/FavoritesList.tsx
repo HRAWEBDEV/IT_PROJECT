@@ -33,7 +33,7 @@ export default function FavoritesList() {
        768: {
         slidesPerView: 2,
        },
-       1024: {
+       1258: {
         slidesPerView: 3,
        },
       }}
