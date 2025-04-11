@@ -7,12 +7,12 @@ import { GradientButton } from '@/components/Button/GradientButton';
 export default function LoginForm() {
  return (
   <div className='container'>
-   <form className='my-5 lg:my-20 rounded-xl bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300'>
+   <form className='my-5 lg:my-12 rounded-xl bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300'>
     <div className='text-primary-foreground flex justify-between items-center mb-4 p-4'>
      <div>
       <p className='font-medium text-2xl'>ورود</p>
      </div>
-     <div className='bg-primary-foreground aspect-square w-[5rem] rounded-lg text-foreground grid place-content-center font-medium'>
+     <div className='bg-primary-foreground aspect-square w-[6rem] rounded-lg text-foreground grid place-content-center font-medium'>
       LOGO
      </div>
     </div>
