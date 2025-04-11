@@ -34,7 +34,7 @@ export default function FavoritesList() {
         slidesPerView: 2,
        },
        1024: {
-        slidesPerView: 4,
+        slidesPerView: 3,
        },
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'

@@ -1,4 +1,4 @@
-import Footer from '../../components/footer/Footer';
+import Footer from '../../../components/footer/Footer';
 import Hero from './components/Hero';
 import Favorites from './components/favorites/Favorites';
 
