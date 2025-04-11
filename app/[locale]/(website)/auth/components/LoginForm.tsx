@@ -21,27 +21,24 @@ export default function LoginForm() {
       <TextField fullWidth size='small' label='نام کاربری' required />
       <TextField fullWidth size='small' label='پسوورد' required />
      </div>
-     <div className='flex justify-between'>
+     <div className='mb-8'>
+      <GradientButton fullWidth size='large'>
+       تایید
+      </GradientButton>
+     </div>
+     <div>
       <div className='grid gap-2'>
-       <Button
-        LinkComponent={Link}
-        variant='outlined'
-        className='w-[6rem]'
-        href='#'
-       >
+       <Button LinkComponent={Link} href='#'>
         ثبت نام
        </Button>
        <Button
         color='error'
         LinkComponent={Link}
-        className='w-[6rem] !text-[0.7rem]'
+        className='!text-[0.7rem]'
         href='#'
        >
         فراموشی رمز؟
        </Button>
-      </div>
-      <div>
-       <GradientButton className='w-[8rem]'>تایید</GradientButton>
       </div>
      </div>
     </div>
