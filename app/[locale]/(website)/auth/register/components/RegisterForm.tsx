@@ -12,11 +12,11 @@ export default function RegisterForm() {
      <div>
       <p className='font-medium text-2xl'>ثبت نام</p>
      </div>
-     <div className='bg-primary-foreground aspect-square w-[6rem] rounded-lg text-foreground grid place-content-center font-medium'>
+     <div className='bg-background aspect-square w-[6rem] rounded-lg text-foreground grid place-content-center font-medium'>
       LOGO
      </div>
     </div>
-    <div className='bg-primary-foreground rounded-xl border-[1px] border-neutral-300 shadow-md p-6 pt-10'>
+    <div className='bg-background rounded-xl border border-neutral-300 dark:border-neutral-700 shadow-md p-6 pt-10'>
      <div className='grid gap-8 mb-10'>
       <TextField fullWidth size='small' label='نام' required />
       <TextField fullWidth size='small' label='نام ‌خانوادگی' required />
