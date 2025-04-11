@@ -1,48 +1,69 @@
 'use client';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Link from 'next/link';
+import InputAdornment from '@mui/material/InputAdornment';
 import { GradientButton } from '@/components/Button/GradientButton';
+import Button from '@mui/material/Button';
+import LockIcon from '@mui/icons-material/Lock';
+import IconButton from '@mui/material/IconButton';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import PersonIcon from '@mui/icons-material/Person';
+import Link from 'next/link';
 
 export default function LoginForm() {
  return (
-  <div className='container'>
-   <form className='my-5 lg:my-12 rounded-xl bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300'>
-    <div className='text-primary-foreground flex justify-between items-center mb-4 p-4'>
-     <div>
-      <p className='font-medium text-2xl'>ورود</p>
-     </div>
-     <div className='bg-background aspect-square w-[6rem] rounded-lg text-foreground grid place-content-center font-medium'>
-      LOGO
-     </div>
-    </div>
-    <div className='bg-background rounded-xl border border-neutral-300 dark:border-neutral-700 shadow-md p-6 pt-10'>
-     <div className='grid gap-8 mb-10'>
-      <TextField fullWidth size='small' label='نام کاربری' required />
-      <TextField fullWidth size='small' label='پسوورد' required />
-     </div>
-     <div className='mb-8'>
-      <GradientButton fullWidth size='large'>
-       تایید
-      </GradientButton>
-     </div>
-     <div>
-      <div className='grid gap-2'>
-       <Button LinkComponent={Link} href='/auth/register'>
-        ثبت نام
-       </Button>
-       <Button
-        color='error'
-        LinkComponent={Link}
-        className='!text-[0.7rem]'
-        href='#'
-       >
-        فراموشی رمز؟
-       </Button>
-      </div>
-     </div>
-    </div>
-   </form>
-  </div>
+  <form className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
+   <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-10'>
+    LOGO
+   </div>
+   <div className='grid gap-6 mb-10'>
+    <TextField
+     size='medium'
+     label='نام کاربری'
+     fullWidth
+     required
+     slotProps={{
+      input: {
+       endAdornment: (
+        <InputAdornment position='end' className='-me-2'>
+         <IconButton disabled>
+          <PersonIcon />
+         </IconButton>
+        </InputAdornment>
+       ),
+      },
+     }}
+    />
+    <TextField
+     size='medium'
+     label='رمز عبور'
+     required
+     fullWidth
+     slotProps={{
+      input: {
+       endAdornment: (
+        <InputAdornment position='end' className='-me-2'>
+         <IconButton>
+          <VisibilityIcon />
+         </IconButton>
+         <IconButton disabled>
+          <LockIcon />
+         </IconButton>
+        </InputAdornment>
+       ),
+      },
+     }}
+    />
+   </div>
+   <div className='mb-6'>
+    <GradientButton className='min-h-[3rem]' size='large' fullWidth>
+     تایید
+    </GradientButton>
+   </div>
+   <div>
+    <Button LinkComponent={Link} href='#'>
+     فراموشی رمز؟
+    </Button>
+   </div>
+  </form>
  );
 }

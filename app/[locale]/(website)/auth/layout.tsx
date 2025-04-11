@@ -1,5 +1,24 @@
 import { PropsWithChildren } from 'react';
+import AuthTabs from './components/AuthTabs';
 
 export default function layout({ children }: PropsWithChildren) {
- return <div>{children}</div>;
+ return (
+  <div className='h-[calc(100vh_-_var(--header-height)_-_var(--mobile-bottom-nav-height))] lg:h-[calc(100vh_-_var(--header-height))] bg-neutral-200 dark:bg-neutral-800'>
+   <div className='py-8 px-4 h-full'>
+    <div className='container h-full bg-background rounded-xl grid lg:grid-cols-2 px-0'>
+     <div>
+      <AuthTabs />
+      {children}
+     </div>
+     <div className='border-s border-neutral-200 dark:border-neutral-800 place-content-center hidden lg:grid'>
+      <img
+       src='/images/login/login-1.png'
+       alt='login-page-img'
+       className='w-full dark:brightness-75'
+      />
+     </div>
+    </div>
+   </div>
+  </div>
+ );
 }
