@@ -24,6 +24,7 @@
   --secondary-foreground: 0 0% 100%;
   /* #fff */
   --background: 0 0% 100%;
+  --bg-dashboard: 0 0% 90%;
   /* #262626 */
   --foreground: 0 0% 20%;
   /* z indexes */
@@ -31,6 +32,7 @@
   --mobile-bottom-nav-height: 3.8rem;
   --header-zindex: 100;
   --header-height: 3.8rem;
+  --dashboard-header-height: 4rem;
  }
 
  [data-app-mode='dark'] {
@@ -55,6 +57,8 @@
   --background: 0 0% 10%;
   /* #262626 */
   --foreground: 0 0% 100%;
+  /*  */
+  --bg-dashboard: 0 0% 15%;
  }
 }
 

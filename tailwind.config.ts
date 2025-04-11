@@ -24,6 +24,7 @@ export default {
    },
    colors: {
     background: 'hsl(var(--background))',
+    bgDashboard: 'hsl(var(--bg-dashboard))',
     foreground: 'hsl(var(--foreground))',
     primary: {
      DEFAULT: 'hsl(var(--primary))',
