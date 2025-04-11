@@ -18,7 +18,7 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
 
  const profileList = [
   <MenuItem key={'fav'}>
-   <Link href={'/favorites'} className='w-full flex gap-3'>
+   <Link href={'/profile/favorites'} className='w-full flex gap-3'>
     <FavoriteIcon color='error' />
     <span>علاقه مندی‌ها</span>
    </Link>
