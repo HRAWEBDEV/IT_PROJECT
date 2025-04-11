@@ -20,7 +20,7 @@ export default function Footer() {
     <div className='flex justify-end'>
      <Button
       variant='outlined'
-      className='w-[10rem] !border-neutral-600 !text-neutral-600'
+      className='w-[10rem] !border-neutral-600 !text-neutral-600 dark:!border-neutral-400 dark:!text-neutral-400'
       onClick={() => {
        document.documentElement.scrollTop = 0;
       }}
