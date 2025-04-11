@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import ProfileMenu from './ProfileMenu';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Footer from '../../../components/footer/Footer';
@@ -14,10 +14,11 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
  const router = useRouter();
  const page = pathname.split('/').at(-1);
 
- if (isLargeDevice && page === 'profile') {
-  router.push('/profile/favorites');
- }
-
+ useEffect(() => {
+  if (isLargeDevice && page === 'profile') {
+   router.push('/profile/favorites');
+  }
+ }, [isLargeDevice, page, router]);
  return (
   <>
    <div className='container grid gap-4 lg:grid-cols-[16rem_1fr]'>
