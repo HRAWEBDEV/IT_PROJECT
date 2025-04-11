@@ -28,7 +28,7 @@ export default function LoginForm() {
      </div>
      <div>
       <div className='grid gap-2'>
-       <Button LinkComponent={Link} href='#'>
+       <Button LinkComponent={Link} href='/auth/register'>
         ثبت نام
        </Button>
        <Button

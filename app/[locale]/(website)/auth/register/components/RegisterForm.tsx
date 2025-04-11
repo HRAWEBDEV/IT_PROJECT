@@ -18,8 +18,12 @@ export default function RegisterForm() {
     </div>
     <div className='bg-background rounded-xl border border-neutral-300 dark:border-neutral-700 shadow-md p-6 pt-10'>
      <div className='grid gap-8 mb-10'>
-      <TextField fullWidth size='small' label='نام' required />
-      <TextField fullWidth size='small' label='نام ‌خانوادگی' required />
+      <div className='grid gap-2 grid-cols-2'>
+       <TextField fullWidth size='small' label='نام' required />
+       <TextField fullWidth size='small' label='نام ‌خانوادگی' required />
+      </div>
+      <TextField fullWidth size='small' label='ایمیل' required />
+      <TextField fullWidth size='small' label='شماره همره' required />
       <TextField fullWidth size='small' label='رمز عبور' required />
       <TextField fullWidth size='small' label='تکرار رمز عبور' required />
      </div>
@@ -30,7 +34,7 @@ export default function RegisterForm() {
      </div>
      <div>
       <div className='grid gap-2'>
-       <Button LinkComponent={Link} href='#'>
+       <Button LinkComponent={Link} href='/auth'>
         ورود
        </Button>
        <Button
