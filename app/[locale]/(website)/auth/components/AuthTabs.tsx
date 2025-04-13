@@ -11,7 +11,7 @@ export default function AuthTabs() {
  const lastPart = pathname.split('/').at(-1);
 
  return (
-  <div>
+  <div className='sticky top-0 bg-background border-b border-neutral-300 dark:border-neutral-700'>
    <Tabs
     indicatorColor='secondary'
     textColor='secondary'
