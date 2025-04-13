@@ -4,14 +4,18 @@ import Tabs from '@mui/material/Tabs';
 import BadgeIcon from '@mui/icons-material/Badge';
 import LoginIcon from '@mui/icons-material/Login';
 import Tab from '@mui/material/Tab';
+import { usePathname } from 'next/navigation';
 
 export default function AuthTabs() {
+ const pathname = usePathname();
+ const lastPart = pathname.split('/').at(-1);
+
  return (
   <div>
    <Tabs
     indicatorColor='secondary'
     textColor='secondary'
-    value={'login'}
+    value={lastPart === 'sign-up' ? 'sign-up' : 'login'}
     centered
     sx={{
      '& .MuiTabs-flexContainer': {
