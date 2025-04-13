@@ -33,6 +33,7 @@
   --header-zindex: 100;
   --header-height: 3.8rem;
   --dashboard-header-height: 4rem;
+  --dashboard-nav-width: 13rem;
  }
 
  [data-app-mode='dark'] {

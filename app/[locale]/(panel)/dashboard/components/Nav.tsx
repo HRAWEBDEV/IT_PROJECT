@@ -1,5 +1,7 @@
-import React from 'react';
-
 export default function Nav() {
- return <div></div>;
+ return (
+  <nav className='w-[--dashboard-nav-width] bg-background shadow-lg border-e border-neutral-300 dark:border-neutral-700'>
+   test
+  </nav>
+ );
 }

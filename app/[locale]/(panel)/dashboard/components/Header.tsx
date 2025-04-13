@@ -23,22 +23,22 @@ export default function Header() {
  const { mode, changeMode } = useAppConfig();
  return (
   <header
-   className={`fixed backdrop-blur-sm top-0 start-0 end-0 bg-background z-[--header-zindex] shadow-[0px_0px_10px_3px] shadow-neutral-400/60 dark:shadow-neutral-700/60 h-[--dashboard-header-height] flex px-6`}
+   className={`backdrop-blur-sm bg-background shadow-[0px_0px_10px_3px] lg:shadow-none shadow-neutral-400/60 dark:shadow-neutral-700/60 h-[--dashboard-header-height] flex border-b border-neutral-300 dark:border-neutral-700`}
   >
-   <div className='flex-grow flex items-center'>
+   <div className='ps-6 lg:ps-0 flex-grow flex items-center'>
     <div className='flex items-center gap-6'>
      <div className='lg:hidden basis-0 flex gap-2 lg:flex-grow-0'>
       <IconButton color='primary' LinkComponent={Link} href='/menu'>
        <DehazeIcon />
       </IconButton>
      </div>
-     <div>
+     <div className='flex justify-center items-center lg:w-[--dashboard-nav-width] h-[--dashboard-header-height] lg:border-e border-neutral-300 dark:border-neutral-700'>
       <Link href={'/'} className='text-xl text-primary font-bold'>
        LOGO
       </Link>
      </div>
     </div>
-    <div className='basis-0 flex-grow flex justify-end gap-2  items-center self-stretch'>
+    <div className='pe-6 basis-0 flex-grow flex justify-end gap-2  items-center self-stretch lg:shadow-[-4px_2px_4px_0px] lg:shadow-neutral-400/60 lg:dark:shadow-neutral-700/60'>
      <IconButton
       size={isLargeDevice ? 'large' : 'medium'}
       color={mode === 'dark' ? 'primary' : 'warning'}
@@ -58,7 +58,7 @@ export default function Header() {
       <div className='flex gap-2 items-center'>
        <div className='font-medium text-foreground'>
         <ArrowDropDownIcon />
-        حمیدرضا اکبری
+        <span className='hidden lg:inline-block'>حمیدرضا اکبری</span>
        </div>
        <span></span>
        <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />

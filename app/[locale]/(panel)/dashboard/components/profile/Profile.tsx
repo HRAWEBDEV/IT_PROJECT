@@ -23,7 +23,6 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
     <span>علاقه مندی‌ها</span>
    </Link>
   </MenuItem>,
-
   <Divider key={'divider'} />,
   <MenuItem key={'exit'}>
    <div className='flex gap-3'>

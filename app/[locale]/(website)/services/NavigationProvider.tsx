@@ -4,11 +4,17 @@ import { navigationContext } from './NavigationContext';
 
 export default function NavigationProvider({ children }: PropsWithChildren) {
  const [headerIsVisible, setHeaderIsVisible] = useState(true);
+ const [navIsVisible, setNavIsVisible] = useState(false);
  const [mobileBottomNavIsVisible, setMobileBottomNavIsVisible] = useState(true);
 
  const ctx = useMemo(
-  () => ({ headerIsVisible, mobileBottomNavIsVisible }),
-  [headerIsVisible, mobileBottomNavIsVisible]
+  () => ({
+   headerIsVisible,
+   navIsVisible,
+   setNavIsVisible,
+   mobileBottomNavIsVisible,
+  }),
+  [headerIsVisible, mobileBottomNavIsVisible, navIsVisible]
  );
 
  useEffect(() => {
