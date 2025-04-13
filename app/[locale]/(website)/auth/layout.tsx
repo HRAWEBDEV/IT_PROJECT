@@ -4,8 +4,8 @@ import AuthTabs from './components/AuthTabs';
 export default function layout({ children }: PropsWithChildren) {
  return (
   <div className='h-[calc(100vh_-_var(--header-height)_-_var(--mobile-bottom-nav-height))] lg:h-[calc(100vh_-_var(--header-height))] overflow-hidden bg-neutral-200 dark:bg-neutral-800'>
-   <div className='py-8 px-4 h-full overflow-hidden'>
-    <div className='container h-full bg-background rounded-xl grid lg:grid-cols-2 px-0 overflow-hidden'>
+   <div className='lg:py-8 lg:px-4 h-full overflow-hidden'>
+    <div className='container h-full bg-background lg:rounded-xl grid lg:grid-cols-2 px-0 overflow-hidden'>
      <div className='overflow-auto'>
       <AuthTabs />
       {children}
