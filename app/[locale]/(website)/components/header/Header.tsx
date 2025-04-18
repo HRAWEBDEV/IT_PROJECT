@@ -17,8 +17,13 @@ import Profile from '../profile/Profile';
 import { useQueryToggler } from '@/hooks/useQueryToggler';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useState } from 'react';
+import Options from './Options';
+import Services from './Services';
+import Projects from './Projects';
 
 export default function Header() {
+ const [showServiceOptions, setShowServiceOptions] = useState(false);
+ const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
   useQueryToggler('show-profile');
  const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(
@@ -64,23 +69,37 @@ export default function Header() {
      <li className='flex'>
       <Link
        href={'#'}
-       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='relative transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       onMouseEnter={() => setShowServiceOptions(true)}
+       onFocus={() => setShowServiceOptions(true)}
+       onMouseLeave={() => setShowServiceOptions(false)}
+       onBlur={() => setShowServiceOptions(false)}
       >
        <div className='flex'>
         <span>خدمـــات</span>
         <ArrowDropDownIcon />
        </div>
+       <Options isOpen={showServiceOptions}>
+        <Services />
+       </Options>
       </Link>
      </li>
      <li className='flex'>
       <Link
        href={'/projects'}
-       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='relative transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       onMouseEnter={() => setShowProjectOptions(true)}
+       onFocus={() => setShowProjectOptions(true)}
+       onMouseLeave={() => setShowProjectOptions(false)}
+       onBlur={() => setShowProjectOptions(false)}
       >
        <div className='flex gap-1'>
         <span>پروژه‌ها</span>
         <ArrowDropDownIcon />
        </div>
+       <Options isOpen={showProjectOptions}>
+        <Projects />
+       </Options>
       </Link>
      </li>
      <li className='flex'>
