@@ -6,7 +6,7 @@ export default function Hero() {
      اخبار و مقـــاله‌ها
     </div>
     <div>
-     <div className='h-[22rem] dark:brightness-75'>
+     <div className='h-[20rem] dark:brightness-75'>
       <img
        className='h-full'
        src='/images/articles.png'

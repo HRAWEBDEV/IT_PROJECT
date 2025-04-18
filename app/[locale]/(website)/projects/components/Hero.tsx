@@ -6,7 +6,7 @@ export default function Hero() {
      پروژه‌هـــا
     </div>
     <div>
-     <div className='dark:brightness-[80%]  h-[22rem]'>
+     <div className='dark:brightness-[80%] h-[20rem]'>
       <img
        className='h-full'
        src='/images/projects.png'
