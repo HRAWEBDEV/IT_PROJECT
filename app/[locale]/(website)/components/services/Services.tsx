@@ -75,10 +75,10 @@ export default function Services() {
       {projects.map((item, i) => (
        <motion.li
         initial={{
-         x: i % 2 == 0 ? 100 : -100,
+         y: -20,
         }}
         whileInView={{
-         x: 0,
+         y: 0,
         }}
         viewport={{ amount: 'some' }}
         transition={{
