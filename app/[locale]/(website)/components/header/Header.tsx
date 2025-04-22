@@ -67,8 +67,9 @@ export default function Header() {
       </Link>
      </li>
      <li className='flex'>
-      <Link
-       href={'#'}
+      <div
+       tabIndex={0}
+       role='button'
        className='relative transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
        onMouseEnter={() => setShowServiceOptions(true)}
        onFocus={() => setShowServiceOptions(true)}
@@ -82,11 +83,12 @@ export default function Header() {
        <Options isOpen={showServiceOptions}>
         <Services />
        </Options>
-      </Link>
+      </div>
      </li>
      <li className='flex'>
-      <Link
-       href={'/projects'}
+      <div
+       role='button'
+       tabIndex={0}
        className='relative transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
        onMouseEnter={() => setShowProjectOptions(true)}
        onFocus={() => setShowProjectOptions(true)}
@@ -100,7 +102,7 @@ export default function Header() {
        <Options isOpen={showProjectOptions}>
         <Projects />
        </Options>
-      </Link>
+      </div>
      </li>
      <li className='flex'>
       <Link

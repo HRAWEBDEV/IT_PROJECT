@@ -88,7 +88,8 @@ export default function MobileBottomNav() {
       label='منو'
      />
      <Tab
-      disabled
+      LinkComponent={Link}
+      href='/co-services'
       value='services'
       icon={<EngineeringOutlinedIcon fontSize='small' />}
       label='خدمات'
