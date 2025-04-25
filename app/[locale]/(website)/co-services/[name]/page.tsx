@@ -1,3 +1,11 @@
+import WhyUs from './components/WhyUs';
+import Content from './components/Content';
+
 export default function page() {
- return <div>services page</div>;
+ return (
+  <section>
+   <Content />
+   <WhyUs />
+  </section>
+ );
 }
