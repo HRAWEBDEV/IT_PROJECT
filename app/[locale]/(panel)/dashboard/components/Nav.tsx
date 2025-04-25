@@ -46,17 +46,17 @@ export default function Nav() {
       </div>
       <span>خدمات</span>
      </Link>
-     <li>
-      <Link
-       href='/dashboard/projects'
-       className='flex transition-colors items-center gap-4 p-4 min-h-[4.5rem] text-base font-medium border-b border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-900'
-      >
-       <div>
-        <HandymanIcon sx={iconsStyle} />
-       </div>
-       <span>پروژ‌هـــا</span>
-      </Link>
-     </li>
+    </li>
+    <li>
+     <Link
+      href='/dashboard/projects'
+      className='flex transition-colors items-center gap-4 p-4 min-h-[4.5rem] text-base font-medium border-b border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-900'
+     >
+      <div>
+       <HandymanIcon sx={iconsStyle} />
+      </div>
+      <span>پروژ‌هـــا</span>
+     </Link>
     </li>
     <li>
      <Link
