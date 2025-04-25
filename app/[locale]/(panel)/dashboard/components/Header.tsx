@@ -28,7 +28,7 @@ export default function Header() {
    <div className='ps-6 lg:ps-0 flex-grow flex items-center'>
     <div className='flex items-center gap-6'>
      <div className='lg:hidden basis-0 flex gap-2 lg:flex-grow-0'>
-      <IconButton color='primary' LinkComponent={Link} href='/menu'>
+      <IconButton color='primary'>
        <DehazeIcon />
       </IconButton>
      </div>
