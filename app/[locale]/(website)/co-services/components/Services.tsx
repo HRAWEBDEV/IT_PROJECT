@@ -43,7 +43,7 @@ function Services() {
 
  return (
   <section className='my-12 mb-20'>
-   <section className='container mt-8 mb-20 border-b'>
+   <section className='container mt-8 mb-20 border-b border-neutral-300 dark:border-neutral-700'>
     <ul className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
      {projects.map((item) => (
       <motion.li
