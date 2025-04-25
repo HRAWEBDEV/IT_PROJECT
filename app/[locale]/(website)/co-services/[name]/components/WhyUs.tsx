@@ -43,7 +43,7 @@ export default function WhyUs() {
      </div>
     </div>
    </div>
-   <div className='grid gap-8 lg:grid-cols-2 container w-[min(100%,60rem)]'>
+   <div className='grid gap-8 lg:grid-cols-2 container w-[min(100%,50rem)]'>
     {whyUs.map((item) => (
      <article key={item.type} className={`rounded-xl pb-2 ${item.background}`}>
       <div className='border border-neutral-300 dark:border-neutral-500 rounded-xl p-4 bg-background'>
