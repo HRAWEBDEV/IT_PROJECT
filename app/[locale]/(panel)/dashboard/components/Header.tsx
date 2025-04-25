@@ -12,8 +12,11 @@ import { useQueryToggler } from '@/hooks/useQueryToggler';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigationContext } from '../navigation/navigationContext';
 
 export default function Header() {
+ const { isNavigationVisible, handleToggleNavigation } = useNavigationContext();
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
   useQueryToggler('show-profile');
  const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(
@@ -28,8 +31,8 @@ export default function Header() {
    <div className='ps-6 lg:ps-0 flex-grow flex items-center'>
     <div className='flex items-center gap-6'>
      <div className='lg:hidden basis-0 flex gap-2 lg:flex-grow-0'>
-      <IconButton color='primary'>
-       <DehazeIcon />
+      <IconButton color='primary' onClick={handleToggleNavigation}>
+       {isNavigationVisible ? <CloseIcon /> : <DehazeIcon />}
       </IconButton>
      </div>
      <div className='flex justify-center items-center lg:w-[--dashboard-nav-width] h-[--dashboard-header-height] lg:border-e border-neutral-300 dark:border-neutral-700'>
