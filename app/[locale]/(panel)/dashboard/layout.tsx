@@ -11,7 +11,7 @@ export default function layout({ children }: PropsWithChildren) {
     <Header />
     <Main>
      <Nav />
-     {children}
+     <div className='p-4'>{children}</div>
     </Main>
    </NavigatioProvider>
   </div>

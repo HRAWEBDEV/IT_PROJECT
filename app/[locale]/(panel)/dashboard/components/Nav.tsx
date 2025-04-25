@@ -22,12 +22,12 @@ export default function Nav() {
 
  return (
   <nav
-   className={`fixed transition-transform ${navPosition} top-[--dashboard-header-height] lg:block bottom-0 w-[--dashboard-nav-width] bg-background shadow-lg border-e border-neutral-300 dark:border-neutral-700`}
+   className={`fixed transition-transform ${navPosition} top-[--dashboard-header-height] lg:static bottom-0 w-[--dashboard-nav-width] bg-background shadow-lg border-e border-neutral-300 dark:border-neutral-700`}
   >
    <ul>
     <li>
      <Link
-      href='/dashboard/setting'
+      href='/dashboard/settings'
       className='flex transition-colors items-center gap-4 p-4 min-h-[4.5rem] text-base font-medium border-b border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-900'
      >
       <div>
@@ -48,7 +48,7 @@ export default function Nav() {
      </Link>
      <li>
       <Link
-       href='/dashboard/services'
+       href='/dashboard/projects'
        className='flex transition-colors items-center gap-4 p-4 min-h-[4.5rem] text-base font-medium border-b border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-900'
       >
        <div>
@@ -60,7 +60,7 @@ export default function Nav() {
     </li>
     <li>
      <Link
-      href='/dashboard/services'
+      href='/dashboard/articles'
       className='flex transition-colors items-center gap-4 p-4 min-h-[4.5rem] text-base font-medium border-b border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-900'
      >
       <div>
