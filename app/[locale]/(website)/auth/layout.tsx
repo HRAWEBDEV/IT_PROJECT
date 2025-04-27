@@ -1,5 +1,10 @@
 import { PropsWithChildren } from 'react';
 import AuthTabs from './components/AuthTabs';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+ title: 'آیتی نترا |‌ فناوری و اطلاعات | احراز هویت',
+};
 
 export default function layout({ children }: PropsWithChildren) {
  return (

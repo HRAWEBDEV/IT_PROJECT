@@ -4,6 +4,11 @@ import Main from './components/Main';
 import Nav from './components/Nav';
 import NavigatioProvider from './navigation/NavigatioProvider';
 import 'ckeditor5/ckeditor5.css';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+ title: 'آیتی نترا |‌ فناوری و اطلاعات | داشبورد',
+};
 
 export default function layout({ children }: PropsWithChildren) {
  return (
