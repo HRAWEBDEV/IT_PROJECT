@@ -1,10 +1,10 @@
-import { locales } from '../../localization/locales';
+import { type SupportedLocales, locales } from '../../localization/locales';
 import { OutOfContext } from '@/utils/OutOfContext';
 import { use, createContext } from 'react';
 
 type Config = {
  mode: 'light' | 'dark';
- locale: (typeof locales)[keyof typeof locales]['langAlias'];
+ locale: SupportedLocales;
  localeInfo: (typeof locales)[keyof typeof locales];
 };
 

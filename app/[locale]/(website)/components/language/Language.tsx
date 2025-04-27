@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function Language({ profileAnchor, onClose, isOpen }: Props) {
- const { locale } = useAppConfig();
+ const { locale, changeLocale } = useAppConfig();
  const { isLargeDevice } = useAppMonitorConfig();
 
  const profileList = Object.values(locales).map((val) => (
@@ -23,6 +23,7 @@ export default function Language({ profileAnchor, onClose, isOpen }: Props) {
    sx={{
     paddingBlock: '1rem',
    }}
+   onClick={() => changeLocale(val.langAlias)}
   >
    <div aria-selected={val.langAlias === locale} className='w-full flex gap-3'>
     {getLangFlag(val.langAlias, { width: '2rem' })}

@@ -2,10 +2,11 @@
 import { useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
 import { type Config, appConfigContext } from './appConfig';
 import { useParams } from 'next/navigation';
-import { locales } from '@/localization/locales';
+import { locales, SupportedLocales } from '@/localization/locales';
 import {
  getMode as getStorageMode,
  setMode as setStorageMode,
+ setLocale as setStorageLocale,
 } from './appConfigStorage';
 
 export default function AppConfigProvider({
@@ -15,14 +16,17 @@ export default function AppConfigProvider({
 }) {
  const { locale: localeParam } = useParams();
  const [mode, setMode] = useState<Config['mode']>('light');
- const [locale, setLocale] = useState<Config['locale']>(() => {
-  return localeParam as Config['locale'];
- });
- const localeInfo = locales[locale];
+ const localeInfo = locales[localeParam as SupportedLocales];
 
- const changeLocale = useCallback((locale: Config['locale']) => {
-  setLocale(locale);
- }, []);
+ const changeLocale = useCallback(
+  (locale: Config['locale']) => {
+   setStorageLocale(locale);
+   const currentHref = window.location.href;
+   const newHref = currentHref.replace(localeParam as string, locale);
+   window.location.href = newHref;
+  },
+  [localeParam]
+ );
 
  const changeMode = useCallback((mode: Config['mode']) => {
   setMode(mode);
@@ -32,12 +36,12 @@ export default function AppConfigProvider({
  const ctxValue = useMemo(
   () => ({
    mode,
-   locale,
+   locale: localeParam as SupportedLocales,
    localeInfo,
    changeLocale,
    changeMode,
   }),
-  [locale, mode, localeInfo, changeLocale, changeMode]
+  [localeParam, mode, localeInfo, changeLocale, changeMode]
  );
 
  useEffect(() => {
