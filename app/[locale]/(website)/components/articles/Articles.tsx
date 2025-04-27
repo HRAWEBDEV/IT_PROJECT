@@ -100,6 +100,8 @@ export default function Articles() {
     </ul>
     <div className='flex justify-end'>
      <Button
+      LinkComponent={Link}
+      href='/articles'
       className='w-[10rem]'
       size='large'
       variant='outlined'

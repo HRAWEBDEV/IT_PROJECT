@@ -89,7 +89,7 @@ export default function Services() {
        >
         <Link
          className='flex gap-4 p-6 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
-         href='#'
+         href='/co-services'
         >
          <div
           className={`flex-shrink-0 aspect-square w-[5.5rem] rounded-lg grid place-content-center text-background shadow-lg ${
@@ -164,6 +164,8 @@ export default function Services() {
      </div>
      <div className='flex gap-4 justify-center'>
       <Button
+       LinkComponent={Link}
+       href='/'
        className='lg:w-[12rem] !bg-secondary-foreground'
        size='large'
        variant='outlined'
@@ -174,7 +176,12 @@ export default function Services() {
         مشاوره خدمات
        </div>
       </Button>
-      <GradientButton className='lg:w-[12rem]' size='large'>
+      <GradientButton
+       LinkComponent={Link}
+       href='/co-services'
+       className='lg:w-[12rem]'
+       size='large'
+      >
        مشاهده تمام خدمات
       </GradientButton>
      </div>

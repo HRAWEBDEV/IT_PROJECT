@@ -114,6 +114,8 @@ export default function Hero() {
       }}
      >
       <GradientButton
+       LinkComponent={Link}
+       href='/co-services'
        size='large'
        sx={{
         minWidth: '10rem',
@@ -134,6 +136,8 @@ export default function Hero() {
      >
       <Button
        size='large'
+       LinkComponent={Link}
+       href='/about-us'
        className='!bg-background'
        sx={{
         minWidth: '10rem',

@@ -51,7 +51,7 @@ function Services() {
         y: -20,
         opacity: 0,
        }}
-       whileInView={{
+       animate={{
         y: 0,
         opacity: 1,
        }}

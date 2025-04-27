@@ -11,7 +11,6 @@ export default function page() {
    <Services />
    <Projects />
    <Articles />
-
    <Footer />
   </div>
  );

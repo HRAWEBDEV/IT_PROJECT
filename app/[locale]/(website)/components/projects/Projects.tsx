@@ -136,6 +136,8 @@ export default function Projects() {
      </Swiper>
      <div className='flex justify-end'>
       <Button
+       LinkComponent={Link}
+       href='projects'
        className='w-[10rem]'
        size='large'
        variant='outlined'
