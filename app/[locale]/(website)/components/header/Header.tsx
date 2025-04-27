@@ -81,7 +81,7 @@ export default function Header() {
         <ArrowDropDownIcon />
        </div>
        <Options isOpen={showServiceOptions}>
-        <Services />
+        <Services onClose={() => setShowServiceOptions(false)} />
        </Options>
       </div>
      </li>
@@ -100,7 +100,7 @@ export default function Header() {
         <ArrowDropDownIcon />
        </div>
        <Options isOpen={showProjectOptions}>
-        <Projects />
+        <Projects onClose={() => setShowProjectOptions(false)} />
        </Options>
       </div>
      </li>
