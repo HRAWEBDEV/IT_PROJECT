@@ -23,7 +23,11 @@ export default function Language({ profileAnchor, onClose, isOpen }: Props) {
    sx={{
     paddingBlock: '1rem',
    }}
-   onClick={() => changeLocale(val.langAlias)}
+   onClick={() => {
+    onClose();
+    if (val.langAlias === locale) return;
+    changeLocale(val.langAlias);
+   }}
   >
    <div aria-selected={val.langAlias === locale} className='w-full flex gap-3'>
     {getLangFlag(val.langAlias, { width: '2rem' })}

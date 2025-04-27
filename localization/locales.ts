@@ -2,7 +2,7 @@ type Dic = {
  [key: string]: string | Dic;
 };
 
-type WithDic = {
+type WithDictionary = {
  dic: Dic;
 };
 
@@ -29,4 +29,4 @@ const locales = {
 
 type SupportedLocales = keyof typeof locales;
 
-export { type Dic, type WithDic, type SupportedLocales, locales };
+export { type Dic, type WithDictionary, type SupportedLocales, locales };

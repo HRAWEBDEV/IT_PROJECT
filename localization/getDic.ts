@@ -7,7 +7,9 @@ async function getDictionary({
  locale: SupportedLocales;
  path: string;
 }): Promise<Dic> {
- return import(`./${path}/${locale}.json`).then((md) => md.default);
+ return import(`./dictionaries/${path}/${locale}.json`).then(
+  (md) => md.default
+ );
 }
 
 export { getDictionary };

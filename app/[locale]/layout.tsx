@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import LocalFont from 'next/font/local';
+import { getDictionary } from '@/localization/getDic';
 import AppConfigProvider from '@/services/app-config/AppConfigProvider';
 import AppMonitorProvider from '@/services/app-monitor/AppMonitorProvider';
 import MuiCache from '@/components/mui/MuiCache';
@@ -50,22 +51,18 @@ const irs = LocalFont({
  ],
 });
 
-export const metadata: Metadata = {
- title: 'آیتی نترا |‌ فناوری و اطلاعات | خانه',
- description:
-  'آیتی نترا ،خدمات حوزه‌ی فناوری و اطلاعات، نصب سرور، نصب دوربین، اخبار و مقاله‌های حوزه تکنولوژی',
- keywords: 'آیتی نترا ،خدمات حوزه‌ی فناوری و اطلاعات، نصب سرور، نصب دوربین',
- authors: [
-  {
-   name: 'ITNET',
-   url: '/',
-  },
-  {
-   name: 'HRA',
-   url: '/',
-  },
- ],
-};
+export async function generateMetadata({
+ params,
+}: {
+ params: Promise<AppParams>;
+}): Promise<Metadata> {
+ const { locale } = await params;
+ const dic = await getDictionary({
+  locale,
+  path: 'meta',
+ });
+ return dic;
+}
 
 export default async function RootLayout({
  children,
