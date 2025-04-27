@@ -1,3 +1,8 @@
+import Editor from './components/Editor';
 export default function page() {
- return <div>settings</div>;
+ return (
+  <div>
+   <Editor />
+  </div>
+ );
 }

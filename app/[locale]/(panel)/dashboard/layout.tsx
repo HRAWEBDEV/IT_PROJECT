@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Nav from './components/Nav';
 import NavigatioProvider from './navigation/NavigatioProvider';
+import 'ckeditor5/ckeditor5.css';
 
 export default function layout({ children }: PropsWithChildren) {
  return (
@@ -11,7 +12,7 @@ export default function layout({ children }: PropsWithChildren) {
     <Header />
     <Main>
      <Nav />
-     <div className='p-4'>{children}</div>
+     <div className='p-4 flex-grow'>{children}</div>
     </Main>
    </NavigatioProvider>
   </div>
