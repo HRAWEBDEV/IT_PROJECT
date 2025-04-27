@@ -17,12 +17,13 @@ const locales = {
   long: 'فارسی',
  },
  en: {
+  dir: 'ltr',
+  langAlias: 'en',
+  lang: 'english',
+  calendar: 'gregorian',
+  extension: 'US',
   short: 'en',
   long: 'english',
-  dir: 'ltr',
-  extension: 'US',
-  calendarType: 'gregorian',
-  apiAlias: 'english',
  },
 } as const;
 

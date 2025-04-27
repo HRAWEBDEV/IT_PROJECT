@@ -1,11 +1,11 @@
-import Link from 'next/link';
 import Menu from '@mui/material/Menu';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
-import Divider from '@mui/material/Divider';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { useAppConfig } from '@/services/app-config/appConfig';
+import { locales } from '@/localization/locales';
+import { getLangFlag } from '@/utils/getLangFlag';
+import CheckIcon from '@mui/icons-material/Check';
 
 type Props = {
  isOpen: boolean;
@@ -13,24 +13,24 @@ type Props = {
  onClose: () => void;
 };
 
-export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
+export default function Language({ profileAnchor, onClose, isOpen }: Props) {
+ const { locale } = useAppConfig();
  const { isLargeDevice } = useAppMonitorConfig();
 
- const profileList = [
-  <MenuItem key={'fav'}>
-   <Link href={'/profile/favorites'} className='w-full flex gap-3'>
-    <FavoriteIcon color='error' />
-    <span>علاقه مندی‌ها</span>
-   </Link>
-  </MenuItem>,
-  <Divider key={'divider'} />,
-  <MenuItem key={'exit'}>
-   <div className='flex gap-3'>
-    <LogoutIcon color='warning' />
-    <span>خروج</span>
+ const profileList = Object.values(locales).map((val) => (
+  <MenuItem
+   key={val.langAlias}
+   sx={{
+    paddingBlock: '1rem',
+   }}
+  >
+   <div aria-selected={val.langAlias === locale} className='w-full flex gap-3'>
+    {getLangFlag(val.langAlias, { width: '2rem' })}
+    <span className='capitalize flex-grow'>{val.long}</span>
+    {val.langAlias === locale && <CheckIcon color='success' />}
    </div>
-  </MenuItem>,
- ];
+  </MenuItem>
+ ));
 
  return isLargeDevice ? (
   <Menu
@@ -64,9 +64,12 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
     },
     '& .MuiPaper-root': {
      minWidth: '15rem',
+     borderStartStartRadius: '1rem',
+     borderStartEndRadius: '1rem',
+     paddingTop: '1rem',
     },
    }}
-   anchor='right'
+   anchor='bottom'
    onClose={onClose}
    open={isOpen}
   >

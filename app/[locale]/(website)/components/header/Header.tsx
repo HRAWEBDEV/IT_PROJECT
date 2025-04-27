@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useNavigationContext } from '../../services/NavigationContext';
 import { addClass } from '@/utils/addClass';
-import DehazeIcon from '@mui/icons-material/Dehaze';
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
@@ -11,8 +10,10 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
+import Badge from '@mui/material/Badge';
 import InputAdornment from '@mui/material/InputAdornment';
 import Search from '../Search/Search';
+import LanguageIcon from '@mui/icons-material/Language';
 import Profile from '../profile/Profile';
 import { useQueryToggler } from '@/hooks/useQueryToggler';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
@@ -20,20 +21,26 @@ import { useState } from 'react';
 import Options from './Options';
 import Services from './Services';
 import Projects from './Projects';
+import Language from '../language/Language';
 
 export default function Header() {
  const [showServiceOptions, setShowServiceOptions] = useState(false);
  const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
   useQueryToggler('show-profile');
+ const { isQueryTrue: isLanguageOpen, handleToggle: handleToggleLanguage } =
+  useQueryToggler('show-language');
  const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(
+  null
+ );
+ const [languageAnchor, setLanguageAnchor] = useState<HTMLButtonElement | null>(
   null
  );
  const { isQueryTrue: isSearchOpen, handleToggle: handleToggleSearch } =
   useQueryToggler('show-search');
  const { isLargeDevice } = useAppMonitorConfig();
  const { headerIsVisible } = useNavigationContext();
- const { mode, changeMode } = useAppConfig();
+ const { mode, changeMode, localeInfo } = useAppConfig();
  return (
   <header
    className={`fixed backdrop-blur-sm top-0 start-0 end-0 bg-neutral-100/80 dark:bg-neutral-900/80 z-[--header-zindex] shadow-[0px_0px_10px_3px] shadow-neutral-400/60 dark:shadow-neutral-700/60 h-[--header-height] flex ${addClass(
@@ -43,8 +50,18 @@ export default function Header() {
   >
    <div className='container flex-grow flex items-center'>
     <div className='lg:hidden basis-0 flex-grow flex gap-2 lg:flex-grow-0'>
-     <IconButton color='primary' LinkComponent={Link} href='/menu'>
-      <DehazeIcon />
+     <IconButton
+      color='success'
+      size='large'
+      className='!flex !-me-2 lg:!hidden'
+      onClick={(e) => {
+       setLanguageAnchor(e.currentTarget);
+       handleToggleLanguage();
+      }}
+     >
+      <Badge badgeContent={localeInfo.short} color='success'>
+       <LanguageIcon />
+      </Badge>
      </IconButton>
      <IconButton color='primary' onClick={() => handleToggleSearch()}>
       <SearchOutlinedIcon />
@@ -59,7 +76,7 @@ export default function Header() {
      <li className='flex'>
       <Link
        href={'/'}
-       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex'>
         <span>خـــانه</span>
@@ -70,7 +87,7 @@ export default function Header() {
       <div
        tabIndex={0}
        role='button'
-       className='relative transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='relative transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
        onMouseEnter={() => setShowServiceOptions(true)}
        onFocus={() => setShowServiceOptions(true)}
        onMouseLeave={() => setShowServiceOptions(false)}
@@ -89,7 +106,7 @@ export default function Header() {
       <div
        role='button'
        tabIndex={0}
-       className='relative transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='relative transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
        onMouseEnter={() => setShowProjectOptions(true)}
        onFocus={() => setShowProjectOptions(true)}
        onMouseLeave={() => setShowProjectOptions(false)}
@@ -107,7 +124,7 @@ export default function Header() {
      <li className='flex'>
       <Link
        href={'/articles'}
-       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
         <span>اخبار و مقـــاله‌ها</span>
@@ -117,10 +134,10 @@ export default function Header() {
      <li className='flex'>
       <Link
        href={'/about-us'}
-       className='transition-colors flex items-center p-4 text-base font-medium hover:text-secondary focus:text-secondary'
+       className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
-        <span>تماس با مــــا</span>
+        <span>تماس با ما</span>
        </div>
       </Link>
      </li>
@@ -154,6 +171,19 @@ export default function Header() {
       />
      </div>
      <IconButton
+      color='success'
+      size='large'
+      className='!hidden !-me-2 lg:!flex'
+      onClick={(e) => {
+       setLanguageAnchor(e.currentTarget);
+       handleToggleLanguage();
+      }}
+     >
+      <Badge badgeContent={localeInfo.short} color='success'>
+       <LanguageIcon />
+      </Badge>
+     </IconButton>
+     <IconButton
       size={isLargeDevice ? 'large' : 'medium'}
       color={mode === 'dark' ? 'primary' : 'warning'}
       onClick={() => changeMode(mode === 'dark' ? 'light' : 'dark')}
@@ -165,10 +195,6 @@ export default function Header() {
       href='/auth'
       sx={{ padding: 0 }}
       color='secondary'
-      // onClick={(e) => {
-      //   setProfileAnchor(e.currentTarget);
-      //   handleToggleProfile();
-      // }}
      >
       <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />
      </IconButton>
@@ -181,6 +207,14 @@ export default function Header() {
     onClose={() => {
      setProfileAnchor(null);
      handleToggleProfile();
+    }}
+   />
+   <Language
+    isOpen={isLanguageOpen && Boolean(languageAnchor)}
+    profileAnchor={languageAnchor}
+    onClose={() => {
+     setLanguageAnchor(null);
+     handleToggleLanguage();
     }}
    />
   </header>

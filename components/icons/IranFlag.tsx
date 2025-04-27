@@ -13,7 +13,7 @@ export default function IranFlag(props: Props) {
    viewBox='0 0 513 357.071'
    {...props}
   >
-   <g fill-rule='nonzero'>
+   <g fillRule='nonzero'>
     <path
      fill='#DA0000'
      d='M28.477.32h456.044c15.488 0 28.159 12.672 28.159 28.16v300.111c0 15.488-12.671 28.16-28.159 28.16H28.477c-15.486 0-28.157-12.672-28.157-28.16V28.48C.32 12.992 12.991.32 28.477.32z'
