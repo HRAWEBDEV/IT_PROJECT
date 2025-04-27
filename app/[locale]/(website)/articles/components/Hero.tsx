@@ -1,9 +1,13 @@
-export default function Hero() {
+import { type Dic, type WithDictionary } from '@/localization/locales';
+
+type Props = WithDictionary;
+
+export default function Hero({ dic }: Props) {
  return (
   <section className='mb-8 grid justify-center pt-10'>
    <div className='grid'>
     <div className='text-center font-bold text-2xl lg:text-3xl text-primary'>
-     اخبار و مقـــاله‌ها
+     {dic.title as string}
     </div>
     <div>
      <div className='h-[20rem] dark:brightness-75'>
