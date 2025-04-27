@@ -8,6 +8,7 @@ import MuiLocalization from '@/components/mui/MuiLocalization';
 import { AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
 import ReactQueryProvider from '@/services/react-query/ReactQueryProvider';
+import AxiosInterceptor from '@/services/axios/AxiosInterceptor';
 import '../globals.css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -50,8 +51,19 @@ const irs = LocalFont({
 });
 
 export const metadata: Metadata = {
- title: 'IT PROJECT',
- description: 'IT PROJECT',
+ title: 'آیتی نترا |‌ فناوری و اطلاعات | خانه',
+ description: 'آیتی نترا ،خدمات حوزه‌ی فناوری و اطلاعات، نصب سرور، نصب دوربین',
+ keywords: 'آیتی نترا ،خدمات حوزه‌ی فناوری و اطلاعات، نصب سرور، نصب دوربین',
+ authors: [
+  {
+   name: 'ITNET',
+   url: 'https://itnet.ir',
+  },
+  {
+   name: 'HRA',
+   url: 'https://itnet.ir',
+  },
+ ],
 };
 
 export default async function RootLayout({
@@ -75,7 +87,10 @@ export default async function RootLayout({
       <MuiTheme>
        <MuiLocalization>
         <AppMonitorProvider>
-         <ReactQueryProvider>{children}</ReactQueryProvider>
+         <ReactQueryProvider>
+          <AxiosInterceptor />
+          {children}
+         </ReactQueryProvider>
         </AppMonitorProvider>
        </MuiLocalization>
       </MuiTheme>

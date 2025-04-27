@@ -1,5 +1,4 @@
 import axios, { CreateAxiosDefaults } from 'axios';
-// import { getCookie } from '@/utils/manageCookies';
 
 const defaultConfig: CreateAxiosDefaults = {
  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
