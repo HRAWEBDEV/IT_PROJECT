@@ -10,8 +10,11 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
 import { GradientButton } from '@/components/Button/GradientButton';
 import TextField from '@mui/material/TextField';
+import { type WithDictionary } from '@/localization/locales';
 
-export default function ContactUs() {
+type Props = WithDictionary;
+
+export default function ContactUs({ dic }: Props) {
  return (
   <section className='container mb-6'>
    <article className='flex items-center gap-2 mb-6'>
@@ -38,7 +41,7 @@ export default function ContactUs() {
       <h1 className='text-2xl font-bold mb-2'>
        <ApartmentIcon fontSize='large' className='me-4' color='primary' />
        <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
-        شرکت
+        {dic.company as string}
        </span>
        <span className='inline-block ms-4'> </span>
        <br className='hidden' />
@@ -65,20 +68,22 @@ export default function ContactUs() {
     </div>
     <form>
      <div className='grid gap-4 grid-cols-2 mb-4'>
-      <TextField label='نام' />
-      <TextField label='نام‌ خانوادگی' />
-      <TextField label='شماره همراه' />
-      <TextField label='موضوع' />
+      <TextField label={dic.firstName as string} />
+      <TextField label={dic.lastName as string} />
+      <TextField label={dic.phone as string} />
+      <TextField label={dic.email as string} />
       <TextField
        minRows={3}
        multiline
        className='col-span-full'
-       label='توضیحات'
+       label={dic.discription as string}
       />
      </div>
      <GradientButton size='large' className='w-full h-[3rem]'>
       <div className='flex gap-2'>
-       <span className='font-medium text-base'>ثبت و ارسال</span>
+       <span className='font-medium text-base'>
+        {dic.confirmAndSend as string}
+       </span>
        <SendIcon className='rotate-180' />
       </div>
      </GradientButton>
