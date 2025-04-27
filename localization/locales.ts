@@ -16,6 +16,14 @@ const locales = {
   short: 'فا',
   long: 'فارسی',
  },
+ en: {
+  short: 'en',
+  long: 'english',
+  dir: 'ltr',
+  extension: 'US',
+  calendarType: 'gregorian',
+  apiAlias: 'english',
+ },
 } as const;
 
 type SupportedLocales = keyof typeof locales;
