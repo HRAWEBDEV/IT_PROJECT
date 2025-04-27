@@ -1,12 +1,15 @@
 import ProjectsFilters from './ProjectsFilters';
 import ProjectsList from './ProjectsList';
 import Pagination from '@mui/material/Pagination';
+import { type WithDictionary } from '@/localization/locales';
 
-export default function Projects() {
+type Props = WithDictionary;
+
+export default function Projects({ dic }: Props) {
  return (
   <section>
-   <ProjectsFilters />
-   <ProjectsList />
+   <ProjectsFilters dic={dic} />
+   <ProjectsList dic={dic} />
    <div className='flex justify-center mb-8 text-lg font-medium'>
     <Pagination
      size='large'

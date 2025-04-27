@@ -5,6 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { type WithDictionary } from '@/localization/locales';
 
 const dateFormatter = new Intl.DateTimeFormat('fa', {
  year: 'numeric',
@@ -14,7 +15,9 @@ const dateFormatter = new Intl.DateTimeFormat('fa', {
  minute: '2-digit',
 });
 
-export default function ProjectsList() {
+type Props = WithDictionary;
+
+export default function ProjectsList({ dic }: Props) {
  return (
   <div className='container mb-6'>
    <ul className='grid gap-4 md:grid-cols-2 lg:grid-cols-4'>
@@ -69,7 +72,7 @@ export default function ProjectsList() {
          </div>
          <GradientButton>
           <div className='flex gap-3 items-center'>
-           <span>ادامه مطالب</span>
+           <span>{dic.continue as string}</span>
            <VisibilityIcon />
           </div>
          </GradientButton>
