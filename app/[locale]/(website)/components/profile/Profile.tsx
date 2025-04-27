@@ -6,28 +6,34 @@ import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
 type Props = {
  isOpen: boolean;
  profileAnchor: HTMLButtonElement | null;
  onClose: () => void;
-};
+} & WithDictionary;
 
-export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
+export default function Profile({
+ profileAnchor,
+ onClose,
+ isOpen,
+ dic,
+}: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
 
  const profileList = [
   <MenuItem key={'fav'}>
    <Link href={'/profile/favorites'} className='w-full flex gap-3'>
     <FavoriteIcon color='error' />
-    <span>علاقه مندی‌ها</span>
+    <span>{(dic.profile as Dic).favorite as string}</span>
    </Link>
   </MenuItem>,
   <Divider key={'divider'} />,
   <MenuItem key={'exit'}>
    <div className='flex gap-3'>
     <LogoutIcon color='warning' />
-    <span>خروج</span>
+    <span>{(dic.profile as Dic).exit as string}</span>
    </div>
   </MenuItem>,
  ];

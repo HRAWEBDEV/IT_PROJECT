@@ -22,8 +22,9 @@ import Options from './Options';
 import Services from './Services';
 import Projects from './Projects';
 import Language from '../language/Language';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
-export default function Header() {
+export default function Header({ dic }: WithDictionary) {
  const [showServiceOptions, setShowServiceOptions] = useState(false);
  const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
@@ -79,7 +80,7 @@ export default function Header() {
        className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex'>
-        <span>خـــانه</span>
+        <span>{(dic.navigation as Dic).home as string}</span>
        </div>
       </Link>
      </li>
@@ -94,7 +95,7 @@ export default function Header() {
        onBlur={() => setShowServiceOptions(false)}
       >
        <div className='flex'>
-        <span>خدمـــات</span>
+        <span>{(dic.navigation as Dic).services as string}</span>
         <ArrowDropDownIcon />
        </div>
        <Options isOpen={showServiceOptions}>
@@ -113,7 +114,7 @@ export default function Header() {
        onBlur={() => setShowProjectOptions(false)}
       >
        <div className='flex gap-1'>
-        <span>پروژه‌ها</span>
+        <span>{(dic.navigation as Dic).projects as string}</span>
         <ArrowDropDownIcon />
        </div>
        <Options isOpen={showProjectOptions}>
@@ -127,7 +128,7 @@ export default function Header() {
        className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
-        <span>اخبار و مقـــاله‌ها</span>
+        <span>{(dic.navigation as Dic).articles as string}</span>
        </div>
       </Link>
      </li>
@@ -137,7 +138,7 @@ export default function Header() {
        className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
-        <span>تماس با ما</span>
+        <span>{(dic.navigation as Dic).contact as string}</span>
        </div>
       </Link>
      </li>
@@ -148,7 +149,7 @@ export default function Header() {
        className='transition-[width_0.3s_ease] w-[13rem] [&_::placeholder]:text-[0.9rem]'
        onClick={() => handleToggleSearch()}
        size='small'
-       placeholder='جستجو....'
+       placeholder={dic.navigation.search as string}
        sx={{
         '& .MuiInputBase-root': {
          backgroundColor: (theme) =>
@@ -202,6 +203,7 @@ export default function Header() {
    </div>
    <Search isOpen={isSearchOpen} onClose={() => handleToggleSearch()} />
    <Profile
+    dic={dic}
     isOpen={isProfileOpen && Boolean(profileAnchor)}
     profileAnchor={profileAnchor}
     onClose={() => {

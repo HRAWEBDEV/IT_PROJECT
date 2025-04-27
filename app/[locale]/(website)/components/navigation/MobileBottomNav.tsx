@@ -11,9 +11,10 @@ import { addClass } from '@/utils/addClass';
 // import Link from 'next/link';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 import { usePathname } from 'next/navigation';
 
-export default function MobileBottomNav() {
+export default function MobileBottomNav({ dic }: WithDictionary) {
  const { mobileBottomNavIsVisible } = useNavigationContext();
  const [activeTab, setActiveTab] = useState('home');
  const pathname = usePathname();
@@ -78,35 +79,35 @@ export default function MobileBottomNav() {
       href='/'
       value='home'
       icon={<RoofingOutlinedIcon fontSize='small' />}
-      label='خانه'
+      label={(dic.navigation as Dic).home as string}
      />
      <Tab
       LinkComponent={Link}
       href='/menu'
       value='menu'
       icon={<DashboardCustomizeOutlinedIcon fontSize='small' />}
-      label='منو'
+      label={(dic.navigation as Dic).menu as string}
      />
      <Tab
       LinkComponent={Link}
       href='/co-services'
       value='services'
       icon={<EngineeringOutlinedIcon fontSize='small' />}
-      label='خدمات'
+      label={(dic.navigation as Dic).services as string}
      />
      <Tab
       LinkComponent={Link}
       href='/articles'
       value='news'
       icon={<NewspaperOutlinedIcon fontSize='small' />}
-      label='اخبار و مقاله‌ها'
+      label={(dic.navigation as Dic).articles as string}
      />
      <Tab
       LinkComponent={Link}
       href='/about-us'
       value='support'
       icon={<SupportAgentOutlinedIcon fontSize='small' />}
-      label='تماس با ما'
+      label={(dic.navigation as Dic).contact as string}
      />
     </Tabs>
    </div>

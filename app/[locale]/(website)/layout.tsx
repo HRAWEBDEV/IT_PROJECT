@@ -3,14 +3,27 @@ import NavigationProvider from './services/NavigationProvider';
 import Header from './components/header/Header';
 import Main from './components/Main';
 import MobileBottomNav from './components/navigation/MobileBottomNav';
+import { getDictionary } from '@/localization/getDic';
+import { type AppParams } from '@/utils/appParams';
 
-export default function layout({ children }: PropsWithChildren) {
+export default async function layout({
+ children,
+ params,
+}: PropsWithChildren<{
+ params: Promise<AppParams>;
+}>) {
+ const { locale } = await params;
+ const dic = await getDictionary({
+  locale,
+  path: 'layout',
+ });
+
  return (
   <>
    <NavigationProvider>
-    <Header />
+    <Header dic={dic} />
     <Main>{children}</Main>
-    <MobileBottomNav />
+    <MobileBottomNav dic={dic} />
    </NavigationProvider>
   </>
  );

@@ -8,6 +8,7 @@ import {
  setMode as setStorageMode,
  setLocale as setStorageLocale,
 } from './appConfigStorage';
+import { setCookie } from '@/utils/manageCookies';
 
 export default function AppConfigProvider({
  children,
@@ -21,6 +22,11 @@ export default function AppConfigProvider({
  const changeLocale = useCallback(
   (locale: Config['locale']) => {
    setStorageLocale(locale);
+   setCookie({
+    name: 'locale',
+    value: locale,
+    expireDays: 365,
+   });
    const currentHref = window.location.href;
    const newHref = currentHref.replace(localeParam as string, locale);
    window.location.href = newHref;

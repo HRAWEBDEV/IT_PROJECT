@@ -1,0 +1,20 @@
+{
+ "navigation": {
+  "home": "خانه",
+  "services": "خدمـــات",
+  "projects": "پروژه ها",
+  "articles": "اخبار و مقـــاله‌ها",
+  "contact": "تماس با ما",
+  "search": "جستجو",
+  "menu": "منو"
+ },
+ "profile": {
+  "favorite": "علاقه مندی ها",
+  "exit": "خروج"
+ },
+ "footer": {
+  "company": "شرکت",
+  "allRightsReserved": "تمامی حقوق این سایت محفوظ است",
+  "goUp": "برو بالا"
+ }
+}

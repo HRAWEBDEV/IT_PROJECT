@@ -1,0 +1,20 @@
+{
+ "navigation": {
+  "home": "Home",
+  "services": "Services",
+  "projects": "Projects",
+  "articles": "Articles",
+  "contact": "Contact Us",
+  "search": "Search",
+  "menu": "Menu"
+ },
+ "profile": {
+  "favorite": "Favorites",
+  "exit": "Exit"
+ },
+ "footer": {
+  "company": "Company",
+  "allRightsReserved": "All rights reserved",
+  "goUp": "Go up"
+ }
+}
