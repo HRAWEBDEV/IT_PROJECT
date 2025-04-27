@@ -1,0 +1,13 @@
+{
+ "signIn": "Sign In",
+ "signUp": "Sign Up",
+ "userName": "User Name",
+ "password": "Password",
+ "confirmPassword": "Confirm Password",
+ "forgotPassword": "Forgot Password ?",
+ "confirm": "Confirm",
+ "firstName": "First Name",
+ "lastName": "Last Name",
+ "phone": "Phone",
+ "email": "Email"
+}

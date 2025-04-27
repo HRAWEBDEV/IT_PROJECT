@@ -1,0 +1,13 @@
+{
+ "signIn": "ورود",
+ "signUp": "ثبت نام",
+ "userName": "نام کاربری",
+ "password": "رمز عبور",
+ "confirmPassword": "تایید رمز عبور",
+ "forgotPassword": "فراموشی رمز عبور ؟",
+ "confirm": "تایید",
+ "firstName": "نام",
+ "lastName": "نام خانوادگی",
+ "phone": "شماره همراه",
+ "email": "ایمیل"
+}

@@ -7,8 +7,11 @@ import LockIcon from '@mui/icons-material/Lock';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from 'next/link';
+import { type WithDictionary } from '@/localization/locales';
 
-export default function SignUpForm() {
+type Props = WithDictionary;
+
+export default function SignUpForm({ dic }: Props) {
  return (
   <form className='mt-4 p-4 w-[min(30rem,100%)] mx-auto'>
    <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-10'>
@@ -16,16 +19,26 @@ export default function SignUpForm() {
    </div>
    <div className='grid gap-6 mb-10'>
     <div className='grid grid-cols-2 gap-4'>
-     <TextField size='medium' label='نام' fullWidth required />
-     <TextField size='medium' label='نام خانوادگی' fullWidth required />
+     <TextField
+      size='medium'
+      label={dic.firstName as string}
+      fullWidth
+      required
+     />
+     <TextField
+      size='medium'
+      label={dic.lastName as string}
+      fullWidth
+      required
+     />
     </div>
     <div className='grid grid-cols-2 gap-4'>
-     <TextField size='medium' label='ایمیل' fullWidth required />
-     <TextField size='medium' label='شماره همراه' fullWidth required />
+     <TextField size='medium' label={dic.email as string} fullWidth required />
+     <TextField size='medium' label={dic.phone as string} fullWidth required />
     </div>
     <TextField
      size='medium'
-     label='رمز عبور'
+     label={dic.password as string}
      required
      fullWidth
      slotProps={{
@@ -45,7 +58,7 @@ export default function SignUpForm() {
     />
     <TextField
      size='medium'
-     label='تکرار رمز عبور'
+     label={dic.confirmPassword as string}
      required
      fullWidth
      slotProps={{
@@ -63,12 +76,12 @@ export default function SignUpForm() {
    </div>
    <div className='mb-6'>
     <GradientButton className='min-h-[3rem]' size='large' fullWidth>
-     تایید
+     {dic.confirm as string}
     </GradientButton>
    </div>
    <div>
     <Button LinkComponent={Link} href='#'>
-     فراموشی رمز؟
+     {dic.forgotPassword as string}
     </Button>
    </div>
   </form>

@@ -5,8 +5,11 @@ import BadgeIcon from '@mui/icons-material/Badge';
 import LoginIcon from '@mui/icons-material/Login';
 import Tab from '@mui/material/Tab';
 import { usePathname } from 'next/navigation';
+import { type WithDictionary } from '@/localization/locales';
 
-export default function AuthTabs() {
+type Props = WithDictionary;
+
+export default function AuthTabs({ dic }: Props) {
  const pathname = usePathname();
  const lastPart = pathname.split('/').at(-1);
 
@@ -33,14 +36,14 @@ export default function AuthTabs() {
      href='/auth'
      icon={<LoginIcon fontSize='large' />}
      value='login'
-     label='ورود'
+     label={dic.signIn as string}
     />
     <Tab
      LinkComponent={Link}
      href='/auth/sign-up'
      icon={<BadgeIcon fontSize='large' />}
      value='sign-up'
-     label='ثبت نام'
+     label={dic.signUp as string}
     />
    </Tabs>
   </div>

@@ -8,8 +8,11 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PersonIcon from '@mui/icons-material/Person';
 import Link from 'next/link';
+import { type WithDictionary } from '@/localization/locales';
 
-export default function LoginForm() {
+type Props = WithDictionary;
+
+export default function LoginForm({ dic }: Props) {
  return (
   <form className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
    <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-10'>
@@ -18,7 +21,7 @@ export default function LoginForm() {
    <div className='grid gap-6 mb-10'>
     <TextField
      size='medium'
-     label='نام کاربری'
+     label={dic.userName as string}
      fullWidth
      required
      slotProps={{
@@ -35,7 +38,7 @@ export default function LoginForm() {
     />
     <TextField
      size='medium'
-     label='رمز عبور'
+     label={dic.password as string}
      required
      fullWidth
      slotProps={{
@@ -56,12 +59,12 @@ export default function LoginForm() {
    </div>
    <div className='mb-6'>
     <GradientButton className='min-h-[3rem]' size='large' fullWidth>
-     تایید
+     {dic.confirm as string}
     </GradientButton>
    </div>
    <div>
     <Button LinkComponent={Link} href='#'>
-     فراموشی رمز؟
+     {dic.forgotPassword as string}
     </Button>
    </div>
   </form>
