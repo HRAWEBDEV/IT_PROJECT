@@ -6,6 +6,7 @@ import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Link from 'next/link';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
 const iconSize = '1.8rem';
 const projects = [
@@ -39,9 +40,9 @@ const projects = [
 
 type Props = {
  onClose: () => void;
-};
+} & WithDictionary;
 
-export default function Projects({ onClose }: Props) {
+export default function Projects({ onClose, dic }: Props) {
  const [activeProject, setActiveProject] = useState<(typeof projects)[number]>(
   projects[0]
  );
@@ -97,7 +98,7 @@ export default function Projects({ onClose }: Props) {
       </div>
      </div>
      <p className='text-center text-[0.75rem] font-medium w-[6rem]'>
-      مشاهده همــه
+      {(dic.navigation as Dic).viewAll as string}
      </p>
     </Link>
    </div>

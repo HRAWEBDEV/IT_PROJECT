@@ -6,6 +6,7 @@ import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Link from 'next/link';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
 const iconSize = '1.8rem';
 const projects = [
@@ -39,9 +40,9 @@ const projects = [
 
 type Props = {
  onClose: () => void;
-};
+} & WithDictionary;
 
-export default function Services({ onClose }: Props) {
+export default function Services({ onClose, dic }: Props) {
  const [activeProject, setActiveProject] = useState<(typeof projects)[number]>(
   projects[0]
  );
@@ -71,9 +72,7 @@ export default function Services({ onClose }: Props) {
    </div>
    <div className='flex gap-6 flex-wrap px-4 items-start justify-center'>
     {[1, 2, 3, 4, 5].map((item) => (
-     <Link key={item} href={'#'} className='grid gap-2 group'
-    onClick={onClose} 
-     >
+     <Link key={item} href={'#'} className='grid gap-2 group' onClick={onClose}>
       <div className='rounded-full bg-gradient-to-b from-red-700 to-red-950 dark:from-red-600 dark:to-red-900 w-[5.5rem] h-[5.5rem] p-1'>
        <div className='h-full bg-background rounded-full overflow-hidden'>
         <img
@@ -99,7 +98,7 @@ export default function Services({ onClose }: Props) {
       </div>
      </div>
      <p className='text-center text-[0.75rem] font-medium w-[6rem]'>
-      مشاهده همــه
+      {(dic.navigation as Dic).viewAll as string}
      </p>
     </Link>
    </div>

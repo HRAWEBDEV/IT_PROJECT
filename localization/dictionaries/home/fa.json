@@ -1,1 +1,19 @@
-{}
+{
+ "hero": {
+  "contactUs": "تماس با ما",
+  "viewAllServices": "مشاهده همه خدمات"
+ },
+ "services": {
+  "title": "خدمـــات",
+  "viewAllServices": "مشاهده همه خدمات",
+  "servicesConsultation": "مشاوره خدمات"
+ },
+ "projects": {
+  "title": "پروژه‌هـــا",
+  "more": "بیشتر"
+ },
+ "articles": {
+  "title": "مقـــالات و اخبــار",
+  "more": "بیشتر"
+ }
+}

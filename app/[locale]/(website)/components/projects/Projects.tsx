@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import Link from 'next/link';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 // import HandymanIcon from '@mui/icons-material/Handyman';
 
 const projects = [
@@ -34,13 +35,17 @@ const projects = [
  },
 ];
 
-export default function Projects() {
+type Props = WithDictionary;
+
+export default function Projects({ dic }: Props) {
  return (
   <section id='services' className='mb-14'>
    <div className='container'>
     <div className='text-center mb-8'>
      <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[calc(50%_-_5rem)] after:bottom-0 after:w-[10rem] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[calc(50%_-_7.5rem)] before:bottom-[1px] before:w-[15rem] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
-      <h2 className='text-2xl font-bold lg:text-3xl'>پروژه‌هـــا</h2>
+      <h2 className='text-2xl font-bold lg:text-3xl'>
+       {(dic.projects as Dic).title as string}
+      </h2>
      </div>
      {/* <p className='text-neutral-500 dark:text-neutral-200 w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
@@ -122,7 +127,7 @@ export default function Projects() {
            </div>
            <GradientButton>
             <div className='flex gap-3 items-center'>
-             <span>ادامه مطالب</span>
+             <span>{(dic.projects as Dic).more as string}</span>
              <div className='text-neutral-300 group-hover:text-primary-foreground'>
               <VisibilityIcon />
              </div>
@@ -144,8 +149,12 @@ export default function Projects() {
        color='secondary'
       >
        <div className='flex gap-4'>
-        <span className='font-medium'>موارد بیشتر</span>
-        <KeyboardBackspaceIcon />
+        <span className='font-medium'>
+         {(dic.projects as Dic).more as string}
+        </span>
+        <div className='ltr:rotate-180'>
+         <KeyboardBackspaceIcon />
+        </div>
        </div>
       </Button>
      </div>

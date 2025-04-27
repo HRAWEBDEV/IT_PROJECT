@@ -12,6 +12,7 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { motion } from 'motion/react';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
 const iconSize = '2.5rem';
 const projects = [
@@ -39,7 +40,9 @@ const projects = [
  },
 ];
 
-export default function Services() {
+type Props = WithDictionary;
+
+export default function Services({ dic }: Props) {
  return (
   <section id='services' className='mb-14'>
    <div>
@@ -61,7 +64,7 @@ export default function Services() {
        }}
        className='text-2xl font-bold lg:text-3xl'
       >
-       خدمــــات
+       {(dic.services as Dic).title as string}
       </motion.h1>
      </div>
      <p className='text-neutral-500 dark:text-neutral-200 w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
@@ -173,7 +176,7 @@ export default function Services() {
       >
        <div className='flex gap-2'>
         <SupportAgentIcon />
-        مشاوره خدمات
+        <span>{(dic.services as Dic).servicesConsultation as string}</span>
        </div>
       </Button>
       <GradientButton
@@ -182,7 +185,7 @@ export default function Services() {
        className='lg:w-[12rem]'
        size='large'
       >
-       مشاهده تمام خدمات
+       <span>{(dic.services as Dic).viewAllServices as string}</span>
       </GradientButton>
      </div>
     </div>

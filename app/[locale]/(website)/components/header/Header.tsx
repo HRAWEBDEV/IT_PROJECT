@@ -99,7 +99,7 @@ export default function Header({ dic }: WithDictionary) {
         <ArrowDropDownIcon />
        </div>
        <Options isOpen={showServiceOptions}>
-        <Services onClose={() => setShowServiceOptions(false)} />
+        <Services dic={dic} onClose={() => setShowServiceOptions(false)} />
        </Options>
       </div>
      </li>
@@ -118,7 +118,7 @@ export default function Header({ dic }: WithDictionary) {
         <ArrowDropDownIcon />
        </div>
        <Options isOpen={showProjectOptions}>
-        <Projects onClose={() => setShowProjectOptions(false)} />
+        <Projects dic={dic} onClose={() => setShowProjectOptions(false)} />
        </Options>
       </div>
      </li>

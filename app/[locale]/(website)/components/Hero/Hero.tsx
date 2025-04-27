@@ -10,6 +10,7 @@ import { TfiInstagram } from 'react-icons/tfi';
 import Link from 'next/link';
 import { motion, Variants } from 'motion/react';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
 const textVariants: Variants = {
  init: {
@@ -22,7 +23,9 @@ const textVariants: Variants = {
  },
 };
 
-export default function Hero() {
+type Props = WithDictionary;
+
+export default function Hero({ dic }: Props) {
  return (
   <section
    id='hero'
@@ -121,7 +124,7 @@ export default function Hero() {
         minWidth: '10rem',
        }}
       >
-       مشاهده خدمات
+       <span>{(dic.services as Dic).viewAllServices as string}</span>
       </GradientButton>
      </motion.div>
      <motion.div
@@ -146,7 +149,7 @@ export default function Hero() {
       >
        <div className='flex gap-2 items-center'>
         <SupportAgentIcon />
-        <span>تماس باما</span>
+        <span>{(dic.hero as Dic).contactUs as string}</span>
        </div>
       </Button>
      </motion.div>

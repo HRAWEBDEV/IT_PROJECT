@@ -1,18 +1,12 @@
 'use client';
-
 import Link from 'next/link';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
-// import { Swiper, SwiperSlide } from 'swiper/react';
-// import { Pagination } from 'swiper/modules';
-// import { GradientButton } from '@/components/Button/GradientButton';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-// import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
-// import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
 const dateFormatter = new Intl.DateTimeFormat('fa', {
  year: 'numeric',
@@ -22,7 +16,9 @@ const dateFormatter = new Intl.DateTimeFormat('fa', {
  minute: '2-digit',
 });
 
-export default function Articles() {
+type Props = WithDictionary;
+
+export default function Articles({ dic }: Props) {
  return (
   <section
    id='articles'
@@ -31,7 +27,9 @@ export default function Articles() {
    <div className='container'>
     <div className='text-center mb-8'>
      <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[calc(50%_-_5rem)] after:bottom-0 after:w-[10rem] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[calc(50%_-_7.5rem)] before:bottom-[1px] before:w-[15rem] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
-      <h2 className='text-2xl font-bold lg:text-3xl'>مقـــالات و اخبــار</h2>
+      <h2 className='text-2xl font-bold lg:text-3xl'>
+       {(dic.articles as Dic).title as string}
+      </h2>
      </div>
     </div>
     <ul className='grid lg:grid-cols-2 mb-4'>
@@ -89,7 +87,7 @@ export default function Articles() {
           </div>
           <Button size='small' variant='outlined'>
            <div>
-            <span>ادامه مطالب</span>
+            <span>{(dic.articles as Dic).more as string}</span>
            </div>
           </Button>
          </div>
@@ -108,8 +106,12 @@ export default function Articles() {
       color='secondary'
      >
       <div className='flex gap-4'>
-       <span className='font-medium'>موارد بیشتر</span>
-       <KeyboardBackspaceIcon />
+       <span className='font-medium'>
+        {(dic.articles as Dic).more as string}
+       </span>
+       <div className='ltr:rotate-180'>
+        <KeyboardBackspaceIcon />
+       </div>
       </div>
      </Button>
     </div>

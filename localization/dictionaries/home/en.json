@@ -1,3 +1,19 @@
 {
-
+ "hero": {
+  "contactUs": "Contact Us",
+  "viewAllServices": "View All Services"
+ },
+ "services": {
+  "title": "Services",
+  "viewAllServices": "View All Services",
+  "servicesConsultation": "Consultation"
+ },
+ "projects": {
+  "title": "Projects",
+  "more": "More"
+ },
+ "articles": {
+  "title": "Articles and News",
+  "more": "More"
+ }
 }
