@@ -17,5 +17,9 @@
   "company": "Company",
   "allRightsReserved": "All rights reserved",
   "goUp": "Go up"
+ },
+ "search": {
+  "title": "Search",
+  "placeholder": "Search for services, projects, articles ...."
  }
 }

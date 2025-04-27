@@ -9,13 +9,14 @@ import InputAdornment from '@mui/material/InputAdornment';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Link from 'next/link';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { type Dic, type WithDictionary } from '@/localization/locales';
 
-type Props = {
+type Props = WithDictionary & {
  onClose: () => void;
  isOpen: boolean;
 };
 
-export default function Search({ onClose, isOpen }: Props) {
+export default function Search({ dic, onClose, isOpen }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
  return (
   <Dialog
@@ -42,7 +43,9 @@ export default function Search({ onClose, isOpen }: Props) {
   >
    <DialogTitle>
     <div className='flex justify-between gap-4 items-center'>
-     <span className='text-base font-medium'>جستجو</span>
+     <span className='text-base font-medium'>
+      {(dic.search as Dic).title as string}
+     </span>
      <IconButton color='error' onClick={onClose}>
       <CloseOutlinedIcon />
      </IconButton>
@@ -66,7 +69,7 @@ export default function Search({ onClose, isOpen }: Props) {
        },
       }}
       className='[&_::placeholder]:text-[0.9rem]'
-      placeholder='عبارت مورد نظر را جستجو کنید...'
+      placeholder={(dic.search as Dic).placeholder as string}
       size='medium'
       autoFocus
       fullWidth

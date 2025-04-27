@@ -201,7 +201,11 @@ export default function Header({ dic }: WithDictionary) {
      </IconButton>
     </div>
    </div>
-   <Search isOpen={isSearchOpen} onClose={() => handleToggleSearch()} />
+   <Search
+    dic={dic}
+    isOpen={isSearchOpen}
+    onClose={() => handleToggleSearch()}
+   />
    <Profile
     dic={dic}
     isOpen={isProfileOpen && Boolean(profileAnchor)}
