@@ -57,11 +57,11 @@ export const metadata: Metadata = {
  authors: [
   {
    name: 'ITNET',
-   url: 'https://itnet.ir',
+   url: '/',
   },
   {
    name: 'HRA',
-   url: 'https://itnet.ir',
+   url: '/',
   },
  ],
 };

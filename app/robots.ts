@@ -7,6 +7,9 @@ export default function robots(): MetadataRoute.Robots {
    allow: '/',
    disallow: ['/dashboard'],
   },
-  sitemap: 'https://itnet.ir/sitemap.xml',
+  sitemap: [
+   'https://yourdomain.ir/sitemap.xml',
+   'https://yourdomain.com/sitemap.xml',
+  ],
  };
 }
