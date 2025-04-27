@@ -84,7 +84,9 @@ export default function ContactUs({ dic }: Props) {
        <span className='font-medium text-base'>
         {dic.confirmAndSend as string}
        </span>
-       <SendIcon className='rotate-180' />
+       <div className='ltr:rotate-180'>
+        <SendIcon className='rotate-180' />
+       </div>
       </div>
      </GradientButton>
     </form>
