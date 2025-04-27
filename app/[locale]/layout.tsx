@@ -7,6 +7,7 @@ import MuiTheme from '@/components/mui/MuiTheme';
 import MuiLocalization from '@/components/mui/MuiLocalization';
 import { AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
+import ReactQueryProvider from '@/services/react-query/ReactQueryProvider';
 import '../globals.css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -73,7 +74,9 @@ export default async function RootLayout({
      <MuiCache>
       <MuiTheme>
        <MuiLocalization>
-        <AppMonitorProvider>{children}</AppMonitorProvider>
+        <AppMonitorProvider>
+         <ReactQueryProvider>{children}</ReactQueryProvider>
+        </AppMonitorProvider>
        </MuiLocalization>
       </MuiTheme>
      </MuiCache>
