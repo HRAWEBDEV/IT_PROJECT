@@ -1,7 +1,7 @@
 'use client';
 import { type WithDictionary } from '@/localization/locales';
 import { type PropsWithChildren } from 'react';
-import { websiteDictionaryContext } from './WebsiteDictionaryContext';
+import { websiteDictionaryContext } from './dictionaryContext';
 
 export default function WebsiteDictionaryProvider({
  dic,

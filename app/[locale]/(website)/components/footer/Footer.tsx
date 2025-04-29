@@ -12,7 +12,7 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Link from 'next/link';
-import { useWebsiteDictionary } from '@/services/dictionary/WebsiteDictionaryContext';
+import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 
 export default function Footer() {

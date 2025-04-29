@@ -44,7 +44,7 @@ export default function Header() {
       </IconButton>
      </div>
      <div className='flex justify-center items-center lg:w-[--dashboard-nav-width] h-[--dashboard-header-height] lg:border-e border-neutral-300 dark:border-neutral-700'>
-      <Link href={'/'} className='text-xl text-primary font-bold'>
+      <Link href={'/dashboard'} className='text-xl text-primary font-bold'>
        LOGO
       </Link>
      </div>

@@ -5,7 +5,7 @@ import Main from './components/Main';
 import MobileBottomNav from './components/navigation/MobileBottomNav';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
-import WebsiteDictionaryProvider from '@/services/dictionary/WebsiteDictionaryProvider';
+import WebsiteDictionaryProvider from '@/services/dictionary/DictionaryProvider';
 
 export default async function layout({
  children,
