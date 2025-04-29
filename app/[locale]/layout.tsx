@@ -15,6 +15,12 @@ import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+const enRoboto = LocalFont({
+ variable: '--en-roboto',
+ src: '../../public/fonts/en/roboto/Roboto-VariableFont_wdth,wght.ttf',
+ display: 'swap',
+});
+
 const irs = LocalFont({
  variable: '--irs-font',
  src: [
@@ -75,10 +81,14 @@ export default async function RootLayout({
  const localeInfo = locales[locale];
 
  return (
-  <html lang={locale} dir={localeInfo.dir} className={`${irs.variable}`}>
+  <html
+   lang={locale}
+   dir={localeInfo.dir}
+   className={`${irs.variable} ${enRoboto.variable}`}
+  >
    <body
     data-lang={locale}
-    className='data-[lang="fa"]:font-irs font-normal text-sm data-[lang="fa"]:text-start text-foreground bg-background antialiased'
+    className='font-enRoboto data-[lang="fa"]:font-irs font-normal text-sm text-start text-foreground bg-background antialiased'
    >
     <AppConfigProvider>
      <MuiCache>

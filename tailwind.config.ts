@@ -21,6 +21,7 @@ export default {
    },
    fontFamily: {
     irs: 'var(--irs-font)',
+    enRoboto: 'var(--en-roboto)',
    },
    colors: {
     background: 'hsl(var(--background))',
