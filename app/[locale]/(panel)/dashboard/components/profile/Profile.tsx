@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import Menu from '@mui/material/Menu';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { type Dic } from '@/localization/locales';
+import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 
 type Props = {
  isOpen: boolean;
@@ -15,19 +17,20 @@ type Props = {
 
 export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
+ const dic = useWebsiteDictionary();
 
  const profileList = [
   <MenuItem key={'fav'}>
-   <Link href={'/profile/favorites'} className='w-full flex gap-3'>
-    <FavoriteIcon color='error' />
-    <span>علاقه مندی‌ها</span>
+   <Link href={'/'} className='w-full flex gap-3'>
+    <HomeIcon color='primary' />
+    <span>{(dic.profile as Dic).returnToSite as string}</span>
    </Link>
   </MenuItem>,
   <Divider key={'divider'} />,
   <MenuItem key={'exit'}>
    <div className='flex gap-3'>
     <LogoutIcon color='warning' />
-    <span>خروج</span>
+    <span>{(dic.profile as Dic).exit as string}</span>
    </div>
   </MenuItem>,
  ];

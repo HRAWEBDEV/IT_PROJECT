@@ -1,9 +1,13 @@
 {
  "navigation": {
   "settings": "تنظیمات",
-  "profile": "پروفایل",
+  "initInfo": "اطلاعات اولیه",
   "services": "خدمات",
   "projects": "پروژه ها",
   "newsAndArticles": "اخبار و مقالـــه‌ها"
+ },
+ "profile": {
+  "returnToSite": "برگشت به سایت",
+  "exit": "خروج"
  }
 }
