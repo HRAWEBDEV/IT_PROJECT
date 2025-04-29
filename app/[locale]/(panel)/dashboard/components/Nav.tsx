@@ -33,7 +33,7 @@ const getNavItemInfo = (
     icon: <SettingsOutlinedIcon fontSize='large' />,
    };
 
-  case 'initInfo':
+  case 'init-info':
    return {
     href: '/dashboard/init-info',
     icon: <MapsHomeWorkOutlinedIcon fontSize='large' />,
@@ -48,7 +48,7 @@ const getNavItemInfo = (
     href: '/dashboard/projects',
     icon: <LanOutlinedIcon fontSize='large' />,
    };
-  case 'newsAndArticles':
+  case 'news-and-articles':
    return {
     href: '/dashboard/news-and-articles',
     icon: <DescriptionOutlinedIcon fontSize='large' />,

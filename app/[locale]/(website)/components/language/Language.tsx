@@ -35,7 +35,7 @@ export default function Language({ profileAnchor, onClose, isOpen }: Props) {
     {getLangFlag(val.langAlias, { width: '2rem' })}
     <span
      className={`capitalize flex-grow ${
-      val.langAlias === 'en' ? 'font-enRoboto' : ''
+      val.langAlias === 'en' ? 'font-enRoboto' : 'font-irs'
      } `}
     >
      {val.long}

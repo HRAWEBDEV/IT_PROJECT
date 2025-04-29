@@ -1,10 +1,10 @@
 {
  "navigation": {
   "settings": "تنظیمات",
-  "initInfo": "اطلاعات اولیه",
+  "init-info": "اطلاعات اولیه",
   "services": "خدمات",
   "projects": "پروژه ها",
-  "newsAndArticles": "اخبار و مقالـــه‌ها"
+  "news-and-articles": "اخبار و مقالـــه‌ها"
  },
  "profile": {
   "returnToSite": "برگشت به سایت",

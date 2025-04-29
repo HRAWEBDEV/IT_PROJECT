@@ -10,6 +10,7 @@ export default function BreadCrumb() {
   navigation: Dic;
  };
  const lastSection = pathname.split('/').at(-1);
+
  return lastSection !== 'dashboard' ? (
   <div className='p-4 bg-neutral-300 dark:bg-neutral-700 '>
    <Breadcrumbs>
