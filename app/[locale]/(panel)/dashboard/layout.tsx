@@ -8,6 +8,7 @@ import { Metadata } from 'next';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
 import WebsiteDictionaryProvider from '@/services/dictionary/DictionaryProvider';
+import BreadCrumb from './components/BreadCrumb';
 
 export const metadata: Metadata = {
  title: 'آیتی نترا |‌ فناوری و اطلاعات | داشبورد',
@@ -25,13 +26,16 @@ export default async function layout({
   path: 'dashboard',
  });
  return (
-  <div className='h-[100vh] bg-bgDashboard flex flex-col'>
+  <div className='h-[100vh] bg-bgDashboard flex flex-col overflow-hidden'>
    <WebsiteDictionaryProvider dic={dic}>
     <NavigatioProvider>
      <Header />
      <Main>
       <Nav />
-      <div className='p-4 flex-grow'>{children}</div>
+      <div className='flex-grow flex flex-col overflow-hidden'>
+       <BreadCrumb />
+       <div className='p-4 flex-grow overflow-auto'>{children}</div>
+      </div>
      </Main>
     </NavigatioProvider>
    </WebsiteDictionaryProvider>

@@ -1,3 +1,3 @@
 export default function page() {
- return <div>admin dashboard</div>;
+ return <div className='h-[100rem]'>admin dashboard</div>;
 }

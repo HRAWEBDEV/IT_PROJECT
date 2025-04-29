@@ -12,6 +12,7 @@ import ElectricalServicesOutlinedIcon from '@mui/icons-material/ElectricalServic
 import LanOutlinedIcon from '@mui/icons-material/LanOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 import { ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import HandymanIcon from '@mui/icons-material/Handyman';
 // import NewspaperIcon from '@mui/icons-material/Newspaper';
@@ -60,6 +61,8 @@ const getNavItemInfo = (
 };
 
 export default function Nav() {
+ const pathname = usePathname();
+ const lastSection = pathname.split('/').at(-1);
  const { isNavigationVisible } = useNavigationContext();
  const { isLargeDevice } = useAppMonitorConfig();
  const { localeInfo } = useAppConfig();
@@ -92,10 +95,13 @@ export default function Nav() {
        }}
       >
        <Link
+        aria-selected={lastSection === key}
         href={href}
-        className='w-full flex items-center gap-2 p-4 border-b border-neutral-300 dark:border-neutral-700'
+        className='group aria-selected:bg-sky-100 aria-selected:dark:bg-sky-900 w-full flex items-center gap-2 p-4 border-b border-neutral-300 dark:border-neutral-700'
        >
-        <div className='text-neutral-500'>{icon}</div>
+        <div className='text-neutral-500 group-aria-selected:text-primary'>
+         {icon}
+        </div>
         <span>{value as string}</span>
        </Link>
       </MenuItem>
