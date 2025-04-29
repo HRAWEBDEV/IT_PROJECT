@@ -26,7 +26,9 @@ export default function Language({ profileAnchor, onClose, isOpen }: Props) {
    onClick={() => {
     onClose();
     if (val.langAlias === locale) return;
-    changeLocale(val.langAlias);
+    setTimeout(() => {
+     changeLocale(val.langAlias);
+    }, 400);
    }}
   >
    <div aria-selected={val.langAlias === locale} className='w-full flex gap-3'>

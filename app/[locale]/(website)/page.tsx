@@ -12,10 +12,6 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   locale,
   path: 'home',
  });
- const layoutDic = await getDictionary({
-  locale,
-  path: 'layout',
- });
  return (
   <div id='home-page'>
    <Hero dic={dic} />

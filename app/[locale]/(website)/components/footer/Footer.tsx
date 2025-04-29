@@ -12,8 +12,12 @@ import { IoLogoWhatsapp } from 'react-icons/io';
 import { TfiInstagram } from 'react-icons/tfi';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Link from 'next/link';
+import { useWebsiteDictionary } from '@/services/dictionary/WebsiteDictionaryContext';
+import { type Dic } from '@/localization/locales';
 
 export default function Footer() {
+ const dic = useWebsiteDictionary();
+
  return (
   <footer className='pt-8 bg-neutral-300 dark:bg-neutral-700'>
    <div className='container'>
@@ -26,7 +30,7 @@ export default function Footer() {
       }}
      >
       <div className='flex gap-2 items-center'>
-       <span>برو بالا</span>
+       <span>{(dic.footer as Dic).goUp as string}</span>
        <ArrowUpwardIcon fontSize='small' />
       </div>
      </Button>
@@ -37,7 +41,7 @@ export default function Footer() {
        <h4 className='text-2xl font-bold mb-2'>
         <ApartmentIcon fontSize='large' className='me-4' color='primary' />
         <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
-         شرکت
+         {(dic.footer as Dic).company as string}
         </span>
         <span className='inline-block ms-4'> </span>
         <br className='hidden' />
@@ -79,12 +83,16 @@ export default function Footer() {
       </div>
      </div>
      <div>
-      <h4 className='font-medium text-lg mb-4'>خدمـــات</h4>
+      <h4 className='font-medium text-lg mb-4'>
+       {(dic.footer as Dic).services as string}
+      </h4>
       <ul className='grid gap-4'>
        {[1, 2, 3, 4, 5].map((item) => (
         <li key={item}>
-         <Link href='#'>
-          <KeyboardDoubleArrowLeftIcon color='error' />
+         <Link href='#' className='flex items-center gap-1'>
+          <div className='ltr:rotate-180'>
+           <KeyboardDoubleArrowLeftIcon color='error' />
+          </div>
           <span>خدمات تست ....</span>
          </Link>
         </li>
@@ -92,12 +100,16 @@ export default function Footer() {
       </ul>
      </div>
      <div>
-      <h4 className='font-medium text-lg mb-4'>پروژه‌هـــا</h4>
+      <h4 className='font-medium text-lg mb-4'>
+       {(dic.footer as Dic).projects as string}
+      </h4>
       <ul className='grid gap-4'>
        {[1, 2, 3, 4, 5].map((item) => (
         <li key={item}>
-         <Link href='#'>
-          <KeyboardDoubleArrowLeftIcon color='error' />
+         <Link href='#' className='flex items-center gap-1'>
+          <div className='ltr:rotate-180'>
+           <KeyboardDoubleArrowLeftIcon color='error' />
+          </div>
           <span>پروژه تست ....</span>
          </Link>
         </li>
@@ -109,7 +121,7 @@ export default function Footer() {
    <div className='py-2 mt-2 border-t border-neutral-400 dark:border-neutral-600'>
     <div className='text-center'>
      <CopyrightIcon />
-     <span>تمامی حقوق این سایت محفوظ است.</span>
+     <span>{(dic.footer as Dic).allRightsReserved as string}</span>
      {new Date().getFullYear()}
     </div>
    </div>
