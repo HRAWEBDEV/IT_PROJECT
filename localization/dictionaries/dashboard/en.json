@@ -1,1 +1,13 @@
-{}
+{
+ "navigation": {
+  "settings": "Settings",
+  "initInfo": "Initial Information",
+  "services": "Services",
+  "projects": "Projects",
+  "newsAndArticles": "News and Articles"
+ },
+ "profile": {
+  "returnToSite": "Return to site",
+  "exit": "Exit"
+ }
+}

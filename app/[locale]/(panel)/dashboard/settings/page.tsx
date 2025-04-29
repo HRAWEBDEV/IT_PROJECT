@@ -1,8 +1,4 @@
-import Editor from './components/Editor';
+// import Editor from './components/Editor';
 export default function page() {
- return (
-  <div>
-   <Editor />
-  </div>
- );
+ return <div>{/* <Editor /> */}</div>;
 }
