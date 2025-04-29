@@ -7,11 +7,11 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
 import ElectricalServicesOutlinedIcon from '@mui/icons-material/ElectricalServicesOutlined';
 import LanOutlinedIcon from '@mui/icons-material/LanOutlined';
 import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
+import { ReactNode } from 'react';
 // import SettingsIcon from '@mui/icons-material/Settings';
 // import HandymanIcon from '@mui/icons-material/Handyman';
 // import NewspaperIcon from '@mui/icons-material/Newspaper';
@@ -19,21 +19,44 @@ import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
 
 // const iconsStyle = { fontSize: '2rem' };
 
-const getNavItemIcon = (key: string) => {
+const getNavItemInfo = (
+ key: string
+): {
+ href: string;
+ icon: ReactNode;
+} => {
  switch (key) {
   case 'settings':
-   return <SettingsOutlinedIcon fontSize='large' />;
+   return {
+    href: '/dashboard/settings',
+    icon: <SettingsOutlinedIcon fontSize='large' />,
+   };
+
   case 'initInfo':
-   return <MapsHomeWorkOutlinedIcon fontSize='large' />;
+   return {
+    href: '/dashboard/init-info',
+    icon: <MapsHomeWorkOutlinedIcon fontSize='large' />,
+   };
   case 'services':
-   return <ElectricalServicesOutlinedIcon fontSize='large' />;
+   return {
+    href: '/dashboard/services',
+    icon: <ElectricalServicesOutlinedIcon fontSize='large' />,
+   };
   case 'projects':
-   return <LanOutlinedIcon fontSize='large' />;
+   return {
+    href: '/dashboard/projects',
+    icon: <LanOutlinedIcon fontSize='large' />,
+   };
   case 'newsAndArticles':
-   return <DescriptionOutlinedIcon fontSize='large' />;
-  default:
-   return null;
+   return {
+    href: '/dashboard/news-and-articles',
+    icon: <DescriptionOutlinedIcon fontSize='large' />,
+   };
  }
+ return {
+  href: '',
+  icon: null,
+ };
 };
 
 export default function Nav() {
@@ -59,22 +82,25 @@ export default function Nav() {
    className={`fixed transition-transform ${navPosition} top-[--dashboard-header-height] lg:static bottom-0 w-[--dashboard-nav-width] bg-background shadow-lg border-e border-neutral-300 dark:border-neutral-700`}
   >
    <ul>
-    {Object.entries(dic.navigation).map(([key, value]) => (
-     <MenuItem
-      key={key}
-      sx={{
-       padding: 0,
-      }}
-     >
-      <Link
-       href='#'
-       className='w-full flex items-center gap-2 p-4 border-b border-neutral-300 dark:border-neutral-700'
+    {Object.entries(dic.navigation).map(([key, value]) => {
+     const { href, icon } = getNavItemInfo(key);
+     return (
+      <MenuItem
+       key={key}
+       sx={{
+        padding: 0,
+       }}
       >
-       <div className='text-neutral-500'>{getNavItemIcon(key)}</div>
-       <span>{value as string}</span>
-      </Link>
-     </MenuItem>
-    ))}
+       <Link
+        href={href}
+        className='w-full flex items-center gap-2 p-4 border-b border-neutral-300 dark:border-neutral-700'
+       >
+        <div className='text-neutral-500'>{icon}</div>
+        <span>{value as string}</span>
+       </Link>
+      </MenuItem>
+     );
+    })}
    </ul>
   </nav>
  );
