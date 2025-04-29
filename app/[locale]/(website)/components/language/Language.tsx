@@ -33,7 +33,13 @@ export default function Language({ profileAnchor, onClose, isOpen }: Props) {
   >
    <div aria-selected={val.langAlias === locale} className='w-full flex gap-3'>
     {getLangFlag(val.langAlias, { width: '2rem' })}
-    <span className='capitalize flex-grow'>{val.long}</span>
+    <span
+     className={`capitalize flex-grow ${
+      val.langAlias === 'en' ? 'font-enRoboto' : ''
+     } `}
+    >
+     {val.long}
+    </span>
     {val.langAlias === locale && <CheckIcon color='success' />}
    </div>
   </MenuItem>

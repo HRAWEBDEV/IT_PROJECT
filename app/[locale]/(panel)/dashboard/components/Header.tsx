@@ -49,7 +49,11 @@ export default function Header() {
       </Link>
      </div>
     </div>
-    <div className='pe-6 basis-0 flex-grow flex justify-end gap-2  items-center self-stretch lg:shadow-[-4px_2px_4px_0px] lg:shadow-neutral-400/60 lg:dark:shadow-neutral-700/60'>
+    <div
+     className={`pe-6 basis-0 flex-grow flex justify-end gap-2  items-center self-stretch lg:shadow-[${
+      localeInfo.dir === 'rtl' ? '-4px' : '4px'
+     }_2px_4px_0px] lg:shadow-neutral-400/60 lg:dark:shadow-neutral-700/60`}
+    >
      <IconButton
       color='success'
       size='large'

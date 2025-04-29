@@ -1,6 +1,7 @@
 'use client';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useNavigationContext } from '../navigation/navigationContext';
+import { useAppConfig } from '@/services/app-config/appConfig';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HandymanIcon from '@mui/icons-material/Handyman';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
@@ -11,10 +12,13 @@ const iconsStyle = { fontSize: '2rem' };
 export default function Nav() {
  const { isNavigationVisible } = useNavigationContext();
  const { isLargeDevice } = useAppMonitorConfig();
+ const { localeInfo } = useAppConfig();
 
  let navPosition = isLargeDevice
   ? 'translate-x-0'
-  : 'translate-x-[var(--dashboard-nav-width)]';
+  : localeInfo.dir === 'rtl'
+  ? 'translate-x-[var(--dashboard-nav-width)]'
+  : '-translate-x-[var(--dashboard-nav-width)]';
 
  if (!isLargeDevice && isNavigationVisible) {
   navPosition = 'translate-x-0';
