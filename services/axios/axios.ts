@@ -9,4 +9,4 @@ axiosInstance.interceptors.request.use((config) => {
  return config;
 });
 
-export { axiosInstance };
+export { axiosInstance as axios };
