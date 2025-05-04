@@ -3,15 +3,26 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Nav from './components/Nav';
 import NavigatioProvider from './navigation/NavigatioProvider';
-import 'ckeditor5/ckeditor5.css';
 import { Metadata } from 'next';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
 import WebsiteDictionaryProvider from '@/services/dictionary/DictionaryProvider';
 import BreadCrumb from './components/BreadCrumb';
+import 'ckeditor5/ckeditor5.css';
 
-export const metadata: Metadata = {
- title: 'آیتی نترا |‌ فناوری و اطلاعات | داشبورد',
+export const generateMetadata = async ({
+ params,
+}: {
+ params: Promise<AppParams>;
+}): Promise<Metadata> => {
+ const { locale } = await params;
+ const dic = await getDictionary({
+  locale,
+  path: 'dashboard',
+ });
+ return {
+  title: dic.title as string,
+ };
 };
 
 export default async function layout({
