@@ -81,7 +81,7 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
 // function updateBlog(props: ApiDefaultProps) {}
 // function deleteBlog(props: ApiDefaultProps) {}
 // blog categories actions
-const blogCategoriesApi = '/blogCategories';
+const blogCategoriesApi = '/blog-categories';
 function getBlogCategories<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps & T
 ): Promise<
@@ -89,7 +89,7 @@ function getBlogCategories<T extends { pagination?: PaginationProps }>(
   ResponseShape<
    T['pagination'] extends PaginationProps
     ? {
-       blogCategories: PagedResponse<BlogCategory[]>;
+       BlogCategories: PagedResponse<BlogCategory[]>;
       }
     : BlogCategory[]
   >
@@ -97,6 +97,7 @@ function getBlogCategories<T extends { pagination?: PaginationProps }>(
 > {
  const { pagination } = props;
  const params = new URLSearchParams();
+ params.append('lang', props.locale);
  if (pagination) {
   params.append('limit', pagination.limit.toString());
   params.append('offset', pagination.offset.toString());
