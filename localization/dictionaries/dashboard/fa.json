@@ -8,7 +8,11 @@
   "news-and-articles": "اخبار و مقالـــه‌ها"
  },
  "profile": {
-  "returnToSite": "برگشت به سایت",
+  "returnToSite": "بازگشت به سایت",
   "exit": "خروج"
+ },
+ "news": {
+  "categories": "دسته‌بندی اخبار و مقاله‌ها",
+  "blogsList": "لیست اخبار و مقاله‌ها"
  }
 }

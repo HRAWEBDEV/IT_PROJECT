@@ -10,11 +10,15 @@ import {
  faIR as datePickerFaIR,
  enUS as datePickerEnUs,
 } from '@mui/x-date-pickers/locales';
+import {
+ faIR as dataGridFaIR,
+ enUS as dataGridEnUs,
+} from '@mui/x-data-grid/locales';
 import { faIR, enUS } from '@mui/material/locale';
 
 const getMuiActiveLocale = {
- fa: [datePickerFaIR, faIR, faIR],
- en: [datePickerEnUs, enUS, enUS],
+ fa: [datePickerFaIR, faIR, faIR, dataGridFaIR],
+ en: [datePickerEnUs, enUS, enUS, dataGridEnUs],
 };
 
 export default function MuiTheme({ children }: { children: ReactNode }) {

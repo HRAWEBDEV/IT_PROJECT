@@ -1,3 +1,11 @@
+import BlogsWrapper from './components/blogs/BlogsWrapper';
+import CategoriesWrapper from './components/categories/CategoriesWrapper';
+
 export default function page() {
- return <div></div>;
+ return (
+  <section>
+   <BlogsWrapper />
+   <CategoriesWrapper />
+  </section>
+ );
 }
