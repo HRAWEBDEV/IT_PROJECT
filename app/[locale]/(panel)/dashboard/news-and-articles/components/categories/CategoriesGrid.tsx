@@ -32,7 +32,7 @@ export default function CategoriesGrid({
  return (
   <div
    style={{
-    height: 'calc(100vh - var(--dashboard-header-height) - 11rem)',
+    height: 'calc(100vh - var(--dashboard-header-height) - 6.7rem)',
    }}
   >
    {initalMount ? null : (

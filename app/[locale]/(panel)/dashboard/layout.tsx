@@ -44,7 +44,7 @@ export default async function layout({
      <Main>
       <Nav />
       <div className='flex-grow flex flex-col overflow-hidden'>
-       <BreadCrumb />
+       {/* <BreadCrumb /> */}
        <div className='p-4 flex-grow overflow-auto'>{children}</div>
       </div>
      </Main>
