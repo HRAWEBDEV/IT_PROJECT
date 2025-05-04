@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
-import { locales, type Dic } from '@/localization/locales';
+import { type Dic } from '@/localization/locales';
 import CategoriesGrid from './CategoriesGrid';
 import { useQuery } from '@tanstack/react-query';
 import { getBlogCategories } from '@/services/api-actions/globalApiActions';
@@ -23,9 +23,13 @@ export default function CategoriesWrapper() {
   isLoading,
   isFetching,
   data = [],
-  isError,
  } = useQuery({
-  queryKey: ['get-blog-categories', locale, pagination.page],
+  queryKey: [
+   'get-blog-categories',
+   locale,
+   pagination.page,
+   pagination.pageSize,
+  ],
   async queryFn({ signal }) {
    const { data } = await getBlogCategories({
     signal,
