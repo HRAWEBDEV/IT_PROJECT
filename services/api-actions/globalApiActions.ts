@@ -142,7 +142,12 @@ function getTags<T extends { pagination?: PaginationProps }>(
 }
 // function createTag(props: ApiDefaultProps) {}
 // function updateTag(props: ApiDefaultProps) {}
-// function deleteTag(props: ApiDefaultProps) {}
+function deleteTag(props: ApiDefaultProps & { tagID: Tag['id'] }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('tagID', props.tagID.toString());
+ return axios.delete(`${tagsApi}?${params.toString()}`);
+}
 
 // tag categories actions
 const tagCategoriesApi = '/tagTypes';
@@ -165,4 +170,5 @@ export {
  getBlogCategories,
  getTags,
  getTagCategories,
+ deleteTag,
 };

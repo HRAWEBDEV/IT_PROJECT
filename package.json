@@ -24,6 +24,7 @@
     "date-fns-jalali": "^4.0.0-0",
     "motion": "^12.6.3",
     "next": "^15.3.1",
+    "notistack": "^3.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.2",

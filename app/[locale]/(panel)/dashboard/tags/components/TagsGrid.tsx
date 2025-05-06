@@ -3,11 +3,13 @@ import {
  GridPaginationModel,
  GridActionsCellItem,
 } from '@mui/x-data-grid';
-import { type Tag } from '@/services/api-actions/globalApiActions';
+import { type Tag, deleteTag } from '@/services/api-actions/globalApiActions';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAppConfig } from '@/services/app-config/appConfig';
 
 type Props = {
  tagsList: Tag[];
@@ -24,6 +26,21 @@ export default function TagsGrid({
  setPagination,
  rowCount,
 }: Props) {
+ const queryClient = useQueryClient();
+ const { locale } = useAppConfig();
+ const { mutate: deleteMutate, isPending } = useMutation({
+  mutationFn(id: number) {
+   return deleteTag({
+    tagID: id,
+    locale,
+   }).then(() => {
+    queryClient.invalidateQueries({
+     queryKey: ['dashboard', 'tags'],
+    });
+   });
+  },
+ });
+
  const { tags } = useWebsiteDictionary() as {
   tags: Dic;
  };
@@ -51,7 +68,7 @@ export default function TagsGrid({
       },
      },
     }}
-    loading={isLoading}
+    loading={isLoading || isPending}
     paginationModel={pagination}
     onPaginationModelChange={setPagination}
     rowCount={rowCount}
@@ -70,7 +87,7 @@ export default function TagsGrid({
       headerAlign: 'center',
       align: 'center',
       headerName: tags.actions as string,
-      getActions({}) {
+      getActions({ id }) {
        return [
         <GridActionsCellItem
          key={'edit'}
@@ -80,8 +97,10 @@ export default function TagsGrid({
         />,
         <GridActionsCellItem
          key={'remove'}
+         disabled={isPending}
          label={tags.deleteTag as string}
          icon={<DeleteIcon color='error' />}
+         onClick={() => deleteMutate(id as number)}
          showInMenu
         />,
        ];

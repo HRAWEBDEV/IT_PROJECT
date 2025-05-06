@@ -37,7 +37,7 @@ export default function TagsWrapper() {
   isLoading: isTagCategoriesLoading,
   isFetching: isTagCategoriesFetching,
  } = useQuery({
-  queryKey: ['tag-categories'],
+  queryKey: ['dashboard', 'tag-categories'],
   async queryFn() {
    const result = await getTagCategories({
     locale,
@@ -59,6 +59,7 @@ export default function TagsWrapper() {
   isFetching,
  } = useQuery({
   queryKey: [
+   'dashboard',
    'tags',
    pagination.page,
    pagination.pageSize,
