@@ -28,7 +28,7 @@ type Props = {
  rowCount: number;
 };
 
-export default function TagsGrid({
+export default function CategoryGrid({
  isLoading,
  pagination,
  setPagination,

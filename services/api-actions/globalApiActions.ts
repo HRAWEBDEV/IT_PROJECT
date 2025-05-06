@@ -107,8 +107,24 @@ function getBlogCategories<T extends { pagination?: PaginationProps }>(
   signal: props.signal,
  });
 }
-// function createBlogCategory(props: ApiDefaultProps) {}
-// function updateBlogCategory(props: ApiDefaultProps) {}
+function createBlogCategory(
+ props: ApiDefaultProps & Pick<BlogCategory, 'name' | 'description'>
+) {
+ return axios.post(
+  blogCategoriesApi,
+  { ...props, lang: props.locale },
+  { signal: props.signal }
+ );
+}
+function updateBlogCategory(
+ props: ApiDefaultProps & Pick<BlogCategory, 'name' | 'description' | 'id'>
+) {
+ return axios.put(
+  blogCategoriesApi,
+  { ...props, lang: props.locale },
+  { signal: props.signal }
+ );
+}
 function deleteBlogCategory(
  props: ApiDefaultProps & { blogCategoryID: BlogCategory['id'] }
 ) {
@@ -200,4 +216,6 @@ export {
  createTag,
  updateTag,
  deleteBlogCategory,
+ createBlogCategory,
+ updateBlogCategory,
 };

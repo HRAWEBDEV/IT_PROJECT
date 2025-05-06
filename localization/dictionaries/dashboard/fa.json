@@ -37,6 +37,7 @@
   "deleteCategory": "حذف",
   "cancel": "انصراف",
   "save": "ثبت",
+  "description": "توضیحات",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
  }
 }

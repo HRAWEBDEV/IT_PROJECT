@@ -24,7 +24,7 @@ export default function NavItem({ item }: Props) {
  return (
   <li>
    <Link
-    aria-selected={pathname.includes(item.href)}
+    aria-selected={pathname.endsWith(item.href)}
     className='flex items-center justify-between me-2 p-3 rounded-lg transition-colors hover:bg-neutral-100 dark:hover:bg-neutral-800 aria-selected:bg-sky-100 dark:aria-selected:bg-sky-800'
     href={item.href}
     onClick={() => {

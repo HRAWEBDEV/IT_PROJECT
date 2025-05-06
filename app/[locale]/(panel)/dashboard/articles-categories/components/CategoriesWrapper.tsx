@@ -8,11 +8,12 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
-import TagsGrid from './TagsGrid';
+import CategoryGrid from './CategoryGrid';
 import { GridPaginationModel } from '@mui/x-data-grid';
-// import AddTag from './AddTag';
+import CategoryFilters from './CategoryFilters';
+import AddCategory from './AddCategory';
 
-export default function TagsWrapper() {
+export default function CategoriesWrapper() {
  const [openEditCategory, setOpenEditCategory] = useState(false);
  const [selectedCategory, setSelectedCategory] = useState<BlogCategory | null>(
   null
@@ -59,7 +60,8 @@ export default function TagsWrapper() {
    <h1 className='font-bold text-2xl mb-4'>
     {articlesCategories.title as string}
    </h1>
-   <TagsGrid
+   <CategoryFilters setOpenAddCategory={() => setOpenEditCategory(true)} />
+   <CategoryGrid
     categoriesList={categoriesList}
     isLoading={isLoading || isFetching}
     pagination={pagination}
@@ -69,15 +71,14 @@ export default function TagsWrapper() {
     selectedCategory={selectedCategory}
     setSelectedCategory={setSelectedCategory}
    />
-   {/* <AddTag
-    open={openEditTag}
-    tag={selectedTag}
-    tagCategories={tagCategories}
+   <AddCategory
+    open={openEditCategory}
+    category={selectedCategory}
     onClose={() => {
-     setOpenEditTag(false);
-     setSelectedTag(null);
+     setOpenEditCategory(false);
+     setSelectedCategory(null);
     }}
-   /> */}
+   />
   </div>
  );
 }

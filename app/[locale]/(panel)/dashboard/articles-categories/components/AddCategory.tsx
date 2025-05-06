@@ -9,15 +9,16 @@ import Button from '@mui/material/Button';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import {
- type Tag,
- type TagCategory,
- createTag,
- updateTag,
+ type BlogCategory,
+ createBlogCategory,
+ updateBlogCategory,
 } from '@/services/api-actions/globalApiActions';
-import { addTagSchema, type AddTagSchema } from '../schemas/addTag';
-import Autocomplete from '@mui/material/Autocomplete';
+import {
+ type AddCategorySchema,
+ addCategorySchema,
+} from '../schemas/addCategory';
 import TextField from '@mui/material/TextField';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
@@ -25,76 +26,68 @@ import { useSnackbar } from 'notistack';
 
 type Props = {
  open: boolean;
- tag: Tag | null;
- tagCategories: TagCategory[];
+ category: BlogCategory | null;
  onClose: () => void;
 };
 
-export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
+export default function AddCategory({ open, category, onClose }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
- const { tags } = useWebsiteDictionary() as {
-  tags: Dic;
+ const { articlesCategories } = useWebsiteDictionary() as {
+  articlesCategories: Dic;
  };
  const queryClient = useQueryClient();
 
- const { mutate: mutateTag, isPending: isCreating } = useMutation({
-  mutationFn: async (data: AddTagSchema) => {
+ const { mutate: mutateCategory, isPending: isCreating } = useMutation({
+  mutationFn: async (data: AddCategorySchema) => {
    try {
-    const result = tag
-     ? await updateTag({
+    const result = category
+     ? await updateBlogCategory({
         locale,
         name: data.title,
-        tagTypeID: Number(data.category.id),
-        id: tag.id,
+        description: data.description,
+        id: category.id,
        })
-     : await createTag({
+     : await createBlogCategory({
         locale,
         name: data.title,
-        tagTypeID: Number(data.category.id),
+        description: data.description,
        });
     queryClient.invalidateQueries({
-     queryKey: ['dashboard', 'tags'],
+     queryKey: ['dashboard', 'articlesCategories'],
     });
     onClose();
     return result;
    } catch {
     enqueueSnackbar({
-     message: tags.errorTryAgainLater as string,
+     message: articlesCategories.errorTryAgainLater as string,
      variant: 'error',
     });
    }
   },
  });
  const {
-  control,
   register,
   handleSubmit,
   setValue,
   formState: { errors },
- } = useForm<AddTagSchema>({
-  resolver: zodResolver(addTagSchema),
+ } = useForm<AddCategorySchema>({
+  resolver: zodResolver(addCategorySchema),
   defaultValues: {
    title: '',
+   description: '',
   },
  });
 
  useEffect(() => {
-  if (tag) {
-   setValue('title', tag.name);
-   setValue('category', {
-    id: tag.tagTypeID.toString(),
-    name: tag.tagTypeName,
-   });
+  if (category) {
+   setValue('title', category.name);
+   setValue('description', category.description);
   } else {
-   if (!tagCategories.length) return;
    setValue('title', '');
-   setValue('category', {
-    id: tagCategories[0].id.toString(),
-    name: tagCategories[0].name,
-   });
+   setValue('description', '');
   }
- }, [tag, tagCategories, setValue, open]);
+ }, [category, setValue, open]);
 
  return (
   <Dialog
@@ -106,14 +99,16 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
    onSubmit={(e) => {
     e.preventDefault();
     handleSubmit((data) => {
-     mutateTag(data);
+     mutateCategory(data);
     })();
    }}
   >
    <DialogTitle>
     <div className='flex items-center justify-between'>
      <span className='text-base font-bold'>
-      {tag ? (tags.editTag as string) : (tags.addTag as string)}
+      {category
+       ? (articlesCategories.editCategory as string)
+       : (articlesCategories.addCategory as string)}
      </span>
      <IconButton loading={isCreating} color='error' onClick={onClose}>
       <CloseIcon />
@@ -122,26 +117,14 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
    </DialogTitle>
    <DialogContent dividers>
     <div className='mb-4'>
-     <Controller
-      control={control}
-      name='category'
-      render={({ field }) => (
-       <Autocomplete
-        disableClearable
-        {...field}
-        size='small'
-        value={field.value || null}
-        onChange={(_, value) => field.onChange(value)}
-        options={tagCategories.map((item) => ({
-         id: item.id.toString(),
-         name: item.name,
-        }))}
-        getOptionLabel={(option) => option.name}
-        renderInput={(params) => (
-         <TextField {...params} label={tags.category as string} required />
-        )}
-       />
-      )}
+     <TextField
+      fullWidth
+      size='small'
+      {...register('title')}
+      label={articlesCategories.categoryTitle as string}
+      error={!!errors.title}
+      helperText={errors.title?.message}
+      required
      />
     </div>
     <TextField
@@ -149,10 +132,10 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
      multiline
      rows={8}
      size='small'
-     {...register('title')}
-     label={tags.title as string}
-     error={!!errors.title}
-     helperText={errors.title?.message}
+     {...register('description')}
+     label={articlesCategories.description as string}
+     error={!!errors.description}
+     helperText={errors.description?.message}
      required
     />
    </DialogContent>
@@ -164,7 +147,7 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
      color='error'
      onClick={onClose}
     >
-     {tags.cancel as string}
+     {articlesCategories.cancel as string}
     </Button>
     <Button
      className='w-[6rem]'
@@ -172,7 +155,7 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
      type='submit'
      loading={isCreating}
     >
-     {tags.save as string}
+     {articlesCategories.save as string}
     </Button>
    </DialogActions>
   </Dialog>
