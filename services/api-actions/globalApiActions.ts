@@ -122,14 +122,15 @@ function getTags<T extends { pagination?: PaginationProps }>(
   ResponseShape<
    T['pagination'] extends PaginationProps
     ? {
-       tags: PagedResponse<Tag[]>;
+       Tags: PagedResponse<Tag[]>;
       }
-    : Tag[]
+    : { Tags: Tag[] }
   >
  >
 > {
  const { pagination } = props;
  const params = new URLSearchParams();
+ params.append('lang', props.locale);
  if (pagination) {
   params.append('limit', pagination.limit.toString());
   params.append('offset', pagination.offset.toString());
@@ -144,9 +145,13 @@ function getTags<T extends { pagination?: PaginationProps }>(
 // function deleteTag(props: ApiDefaultProps) {}
 
 // tag categories actions
-const tagCategoriesApi = '/tagCategories';
+const tagCategoriesApi = '/tagTypes';
 function getTagCategories(props: ApiDefaultProps) {
- return axios.get<ResponseShape<TagCategory[]>>(tagCategoriesApi, {
+ return axios.get<
+  ResponseShape<{
+   TagTypes: TagCategory[];
+  }>
+ >(tagCategoriesApi, {
   signal: props.signal,
  });
 }

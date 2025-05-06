@@ -14,6 +14,29 @@ export const components: Components<Omit<Theme, 'components'>> = {
    },
   },
  },
+ MuiInputLabel: {
+  styleOverrides: {
+   root: {
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+   },
+  },
+ },
+ MuiAutocomplete: {
+  styleOverrides: {
+   root: {
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+   },
+   paper: {
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+   },
+  },
+ },
  MuiDataGrid: {
   styleOverrides: {
    root: ({ theme }) => {
