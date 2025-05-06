@@ -23,9 +23,6 @@ export default function TagsWrapper() {
  });
  const filtersUseForm = useForm<FilterSchema>({
   resolver: zodResolver(filtersSchema),
-  defaultValues: {
-   category: null,
-  },
  });
  const { watch } = filtersUseForm;
  const tagCategory = watch('category');

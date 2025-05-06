@@ -30,9 +30,10 @@ export default function TagsFilters({
     name='category'
     render={({ field }) => (
      <Autocomplete
-      disableClearable={false}
+      disableClearable={true}
       loading={isLoadingCategories}
       {...field}
+      value={field.value || null}
       onChange={(_, value) => field.onChange(value)}
       getOptionLabel={(option) => option.name}
       size='small'
