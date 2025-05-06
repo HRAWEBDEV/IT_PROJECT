@@ -15,6 +15,9 @@ type Props = {
  tagsList: Tag[];
  isLoading: boolean;
  pagination: GridPaginationModel;
+ selectedTag: Tag | null;
+ setSelectedTag: (tag: Tag | null) => void;
+ setOpenAddTag: () => void;
  setPagination: (pagination: GridPaginationModel) => void;
  rowCount: number;
 };
@@ -25,6 +28,8 @@ export default function TagsGrid({
  pagination,
  setPagination,
  rowCount,
+ setSelectedTag,
+ setOpenAddTag,
 }: Props) {
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
@@ -87,12 +92,16 @@ export default function TagsGrid({
       headerAlign: 'center',
       align: 'center',
       headerName: tags.actions as string,
-      getActions({ id }) {
+      getActions({ id, row }) {
        return [
         <GridActionsCellItem
          key={'edit'}
          label={tags.editTag as string}
          icon={<EditIcon color='secondary' />}
+         onClick={() => {
+          setSelectedTag(row);
+          setOpenAddTag();
+         }}
          showInMenu
         />,
         <GridActionsCellItem

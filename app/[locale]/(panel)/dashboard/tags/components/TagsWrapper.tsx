@@ -4,6 +4,7 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import TagsFilters from './TagsFilters';
 import {
+ type Tag,
  getTagCategories,
  getTags,
 } from '@/services/api-actions/globalApiActions';
@@ -14,8 +15,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
 import TagsGrid from './TagsGrid';
 import { GridPaginationModel } from '@mui/x-data-grid';
+import AddTag from './AddTag';
 
 export default function TagsWrapper() {
+ const [openEditTag, setOpenEditTag] = useState(false);
+ const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
  const [rowCount, setRowCount] = useState(0);
  const [pagination, setPagination] = useState<GridPaginationModel>({
   page: 0,
@@ -90,6 +94,7 @@ export default function TagsWrapper() {
     <TagsFilters
      tagCategories={tagCategories}
      isLoadingCategories={isTagCategoriesLoading || isTagCategoriesFetching}
+     setOpenAddTag={() => setOpenEditTag(true)}
     />
     <TagsGrid
      tagsList={tagsList}
@@ -97,8 +102,20 @@ export default function TagsWrapper() {
      pagination={pagination}
      setPagination={setPagination}
      rowCount={rowCount}
+     setOpenAddTag={() => setOpenEditTag(true)}
+     selectedTag={selectedTag}
+     setSelectedTag={setSelectedTag}
     />
    </FormProvider>
+   <AddTag
+    open={openEditTag}
+    tag={selectedTag}
+    tagCategories={tagCategories}
+    onClose={() => {
+     setOpenEditTag(false);
+     setSelectedTag(null);
+    }}
+   />
   </div>
  );
 }

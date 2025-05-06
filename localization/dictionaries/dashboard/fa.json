@@ -19,6 +19,8 @@
   "tagTitle": "عنوان تگ",
   "actions": "عملیات",
   "editTag": "ویرایش",
-  "deleteTag": "حذف"
+  "deleteTag": "حذف",
+  "cancel": "انصراف",
+  "save": "ثبت"
  }
 }

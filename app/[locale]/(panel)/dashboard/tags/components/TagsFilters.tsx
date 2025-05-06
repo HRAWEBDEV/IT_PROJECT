@@ -8,6 +8,7 @@ import { type FilterSchema } from '../schemas/filtersSchema';
 import { type TagCategory } from '@/services/api-actions/globalApiActions';
 
 type Props = {
+ setOpenAddTag: () => void;
  tagCategories: TagCategory[];
  isLoadingCategories: boolean;
 };
@@ -15,6 +16,7 @@ type Props = {
 export default function TagsFilters({
  tagCategories,
  isLoadingCategories,
+ setOpenAddTag,
 }: Props) {
  const { tags } = useWebsiteDictionary() as {
   tags: Dic;
@@ -48,7 +50,7 @@ export default function TagsFilters({
     )}
    />
    <div className='flex justify-end'>
-    <Button variant='outlined' color='secondary'>
+    <Button variant='outlined' color='secondary' onClick={setOpenAddTag}>
      {tags.addTag as string}
     </Button>
    </div>

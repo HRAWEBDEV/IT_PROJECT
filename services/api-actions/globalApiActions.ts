@@ -29,6 +29,7 @@ type TagCategory = {
 type Tag = {
  id: number;
  name: string;
+ tagTypeID: number;
  tagTypeName: string;
 };
 type BlogCategory = {
@@ -140,8 +141,26 @@ function getTags<T extends { pagination?: PaginationProps }>(
   signal: props.signal,
  });
 }
-// function createTag(props: ApiDefaultProps) {}
-// function updateTag(props: ApiDefaultProps) {}
+function createTag(props: ApiDefaultProps & Pick<Tag, 'name' | 'tagTypeID'>) {
+ return axios.post(
+  tagsApi,
+  { ...props, lang: props.locale },
+  {
+   signal: props.signal,
+  }
+ );
+}
+function updateTag(
+ props: ApiDefaultProps & Pick<Tag, 'name' | 'tagTypeID' | 'id'>
+) {
+ return axios.put(
+  tagsApi,
+  { ...props, lang: props.locale },
+  {
+   signal: props.signal,
+  }
+ );
+}
 function deleteTag(props: ApiDefaultProps & { tagID: Tag['id'] }) {
  const params = new URLSearchParams();
  params.append('lang', props.locale);
@@ -171,4 +190,6 @@ export {
  getTags,
  getTagCategories,
  deleteTag,
+ createTag,
+ updateTag,
 };
