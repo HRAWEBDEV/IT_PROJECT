@@ -17,5 +17,5 @@ export const generateMetadata = async ({
 };
 
 export default function page() {
- return <div>admin dashboard</div>;
+ return <div className=''></div>;
 }

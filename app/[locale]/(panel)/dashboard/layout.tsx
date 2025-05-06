@@ -4,6 +4,7 @@ import Nav from './components/nav/nav';
 import { getDictionary } from '@/localization/getDic';
 import WebsiteDictionaryProvider from '@/services/dictionary/DictionaryProvider';
 import { type AppParams } from '@/utils/appParams';
+import Main from './components/nav/Main';
 
 export default async function layout({
  children,
@@ -20,9 +21,9 @@ export default async function layout({
   <WebsiteDictionaryProvider dic={dic}>
    <div className='flex flex-col overflow-hidden h-[100vh]'>
     <Header />
-    <div className='flex flex-grow'>
+    <div className='flex flex-grow overflow-hidden'>
      <Nav />
-     {children}
+     <Main>{children}</Main>
     </div>
    </div>
   </WebsiteDictionaryProvider>

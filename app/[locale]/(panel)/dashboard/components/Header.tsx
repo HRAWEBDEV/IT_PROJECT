@@ -29,7 +29,7 @@ export default function Header() {
   null
  );
  return (
-  <header className='h-[--dashboard-header-height] border-b border-neutral-300 dark:border-neutral-700 flex justify-between'>
+  <header className='h-[--dashboard-header-height] border-b border-neutral-300 dark:border-neutral-700 flex justify-between flex-shrink-0'>
    <div className='flex items-center lg:items-stretch'>
     <div className='mx-2 lg:hidden'>
      <IconButton color='primary' size='large'>
