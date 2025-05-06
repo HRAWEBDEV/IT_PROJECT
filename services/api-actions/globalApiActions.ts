@@ -60,14 +60,15 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
   ResponseShape<
    T['pagination'] extends PaginationProps
     ? {
-       blogs: PagedResponse<Blog[]>;
+       Blogs: PagedResponse<Blog[]>;
       }
-    : Blog[]
+    : { Blogs: Blog[] }
   >
  >
 > {
  const { pagination } = props;
  const params = new URLSearchParams();
+ params.append('lang', props.locale);
  if (pagination) {
   params.append('limit', pagination.limit.toString());
   params.append('offset', pagination.offset.toString());
@@ -92,7 +93,7 @@ function getBlogCategories<T extends { pagination?: PaginationProps }>(
     ? {
        BlogCategories: PagedResponse<BlogCategory[]>;
       }
-    : BlogCategory[]
+    : { BlogCategories: BlogCategory[] }
   >
  >
 > {

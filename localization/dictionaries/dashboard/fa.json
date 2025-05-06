@@ -39,5 +39,18 @@
   "save": "ثبت",
   "description": "توضیحات",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
+ },
+ "articles": {
+  "title": "اخبار و مقاله‌ها",
+  "category": "دسته بندی",
+  "addArticle": "افزودن اخبار و مقاله",
+  "articleTitle": "عنوان",
+  "actions": "عملیات",
+  "editArticle": "ویرایش",
+  "deleteArticle": "حذف",
+  "cancel": "انصراف",
+  "save": "ثبت",
+  "description": "توضیحات",
+  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
  }
 }
