@@ -192,10 +192,14 @@ export default function Header({ dic }: WithDictionary) {
       {mode === 'dark' ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
      </IconButton>
      <IconButton
-      LinkComponent={Link}
-      href='/auth'
+      // LinkComponent={Link}
+      // href='/auth'
       sx={{ padding: 0 }}
       color='secondary'
+      onClick={(e) => {
+       setProfileAnchor(e.currentTarget);
+       handleToggleProfile();
+      }}
      >
       <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />
      </IconButton>

@@ -10,6 +10,8 @@
   "viewAll": "مشاهده همه"
  },
  "profile": {
+  "profile": "پروفایل",
+  "dashboard": "داشبورد",
   "favorite": "علاقه مندی ها",
   "exit": "خروج"
  },

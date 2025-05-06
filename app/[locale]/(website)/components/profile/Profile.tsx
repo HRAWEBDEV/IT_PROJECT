@@ -5,6 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 
@@ -23,13 +25,25 @@ export default function Profile({
  const { isLargeDevice } = useAppMonitorConfig();
 
  const profileList = [
+  <MenuItem key={'profile'}>
+   <Link href={'/profile'} className='w-full flex gap-3'>
+    <AssignmentIndIcon color='primary' />
+    <span>{(dic.profile as Dic).profile as string}</span>
+   </Link>
+  </MenuItem>,
+  <Divider key={'main-divider'} />,
+  <MenuItem key={'dashboard'}>
+   <Link href={'/dashboard'} className='w-full flex gap-3'>
+    <DashboardIcon color='secondary' />
+    <span>{(dic.profile as Dic).dashboard as string}</span>
+   </Link>
+  </MenuItem>,
   <MenuItem key={'fav'}>
    <Link href={'/profile/favorites'} className='w-full flex gap-3'>
     <FavoriteIcon color='error' />
     <span>{(dic.profile as Dic).favorite as string}</span>
    </Link>
   </MenuItem>,
-  <Divider key={'divider'} />,
   <MenuItem key={'exit'}>
    <div className='flex gap-3'>
     <LogoutIcon color='warning' />
