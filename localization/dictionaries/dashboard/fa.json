@@ -3,5 +3,13 @@
  "profile": {
   "returnToWebsite": "بازگشت به وبسایت",
   "exit": "خروج"
+ },
+ "navigation": {
+  "settings": "تنظیمات",
+  "initialInfo": "اطلاعات اولیه",
+  "tags": "تگ ها",
+  "articles": "اخبار و مقــاله‌ها",
+  "articlesCategories": "دسته بندی اخبار و مقاله‌ها",
+  "articlesList": "لیست اخبار و مقاله‌ها"
  }
 }
