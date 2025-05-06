@@ -8,6 +8,7 @@ export function useQueryToggler(queryName: string) {
 
  const queryValue = searchParams.get(queryName);
  const isQueryTrue = queryValue === 'true';
+ console.log(history.state);
 
  const handleToggle = useCallback(
   (newValue?: boolean) => {
@@ -22,9 +23,10 @@ export function useQueryToggler(queryName: string) {
    }
    const newPath = `${pathname}?${queries.toString()}`;
    if (newValue) {
-    router.replace(newPath, { scroll: false });
+    router.push(newPath, { scroll: false });
    } else {
     router.replace(newPath, { scroll: false });
+    history.go(-1);
    }
   },
   [isQueryTrue, pathname, queryName, router, searchParams]
