@@ -5,6 +5,24 @@ import { gridClasses } from '@mui/x-data-grid';
 import { alpha } from '@mui/material/styles';
 
 export const components: Components<Omit<Theme, 'components'>> = {
+ MuiTypography: {
+  styleOverrides: {
+   root: {
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+   },
+  },
+ },
+ MuiMenuItem: {
+  styleOverrides: {
+   root: {
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
+   },
+  },
+ },
  MuiIconButton: {
   styleOverrides: {
    root: {

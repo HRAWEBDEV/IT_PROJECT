@@ -1,7 +1,14 @@
-import { DataGrid, GridPaginationModel } from '@mui/x-data-grid';
+import {
+ DataGrid,
+ GridPaginationModel,
+ GridActionsCellItem,
+} from '@mui/x-data-grid';
 import { type Tag } from '@/services/api-actions/globalApiActions';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 type Props = {
  tagsList: Tag[];
  isLoading: boolean;
@@ -20,7 +27,6 @@ export default function TagsGrid({
  const { tags } = useWebsiteDictionary() as {
   tags: Dic;
  };
-
  return (
   <div
    style={{
@@ -57,6 +63,29 @@ export default function TagsGrid({
       headerName: tags.tagTitle as string,
       minWidth: 250,
       flex: 1,
+     },
+     {
+      type: 'actions',
+      field: 'actions',
+      headerAlign: 'center',
+      align: 'center',
+      headerName: tags.actions as string,
+      getActions({}) {
+       return [
+        <GridActionsCellItem
+         key={'edit'}
+         label={tags.editTag as string}
+         icon={<EditIcon color='secondary' />}
+         showInMenu
+        />,
+        <GridActionsCellItem
+         key={'remove'}
+         label={tags.deleteTag as string}
+         icon={<DeleteIcon color='error' />}
+         showInMenu
+        />,
+       ];
+      },
      },
     ]}
    />
