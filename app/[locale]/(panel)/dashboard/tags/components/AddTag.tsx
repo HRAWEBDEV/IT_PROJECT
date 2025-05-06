@@ -21,6 +21,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
+import { useSnackbar } from 'notistack';
 
 type Props = {
  open: boolean;
@@ -30,6 +31,7 @@ type Props = {
 };
 
 export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
+ const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
  const { tags } = useWebsiteDictionary() as {
   tags: Dic;
@@ -38,23 +40,30 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
 
  const { mutate: mutateTag, isPending: isCreating } = useMutation({
   mutationFn: async (data: AddTagSchema) => {
-   const result = tag
-    ? await updateTag({
-       locale,
-       name: data.title,
-       tagTypeID: Number(data.category.id),
-       id: tag.id,
-      })
-    : await createTag({
-       locale,
-       name: data.title,
-       tagTypeID: Number(data.category.id),
-      });
-   queryClient.invalidateQueries({
-    queryKey: ['dashboard', 'tags'],
-   });
-   onClose();
-   return result;
+   try {
+    const result = tag
+     ? await updateTag({
+        locale,
+        name: data.title,
+        tagTypeID: Number(data.category.id),
+        id: tag.id,
+       })
+     : await createTag({
+        locale,
+        name: data.title,
+        tagTypeID: Number(data.category.id),
+       });
+    queryClient.invalidateQueries({
+     queryKey: ['dashboard', 'tags'],
+    });
+    onClose();
+    return result;
+   } catch {
+    enqueueSnackbar({
+     message: tags.errorTryAgainLater as string,
+     variant: 'error',
+    });
+   }
   },
  });
  const {
