@@ -30,13 +30,15 @@ export default function Header() {
  );
  return (
   <header className='h-[--dashboard-header-height] border-b border-neutral-300 dark:border-neutral-700 flex justify-between'>
-   <div className='flex items-center lg:border-e border-neutral-300 dark:border-neutral-700 lg:w-[--dashboard-nav-width]'>
+   <div className='flex items-center lg:items-stretch'>
     <div className='mx-2 lg:hidden'>
      <IconButton color='primary' size='large'>
       <DehazeIcon fontSize='large' />
      </IconButton>
     </div>
-    <span className='font-medium text-xl'>LOGO</span>
+    <div className='lg:w-[--dashboard-nav-width] lg:flex lg:items-center lg:justify-center lg:border-e border-neutral-300 dark:border-neutral-700'>
+     <span className='font-medium text-xl'>LOGO</span>
+    </div>
    </div>
    <div className='flex'>
     <div className='flex items-center'>
