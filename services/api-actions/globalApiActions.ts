@@ -109,7 +109,14 @@ function getBlogCategories<T extends { pagination?: PaginationProps }>(
 }
 // function createBlogCategory(props: ApiDefaultProps) {}
 // function updateBlogCategory(props: ApiDefaultProps) {}
-// function deleteBlogCategory(props: ApiDefaultProps) {}
+function deleteBlogCategory(
+ props: ApiDefaultProps & { blogCategoryID: BlogCategory['id'] }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogCategoryID', props.blogCategoryID.toString());
+ return axios.delete(`${blogCategoriesApi}?${params.toString()}`);
+}
 
 // tags actions
 const tagsApi = '/tags';
@@ -192,4 +199,5 @@ export {
  deleteTag,
  createTag,
  updateTag,
+ deleteBlogCategory,
 };

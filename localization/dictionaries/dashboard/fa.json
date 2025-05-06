@@ -26,5 +26,17 @@
   "cancel": "انصراف",
   "save": "ثبت",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
+ },
+ "articlesCategories": {
+  "title": "دسته بندی اخبار و مقاله‌ها",
+  "category": "دسته بندی",
+  "addCategory": "افزودن دسته بندی",
+  "categoryTitle": "عنوان",
+  "actions": "عملیات",
+  "editCategory": "ویرایش",
+  "deleteCategory": "حذف",
+  "cancel": "انصراف",
+  "save": "ثبت",
+  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
  }
 }
