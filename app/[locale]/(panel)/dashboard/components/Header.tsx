@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import Badge from '@mui/material/Badge';
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useQueryToggler } from '@/hooks/useQueryToggler';
 import Profile from './profile/Profile';
@@ -29,7 +30,12 @@ export default function Header() {
  );
  return (
   <header className='h-[--dashboard-header-height] border-b border-neutral-300 dark:border-neutral-700 flex justify-between'>
-   <div className='flex items-center lg:border-e border-neutral-300 dark:border-neutral-700'>
+   <div className='flex items-center lg:border-e border-neutral-300 dark:border-neutral-700 lg:w-[--dashboard-nav-width]'>
+    <div className='mx-2 lg:hidden'>
+     <IconButton color='primary' size='large'>
+      <DehazeIcon fontSize='large' />
+     </IconButton>
+    </div>
     <span className='font-medium text-xl'>LOGO</span>
    </div>
    <div className='flex'>

@@ -8,7 +8,6 @@ export function useQueryToggler(queryName: string) {
 
  const queryValue = searchParams.get(queryName);
  const isQueryTrue = queryValue === 'true';
- console.log(history.state);
 
  const handleToggle = useCallback(
   (newValue?: boolean) => {

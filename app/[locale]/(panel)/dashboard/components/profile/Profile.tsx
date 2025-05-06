@@ -3,8 +3,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
+import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+import WebAssetIcon from '@mui/icons-material/WebAsset';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { type Dic } from '@/localization/locales';
+import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 
 type Props = {
  isOpen: boolean;
@@ -14,12 +18,30 @@ type Props = {
 
 export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
+ const { profile } = useWebsiteDictionary() as {
+  profile: Dic;
+ };
 
  const profileList = [
+  <MenuItem key={'user-name'}>
+   <div className='flex gap-3'>
+    <PersonIcon color='primary' />
+    <span>امیررضا حسینی</span>
+   </div>
+  </MenuItem>,
+  <Divider key={'divider'} />,
+  <MenuItem key={'website'}>
+   <Link href={'/'}>
+    <div className='flex gap-3'>
+     <WebAssetIcon color='primary' />
+     <span>{profile.returnToWebsite as string}</span>
+    </div>
+   </Link>
+  </MenuItem>,
   <MenuItem key={'exit'}>
    <div className='flex gap-3'>
     <LogoutIcon color='warning' />
-    <span>خروج</span>
+    <span>{profile.exit as string}</span>
    </div>
   </MenuItem>,
  ];
