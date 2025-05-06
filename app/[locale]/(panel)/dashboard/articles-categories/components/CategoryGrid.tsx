@@ -105,6 +105,12 @@ export default function CategoryGrid({
       flex: 1,
      },
      {
+      field: 'description',
+      headerName: articlesCategories.description as string,
+      minWidth: 320,
+      flex: 3,
+     },
+     {
       type: 'actions',
       field: 'actions',
       headerAlign: 'center',
