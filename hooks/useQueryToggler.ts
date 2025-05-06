@@ -22,7 +22,7 @@ export function useQueryToggler(queryName: string) {
    }
    const newPath = `${pathname}?${queries.toString()}`;
    if (newValue) {
-    router.push(newPath, { scroll: false });
+    router.replace(newPath, { scroll: false });
    } else {
     router.replace(newPath, { scroll: false });
    }
