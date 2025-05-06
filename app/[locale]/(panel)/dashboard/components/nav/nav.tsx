@@ -15,9 +15,9 @@ export default function Nav() {
     localeInfo.dir === 'rtl'
      ? 'translate-x-[--dashboard-nav-width]'
      : '-translate-x-[--dashboard-nav-width]'
-   } lg:translate-x-0 ${addClass(
+   } lg:!translate-x-0 ${addClass(
     navIsVisible,
-    'translate-x-0'
+    '!translate-x-0'
    )}  lg:sticky transition-transform w-[--dashboard-nav-width] border-e border-neutral-300 dark:border-neutral-700 py-4 overflow-auto`}
   >
    <NavList navigationList={navigationList} />
