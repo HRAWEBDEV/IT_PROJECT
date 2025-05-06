@@ -14,8 +14,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Language from '@/app/[locale]/(website)/components/language/Language';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
 
 export default function Header() {
+ const { navIsVisible, setNavIsVisible } = useNavigationContext();
  const { mode, changeMode, localeInfo } = useAppConfig();
  const { isLargeDevice } = useAppMonitorConfig();
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
@@ -32,8 +35,16 @@ export default function Header() {
   <header className='h-[--dashboard-header-height] border-b border-neutral-300 dark:border-neutral-700 flex justify-between flex-shrink-0'>
    <div className='flex items-center lg:items-stretch'>
     <div className='mx-2 lg:hidden'>
-     <IconButton color='primary' size='large'>
-      <DehazeIcon fontSize='large' />
+     <IconButton
+      color='primary'
+      size='large'
+      onClick={() => setNavIsVisible((pre) => !pre)}
+     >
+      {navIsVisible ? (
+       <CloseIcon fontSize='large' color='error' />
+      ) : (
+       <DehazeIcon fontSize='large' />
+      )}
      </IconButton>
     </div>
     <div className='lg:w-[--dashboard-nav-width] lg:flex lg:items-center lg:justify-center lg:border-e border-neutral-300 dark:border-neutral-700'>

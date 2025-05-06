@@ -1,5 +1,25 @@
+'use client';
+import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
 import { PropsWithChildren } from 'react';
+import { Backdrop } from '@mui/material';
+import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 export default function Main({ children }: PropsWithChildren) {
- return <div className='flex-grow overflow-auto'>{children}</div>;
+ const { isLargeDevice } = useAppMonitorConfig();
+ const { navIsVisible } = useNavigationContext();
+ return (
+  <div
+   className={`flex-grow ${
+    navIsVisible ? 'overflow-hidden' : 'overflow-auto'
+   } lg:overflow-auto`}
+  >
+   {children}
+   <Backdrop
+    sx={{
+     top: ' var(--dashboard-header-height)',
+    }}
+    open={navIsVisible && !isLargeDevice}
+   />
+  </div>
+ );
 }
