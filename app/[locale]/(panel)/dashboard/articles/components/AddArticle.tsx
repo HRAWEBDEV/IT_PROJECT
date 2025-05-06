@@ -43,34 +43,7 @@ export default function AddArticle({
  };
  //  const queryClient = useQueryClient();
 
- const { mutate: mutateTag, isPending: isCreating } = useMutation({
-  mutationFn: async (data: AddArticleSchema) => {
-   // try {
-   //  const result = tag
-   //   ? await updateTag({
-   //      locale,
-   //      name: data.title,
-   //      tagTypeID: Number(data.category.id),
-   //      id: tag.id,
-   //     })
-   //   : await createTag({
-   //      locale,
-   //      name: data.title,
-   //      tagTypeID: Number(data.category.id),
-   //     });
-   //  queryClient.invalidateQueries({
-   //   queryKey: ['dashboard', 'tags'],
-   //  });
-   //  onClose();
-   //  return result;
-   // } catch {
-   //  enqueueSnackbar({
-   //   message: tags.errorTryAgainLater as string,
-   //   variant: 'error',
-   //  });
-   // }
-  },
- });
+ const { mutate: mutateTag, isPending: isCreating } = useMutation({});
  const {
   control,
   register,
@@ -104,7 +77,7 @@ export default function AddArticle({
    onSubmit={(e) => {
     e.preventDefault();
     handleSubmit((data) => {
-     mutateTag(data);
+     //  mutateTag(data);
     })();
    }}
   >

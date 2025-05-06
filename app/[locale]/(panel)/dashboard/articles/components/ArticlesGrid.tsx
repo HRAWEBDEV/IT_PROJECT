@@ -35,29 +35,11 @@ export default function ArticlesGrid({
  setOpenAddArticle,
  selectedArticle,
 }: Props) {
- const queryClient = useQueryClient();
- const { locale } = useAppConfig();
- const { enqueueSnackbar } = useSnackbar();
+ // const queryClient = useQueryClient();
+ // const { locale } = useAppConfig();
+ // const { enqueueSnackbar } = useSnackbar();
  const [openConfirm, setOpenConfirm] = useState(false);
- const { mutate: deleteMutate, isPending } = useMutation({
-  mutationFn(id: number) {
-   //  return deleteTag({
-   //   tagID: id,
-   //   locale,
-   //  })
-   //   .then(() => {
-   //    queryClient.invalidateQueries({
-   //     queryKey: ['dashboard', 'tags'],
-   //    });
-   //   })
-   //   .catch(() => {
-   //    enqueueSnackbar({
-   //     message: tags.errorTryAgainLater as string,
-   //     variant: 'error',
-   //    });
-   //   });
-  },
- });
+ const { mutate: deleteMutate, isPending } = useMutation({});
 
  const { articles, deleteItemConfirmation } = useWebsiteDictionary() as {
   articles: Dic;
