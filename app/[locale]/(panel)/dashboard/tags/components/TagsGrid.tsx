@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
  DataGrid,
  GridPaginationModel,
@@ -10,6 +11,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
+import ConfirmBox from '@/components/ConfirmBox';
+import { useSnackbar } from 'notistack';
 
 type Props = {
  tagsList: Tag[];
@@ -30,24 +33,35 @@ export default function TagsGrid({
  rowCount,
  setSelectedTag,
  setOpenAddTag,
+ selectedTag,
 }: Props) {
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
+ const { enqueueSnackbar } = useSnackbar();
+ const [openConfirm, setOpenConfirm] = useState(false);
  const { mutate: deleteMutate, isPending } = useMutation({
   mutationFn(id: number) {
    return deleteTag({
     tagID: id,
     locale,
-   }).then(() => {
-    queryClient.invalidateQueries({
-     queryKey: ['dashboard', 'tags'],
+   })
+    .then(() => {
+     queryClient.invalidateQueries({
+      queryKey: ['dashboard', 'tags'],
+     });
+    })
+    .catch(() => {
+     enqueueSnackbar({
+      message: tags.errorTryAgainLater as string,
+      variant: 'error',
+     });
     });
-   });
   },
  });
 
- const { tags } = useWebsiteDictionary() as {
+ const { tags, deleteItemConfirmation } = useWebsiteDictionary() as {
   tags: Dic;
+  deleteItemConfirmation: string;
  };
  return (
   <div
@@ -92,7 +106,7 @@ export default function TagsGrid({
       headerAlign: 'center',
       align: 'center',
       headerName: tags.actions as string,
-      getActions({ id, row }) {
+      getActions({ row }) {
        return [
         <GridActionsCellItem
          key={'edit'}
@@ -109,13 +123,30 @@ export default function TagsGrid({
          disabled={isPending}
          label={tags.deleteTag as string}
          icon={<DeleteIcon color='error' />}
-         onClick={() => deleteMutate(id as number)}
+         onClick={() => {
+          setSelectedTag(row);
+          setOpenConfirm(true);
+         }}
          showInMenu
         />,
        ];
       },
      },
     ]}
+   />
+   <ConfirmBox
+    message={deleteItemConfirmation as string}
+    open={openConfirm}
+    onConfirm={async () => {
+     if (!selectedTag) return;
+     deleteMutate(selectedTag.id);
+     setOpenConfirm(false);
+     setSelectedTag(null);
+    }}
+    onCancel={() => {
+     setOpenConfirm(false);
+     setSelectedTag(null);
+    }}
    />
   </div>
  );

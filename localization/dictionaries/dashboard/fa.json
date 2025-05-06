@@ -1,5 +1,8 @@
 {
  "title": "آیتی نترا |‌ فناوری و اطلاعات | داشبورد",
+ "deleteItemConfirmation": "آیا از حذف این آیتم اطمینان دارید؟",
+ "cancel": "انصراف",
+ "confirm": "تایید",
  "profile": {
   "returnToWebsite": "بازگشت به وبسایت",
   "exit": "خروج"

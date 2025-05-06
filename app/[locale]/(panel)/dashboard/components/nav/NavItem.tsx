@@ -8,12 +8,14 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import NavList from './NavList';
 import { motion, AnimatePresence } from 'motion/react';
+import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
 
 type Props = {
  item: NavigationItem;
 };
 
 export default function NavItem({ item }: Props) {
+ const { setNavIsVisible } = useNavigationContext();
  const [isOpen, setIsOpen] = useState(false);
  const pathname = usePathname();
  const { navigation } = useWebsiteDictionary() as {
@@ -25,7 +27,12 @@ export default function NavItem({ item }: Props) {
     aria-selected={pathname.includes(item.href)}
     className='flex items-center justify-between me-2 p-3 rounded-lg transition-colors hover:bg-sky-100 dark:hover:bg-sky-800 aria-selected:bg-sky-100 dark:aria-selected:bg-sky-800'
     href={item.href}
-    onClick={() => setIsOpen(!isOpen)}
+    onClick={() => {
+     setIsOpen(!isOpen);
+     if (!item.children?.length) {
+      setNavIsVisible(false);
+     }
+    }}
    >
     <div>
      <span className='font-medium'>{navigation[item.title] as string}</span>

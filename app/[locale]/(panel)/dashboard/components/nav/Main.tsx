@@ -6,7 +6,7 @@ import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 export default function Main({ children }: PropsWithChildren) {
  const { isLargeDevice } = useAppMonitorConfig();
- const { navIsVisible } = useNavigationContext();
+ const { navIsVisible, setNavIsVisible } = useNavigationContext();
  return (
   <div
    className={`flex-grow ${
@@ -15,6 +15,7 @@ export default function Main({ children }: PropsWithChildren) {
   >
    {children}
    <Backdrop
+    onClick={() => setNavIsVisible(false)}
     sx={{
      top: ' var(--dashboard-header-height)',
     }}
