@@ -28,7 +28,7 @@ export default function ArticlesFilters({
  return (
   <form
    onSubmit={(e) => e.preventDefault()}
-   className='bg-background grid items-center grid-cols-[minmax(0,20rem)_max-content] justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
+   className='bg-background grid lg:items-center lg:grid-cols-[minmax(0,20rem)_max-content] lg:justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
   >
    <Controller
     control={control}
@@ -52,7 +52,7 @@ export default function ArticlesFilters({
      />
     )}
    />
-   <div className='flex items-center gap-2'>
+   <div className='flex items-center gap-2 justify-end'>
     <Button
      variant='outlined'
      color='info'
