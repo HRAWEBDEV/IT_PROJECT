@@ -60,7 +60,6 @@ export default function AddArticle({
   isLoading: isLoadingTags,
   isFetching: isFetchingTags,
  } = useQuery({
-  enabled: !tagOnce,
   queryKey: ['tags', article?.id],
   queryFn: async () => {
    const result = await getTags({
@@ -152,6 +151,10 @@ export default function AddArticle({
   }
  }, [article, articleCategories, setValue, open]);
 
+ useEffect(() => {
+  console.log(tags);
+ }, [tags]);
+
  return (
   <Dialog
    open={open}
@@ -219,6 +222,7 @@ export default function AddArticle({
       loading={isLoadingTags || isFetchingTags}
       size='small'
       value={selectedTags}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       onChange={(_, newValue) => setSelectedTags(newValue)}
       getOptionLabel={(option) => option.name}
       options={tags}
