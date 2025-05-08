@@ -95,12 +95,17 @@ export default function AddArticle({
     variant: 'error',
    });
   },
-  mutationFn(data: AddArticleSchema) {
+  async mutationFn(data: AddArticleSchema) {
    const tagBlogs = selectedTags.map((item) => ({
     blogID: article?.id || 0,
     tagID: item.id,
     lang: locale,
    }));
+   //  fix this after images are right
+   //  let imageUrl = null;
+   //  if (article?.id) {
+   //  }
+
    const newBlog = {
     locale,
     blogCategoryID: Number(data.category.id),

@@ -7,6 +7,7 @@ import {
  getBlogImages,
  createBlogImage,
  updateBlog,
+ getBlogTags,
 } from '@/services/api-actions/globalApiActions';
 import CloseIcon from '@mui/icons-material/Close';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -59,6 +60,10 @@ export default function AddImage({ open, onClose, article }: Props) {
   },
   mutationFn: async (formData: FormData) => {
    const result = await createBlogImage(formData);
+   const tagResult = await getBlogTags({
+    locale,
+    blogID: article!.id,
+   });
    return updateBlog({
     locale,
     id: article.id,
@@ -66,6 +71,11 @@ export default function AddImage({ open, onClose, article }: Props) {
     blogCategoryID: article.blogCategoryID,
     header: article.header,
     description: article.description,
+    blogTags: tagResult.data.payload.BlogTags.map((item) => ({
+     tagID: item.tagID,
+     lang: locale,
+     blogID: article.id,
+    })),
     blogImage: {
      imageUrl: result.data,
      lang: locale,
