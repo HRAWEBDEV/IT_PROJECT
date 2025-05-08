@@ -215,4 +215,9 @@ export const components: Components<Omit<Theme, 'components'>> = {
    },
   },
  },
+ MuiDialog: {
+  defaultProps: {
+   keepMounted: false,
+  },
+ },
 };
