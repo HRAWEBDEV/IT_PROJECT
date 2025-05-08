@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,9 +11,13 @@ import { type Dic } from '@/localization/locales';
 import {
  type Blog,
  type BlogCategory,
+ type Tag,
  createBlog,
  updateBlog,
+ getTags,
+ getBlogTags,
 } from '@/services/api-actions/globalApiActions';
+import { useQuery } from '@tanstack/react-query';
 import { addArticleSchema, type AddArticleSchema } from '../schemas/addArticle';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
@@ -22,6 +26,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useSnackbar } from 'notistack';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import Checkbox from '@mui/material/Checkbox';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
+const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
+const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
 type Props = {
  open: boolean;
@@ -36,6 +46,8 @@ export default function AddArticle({
  articleCategories,
  onClose,
 }: Props) {
+ const [tagOnce, setTagOnce] = useState(false);
+ const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
  const { articles } = useWebsiteDictionary() as {
@@ -43,24 +55,56 @@ export default function AddArticle({
  };
  const queryClient = useQueryClient();
 
+ const {
+  data: tags = [],
+  isLoading: isLoadingTags,
+  isFetching: isFetchingTags,
+ } = useQuery({
+  enabled: !tagOnce,
+  queryKey: ['tags', article?.id],
+  queryFn: async () => {
+   const result = await getTags({
+    locale,
+    tagTypeID: 1,
+   });
+   const tags = result.data.payload.Tags;
+   if (article && article.id && !tagOnce) {
+    const result = await getBlogTags({
+     locale,
+     blogID: article!.id,
+    });
+    const blogTags = result.data.payload.BlogTags;
+    setSelectedTags(
+     tags.filter((item) => blogTags.some((b) => b.tagID === item.id))
+    );
+    setTagOnce(true);
+   }
+   return tags;
+  },
+ });
+
  const { mutate: mutateTag, isPending: isCreating } = useMutation({
   async mutationFn(data: AddArticleSchema) {
+   const tagBlogs = selectedTags.map((item) => ({
+    blogID: article?.id || 0,
+    tagID: item.id,
+    lang: locale,
+   }));
+   const newBlog = {
+    locale,
+    blogCategoryID: Number(data.category.id),
+    header: data.title,
+    description: data.description,
+    body: article?.body || '',
+    blogTags: tagBlogs,
+   };
    try {
     const result = article
      ? await updateBlog({
         id: article.id,
-        locale,
-        blogCategoryID: Number(data.category.id),
-        header: data.title,
-        description: data.description,
-        body: article.body,
+        ...newBlog,
        })
-     : await createBlog({
-        locale,
-        blogCategoryID: Number(data.category.id),
-        header: data.title,
-        description: data.description,
-       });
+     : await createBlog(newBlog);
     queryClient.invalidateQueries({
      queryKey: ['dashboard', 'articles'],
     });
@@ -88,6 +132,8 @@ export default function AddArticle({
  });
 
  useEffect(() => {
+  setTagOnce(false);
+  setSelectedTags([]);
   if (article) {
    setValue('title', article.header);
    setValue('description', article.description);
@@ -168,6 +214,32 @@ export default function AddArticle({
       helperText={errors.title?.message}
       required
      />
+     <Autocomplete
+      multiple
+      loading={isLoadingTags || isFetchingTags}
+      size='small'
+      value={selectedTags}
+      onChange={(_, newValue) => setSelectedTags(newValue)}
+      getOptionLabel={(option) => option.name}
+      options={tags}
+      renderInput={(params) => (
+       <TextField {...params} label={articles.tags as string} />
+      )}
+      renderOption={(props, option, { selected }) => {
+       const { key, ...optionProps } = props;
+       return (
+        <li key={key} {...optionProps}>
+         <Checkbox
+          icon={icon}
+          checkedIcon={checkedIcon}
+          style={{ marginRight: 8 }}
+          checked={selected}
+         />
+         {option.name}
+        </li>
+       );
+      }}
+     />
      <TextField
       size='small'
       multiline
@@ -194,7 +266,7 @@ export default function AddArticle({
      className='w-[6rem]'
      variant='contained'
      type='submit'
-     loading={isCreating}
+     loading={isCreating || isFetchingTags || isLoadingTags}
     >
      {articles.save as string}
     </Button>

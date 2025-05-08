@@ -82,7 +82,9 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
 }
 function createBlog(
  props: ApiDefaultProps &
-  Pick<Blog, 'blogCategoryID' | 'header' | 'description'>
+  Pick<Blog, 'blogCategoryID' | 'header' | 'description'> & {
+   blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[];
+  }
 ) {
  const newBlog = {
   blogCategoryID: props.blogCategoryID,
@@ -91,6 +93,7 @@ function createBlog(
   body: 'writing',
   blogStateID: 1,
   lang: props.locale,
+  blogTags: props.blogTags || null,
  };
  return axios.post(blogsApi, newBlog);
 }
@@ -98,7 +101,7 @@ function updateBlog(
  props: ApiDefaultProps &
   Pick<Blog, 'blogCategoryID' | 'header' | 'description' | 'id' | 'body'> & {
    blogImage?: { imageUrl: string; lang: SupportedLocales };
-  }
+  } & { blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[] }
 ) {
  const newBlog = {
   id: props.id,
@@ -109,10 +112,23 @@ function updateBlog(
   blogStateID: 1,
   lang: props.locale,
   blogImage: props.blogImage || null,
+  blogTags: props.blogTags || null,
  };
  return axios.put(blogsApi, newBlog);
 }
+
 // function deleteBlog(props: ApiDefaultProps) {}
+const getBlogTagsApi = '/blogTags';
+function getBlogTags(props: ApiDefaultProps & { blogID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogID', props.blogID.toString());
+ return axios.get<
+  ResponseShape<{ BlogTags: { tagID: number; tagName: string }[] }>
+ >(`${getBlogTagsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
 // blog images
 
 const blogImagesApi = '/blogImages';
@@ -273,4 +289,5 @@ export {
  updateBlog,
  getBlogImages,
  createBlogImage,
+ getBlogTags,
 };

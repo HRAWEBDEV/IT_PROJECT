@@ -40,19 +40,18 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
 
  const { mutate: mutateTag, isPending: isCreating } = useMutation({
   mutationFn: async (data: AddTagSchema) => {
+   const newTag = {
+    locale,
+    name: data.title,
+    tagTypeID: Number(data.category.id),
+   };
    try {
     const result = tag
      ? await updateTag({
-        locale,
-        name: data.title,
-        tagTypeID: Number(data.category.id),
+        ...newTag,
         id: tag.id,
        })
-     : await createTag({
-        locale,
-        name: data.title,
-        tagTypeID: Number(data.category.id),
-       });
+     : await createTag(newTag);
     queryClient.invalidateQueries({
      queryKey: ['dashboard', 'tags'],
     });

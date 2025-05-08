@@ -40,19 +40,18 @@ export default function AddCategory({ open, category, onClose }: Props) {
 
  const { mutate: mutateCategory, isPending: isCreating } = useMutation({
   mutationFn: async (data: AddCategorySchema) => {
+   const newCategory = {
+    locale,
+    name: data.title,
+    description: data.description,
+   };
    try {
     const result = category
      ? await updateBlogCategory({
-        locale,
-        name: data.title,
-        description: data.description,
+        ...newCategory,
         id: category.id,
        })
-     : await createBlogCategory({
-        locale,
-        name: data.title,
-        description: data.description,
-       });
+     : await createBlogCategory(newCategory);
     queryClient.invalidateQueries({
      queryKey: ['dashboard', 'articlesCategories'],
     });
