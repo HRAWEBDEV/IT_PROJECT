@@ -133,11 +133,14 @@ function getBlogTags(props: ApiDefaultProps & { blogID: number }) {
 
 const blogImagesApi = '/blogImages';
 function getBlogImages(props: ApiDefaultProps & { blogID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogID', props.blogID.toString());
  return axios.get<
   ResponseShape<{
    PersianBlogImages: { imageUrl: string }[];
   }>
- >(blogImagesApi, {
+ >(`${blogImagesApi}?${params.toString()}`, {
   signal: props.signal,
  });
 }

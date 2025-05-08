@@ -14,6 +14,7 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import ArticleIcon from '@mui/icons-material/Article';
 
 type Props = {
  articlesList: Blog[];
@@ -113,6 +114,16 @@ export default function ArticlesGrid({
          key={'images'}
          label={articles.images as string}
          icon={<ImageOutlinedIcon color='warning' />}
+         onClick={() => {
+          setSelectedArticle(row);
+          setShowAddImage(true);
+         }}
+         showInMenu
+        />,
+        <GridActionsCellItem
+         key={'content'}
+         label={articles.content as string}
+         icon={<ArticleIcon color='primary' />}
          onClick={() => {
           setSelectedArticle(row);
           setShowAddImage(true);
