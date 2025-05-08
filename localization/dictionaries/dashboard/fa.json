@@ -50,8 +50,12 @@
   "deleteArticle": "حذف",
   "cancel": "انصراف",
   "save": "ثبت",
+  "images": "تصاویر",
   "description": "توضیحات",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
-  "atLeastOneCategory": "افزودن حداقل یک دسته بندی الزامی است"
+  "atLeastOneCategory": "افزودن حداقل یک دسته بندی الزامی است",
+  "dragFileOrClickToUpload": "برای آپلود، فایل را داخل باکس رها کنید و یا داخل باکس کلیک کنید",
+  "fileLimitMessage": "حجم فایل باید کمتر از 5 مگابایت باشد",
+  "fileExtension": "فرمت فایل باید png, jpg یا jpeg باشد"
  }
 }

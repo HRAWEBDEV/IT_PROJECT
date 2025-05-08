@@ -96,7 +96,9 @@ function createBlog(
 }
 function updateBlog(
  props: ApiDefaultProps &
-  Pick<Blog, 'blogCategoryID' | 'header' | 'description' | 'id' | 'body'>
+  Pick<Blog, 'blogCategoryID' | 'header' | 'description' | 'id' | 'body'> & {
+   blogImage?: { imageUrl: string; lang: SupportedLocales };
+  }
 ) {
  const newBlog = {
   id: props.id,
@@ -106,10 +108,30 @@ function updateBlog(
   body: props.body,
   blogStateID: 1,
   lang: props.locale,
+  blogImage: props.blogImage || null,
  };
  return axios.put(blogsApi, newBlog);
 }
 // function deleteBlog(props: ApiDefaultProps) {}
+// blog images
+
+const blogImagesApi = '/blogImages';
+function getBlogImages(props: ApiDefaultProps & { blogID: number }) {
+ return axios.get<
+  ResponseShape<{
+   PersianBlogImages: { imageUrl: string }[];
+  }>
+ >(blogImagesApi, {
+  signal: props.signal,
+ });
+}
+function createBlogImage(formData: FormData) {
+ return axios.post<string>(blogImagesApi, formData, {
+  headers: {
+   'Content-Type': 'multipart/form-data',
+  },
+ });
+}
 // blog categories actions
 const blogCategoriesApi = '/blog-categories';
 function getBlogCategories<T extends { pagination?: PaginationProps }>(
@@ -249,4 +271,6 @@ export {
  updateBlogCategory,
  createBlog,
  updateBlog,
+ getBlogImages,
+ createBlogImage,
 };

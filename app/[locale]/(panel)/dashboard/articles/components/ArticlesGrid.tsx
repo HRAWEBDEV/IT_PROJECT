@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 type Props = {
  articlesList: Blog[];
@@ -22,6 +23,7 @@ type Props = {
  setSelectedArticle: (article: Blog | null) => void;
  setOpenAddArticle: () => void;
  setPagination: (pagination: GridPaginationModel) => void;
+ setShowAddImage: (show: boolean) => void;
  rowCount: number;
 };
 
@@ -33,6 +35,7 @@ export default function ArticlesGrid({
  rowCount,
  setSelectedArticle,
  setOpenAddArticle,
+ setShowAddImage,
  selectedArticle,
 }: Props) {
  // const queryClient = useQueryClient();
@@ -103,6 +106,16 @@ export default function ArticlesGrid({
          onClick={() => {
           setSelectedArticle(row);
           setOpenAddArticle();
+         }}
+         showInMenu
+        />,
+        <GridActionsCellItem
+         key={'images'}
+         label={articles.images as string}
+         icon={<ImageOutlinedIcon color='warning' />}
+         onClick={() => {
+          setSelectedArticle(row);
+          setShowAddImage(true);
          }}
          showInMenu
         />,
