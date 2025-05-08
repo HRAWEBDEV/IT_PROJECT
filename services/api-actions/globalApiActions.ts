@@ -43,6 +43,7 @@ type Blog = {
  description: string;
  body: string;
  blogCategoryID: number;
+ blogCategoryName: string;
  blogStateName: string;
  craeteDateTime: string;
 };
@@ -79,8 +80,35 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
   signal: props.signal,
  });
 }
-// function createBlog(props: ApiDefaultProps) {}
-// function updateBlog(props: ApiDefaultProps) {}
+function createBlog(
+ props: ApiDefaultProps &
+  Pick<Blog, 'blogCategoryID' | 'header' | 'description'>
+) {
+ const newBlog = {
+  blogCategoryID: props.blogCategoryID,
+  header: props.header,
+  description: props.description,
+  body: 'writing',
+  blogStateID: 1,
+  lang: props.locale,
+ };
+ return axios.post(blogsApi, newBlog);
+}
+function updateBlog(
+ props: ApiDefaultProps &
+  Pick<Blog, 'blogCategoryID' | 'header' | 'description' | 'id' | 'body'>
+) {
+ const newBlog = {
+  id: props.id,
+  blogCategoryID: props.blogCategoryID,
+  header: props.header,
+  description: props.description,
+  body: props.body,
+  blogStateID: 1,
+  lang: props.locale,
+ };
+ return axios.put(blogsApi, newBlog);
+}
 // function deleteBlog(props: ApiDefaultProps) {}
 // blog categories actions
 const blogCategoriesApi = '/blog-categories';
@@ -219,4 +247,6 @@ export {
  deleteBlogCategory,
  createBlogCategory,
  updateBlogCategory,
+ createBlog,
+ updateBlog,
 };
