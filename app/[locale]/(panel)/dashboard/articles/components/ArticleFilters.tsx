@@ -8,24 +8,27 @@ import { type FilterSchema } from '../schemas/filtersSchema';
 import { type BlogCategory } from '@/services/api-actions/globalApiActions';
 
 type Props = {
- setOpenAddArticle: () => void;
  articleCategories: BlogCategory[];
  isLoadingCategories: boolean;
+ setOpenAddArticle: () => void;
+ setOpenAddCategory: () => void;
 };
 
 export default function ArticlesFilters({
  articleCategories,
  isLoadingCategories,
  setOpenAddArticle,
+ setOpenAddCategory,
 }: Props) {
- const { articles } = useWebsiteDictionary() as {
+ const { articles, articlesCategories } = useWebsiteDictionary() as {
   articles: Dic;
+  articlesCategories: Dic;
  };
  const { control } = useFormContext<FilterSchema>();
  return (
   <form
    onSubmit={(e) => e.preventDefault()}
-   className='grid items-center grid-cols-[minmax(0,20rem)_max-content] justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
+   className='bg-background grid items-center grid-cols-[minmax(0,20rem)_max-content] justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
   >
    <Controller
     control={control}
@@ -49,9 +52,23 @@ export default function ArticlesFilters({
      />
     )}
    />
-   <Button variant='outlined' color='secondary' onClick={setOpenAddArticle}>
-    {articles.addArticle as string}
-   </Button>
+   <div className='flex items-center gap-2'>
+    <Button
+     variant='outlined'
+     color='info'
+     onClick={() => setOpenAddCategory()}
+    >
+     {articlesCategories.addCategory as string}
+    </Button>
+    <Button
+     variant='outlined'
+     color='secondary'
+     onClick={setOpenAddArticle}
+     disabled={!articleCategories.length}
+    >
+     {articles.addArticle as string}
+    </Button>
+   </div>
   </form>
  );
 }

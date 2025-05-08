@@ -16,8 +16,12 @@ import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
 import ArticlesGrid from './ArticlesGrid';
 import { GridPaginationModel } from '@mui/x-data-grid';
 import AddArticle from './AddArticle';
+import AddCategory from '../../articles-categories/components/AddCategory';
+import IconButton from '@mui/material/IconButton';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 export default function ArticlesWrapper() {
+ const [openAddCategory, setOpenAddCategory] = useState(false);
  const [openEditArticle, setOpenEditArticle] = useState(false);
  const [selectedArticle, setSelectedArticle] = useState<Blog | null>(null);
  const [rowCount, setRowCount] = useState(0);
@@ -41,7 +45,7 @@ export default function ArticlesWrapper() {
   isLoading: isArticleCategoriesLoading,
   isFetching: isArticleCategoriesFetching,
  } = useQuery({
-  queryKey: ['dashboard', 'article-categories'],
+  queryKey: ['dashboard', 'articlesCategories'],
   async queryFn() {
    const result = await getBlogCategories({
     locale,
@@ -98,17 +102,33 @@ export default function ArticlesWrapper() {
       isArticleCategoriesLoading || isArticleCategoriesFetching
      }
      setOpenAddArticle={() => setOpenEditArticle(true)}
+     setOpenAddCategory={() => setOpenAddCategory(true)}
     />
-    <ArticlesGrid
-     articlesList={articlesList}
-     isLoading={isLoading || isFetching}
-     pagination={pagination}
-     setPagination={setPagination}
-     rowCount={rowCount}
-     setOpenAddArticle={() => setOpenEditArticle(true)}
-     selectedArticle={selectedArticle}
-     setSelectedArticle={setSelectedArticle}
-    />
+    {articleCategories.length ? (
+     <ArticlesGrid
+      articlesList={articlesList}
+      isLoading={isLoading || isFetching}
+      pagination={pagination}
+      setPagination={setPagination}
+      rowCount={rowCount}
+      setOpenAddArticle={() => setOpenEditArticle(true)}
+      selectedArticle={selectedArticle}
+      setSelectedArticle={setSelectedArticle}
+     />
+    ) : (
+     <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
+      <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
+       {articles.atLeastOneCategory as string}
+      </p>
+      <IconButton
+       color='secondary'
+       onClick={() => setOpenAddCategory(true)}
+       className='absolute top-2 right-2'
+      >
+       <AddBoxOutlinedIcon sx={{ fontSize: '3rem' }} />
+      </IconButton>
+     </div>
+    )}
    </FormProvider>
    <AddArticle
     open={openEditArticle}
@@ -118,6 +138,11 @@ export default function ArticlesWrapper() {
      setOpenEditArticle(false);
      setSelectedArticle(null);
     }}
+   />
+   <AddCategory
+    open={openAddCategory}
+    category={null}
+    onClose={() => setOpenAddCategory(false)}
    />
   </div>
  );

@@ -9,7 +9,7 @@ export default function Main({ children }: PropsWithChildren) {
  const { navIsVisible, setNavIsVisible } = useNavigationContext();
  return (
   <div
-   className={`flex-grow ${
+   className={`flex-grow bg-neutral-100 dark:bg-neutral-900 ${
     navIsVisible ? 'overflow-hidden' : 'overflow-auto'
    } lg:overflow-auto`}
   >

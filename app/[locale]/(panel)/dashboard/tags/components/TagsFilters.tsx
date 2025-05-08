@@ -25,7 +25,7 @@ export default function TagsFilters({
  return (
   <form
    onSubmit={(e) => e.preventDefault()}
-   className='grid items-center grid-cols-[minmax(0,20rem)_max-content] justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
+   className='bg-background grid items-center grid-cols-[minmax(0,20rem)_max-content] justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
   >
    <Controller
     control={control}
