@@ -39,30 +39,30 @@ export default function AddCategory({ open, category, onClose }: Props) {
  const queryClient = useQueryClient();
 
  const { mutate: mutateCategory, isPending: isCreating } = useMutation({
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['dashboard', 'articlesCategories'],
+   });
+   onClose();
+  },
+  onError() {
+   enqueueSnackbar({
+    message: articlesCategories.errorTryAgainLater as string,
+    variant: 'error',
+   });
+  },
   mutationFn: async (data: AddCategorySchema) => {
    const newCategory = {
     locale,
     name: data.title,
     description: data.description,
    };
-   try {
-    const result = category
-     ? await updateBlogCategory({
-        ...newCategory,
-        id: category.id,
-       })
-     : await createBlogCategory(newCategory);
-    queryClient.invalidateQueries({
-     queryKey: ['dashboard', 'articlesCategories'],
-    });
-    onClose();
-    return result;
-   } catch {
-    enqueueSnackbar({
-     message: articlesCategories.errorTryAgainLater as string,
-     variant: 'error',
-    });
-   }
+   return category
+    ? updateBlogCategory({
+       ...newCategory,
+       id: category.id,
+      })
+    : createBlogCategory(newCategory);
   },
  });
  const {

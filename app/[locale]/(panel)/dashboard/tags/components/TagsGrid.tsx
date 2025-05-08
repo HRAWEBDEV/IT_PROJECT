@@ -40,22 +40,22 @@ export default function TagsGrid({
  const { enqueueSnackbar } = useSnackbar();
  const [openConfirm, setOpenConfirm] = useState(false);
  const { mutate: deleteMutate, isPending } = useMutation({
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['dashboard', 'tags'],
+   });
+  },
+  onError() {
+   enqueueSnackbar({
+    message: tags.errorTryAgainLater as string,
+    variant: 'error',
+   });
+  },
   mutationFn(id: number) {
    return deleteTag({
     tagID: id,
     locale,
-   })
-    .then(() => {
-     queryClient.invalidateQueries({
-      queryKey: ['dashboard', 'tags'],
-     });
-    })
-    .catch(() => {
-     enqueueSnackbar({
-      message: tags.errorTryAgainLater as string,
-      variant: 'error',
-     });
-    });
+   });
   },
  });
 

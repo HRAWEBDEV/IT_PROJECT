@@ -43,22 +43,22 @@ export default function CategoryGrid({
  const { enqueueSnackbar } = useSnackbar();
  const [openConfirm, setOpenConfirm] = useState(false);
  const { mutate: deleteMutate, isPending } = useMutation({
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['dashboard', 'articlesCategories'],
+   });
+  },
+  onError() {
+   enqueueSnackbar({
+    message: articlesCategories.errorTryAgainLater as string,
+    variant: 'error',
+   });
+  },
   mutationFn(id: number) {
    return deleteBlogCategory({
-    blogCategoryID: id,
     locale,
-   })
-    .then(() => {
-     queryClient.invalidateQueries({
-      queryKey: ['dashboard', 'articlesCategories'],
-     });
-    })
-    .catch(() => {
-     enqueueSnackbar({
-      message: articlesCategories.errorTryAgainLater as string,
-      variant: 'error',
-     });
-    });
+    blogCategoryID: id,
+   });
   },
  });
 

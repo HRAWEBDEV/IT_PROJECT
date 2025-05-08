@@ -83,7 +83,19 @@ export default function AddArticle({
  });
 
  const { mutate: mutateTag, isPending: isCreating } = useMutation({
-  async mutationFn(data: AddArticleSchema) {
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['dashboard', 'articles'],
+   });
+   onClose();
+  },
+  onError() {
+   enqueueSnackbar({
+    message: articles.errorTryAgainLater as string,
+    variant: 'error',
+   });
+  },
+  mutationFn(data: AddArticleSchema) {
    const tagBlogs = selectedTags.map((item) => ({
     blogID: article?.id || 0,
     tagID: item.id,
@@ -97,24 +109,12 @@ export default function AddArticle({
     body: article?.body || '',
     blogTags: tagBlogs,
    };
-   try {
-    const result = article
-     ? await updateBlog({
-        id: article.id,
-        ...newBlog,
-       })
-     : await createBlog(newBlog);
-    queryClient.invalidateQueries({
-     queryKey: ['dashboard', 'articles'],
-    });
-    onClose();
-    return result;
-   } catch {
-    enqueueSnackbar({
-     message: articles.errorTryAgainLater as string,
-     variant: 'error',
-    });
-   }
+   return article
+    ? updateBlog({
+       id: article.id,
+       ...newBlog,
+      })
+    : createBlog(newBlog);
   },
  });
  const {

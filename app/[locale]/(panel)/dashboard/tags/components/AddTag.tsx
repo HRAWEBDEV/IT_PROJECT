@@ -39,30 +39,30 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
  const queryClient = useQueryClient();
 
  const { mutate: mutateTag, isPending: isCreating } = useMutation({
-  mutationFn: async (data: AddTagSchema) => {
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['dashboard', 'tags'],
+   });
+   onClose();
+  },
+  onError() {
+   enqueueSnackbar({
+    message: tags.errorTryAgainLater as string,
+    variant: 'error',
+   });
+  },
+  mutationFn(data: AddTagSchema) {
    const newTag = {
     locale,
     name: data.title,
     tagTypeID: Number(data.category.id),
    };
-   try {
-    const result = tag
-     ? await updateTag({
-        ...newTag,
-        id: tag.id,
-       })
-     : await createTag(newTag);
-    queryClient.invalidateQueries({
-     queryKey: ['dashboard', 'tags'],
-    });
-    onClose();
-    return result;
-   } catch {
-    enqueueSnackbar({
-     message: tags.errorTryAgainLater as string,
-     variant: 'error',
-    });
-   }
+   return tag
+    ? updateTag({
+       ...newTag,
+       id: tag.id,
+      })
+    : createTag(newTag);
   },
  });
  const {

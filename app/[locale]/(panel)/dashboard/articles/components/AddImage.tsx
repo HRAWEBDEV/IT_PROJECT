@@ -45,31 +45,32 @@ export default function AddImage({ open, onClose, article }: Props) {
  const [fileValue, setFileValue] = useState('');
  const purchaseFileRef = useRef<HTMLInputElement>(null);
  const { mutate: mutateImage, isPending: isUploading } = useMutation({
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['blog-images', article.id],
+   });
+   onClose();
+  },
+  onError() {
+   snackbar.enqueueSnackbar({
+    variant: 'error',
+    message: articles.errorTryAgainLater as string,
+   });
+  },
   mutationFn: async (formData: FormData) => {
-   try {
-    const result = await createBlogImage(formData);
-    await updateBlog({
-     locale,
-     id: article.id,
-     body: article.body,
-     blogCategoryID: article.blogCategoryID,
-     header: article.header,
-     description: article.description,
-     blogImage: {
-      imageUrl: result.data,
-      lang: locale,
-     },
-    });
-    queryClient.invalidateQueries({
-     queryKey: ['blog-images', article.id],
-    });
-    return result;
-   } catch {
-    snackbar.enqueueSnackbar({
-     variant: 'error',
-     message: articles.errorTryAgainLater as string,
-    });
-   }
+   const result = await createBlogImage(formData);
+   return updateBlog({
+    locale,
+    id: article.id,
+    body: article.body,
+    blogCategoryID: article.blogCategoryID,
+    header: article.header,
+    description: article.description,
+    blogImage: {
+     imageUrl: result.data,
+     lang: locale,
+    },
+   });
   },
  });
 
