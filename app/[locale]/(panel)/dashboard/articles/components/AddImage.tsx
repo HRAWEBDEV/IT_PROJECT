@@ -19,6 +19,7 @@ import { useSnackbar } from 'notistack';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
 import ImageWrapper from '@/components/ImageWrapper';
 
 type Props = {
@@ -108,7 +109,13 @@ export default function AddImage({ open, onClose, article }: Props) {
    <DialogContent dividers>
     {images.length && (
      <div className='mb-4'>
-      <Swiper>
+      <Swiper
+       pagination={{
+        clickable: true,
+       }}
+       modules={[Pagination]}
+       slidesPerView={1}
+      >
        {images.map((item) => (
         <SwiperSlide
          key={process.env.NEXT_PUBLIC_API_URL + '/' + item.imageUrl}
