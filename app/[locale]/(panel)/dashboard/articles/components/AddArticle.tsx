@@ -151,10 +151,6 @@ export default function AddArticle({
   }
  }, [article, articleCategories, setValue, open]);
 
- useEffect(() => {
-  console.log(tags);
- }, [tags]);
-
  return (
   <Dialog
    open={open}

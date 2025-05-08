@@ -6,6 +6,7 @@ import WebsiteDictionaryProvider from '@/services/dictionary/DictionaryProvider'
 import { type AppParams } from '@/utils/appParams';
 import Main from './components/nav/Main';
 import NavigationProvider from '../../(website)/services/NavigationProvider';
+import 'ckeditor5/ckeditor5.css';
 
 export default async function layout({
  children,

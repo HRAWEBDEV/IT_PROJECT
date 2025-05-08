@@ -25,6 +25,7 @@ type Props = {
  setOpenAddArticle: () => void;
  setPagination: (pagination: GridPaginationModel) => void;
  setShowAddImage: (show: boolean) => void;
+ setOpenArticleContent: () => void;
  rowCount: number;
 };
 
@@ -38,6 +39,7 @@ export default function ArticlesGrid({
  setOpenAddArticle,
  setShowAddImage,
  selectedArticle,
+ setOpenArticleContent,
 }: Props) {
  // const queryClient = useQueryClient();
  // const { locale } = useAppConfig();
@@ -126,7 +128,7 @@ export default function ArticlesGrid({
          icon={<ArticleIcon color='primary' />}
          onClick={() => {
           setSelectedArticle(row);
-          setShowAddImage(true);
+          setOpenArticleContent();
          }}
          showInMenu
         />,

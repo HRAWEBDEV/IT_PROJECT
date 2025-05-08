@@ -20,8 +20,10 @@ import AddCategory from '../../articles-categories/components/AddCategory';
 import IconButton from '@mui/material/IconButton';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import AddImage from './AddImage';
+import AddContent from './AddContent';
 
 export default function ArticlesWrapper() {
+ const [openArticleContent, setOpenArticleContent] = useState(false);
  const [openAddImage, setOpenAddImage] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
  const [openEditArticle, setOpenEditArticle] = useState(false);
@@ -117,6 +119,7 @@ export default function ArticlesWrapper() {
       selectedArticle={selectedArticle}
       setSelectedArticle={setSelectedArticle}
       setShowAddImage={setOpenAddImage}
+      setOpenArticleContent={() => setOpenArticleContent(true)}
      />
     ) : (
      <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
@@ -147,6 +150,13 @@ export default function ArticlesWrapper() {
     category={null}
     onClose={() => setOpenAddCategory(false)}
    />
+   {openArticleContent && selectedArticle && (
+    <AddContent
+     open={openArticleContent}
+     onClose={() => setOpenArticleContent(false)}
+     article={selectedArticle}
+    />
+   )}
    {openAddImage && selectedArticle && (
     <AddImage
      open={openAddImage}
