@@ -22,6 +22,7 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import ImageWrapper from '@/components/ImageWrapper';
+import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 type Props = {
  open: boolean;
@@ -36,6 +37,7 @@ function formatFileSize(size: number): number {
 }
 
 export default function AddImage({ open, onClose, article }: Props) {
+ const { isLargeDevice } = useAppMonitorConfig();
  const { locale } = useAppConfig();
  const snackbar = useSnackbar();
  const { articles } = useWebsiteDictionary() as {
@@ -99,6 +101,7 @@ export default function AddImage({ open, onClose, article }: Props) {
   <Dialog
    open={open}
    fullWidth
+   fullScreen={!isLargeDevice}
    maxWidth='sm'
    onClose={onClose}
    component={'form'}

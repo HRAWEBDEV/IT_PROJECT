@@ -19,6 +19,7 @@ import type { CKEditor as CKEditorType } from '@ckeditor/ckeditor5-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useAppConfig } from '@/services/app-config/appConfig';
+import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 const Editor = dynamic(
  () => import('./ContentEditor').then((mod) => mod.default),
@@ -34,6 +35,7 @@ type Props = {
 };
 
 export default function AddContent({ open, onClose, article }: Props) {
+ const { isLargeDevice } = useAppMonitorConfig();
  const { locale } = useAppConfig();
  const queryClient = useQueryClient();
  const { enqueueSnackbar } = useSnackbar();
@@ -81,6 +83,7 @@ export default function AddContent({ open, onClose, article }: Props) {
   <Dialog
    open={open}
    fullWidth
+   fullScreen={!isLargeDevice}
    maxWidth='xl'
    onClose={onClose}
    component={'form'}
