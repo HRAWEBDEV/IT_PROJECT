@@ -1,10 +1,12 @@
 import { z } from 'zod';
 
 const blogFiltersSchema = z.object({
- categoryID: z.object({
-  id: z.string(),
-  name: z.string(),
- }),
+ category: z
+  .object({
+   id: z.string(),
+   name: z.string(),
+  })
+  .nullable(),
  search: z.string(),
 });
 

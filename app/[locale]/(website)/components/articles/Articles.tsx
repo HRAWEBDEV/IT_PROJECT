@@ -7,6 +7,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type Dic, type WithDictionary } from '@/localization/locales';
+import { type Blog } from '@/services/api-actions/globalApiActions';
 
 const dateFormatter = new Intl.DateTimeFormat('fa', {
  year: 'numeric',
@@ -16,9 +17,11 @@ const dateFormatter = new Intl.DateTimeFormat('fa', {
  minute: '2-digit',
 });
 
-type Props = WithDictionary;
+type Props = WithDictionary & {
+ blogs: Blog[];
+};
 
-export default function Articles({ dic }: Props) {
+export default function Articles({ dic, blogs }: Props) {
  return (
   <section
    id='articles'
@@ -33,8 +36,8 @@ export default function Articles({ dic }: Props) {
      </div>
     </div>
     <ul className='grid lg:grid-cols-2 mb-4'>
-     {[1, 2, 3, 4].map((item) => (
-      <li key={item}>
+     {blogs.map((item) => (
+      <li key={item.id}>
        <Link
         href='#'
         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'

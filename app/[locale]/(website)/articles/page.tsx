@@ -4,13 +4,9 @@ import Hero from './components/Hero';
 import Articles from './components/articles/Articles';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
-import {
- type ResponseShape,
- type PagedResponse,
- type BlogCategory,
- blogCategoriesApi,
-} from '@/services/api-actions/globalApiActions';
+import { type Blog, blogsApi } from '@/services/api-actions/globalApiActions';
 import { paginationLimit } from './utils/blogsPaginationInfo';
+
 export const generateMetadata = async ({
  params,
 }: {
@@ -33,61 +29,30 @@ export default async function page({
 }: {
  params: Promise<AppParams>;
  searchParams: Promise<{
-  search?: string;
-  categoryID?: string;
-  categoryName?: string;
-  limit?: string;
   offset?: string;
  }>;
 }) {
- const queries = await searchParams;
+ const { offset } = await searchParams;
  const { locale } = await params;
- // let blogResponse: ResponseShape<{
- //  Blogs: Blog[];
- // }> | null = null;
- let categoryID = queries.categoryID;
-
- if (!categoryID) {
-  const params = new URLSearchParams();
-  params.append('lang', locale);
-  params.append('limit', '1');
-  params.append('offset', '1');
-  const blogCategoriesResult = await fetch(
-   `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogCategoriesApi}?${params.toString()}`,
-   {
-    method: 'GET',
-   }
-  );
-  const blogCategories = (await blogCategoriesResult.json()) as ResponseShape<{
-   BlogCategories: PagedResponse<BlogCategory[]>;
-  }>;
-  categoryID = blogCategories.payload.BlogCategories.rows[0].id.toString();
- }
-
- if (categoryID) {
-  const params = new URLSearchParams();
-  params.append('lang', locale);
-  params.append('limit', queries.limit || paginationLimit.toString());
-  params.append('offset', queries.offset || '1');
-  params.append('blogStateID', '1');
-  params.append('blogCategoryID', categoryID);
-  // const blogsResult = await fetch(
-  //  `${process.env.NEXT_PUBLIC_API_BASE_URL}${blogsApi}?${params.toString()}`,
-  //  {
-  //   method: 'GET',
-  //  }
-  // );
-  // const blogs = (await blogsResult.json()) as ResponseShape<{
-  //  BlogCategories: PagedResponse<BlogCategory[]>;
-  // }>;
- }
-
  const dic = await getDictionary({
   locale,
   path: 'articles',
  });
+
+ let blogs: Blog[] = [];
+ const blogsParams = new URLSearchParams();
+ blogsParams.set('lang', locale);
+ blogsParams.set('showForCard', 'true');
+ blogsParams.set('blogStateID', '1');
+ blogsParams.set('limit', paginationLimit.toString());
+ blogsParams.set('offset', offset || '1');
+ const blogsResult = await fetch(
+  `${process.env.NEXT_PUBLIC_API_BASE_URL}${blogsApi}?${blogsParams.toString()}`
+ );
+ try {
+  blogs = await blogsResult.json();
+ } catch {}
+ console.log(blogs);
 
  return (
   <div>
