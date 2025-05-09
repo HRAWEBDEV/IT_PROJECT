@@ -61,6 +61,9 @@
   "atLeastOneCategory": "افزودن حداقل یک دسته بندی الزامی است",
   "dragFileOrClickToUpload": "برای آپلود، فایل را داخل باکس رها کنید و یا داخل باکس کلیک کنید",
   "fileLimitMessage": "حجم فایل باید کمتر از 5 مگابایت باشد",
-  "fileExtension": "فرمت فایل باید png, jpg یا jpeg باشد"
+  "fileExtension": "فرمت فایل باید png, jpg یا jpeg باشد",
+  "changeState": "تغییر وضعیت",
+  "preview": "پیش نمایش",
+  "noPreview": "عدم نمایش"
  }
 }

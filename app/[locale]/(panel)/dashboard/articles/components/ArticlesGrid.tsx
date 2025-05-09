@@ -4,7 +4,7 @@ import {
  GridPaginationModel,
  GridActionsCellItem,
 } from '@mui/x-data-grid';
-import { type Blog } from '@/services/api-actions/globalApiActions';
+import { type Blog, patchBlog } from '@/services/api-actions/globalApiActions';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import EditIcon from '@mui/icons-material/Edit';
@@ -42,16 +42,47 @@ export default function ArticlesGrid({
  selectedArticle,
  setOpenArticleContent,
 }: Props) {
- // const queryClient = useQueryClient();
- // const { locale } = useAppConfig();
- // const { enqueueSnackbar } = useSnackbar();
+ const queryClient = useQueryClient();
+ const { locale } = useAppConfig();
+ const { enqueueSnackbar } = useSnackbar();
  const [openConfirm, setOpenConfirm] = useState(false);
- const { mutate: deleteMutate, isPending } = useMutation({});
-
- const { articles, deleteItemConfirmation } = useWebsiteDictionary() as {
+ const {
+  articles,
+  deleteItemConfirmation,
+  errorTryAgainLater,
+  changesSavedSuccessfully,
+ } = useWebsiteDictionary() as {
   articles: Dic;
   deleteItemConfirmation: string;
+  errorTryAgainLater: string;
+  changesSavedSuccessfully: string;
  };
+
+ const { mutate: mutatePreview, isPending: isPendingPreview } = useMutation({
+  async mutationFn(blog: Blog) {
+   return patchBlog({
+    blogID: blog.id,
+    isFour: !blog.showForCard,
+    locale,
+   });
+  },
+  onSuccess() {
+   queryClient.invalidateQueries({
+    queryKey: ['dashboard', 'articles'],
+   });
+   enqueueSnackbar({
+    message: changesSavedSuccessfully as string,
+    variant: 'success',
+   });
+  },
+  onError() {
+   enqueueSnackbar({
+    message: errorTryAgainLater as string,
+    variant: 'error',
+   });
+  },
+ });
+
  return (
   <div
    style={{
@@ -107,7 +138,7 @@ export default function ArticlesGrid({
       renderCell({ row }) {
        return (
         <div className='text-center'>
-         <StarIcon color={row.showForCard ? 'success' : 'disabled'} />
+         <StarIcon color={row.showForCard ? 'warning' : 'disabled'} />
         </div>
        );
       },
@@ -151,8 +182,27 @@ export default function ArticlesGrid({
          showInMenu
         />,
         <GridActionsCellItem
+         key={'preview'}
+         disabled={isPendingPreview}
+         label={
+          row.showForCard
+           ? (articles.preview as string)
+           : (articles.noPreview as string)
+         }
+         icon={
+          row.showForCard ? (
+           <ArticleIcon color='primary' />
+          ) : (
+           <ArticleIcon color='disabled' />
+          )
+         }
+         onClick={() => {
+          mutatePreview(row);
+         }}
+         showInMenu
+        />,
+        <GridActionsCellItem
          key={'remove'}
-         disabled={isPending}
          label={articles.deleteArticle as string}
          icon={<DeleteIcon color='error' />}
          onClick={() => {

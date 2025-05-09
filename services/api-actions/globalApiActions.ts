@@ -126,7 +126,11 @@ function updateBlog(
 }
 
 function patchBlog(
- props: ApiDefaultProps & { blogID: number; blogState: number; isFour: boolean }
+ props: ApiDefaultProps & {
+  blogID: number;
+  blogState?: number;
+  isFour?: boolean;
+ }
 ) {
  const params = new URLSearchParams();
  params.append('lang', props.locale);
