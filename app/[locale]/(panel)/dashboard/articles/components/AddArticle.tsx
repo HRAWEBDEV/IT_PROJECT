@@ -16,6 +16,7 @@ import {
  updateBlog,
  getTags,
  getBlogTags,
+ getBlogImages,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { addArticleSchema, type AddArticleSchema } from '../schemas/addArticle';
@@ -29,10 +30,10 @@ import { useSnackbar } from 'notistack';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { AxiosError } from 'axios';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
-
 type Props = {
  open: boolean;
  article: Blog | null;
@@ -50,9 +51,12 @@ export default function AddArticle({
  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
- const { articles } = useWebsiteDictionary() as {
-  articles: Dic;
- };
+ const { articles, changesSavedSuccessfully, errorTryAgainLater } =
+  useWebsiteDictionary() as {
+   articles: Dic;
+   changesSavedSuccessfully: string;
+   errorTryAgainLater: string;
+  };
  const queryClient = useQueryClient();
 
  const {
@@ -87,11 +91,15 @@ export default function AddArticle({
    queryClient.invalidateQueries({
     queryKey: ['dashboard', 'articles'],
    });
+   enqueueSnackbar({
+    message: changesSavedSuccessfully as string,
+    variant: 'success',
+   });
    onClose();
   },
-  onError() {
+  onError(erro: AxiosError) {
    enqueueSnackbar({
-    message: articles.errorTryAgainLater as string,
+    message: (erro.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },
@@ -101,11 +109,13 @@ export default function AddArticle({
     tagID: item.id,
     lang: locale,
    }));
-   //  fix this after images are right
-   //  let imageUrl = null;
-   //  if (article?.id) {
-   //  }
-
+   let blogImage: { imageUrl: string; blogID: number } | null = null;
+   if (article && article.id) {
+    blogImage = await getBlogImages({
+     locale,
+     blogID: article?.id || 0,
+    }).then((res) => res.data.payload.BlogImages[0]);
+   }
    const newBlog = {
     locale,
     blogCategoryID: Number(data.category.id),
@@ -113,11 +123,18 @@ export default function AddArticle({
     description: data.description,
     body: article?.body || '',
     blogTags: tagBlogs,
+    blogImage: blogImage,
    };
    return article
     ? updateBlog({
        id: article.id,
        ...newBlog,
+       blogImage: blogImage
+        ? {
+           ...blogImage,
+           lang: locale,
+          }
+        : undefined,
       })
     : createBlog(newBlog);
   },

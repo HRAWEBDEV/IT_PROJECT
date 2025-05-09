@@ -9,6 +9,7 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import StarIcon from '@mui/icons-material/Star';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
@@ -98,6 +99,18 @@ export default function ArticlesGrid({
       field: 'blogStateName',
       headerName: articles.state as string,
       minWidth: 120,
+     },
+     {
+      field: 'showForCard',
+      headerName: '',
+      width: 10,
+      renderCell({ row }) {
+       return (
+        <div className='text-center'>
+         <StarIcon color={row.showForCard ? 'success' : 'disabled'} />
+        </div>
+       );
+      },
      },
      {
       type: 'actions',

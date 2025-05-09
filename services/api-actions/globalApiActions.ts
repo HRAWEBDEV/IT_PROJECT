@@ -46,7 +46,9 @@ type Blog = {
  blogCategoryName: string;
  blogStateName: string;
  craeteDateTime: string;
+ showForCard: boolean;
 };
+
 type BlogState = {
  id: number;
  name: string;
@@ -106,7 +108,7 @@ function createBlog(
 function updateBlog(
  props: ApiDefaultProps &
   Pick<Blog, 'blogCategoryID' | 'header' | 'description' | 'id' | 'body'> & {
-   blogImage?: { imageUrl: string; lang: SupportedLocales };
+   blogImage?: { imageUrl: string; lang: SupportedLocales; blogID: number };
   } & { blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[] }
 ) {
  const newBlog = {
@@ -154,7 +156,7 @@ function getBlogImages(props: ApiDefaultProps & { blogID: number }) {
  params.append('blogID', props.blogID.toString());
  return axios.get<
   ResponseShape<{
-   PersianBlogImages: { imageUrl: string }[];
+   BlogImages: { imageUrl: string; blogID: number }[];
   }>
  >(`${blogImagesApi}?${params.toString()}`, {
   signal: props.signal,
