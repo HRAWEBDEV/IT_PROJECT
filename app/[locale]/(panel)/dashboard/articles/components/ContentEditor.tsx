@@ -2,6 +2,7 @@ import { forwardRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import type { CKEditor as CKEditorType } from '@ckeditor/ckeditor5-react';
 import { useAppConfig } from '@/services/app-config/appConfig';
+import { createBlogImage } from '@/services/api-actions/globalApiActions';
 import {
  ClassicEditor,
  Autoformat,
@@ -10,7 +11,6 @@ import {
  Italic,
  Underline,
  BlockQuote,
- Base64UploadAdapter,
  CloudServices,
  Essentials,
  Heading,
@@ -34,6 +34,37 @@ import {
  TableToolbar,
  TextTransformation,
 } from 'ckeditor5';
+import type { FileLoader, UploadAdapter } from '@ckeditor/ckeditor5-upload';
+
+// Custom upload adapter class
+class CustomUploadAdapter implements UploadAdapter {
+ private loader: FileLoader;
+ constructor(loader: FileLoader) {
+  this.loader = loader;
+ }
+ async upload() {
+  console.log('here');
+  const formData = new FormData();
+  const file = await this.loader.file;
+  if (!file) {
+   throw new Error('No file selected');
+  }
+  formData.append('FormFile', file);
+  try {
+   const response = await createBlogImage(formData);
+   return {
+    default:
+     (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace('API', '') +
+     response.data,
+   };
+  } catch (error) {
+   throw error;
+  }
+ }
+ abort() {
+  // Abort upload process
+ }
+}
 
 type ContentEditorProps = Omit<
  React.ComponentProps<typeof CKEditorType>,
@@ -71,7 +102,6 @@ const ContentEditor = forwardRef<
      ImageStyle,
      ImageToolbar,
      ImageUpload,
-     Base64UploadAdapter,
      Indent,
      IndentBlock,
      Italic,
@@ -176,11 +206,16 @@ const ContentEditor = forwardRef<
     },
     link: {
      addTargetToExternalLinks: true,
-     defaultProtocol: 'https://',
     },
     table: {
      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
     },
+   }}
+   onReady={(editor) => {
+    // Configure the upload adapter
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+     return new CustomUploadAdapter(loader);
+    };
    }}
   />
  );
