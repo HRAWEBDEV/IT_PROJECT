@@ -107,7 +107,7 @@ export default function ArticlesGrid({
       },
      },
     }}
-    loading={isLoading || isPending}
+    loading={isLoading || isPendingPreview}
     paginationModel={pagination}
     onPaginationModelChange={setPagination}
     rowCount={rowCount}
