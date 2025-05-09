@@ -1,7 +1,12 @@
+'use client';
+import { useEffect } from 'react';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from 'next/link';
 
 export default function Banner() {
+ useEffect(() => {
+  window.scrollTo(0, 0);
+ }, []);
  return (
   <section className='h-[12rem] lg:h-[17rem] bg-[url(/images/services/fiber.jpg)] bg-cover bg-center'>
    <div className='h-full flex flex-col justify-center bg-gradient-to-b from-black/20 to-black/65'>

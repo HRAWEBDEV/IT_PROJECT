@@ -97,7 +97,6 @@ export default function Articles({ dic, serverBlogs }: Props) {
   router.push(`${pathname}?${newSearchParams.toString()}`, {
    scroll: false,
   });
-
   window.scrollTo(0, 392);
  }, [
   pathname,

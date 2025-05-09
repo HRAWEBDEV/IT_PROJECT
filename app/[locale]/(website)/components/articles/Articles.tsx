@@ -39,7 +39,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
      {serverBlogs.slice(0, 4).map((item) => (
       <li key={item.id}>
        <Link
-        href='#'
+        href={`/articles/${item.id}`}
         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
        >
         <div className='shrink-0 rounded-lg overflow-hidden h-[14rem] lg:w-[12rem] lg:h-[10rem]'>
