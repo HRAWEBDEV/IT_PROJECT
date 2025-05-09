@@ -59,6 +59,7 @@ export default function AddImage({ open, onClose, article }: Props) {
     message: changesSavedSuccessfully as string,
     variant: 'success',
    });
+   onClose()
   },
   onError(error: AxiosError) {
    snackbar.enqueueSnackbar({
