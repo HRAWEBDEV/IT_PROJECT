@@ -31,7 +31,6 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
    Blogs: Blog[];
   }>;
   blogs = blogsPackage.payload.Blogs;
-  console.log(blogsPackage);
  } catch {}
 
  return (

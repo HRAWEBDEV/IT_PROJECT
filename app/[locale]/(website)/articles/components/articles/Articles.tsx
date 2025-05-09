@@ -91,11 +91,14 @@ export default function Articles({ dic, serverBlogs }: Props) {
 
  useEffect(() => {
   const newSearchParams = new URLSearchParams(searchParams.toString());
-  newSearchParams.set('search', dbSearchValue || '');
   newSearchParams.set('categoryID', blogCategory?.id || '');
   newSearchParams.set('categoryName', blogCategory?.name || '');
   if (pagination.page) newSearchParams.set('page', pagination.page.toString());
-  router.push(`${pathname}?${newSearchParams.toString()}`);
+  router.push(`${pathname}?${newSearchParams.toString()}`, {
+   scroll: false,
+  });
+
+  window.scrollTo(0, 392);
  }, [
   pathname,
   router,
@@ -106,11 +109,9 @@ export default function Articles({ dic, serverBlogs }: Props) {
  ]);
 
  useEffect(() => {
-  const search = searchParams.get('search');
   const categoryID = searchParams.get('categoryID');
   const categoryName = searchParams.get('categoryName');
   const page = searchParams.get('page');
-  filtersUseForm.setValue('search', search || '');
   filtersUseForm.setValue(
    'category',
    categoryID && categoryName ? { id: categoryID, name: categoryName } : null
