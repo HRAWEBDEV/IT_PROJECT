@@ -33,9 +33,12 @@ type Props = {
 export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
- const { tags } = useWebsiteDictionary() as {
-  tags: Dic;
- };
+ const { tags, errorTryAgainLater, changesSavedSuccessfully } =
+  useWebsiteDictionary() as {
+   tags: Dic;
+   errorTryAgainLater: string;
+   changesSavedSuccessfully: string;
+  };
  const queryClient = useQueryClient();
 
  const { mutate: mutateTag, isPending: isCreating } = useMutation({
@@ -43,11 +46,15 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
    queryClient.invalidateQueries({
     queryKey: ['dashboard', 'tags'],
    });
+   enqueueSnackbar({
+    message: changesSavedSuccessfully,
+    variant: 'success',
+   });
    onClose();
   },
   onError() {
    enqueueSnackbar({
-    message: tags.errorTryAgainLater as string,
+    message: errorTryAgainLater,
     variant: 'error',
    });
   },

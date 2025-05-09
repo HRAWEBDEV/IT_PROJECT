@@ -32,13 +32,6 @@ export default function ArticleFilters({ dic }: Props) {
       <TextField {...params} label={dic.categories as string} />
      )}
     />
-    <Autocomplete
-     options={[]}
-     size='small'
-     renderInput={(params) => (
-      <TextField {...params} label={dic.show as string} />
-     )}
-    />
    </div>
   </div>
  );

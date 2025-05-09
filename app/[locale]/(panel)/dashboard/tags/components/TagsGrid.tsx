@@ -35,6 +35,17 @@ export default function TagsGrid({
  setOpenAddTag,
  selectedTag,
 }: Props) {
+ const {
+  tags,
+  deleteItemConfirmation,
+  changesSavedSuccessfully,
+  errorTryAgainLater,
+ } = useWebsiteDictionary() as {
+  tags: Dic;
+  deleteItemConfirmation: string;
+  changesSavedSuccessfully: string;
+  errorTryAgainLater: string;
+ };
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
  const { enqueueSnackbar } = useSnackbar();
@@ -44,10 +55,16 @@ export default function TagsGrid({
    queryClient.invalidateQueries({
     queryKey: ['dashboard', 'tags'],
    });
+   enqueueSnackbar({
+    variant: 'success',
+    message: changesSavedSuccessfully,
+   });
+   setOpenConfirm(false);
+   setSelectedTag(null);
   },
   onError() {
    enqueueSnackbar({
-    message: tags.errorTryAgainLater as string,
+    message: errorTryAgainLater,
     variant: 'error',
    });
   },
@@ -59,10 +76,6 @@ export default function TagsGrid({
   },
  });
 
- const { tags, deleteItemConfirmation } = useWebsiteDictionary() as {
-  tags: Dic;
-  deleteItemConfirmation: string;
- };
  return (
   <div
    style={{
@@ -140,8 +153,6 @@ export default function TagsGrid({
     onConfirm={async () => {
      if (!selectedTag) return;
      deleteMutate(selectedTag.id);
-     setOpenConfirm(false);
-     setSelectedTag(null);
     }}
     onCancel={() => {
      setOpenConfirm(false);

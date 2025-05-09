@@ -5,8 +5,8 @@ import { type Dic } from '@/localization/locales';
 import ArticlesFilters from './ArticleFilters';
 import {
  type Blog,
- getBlogCategories,
  getBlogs,
+ getBlogCategories,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
