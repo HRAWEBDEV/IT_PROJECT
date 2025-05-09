@@ -191,9 +191,9 @@ export default function ArticlesGrid({
          }
          icon={
           row.showForCard ? (
-           <ArticleIcon color='primary' />
+           <StarIcon color='warning' />
           ) : (
-           <ArticleIcon color='disabled' />
+           <StarIcon color='disabled' />
           )
          }
          onClick={() => {
