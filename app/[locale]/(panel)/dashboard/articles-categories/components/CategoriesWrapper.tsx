@@ -37,7 +37,7 @@ export default function CategoriesWrapper() {
   queryKey: [
    'dashboard',
    'articlesCategories',
-   pagination.page,
+   pagination.page + 1,
    pagination.pageSize,
   ],
   async queryFn() {
@@ -45,7 +45,7 @@ export default function CategoriesWrapper() {
     locale,
     pagination: {
      limit: pagination.pageSize,
-     offset: pagination.page,
+     offset: pagination.page + 1,
     },
    });
    const pacakge = result.data.payload.BlogCategories;

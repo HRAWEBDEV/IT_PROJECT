@@ -274,10 +274,12 @@ function getTagCategories(props: ApiDefaultProps) {
 }
 
 export {
+ type ResponseShape,
  type TagCategory,
  type Tag,
  type BlogCategory,
  type Blog,
+ type PagedResponse,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -293,4 +295,6 @@ export {
  getBlogImages,
  createBlogImage,
  getBlogTags,
+ blogsApi,
+ blogCategoriesApi,
 };

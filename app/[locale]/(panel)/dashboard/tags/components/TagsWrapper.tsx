@@ -65,7 +65,7 @@ export default function TagsWrapper() {
   queryKey: [
    'dashboard',
    'tags',
-   pagination.page,
+   pagination.page + 1,
    pagination.pageSize,
    tagCategory?.id || '',
   ],
@@ -76,7 +76,7 @@ export default function TagsWrapper() {
     locale,
     pagination: {
      limit: pagination.pageSize,
-     offset: pagination.page,
+     offset: pagination.page + 1,
     },
     tagTypeID: Number(tagCategory!.id),
    });

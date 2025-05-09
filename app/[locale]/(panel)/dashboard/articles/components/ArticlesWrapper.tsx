@@ -73,7 +73,7 @@ export default function ArticlesWrapper() {
   queryKey: [
    'dashboard',
    'articles',
-   pagination.page,
+   pagination.page + 1,
    pagination.pageSize,
    tagCategory?.id || '',
   ],
@@ -84,7 +84,7 @@ export default function ArticlesWrapper() {
     locale,
     pagination: {
      limit: pagination.pageSize,
-     offset: pagination.page,
+     offset: pagination.page + 1,
     },
     blogStateID: 1,
     blogCategoryID: Number(blogCategory.id),
