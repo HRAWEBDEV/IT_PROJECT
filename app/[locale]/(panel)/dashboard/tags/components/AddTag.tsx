@@ -22,6 +22,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 
 type Props = {
  open: boolean;
@@ -52,9 +53,9 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
    });
    onClose();
   },
-  onError() {
+  onError(err: AxiosError) {
    enqueueSnackbar({
-    message: errorTryAgainLater,
+    message: (err.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },

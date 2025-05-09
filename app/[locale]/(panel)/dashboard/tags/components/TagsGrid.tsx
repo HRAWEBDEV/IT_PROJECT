@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 
 type Props = {
  tagsList: Tag[];
@@ -62,9 +63,9 @@ export default function TagsGrid({
    setOpenConfirm(false);
    setSelectedTag(null);
   },
-  onError() {
+  onError(err: AxiosError) {
    enqueueSnackbar({
-    message: errorTryAgainLater,
+    message: (err.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },
