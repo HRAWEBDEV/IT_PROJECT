@@ -125,6 +125,31 @@ function updateBlog(
  return axios.put(blogsApi, newBlog);
 }
 
+function patchBlog(
+ props: ApiDefaultProps & { blogID: number; blogState: number; isFour: boolean }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogID', props.blogID.toString());
+ if (props.blogState) {
+  params.append('blogStateID', props.blogState.toString());
+ }
+ if (props.isFour !== undefined) {
+  params.append('isFour', props.isFour.toString());
+ }
+ return axios.patch(`${blogsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+
+function getBlog(props: ApiDefaultProps & { blogID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogID', props.blogID.toString());
+ return axios.get(`${blogsApi}/${props.blogID}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
 // function deleteBlog(props: ApiDefaultProps) {}
 const getBlogTagsApi = '/blogTags';
 function getBlogTags(props: ApiDefaultProps & { blogID: number }) {
@@ -314,7 +339,9 @@ export {
  getBlogImages,
  createBlogImage,
  getBlogTags,
+ patchBlog,
  blogsApi,
  blogCategoriesApi,
  getBlogStates,
+ getBlog,
 };

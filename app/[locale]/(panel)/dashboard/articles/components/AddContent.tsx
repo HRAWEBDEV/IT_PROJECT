@@ -10,6 +10,7 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import {
  type Blog,
+ getBlogImages,
  getBlogTags,
  updateBlog,
 } from '@/services/api-actions/globalApiActions';
@@ -20,6 +21,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { AxiosError } from 'axios';
 
 const Editor = dynamic(
  () => import('./ContentEditor').then((mod) => mod.default),
@@ -41,9 +43,12 @@ export default function AddContent({ open, onClose, article }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const [content, setContent] = useState(article.body);
  const editorRef = useRef<CKEditorType<ClassicEditor>>(null);
- const { articles } = useWebsiteDictionary() as {
-  articles: Dic;
- };
+ const { articles, errorTryAgainLater, changesSavedSuccessfully } =
+  useWebsiteDictionary() as {
+   articles: Dic;
+   errorTryAgainLater: string;
+   changesSavedSuccessfully: string;
+  };
 
  const { mutate: updateArticle, isPending: isUpdating } = useMutation({
   async mutationFn() {
@@ -51,6 +56,13 @@ export default function AddContent({ open, onClose, article }: Props) {
     locale,
     blogID: article!.id,
    });
+   let blogImage: { imageUrl: string; blogID: number } | null = null;
+   if (article && article.id) {
+    blogImage = await getBlogImages({
+     locale,
+     blogID: article?.id || 0,
+    }).then((res) => res.data.payload.BlogImages[0]);
+   }
    return updateBlog({
     locale,
     id: article.id,
@@ -58,6 +70,12 @@ export default function AddContent({ open, onClose, article }: Props) {
     description: article.description,
     header: article.header,
     body: content,
+    blogImage: blogImage
+     ? {
+        ...blogImage,
+        lang: locale,
+       }
+     : undefined,
     blogTags: result.data.payload.BlogTags.map((item) => ({
      tagID: item.tagID,
      lang: locale,
@@ -69,11 +87,15 @@ export default function AddContent({ open, onClose, article }: Props) {
    queryClient.invalidateQueries({
     queryKey: ['dashboard', 'articles'],
    });
+   enqueueSnackbar({
+    message: changesSavedSuccessfully as string,
+    variant: 'success',
+   });
    onClose();
   },
-  onError() {
+  onError(error: AxiosError) {
    enqueueSnackbar({
-    message: articles.errorTryAgainLater as string,
+    message: (error.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },
