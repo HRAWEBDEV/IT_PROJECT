@@ -59,7 +59,7 @@ export default function AddImage({ open, onClose, article }: Props) {
     message: changesSavedSuccessfully as string,
     variant: 'success',
    });
-   onClose()
+   onClose();
   },
   onError(error: AxiosError) {
    snackbar.enqueueSnackbar({
@@ -129,7 +129,7 @@ export default function AddImage({ open, onClose, article }: Props) {
     </div>
    </DialogTitle>
    <DialogContent dividers>
-    {images.length && (
+    {!!images.length && (
      <div className='mb-4'>
       <Swiper
        pagination={{
@@ -150,7 +150,7 @@ export default function AddImage({ open, onClose, article }: Props) {
             className: 'object-cover object-center',
            }}
            wrapper={{
-            className: 'min-h-[14rem]',
+            className: 'min-h-[14rem] flex flex-col',
            }}
           />
          </div>

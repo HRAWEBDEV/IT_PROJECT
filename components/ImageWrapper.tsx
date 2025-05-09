@@ -30,7 +30,7 @@ export default function ImageWrapper({
 
  return (
   <div {...(wrapper || {})}>
-   <div className='h-full w-full relative'>
+   <div className='h-full w-full relative flex-grow'>
     {showLoading && isLoading && (
      <div className='absolute inset-0 z-[3] bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center'>
       <CircularProgress color='error' />
