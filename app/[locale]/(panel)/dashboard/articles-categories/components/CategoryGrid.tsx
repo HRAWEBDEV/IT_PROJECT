@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 
 type Props = {
  categoriesList: BlogCategory[];
@@ -38,6 +39,17 @@ export default function CategoryGrid({
  selectedCategory,
  categoriesList,
 }: Props) {
+ const {
+  articlesCategories,
+  deleteItemConfirmation,
+  errorTryAgainLater,
+  changesSavedSuccessfully,
+ } = useWebsiteDictionary() as {
+  articlesCategories: Dic;
+  deleteItemConfirmation: string;
+  errorTryAgainLater: string;
+  changesSavedSuccessfully: string;
+ };
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
  const { enqueueSnackbar } = useSnackbar();
@@ -47,10 +59,14 @@ export default function CategoryGrid({
    queryClient.invalidateQueries({
     queryKey: ['dashboard', 'articlesCategories'],
    });
-  },
-  onError() {
    enqueueSnackbar({
-    message: articlesCategories.errorTryAgainLater as string,
+    message: changesSavedSuccessfully,
+    variant: 'success',
+   });
+  },
+  onError(err: AxiosError) {
+   enqueueSnackbar({
+    message: (err.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },
@@ -62,11 +78,6 @@ export default function CategoryGrid({
   },
  });
 
- const { articlesCategories, deleteItemConfirmation } =
-  useWebsiteDictionary() as {
-   articlesCategories: Dic;
-   deleteItemConfirmation: string;
-  };
  return (
   <div
    style={{

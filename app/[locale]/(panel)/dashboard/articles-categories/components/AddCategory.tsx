@@ -23,6 +23,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
 
 type Props = {
  open: boolean;
@@ -33,9 +34,12 @@ type Props = {
 export default function AddCategory({ open, category, onClose }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
- const { articlesCategories } = useWebsiteDictionary() as {
-  articlesCategories: Dic;
- };
+ const { articlesCategories, errorTryAgainLater, changesSavedSuccessfully } =
+  useWebsiteDictionary() as {
+   articlesCategories: Dic;
+   errorTryAgainLater: string;
+   changesSavedSuccessfully: string;
+  };
  const queryClient = useQueryClient();
 
  const { mutate: mutateCategory, isPending: isCreating } = useMutation({
@@ -43,11 +47,15 @@ export default function AddCategory({ open, category, onClose }: Props) {
    queryClient.invalidateQueries({
     queryKey: ['dashboard', 'articlesCategories'],
    });
+   enqueueSnackbar({
+    message: changesSavedSuccessfully,
+    variant: 'success',
+   });
    onClose();
   },
-  onError() {
+  onError(err: AxiosError) {
    enqueueSnackbar({
-    message: articlesCategories.errorTryAgainLater as string,
+    message: (err.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },
