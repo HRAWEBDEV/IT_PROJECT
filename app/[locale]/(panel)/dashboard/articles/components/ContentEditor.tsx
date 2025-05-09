@@ -5,6 +5,7 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import {
  ClassicEditor,
  Autoformat,
+ FontSize,
  Bold,
  Italic,
  Underline,
@@ -60,6 +61,7 @@ const ContentEditor = forwardRef<
      Autoformat,
      BlockQuote,
      Bold,
+     FontSize,
      CloudServices,
      Essentials,
      Heading,
@@ -92,6 +94,7 @@ const ContentEditor = forwardRef<
      '|',
      'heading',
      '|',
+     'fontSize',
      'bold',
      'italic',
      'underline',
