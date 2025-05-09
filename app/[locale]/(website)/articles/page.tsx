@@ -4,7 +4,12 @@ import Hero from './components/Hero';
 import Articles from './components/articles/Articles';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
-import { type Blog, blogsApi } from '@/services/api-actions/globalApiActions';
+import {
+ type Blog,
+ type PagedResponse,
+ blogsApi,
+ ResponseShape,
+} from '@/services/api-actions/globalApiActions';
 import { paginationLimit } from './utils/blogsPaginationInfo';
 
 export const generateMetadata = async ({
@@ -42,7 +47,6 @@ export default async function page({
  let blogs: Blog[] = [];
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
- blogsParams.set('showForCard', 'true');
  blogsParams.set('blogStateID', '1');
  blogsParams.set('limit', paginationLimit.toString());
  blogsParams.set('offset', offset || '1');
@@ -50,14 +54,16 @@ export default async function page({
   `${process.env.NEXT_PUBLIC_API_BASE_URL}${blogsApi}?${blogsParams.toString()}`
  );
  try {
-  blogs = await blogsResult.json();
+  const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+   Blogs: PagedResponse<Blog[]>;
+  }>;
+  blogs = blogsPackage.payload.Blogs.rows;
  } catch {}
- console.log(blogs);
 
  return (
   <div>
    <Hero dic={dic} />
-   <Articles dic={dic} />
+   <Articles dic={dic} serverBlogs={blogs} />
    <Footer />
   </div>
  );

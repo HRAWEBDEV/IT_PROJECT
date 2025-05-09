@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ArticleFilters from './ArticleFilters';
 import ArticlesList from './ArticlesList';
 import Pagination from '@mui/material/Pagination';
@@ -11,15 +11,22 @@ import { GridPaginationModel } from '@mui/x-data-grid';
 import { useDebounceValue } from '@/hooks/useDebounceValue';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import {
+ type Blog,
  getBlogs,
  getBlogCategories,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { paginationLimit } from '../../utils/blogsPaginationInfo';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
-type Props = WithDictionary;
+type Props = WithDictionary & {
+ serverBlogs: Blog[];
+};
 
-export default function Articles({ dic }: Props) {
+export default function Articles({ dic, serverBlogs }: Props) {
+ const router = useRouter();
+ const pathname = usePathname();
+ const searchParams = useSearchParams();
  const { locale } = useAppConfig();
  const [rowsCount, setRowsCount] = useState(0);
  const [pagination, setPagination] = useState<GridPaginationModel>({
@@ -53,7 +60,7 @@ export default function Articles({ dic }: Props) {
  });
 
  const {
-  data: blogs = [],
+  data: blogs = serverBlogs,
   isLoading: blogsLoading,
   isFetching: blogsFetching,
  } = useQuery({
@@ -81,6 +88,35 @@ export default function Articles({ dic }: Props) {
    return data;
   },
  });
+
+ useEffect(() => {
+  const newSearchParams = new URLSearchParams(searchParams.toString());
+  newSearchParams.set('search', dbSearchValue || '');
+  newSearchParams.set('categoryID', blogCategory?.id || '');
+  newSearchParams.set('categoryName', blogCategory?.name || '');
+  if (pagination.page) newSearchParams.set('page', pagination.page.toString());
+  router.push(`${pathname}?${newSearchParams.toString()}`);
+ }, [
+  pathname,
+  router,
+  dbSearchValue,
+  blogCategory,
+  pagination.page,
+  searchParams,
+ ]);
+
+ useEffect(() => {
+  const search = searchParams.get('search');
+  const categoryID = searchParams.get('categoryID');
+  const categoryName = searchParams.get('categoryName');
+  const page = searchParams.get('page');
+  filtersUseForm.setValue('search', search || '');
+  filtersUseForm.setValue(
+   'category',
+   categoryID && categoryName ? { id: categoryID, name: categoryName } : null
+  );
+  if (page) setPagination((prev) => ({ ...prev, page: Number(page) }));
+ }, [searchParams, filtersUseForm]);
 
  return (
   <FormProvider {...filtersUseForm}>

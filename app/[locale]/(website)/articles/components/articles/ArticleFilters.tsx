@@ -18,7 +18,9 @@ export default function ArticleFilters({
  blogCategories,
  isLoadingBlogCategory,
 }: Props) {
- const { register, control } = useFormContext<BlogFilters>();
+ const { register, control, watch } = useFormContext<BlogFilters>();
+ const category = watch('category');
+ const search = watch('search');
  return (
   <div className='container'>
    <div className='mb-4 border border-neutral-300 dark:border-neutral-700 p-4 rounded-lg grid gap-4 lg:grid-cols-[repeat(4,minmax(0rem,15rem))]'>
@@ -29,6 +31,9 @@ export default function ArticleFilters({
      size='small'
      label={dic.search as string}
      slotProps={{
+      inputLabel: {
+       shrink: !!search || undefined,
+      },
       input: {
        endAdornment: (
         <InputAdornment position='end' className='-me-2'>
@@ -54,7 +59,15 @@ export default function ArticleFilters({
        }))}
        size='small'
        renderInput={(params) => (
-        <TextField {...params} label={dic.categories as string} />
+        <TextField
+         {...params}
+         label={dic.categories as string}
+         slotProps={{
+          inputLabel: {
+           shrink: !!category || undefined,
+          },
+         }}
+        />
        )}
       />
      )}

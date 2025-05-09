@@ -346,6 +346,7 @@ export {
  type Blog,
  type PagedResponse,
  type BlogState,
+ type PaginationProps,
  getBlogs,
  getBlogCategories,
  getTags,
