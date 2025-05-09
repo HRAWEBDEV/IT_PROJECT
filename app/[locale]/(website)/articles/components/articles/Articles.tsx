@@ -79,7 +79,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
      offset: pagination.page,
     },
     searchText: dbSearchValue,
-    blogStateID: 1,
+    blogStateID: 2,
     blogCategoryID: blogCategory ? Number(blogCategory.id) : undefined,
    });
    const pacakge = result.data.payload.Blogs;
@@ -97,7 +97,6 @@ export default function Articles({ dic, serverBlogs }: Props) {
   router.push(`${pathname}?${newSearchParams.toString()}`, {
    scroll: false,
   });
-  window.scrollTo(0, 392);
  }, [
   pathname,
   router,
@@ -106,6 +105,11 @@ export default function Articles({ dic, serverBlogs }: Props) {
   pagination.page,
   searchParams,
  ]);
+
+
+ useEffect(()=>{
+  window.scrollTo(0, 392);
+ },[pagination.page,blogCategory])
 
  useEffect(() => {
   const categoryID = searchParams.get('categoryID');
