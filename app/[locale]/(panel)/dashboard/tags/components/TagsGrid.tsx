@@ -3,6 +3,7 @@ import {
  DataGrid,
  GridPaginationModel,
  GridActionsCellItem,
+ GridFilterModel,
 } from '@mui/x-data-grid';
 import { type Tag, deleteTag } from '@/services/api-actions/globalApiActions';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
@@ -19,6 +20,8 @@ type Props = {
  tagsList: Tag[];
  isLoading: boolean;
  pagination: GridPaginationModel;
+ filterModel: GridFilterModel;
+ setFilterModel: (filterModel: GridFilterModel) => void;
  selectedTag: Tag | null;
  setSelectedTag: (tag: Tag | null) => void;
  setOpenAddTag: () => void;
@@ -35,6 +38,8 @@ export default function TagsGrid({
  setSelectedTag,
  setOpenAddTag,
  selectedTag,
+ filterModel,
+ setFilterModel,
 }: Props) {
  const {
   tags,
@@ -91,6 +96,9 @@ export default function TagsGrid({
     disableDensitySelector
     disableColumnFilter
     disableColumnSorting
+    filterModel={filterModel}
+    onFilterModelChange={setFilterModel}
+    filterMode='server'
     slotProps={{
      toolbar: {
       printOptions: {

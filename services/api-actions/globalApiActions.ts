@@ -161,10 +161,15 @@ function getBlog(props: ApiDefaultProps & { blogID: number }) {
 }
 // function deleteBlog(props: ApiDefaultProps) {}
 const getBlogTagsApi = '/blogTags';
-function getBlogTags(props: ApiDefaultProps & { blogID: number }) {
+function getBlogTags(
+ props: ApiDefaultProps & { blogID: number; searchText?: string }
+) {
  const params = new URLSearchParams();
  params.append('lang', props.locale);
  params.append('blogID', props.blogID.toString());
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
  return axios.get<
   ResponseShape<{ BlogTags: { tagID: number; tagName: string }[] }>
  >(`${getBlogTagsApi}?${params.toString()}`, {
@@ -262,6 +267,7 @@ function getTags<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
    tagTypeID: number;
+   searchText?: string;
   }
 ): Promise<
  AxiosResponse<
@@ -280,6 +286,9 @@ function getTags<T extends { pagination?: PaginationProps }>(
  if (pagination) {
   params.append('limit', pagination.limit.toString());
   params.append('offset', pagination.offset.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
  }
  params.append('tagTypeID', props.tagTypeID.toString());
  return axios.get(`${tagsApi}?${params.toString()}`, {

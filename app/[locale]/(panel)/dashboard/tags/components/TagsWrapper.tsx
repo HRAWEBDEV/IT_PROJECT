@@ -14,10 +14,13 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
 import TagsGrid from './TagsGrid';
-import { GridPaginationModel } from '@mui/x-data-grid';
+import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
 import AddTag from './AddTag';
 
 export default function TagsWrapper() {
+ const [filterModel, setFilterModel] = useState<GridFilterModel>({
+  items: [],
+ });
  const [openEditTag, setOpenEditTag] = useState(false);
  const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
  const [rowCount, setRowCount] = useState(0);
@@ -68,6 +71,7 @@ export default function TagsWrapper() {
    pagination.page + 1,
    pagination.pageSize,
    tagCategory?.id || '',
+   filterModel?.quickFilterValues?.[0] || '',
   ],
   enabled: !!filtersUseForm.getValues('category'),
   async queryFn() {
@@ -79,6 +83,7 @@ export default function TagsWrapper() {
      offset: pagination.page + 1,
     },
     tagTypeID: Number(tagCategory!.id),
+    searchText: filterModel?.quickFilterValues?.[0] || undefined,
    });
    const pacakge = result.data.payload.Tags;
    const data = pacakge.rows;
@@ -97,6 +102,8 @@ export default function TagsWrapper() {
      setOpenAddTag={() => setOpenEditTag(true)}
     />
     <TagsGrid
+     filterModel={filterModel}
+     setFilterModel={setFilterModel}
      tagsList={tagsList}
      isLoading={isLoading || isFetching}
      pagination={pagination}
