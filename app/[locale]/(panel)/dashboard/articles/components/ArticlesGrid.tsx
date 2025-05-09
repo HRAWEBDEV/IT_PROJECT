@@ -95,6 +95,11 @@ export default function ArticlesGrid({
       flex: 3,
      },
      {
+      field: 'blogStateName',
+      headerName: articles.state as string,
+      minWidth: 120,
+     },
+     {
       type: 'actions',
       field: 'actions',
       headerAlign: 'center',

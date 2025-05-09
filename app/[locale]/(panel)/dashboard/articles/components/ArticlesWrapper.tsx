@@ -38,7 +38,7 @@ export default function ArticlesWrapper() {
   resolver: zodResolver(filtersSchema),
  });
  const { watch } = filtersUseForm;
- const tagCategory = watch('category');
+ const [tagCategory, blogState] = watch(['category', 'state']);
  //
  const { locale } = useAppConfig();
  const { articles } = useWebsiteDictionary() as {
@@ -93,6 +93,7 @@ export default function ArticlesWrapper() {
    pagination.page + 1,
    pagination.pageSize,
    tagCategory?.id || '',
+   blogState?.id || '',
   ],
   async queryFn() {
    const blogCategory = filtersUseForm.getValues('category');
