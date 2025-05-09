@@ -50,10 +50,12 @@ export default async function page({
  blogsParams.set('blogStateID', '1');
  blogsParams.set('limit', paginationLimit.toString());
  blogsParams.set('offset', offset || '1');
- const blogsResult = await fetch(
-  `${process.env.NEXT_PUBLIC_API_BASE_URL}${blogsApi}?${blogsParams.toString()}`
- );
  try {
+  const blogsResult = await fetch(
+   `${
+    process.env.NEXT_PUBLIC_API_BASE_URL
+   }${blogsApi}?${blogsParams.toString()}`
+  );
   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
    Blogs: PagedResponse<Blog[]>;
   }>;

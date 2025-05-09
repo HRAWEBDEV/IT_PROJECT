@@ -21,10 +21,12 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
  blogsParams.set('showForCard', 'true');
- const blogsResult = await fetch(
-  `${process.env.NEXT_PUBLIC_API_BASE_URL}${blogsApi}?${blogsParams.toString()}`
- );
  try {
+  const blogsResult = await fetch(
+   `${
+    process.env.NEXT_PUBLIC_API_BASE_URL
+   }${blogsApi}?${blogsParams.toString()}`
+  );
   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
    Blogs: Blog[];
   }>;
