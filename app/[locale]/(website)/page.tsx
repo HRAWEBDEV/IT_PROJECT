@@ -5,7 +5,11 @@ import Projects from './components/projects/Projects';
 import Footer from './components/footer/Footer';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
-import { type Blog, blogsApi } from '@/services/api-actions/globalApiActions';
+import {
+ type Blog,
+ type ResponseShape,
+ blogsApi,
+} from '@/services/api-actions/globalApiActions';
 
 export default async function page({ params }: { params: Promise<AppParams> }) {
  const { locale } = await params;
@@ -21,7 +25,11 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   `${process.env.NEXT_PUBLIC_API_BASE_URL}${blogsApi}?${blogsParams.toString()}`
  );
  try {
-  blogs = await blogsResult.json();
+  const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+   Blogs: Blog[];
+  }>;
+  blogs = blogsPackage.payload.Blogs;
+  console.log(blogsPackage);
  } catch {}
 
  return (
@@ -29,7 +37,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
    <Hero dic={dic} />
    <Services dic={dic} />
    <Projects dic={dic} />
-   <Articles dic={dic} blogs={blogs} />
+   <Articles dic={dic} serverBlogs={blogs} />
    <Footer />
   </div>
  );

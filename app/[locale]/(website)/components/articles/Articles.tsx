@@ -18,10 +18,10 @@ const dateFormatter = new Intl.DateTimeFormat('fa', {
 });
 
 type Props = WithDictionary & {
- blogs: Blog[];
+ serverBlogs: Blog[];
 };
 
-export default function Articles({ dic, blogs }: Props) {
+export default function Articles({ dic, serverBlogs }: Props) {
  return (
   <section
    id='articles'
@@ -36,7 +36,7 @@ export default function Articles({ dic, blogs }: Props) {
      </div>
     </div>
     <ul className='grid lg:grid-cols-2 mb-4'>
-     {blogs.map((item) => (
+     {serverBlogs.map((item) => (
       <li key={item.id}>
        <Link
         href='#'
