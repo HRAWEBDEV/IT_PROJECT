@@ -3,6 +3,7 @@ import {
  DataGrid,
  GridPaginationModel,
  GridActionsCellItem,
+ GridFilterModel,
 } from '@mui/x-data-grid';
 import {
  type BlogCategory,
@@ -27,6 +28,8 @@ type Props = {
  setOpenAddCategory: () => void;
  setPagination: (pagination: GridPaginationModel) => void;
  rowCount: number;
+ filterModel: GridFilterModel;
+ setFilterModel: (filterModel: GridFilterModel) => void;
 };
 
 export default function CategoryGrid({
@@ -38,6 +41,8 @@ export default function CategoryGrid({
  setOpenAddCategory,
  selectedCategory,
  categoriesList,
+ filterModel,
+ setFilterModel,
 }: Props) {
  const {
   articlesCategories,
@@ -92,6 +97,9 @@ export default function CategoryGrid({
     disableDensitySelector
     disableColumnFilter
     disableColumnSorting
+    filterMode='server'
+    filterModel={filterModel}
+    onFilterModelChange={setFilterModel}
     slotProps={{
      toolbar: {
       printOptions: {

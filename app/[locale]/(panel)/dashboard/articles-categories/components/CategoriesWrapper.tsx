@@ -9,11 +9,14 @@ import {
 import { useQuery } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import CategoryGrid from './CategoryGrid';
-import { GridPaginationModel } from '@mui/x-data-grid';
+import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
 import CategoryFilters from './CategoryFilters';
 import AddCategory from './AddCategory';
 
 export default function CategoriesWrapper() {
+ const [filterModel, setFilterModel] = useState<GridFilterModel>({
+  items: [],
+ });
  const [openEditCategory, setOpenEditCategory] = useState(false);
  const [selectedCategory, setSelectedCategory] = useState<BlogCategory | null>(
   null
@@ -39,6 +42,7 @@ export default function CategoriesWrapper() {
    'articlesCategories',
    pagination.page + 1,
    pagination.pageSize,
+   filterModel?.quickFilterValues?.[0] || '',
   ],
   async queryFn() {
    const result = await getBlogCategories({
@@ -47,6 +51,7 @@ export default function CategoriesWrapper() {
      limit: pagination.pageSize,
      offset: pagination.page + 1,
     },
+    searchText: filterModel?.quickFilterValues?.[0] || undefined,
    });
    const pacakge = result.data.payload.BlogCategories;
    const data = pacakge.rows;
@@ -63,6 +68,8 @@ export default function CategoriesWrapper() {
    <CategoryFilters setOpenAddCategory={() => setOpenEditCategory(true)} />
    <CategoryGrid
     categoriesList={categoriesList}
+    filterModel={filterModel}
+    setFilterModel={setFilterModel}
     isLoading={isLoading || isFetching}
     pagination={pagination}
     setPagination={setPagination}

@@ -211,7 +211,7 @@ function createBlogImage(formData: FormData) {
 // blog categories actions
 const blogCategoriesApi = '/blog-categories';
 function getBlogCategories<T extends { pagination?: PaginationProps }>(
- props: ApiDefaultProps & T
+ props: ApiDefaultProps & T & { searchText?: string }
 ): Promise<
  AxiosResponse<
   ResponseShape<
@@ -229,6 +229,9 @@ function getBlogCategories<T extends { pagination?: PaginationProps }>(
  if (pagination) {
   params.append('limit', pagination.limit.toString());
   params.append('offset', pagination.offset.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
  }
  return axios.get(`${blogCategoriesApi}?${params.toString()}`, {
   signal: props.signal,
