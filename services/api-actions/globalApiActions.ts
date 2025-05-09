@@ -113,7 +113,10 @@ function createBlog(
 }
 function updateBlog(
  props: ApiDefaultProps &
-  Pick<Blog, 'blogCategoryID' | 'header' | 'description' | 'id' | 'body'> & {
+  Pick<
+   Blog,
+   'blogCategoryID' | 'header' | 'description' | 'id' | 'body' | 'blogStateID'
+  > & {
    blogImage?: { imageUrl: string; lang: SupportedLocales; blogID: number };
   } & { blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[] }
 ) {
@@ -123,10 +126,10 @@ function updateBlog(
   header: props.header,
   description: props.description,
   body: props.body,
-  blogStateID: 1,
   lang: props.locale,
   blogImage: props.blogImage || null,
   blogTags: props.blogTags || null,
+  blogStateID: props.blogStateID,
  };
  return axios.put(blogsApi, newBlog);
 }

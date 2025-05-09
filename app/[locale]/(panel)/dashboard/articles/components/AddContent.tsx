@@ -70,6 +70,7 @@ export default function AddContent({ open, onClose, article }: Props) {
     description: article.description,
     header: article.header,
     body: content,
+    blogStateID: article.blogStateID,
     blogImage: blogImage
      ? {
         ...blogImage,

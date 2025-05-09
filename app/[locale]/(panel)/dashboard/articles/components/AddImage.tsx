@@ -80,6 +80,7 @@ export default function AddImage({ open, onClose, article }: Props) {
     blogCategoryID: article.blogCategoryID,
     header: article.header,
     description: article.description,
+    blogStateID: article.blogStateID,
     blogTags: tagResult.data.payload.BlogTags.map((item) => ({
      tagID: item.tagID,
      lang: locale,

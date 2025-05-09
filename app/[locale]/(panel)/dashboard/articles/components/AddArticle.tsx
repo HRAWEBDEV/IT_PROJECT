@@ -129,6 +129,7 @@ export default function AddArticle({
     ? updateBlog({
        id: article.id,
        ...newBlog,
+       blogStateID: article.blogStateID,
        blogImage: blogImage
         ? {
            ...blogImage,
