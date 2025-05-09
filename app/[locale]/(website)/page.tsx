@@ -20,6 +20,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  let blogs: Blog[] = [];
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
+ blogsParams.set('blogStateID', '2');
  blogsParams.set('showForCard', 'true');
  try {
   const blogsResult = await fetch(

@@ -36,7 +36,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
      </div>
     </div>
     <ul className='grid lg:grid-cols-2 mb-4'>
-     {serverBlogs.map((item) => (
+     {serverBlogs.slice(0, 4).map((item) => (
       <li key={item.id}>
        <Link
         href='#'
@@ -53,23 +53,24 @@ export default function Articles({ dic, serverBlogs }: Props) {
           alt='services imageg'
          />
         </div>
-        <div>
+        <div className='flex-grow'>
          <h3 className='font-medium text-lg mb-2 text-primary-dark'>
-          نصب دوربین
+          {item.header}
          </h3>
          <div className='text-[0.7rem] flex gap-2 flex-wrap'>
           <div className='flex gap-1 items-center text-secondary'>
            <CalendarMonthIcon fontSize='small' />
-           <span>{dateFormatter.format(new Date())}</span>
+           <span>
+            {dateFormatter.format(new Date(item.createDateTime + 'Z'))}
+           </span>
           </div>
           <div></div>
           <div></div>
          </div>
          <p className='text-justify text-neutral-500 dark:text-neutral-200 mb-4'>
-          لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با فیک
-          است، چاپگرها و متون بلکه روزنامه و مجله در لورم ایپسوم متن ساختگی با
-          تولید سادگی نامفهوم از صنعت چاپ، و با فیک است، چاپگرها و متون بلکه
-          روزنامه و مجله در
+          {item.description.length > 100
+           ? item.description.slice(0, 100) + '...'
+           : item.description}
          </p>
          <div className='flex justify-between'>
           <div className='flex gap-1'>
