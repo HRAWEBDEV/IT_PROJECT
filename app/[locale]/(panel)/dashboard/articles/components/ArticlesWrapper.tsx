@@ -15,7 +15,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
 import ArticlesGrid from './ArticlesGrid';
-import { GridPaginationModel } from '@mui/x-data-grid';
+import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
 import AddArticle from './AddArticle';
 import AddCategory from '../../articles-categories/components/AddCategory';
 import IconButton from '@mui/material/IconButton';
@@ -25,6 +25,9 @@ import AddContent from './AddContent';
 import ChangeState from './ChangeState';
 
 export default function ArticlesWrapper() {
+ const [filterModel, setFilterModel] = useState<GridFilterModel>({
+  items: [],
+ });
  const [openChangeState, setOpenChangeState] = useState(false);
  const [openArticleContent, setOpenArticleContent] = useState(false);
  const [openAddImage, setOpenAddImage] = useState(false);
@@ -96,6 +99,7 @@ export default function ArticlesWrapper() {
    pagination.pageSize,
    tagCategory?.id || '',
    blogState?.id || '',
+   filterModel?.quickFilterValues?.[0] || '',
   ],
   async queryFn() {
    const blogCategory = filtersUseForm.getValues('category');
@@ -108,6 +112,7 @@ export default function ArticlesWrapper() {
     },
     blogStateID: Number(blogState.id),
     blogCategoryID: blogCategory ? Number(blogCategory.id) : undefined,
+    searchText: filterModel?.quickFilterValues?.[0] || undefined,
    });
    const pacakge = result.data.payload.Blogs;
    const data = pacakge.rows;
@@ -137,6 +142,8 @@ export default function ArticlesWrapper() {
       pagination={pagination}
       setPagination={setPagination}
       rowCount={rowCount}
+      filterModel={filterModel}
+      setFilterModel={setFilterModel}
       setOpenAddArticle={() => setOpenEditArticle(true)}
       selectedArticle={selectedArticle}
       setSelectedArticle={setSelectedArticle}

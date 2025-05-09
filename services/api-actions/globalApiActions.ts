@@ -62,6 +62,7 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
   T & {
    blogStateID: number;
    blogCategoryID?: number;
+   searchText?: string;
   }
 ): Promise<
  AxiosResponse<
@@ -83,6 +84,9 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
  }
  if (props.blogCategoryID) {
   params.append('blogCategoryID', props.blogCategoryID.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
  }
  params.append('blogStateID', props.blogStateID.toString());
  return axios.get(`${blogsApi}?${params.toString()}`, {

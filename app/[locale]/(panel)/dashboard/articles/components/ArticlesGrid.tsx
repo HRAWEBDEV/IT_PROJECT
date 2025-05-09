@@ -3,6 +3,7 @@ import {
  DataGrid,
  GridPaginationModel,
  GridActionsCellItem,
+ GridFilterModel,
 } from '@mui/x-data-grid';
 import { type Blog, patchBlog } from '@/services/api-actions/globalApiActions';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
@@ -21,6 +22,8 @@ type Props = {
  articlesList: Blog[];
  isLoading: boolean;
  pagination: GridPaginationModel;
+ filterModel: GridFilterModel;
+ setFilterModel: (filterModel: GridFilterModel) => void;
  selectedArticle: Blog | null;
  setSelectedArticle: (article: Blog | null) => void;
  setOpenAddArticle: () => void;
@@ -43,6 +46,8 @@ export default function ArticlesGrid({
  selectedArticle,
  setOpenArticleContent,
  setOpenChangeState,
+ filterModel,
+ setFilterModel,
 }: Props) {
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
@@ -99,6 +104,9 @@ export default function ArticlesGrid({
     disableDensitySelector
     disableColumnFilter
     disableColumnSorting
+    filterMode='server'
+    filterModel={filterModel}
+    onFilterModelChange={setFilterModel}
     slotProps={{
      toolbar: {
       printOptions: {
