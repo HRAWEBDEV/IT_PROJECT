@@ -1,4 +1,4 @@
-import { type Dic, type WithDictionary } from '@/localization/locales';
+import { type WithDictionary } from '@/localization/locales';
 
 type Props = WithDictionary;
 
