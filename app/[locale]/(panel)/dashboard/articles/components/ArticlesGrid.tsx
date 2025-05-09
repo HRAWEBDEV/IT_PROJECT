@@ -8,7 +8,6 @@ import { type Blog, patchBlog } from '@/services/api-actions/globalApiActions';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import StarIcon from '@mui/icons-material/Star';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
@@ -16,6 +15,7 @@ import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ArticleIcon from '@mui/icons-material/Article';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 type Props = {
  articlesList: Blog[];
@@ -27,6 +27,7 @@ type Props = {
  setPagination: (pagination: GridPaginationModel) => void;
  setShowAddImage: (show: boolean) => void;
  setOpenArticleContent: () => void;
+ setOpenChangeState: () => void;
  rowCount: number;
 };
 
@@ -41,6 +42,7 @@ export default function ArticlesGrid({
  setShowAddImage,
  selectedArticle,
  setOpenArticleContent,
+ setOpenChangeState,
 }: Props) {
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
@@ -202,12 +204,12 @@ export default function ArticlesGrid({
          showInMenu
         />,
         <GridActionsCellItem
-         key={'remove'}
-         label={articles.deleteArticle as string}
-         icon={<DeleteIcon color='error' />}
+         key={'changeState'}
+         label={articles.changeState as string}
+         icon={<SettingsIcon color='error' />}
          onClick={() => {
           setSelectedArticle(row);
-          setOpenConfirm(true);
+          setOpenChangeState();
          }}
          showInMenu
         />,

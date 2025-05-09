@@ -22,8 +22,10 @@ import IconButton from '@mui/material/IconButton';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import AddImage from './AddImage';
 import AddContent from './AddContent';
+import ChangeState from './ChangeState';
 
 export default function ArticlesWrapper() {
+ const [openChangeState, setOpenChangeState] = useState(false);
  const [openArticleContent, setOpenArticleContent] = useState(false);
  const [openAddImage, setOpenAddImage] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
@@ -140,6 +142,7 @@ export default function ArticlesWrapper() {
       setSelectedArticle={setSelectedArticle}
       setShowAddImage={setOpenAddImage}
       setOpenArticleContent={() => setOpenArticleContent(true)}
+      setOpenChangeState={() => setOpenChangeState(true)}
      />
     ) : (
      <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
@@ -175,6 +178,14 @@ export default function ArticlesWrapper() {
      open={openArticleContent}
      onClose={() => setOpenArticleContent(false)}
      article={selectedArticle}
+    />
+   )}
+   {openChangeState && selectedArticle && (
+    <ChangeState
+     open={openChangeState}
+     onClose={() => setOpenChangeState(false)}
+     article={selectedArticle}
+     blogStates={articleStates}
     />
    )}
    {openAddImage && selectedArticle && (

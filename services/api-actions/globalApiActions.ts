@@ -44,6 +44,7 @@ type Blog = {
  body: string;
  blogCategoryID: number;
  blogCategoryName: string;
+ blogStateID: number;
  blogStateName: string;
  craeteDateTime: string;
  showForCard: boolean;
