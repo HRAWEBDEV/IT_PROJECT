@@ -12,7 +12,6 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import IconButton from '@mui/material/IconButton';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -23,6 +22,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import ImageWrapper from '@/components/ImageWrapper';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { AxiosError } from 'axios';
 
 type Props = {
  open: boolean;
@@ -40,9 +40,12 @@ export default function AddImage({ open, onClose, article }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
  const { locale } = useAppConfig();
  const snackbar = useSnackbar();
- const { articles } = useWebsiteDictionary() as {
-  articles: Dic;
- };
+ const { articles, errorTryAgainLater, changesSavedSuccessfully } =
+  useWebsiteDictionary() as {
+   articles: Dic;
+   errorTryAgainLater: string;
+   changesSavedSuccessfully: string;
+  };
  const queryClient = useQueryClient();
  const [dragStart, setDragStart] = useState(false);
  const [fileValue, setFileValue] = useState('');
@@ -52,12 +55,15 @@ export default function AddImage({ open, onClose, article }: Props) {
    queryClient.invalidateQueries({
     queryKey: ['blog-images', article.id],
    });
-   onClose();
+   snackbar.enqueueSnackbar({
+    message: changesSavedSuccessfully as string,
+    variant: 'success',
+   });
   },
-  onError() {
+  onError(error: AxiosError) {
    snackbar.enqueueSnackbar({
     variant: 'error',
-    message: articles.errorTryAgainLater as string,
+    message: (error.response?.data as string) || errorTryAgainLater,
    });
   },
   mutationFn: async (formData: FormData) => {
@@ -81,6 +87,7 @@ export default function AddImage({ open, onClose, article }: Props) {
     blogImage: {
      imageUrl: result.data,
      lang: locale,
+     blogID: article.id,
     },
    });
   },
@@ -94,7 +101,7 @@ export default function AddImage({ open, onClose, article }: Props) {
   queryKey: ['blog-images', article.id],
   queryFn: () =>
    getBlogImages({ blogID: article.id, locale }).then(
-    (res) => res.data.payload.PersianBlogImages
+    (res) => res.data.payload.BlogImages
    ),
  });
  return (
@@ -132,22 +139,19 @@ export default function AddImage({ open, onClose, article }: Props) {
       >
        {images.map((item) => (
         <SwiperSlide key={item.imageUrl}>
-         <div className='h-[14rem] rounded-lg overflow-hidden relative'>
+         <div className='min-h-[14rem] rounded-lg overflow-hidden relative'>
           <ImageWrapper
            img={{
-            src: process.env.NEXT_PUBLIC_API_BASE_URL + '/' + item.imageUrl,
+            src:
+             (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace('API', '') +
+             item.imageUrl,
             alt: 'blog image',
             className: 'object-cover object-center',
            }}
            wrapper={{
-            className: 'h-[14rem] rounded-lg overflow-hidden',
+            className: 'min-h-[14rem]',
            }}
           />
-          <div className='absolute top-0 end-0 z-10'>
-           <IconButton color='error' size='large'>
-            <DeleteOutlineOutlinedIcon fontSize='large' />
-           </IconButton>
-          </div>
          </div>
         </SwiperSlide>
        ))}
