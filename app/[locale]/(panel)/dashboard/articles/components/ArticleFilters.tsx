@@ -5,11 +5,16 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import { Controller, useFormContext } from 'react-hook-form';
 import { type FilterSchema } from '../schemas/filtersSchema';
-import { type BlogCategory } from '@/services/api-actions/globalApiActions';
+import {
+ type BlogCategory,
+ type BlogState,
+} from '@/services/api-actions/globalApiActions';
 
 type Props = {
  articleCategories: BlogCategory[];
+ articleStates: BlogState[];
  isLoadingCategories: boolean;
+ isLoadingStates: boolean;
  setOpenAddArticle: () => void;
  setOpenAddCategory: () => void;
 };
@@ -19,6 +24,8 @@ export default function ArticlesFilters({
  isLoadingCategories,
  setOpenAddArticle,
  setOpenAddCategory,
+ articleStates,
+ isLoadingStates,
 }: Props) {
  const { articles, articlesCategories } = useWebsiteDictionary() as {
   articles: Dic;
@@ -28,14 +35,13 @@ export default function ArticlesFilters({
  return (
   <form
    onSubmit={(e) => e.preventDefault()}
-   className='bg-background grid lg:items-center lg:grid-cols-[minmax(0,20rem)_max-content] lg:justify-between border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
+   className='bg-background grid lg:items-center lg:grid-cols-[repeat(2,minmax(0,20rem))_minmax(max-content,1fr)]  border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
   >
    <Controller
     control={control}
     name='category'
     render={({ field }) => (
      <Autocomplete
-      disableClearable={true}
       loading={isLoadingCategories}
       {...field}
       value={field.value || null}
@@ -48,6 +54,28 @@ export default function ArticlesFilters({
       }))}
       renderInput={(params) => (
        <TextField {...params} label={articles.category as string} />
+      )}
+     />
+    )}
+   />
+   <Controller
+    control={control}
+    name='state'
+    render={({ field }) => (
+     <Autocomplete
+      disableClearable={true}
+      loading={isLoadingStates}
+      {...field}
+      value={field.value || null}
+      onChange={(_, value) => field.onChange(value)}
+      getOptionLabel={(option) => option.name}
+      size='small'
+      options={articleStates.map((item) => ({
+       id: item.id.toString(),
+       name: item.name,
+      }))}
+      renderInput={(params) => (
+       <TextField {...params} label={articles.state as string} />
       )}
      />
     )}

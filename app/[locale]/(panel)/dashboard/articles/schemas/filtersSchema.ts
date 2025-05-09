@@ -1,7 +1,13 @@
 import { z } from 'zod';
 
 const filtersSchema = z.object({
- category: z.object({
+ category: z
+  .object({
+   id: z.string(),
+   name: z.string(),
+  })
+  .nullable(),
+ state: z.object({
   id: z.string(),
   name: z.string(),
  }),

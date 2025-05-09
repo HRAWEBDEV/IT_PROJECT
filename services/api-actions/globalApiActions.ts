@@ -47,6 +47,10 @@ type Blog = {
  blogStateName: string;
  craeteDateTime: string;
 };
+type BlogState = {
+ id: number;
+ name: string;
+};
 
 // blogs actions
 const blogsApi = '/blogs';
@@ -54,7 +58,7 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
    blogStateID: number;
-   blogCategoryID: number;
+   blogCategoryID?: number;
   }
 ): Promise<
  AxiosResponse<
@@ -74,8 +78,10 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
   params.append('limit', pagination.limit.toString());
   params.append('offset', pagination.offset.toString());
  }
+ if (props.blogCategoryID) {
+  params.append('blogCategoryID', props.blogCategoryID.toString());
+ }
  params.append('blogStateID', props.blogStateID.toString());
- params.append('blogCategoryID', props.blogCategoryID.toString());
  return axios.get(`${blogsApi}?${params.toString()}`, {
   signal: props.signal,
  });
@@ -129,6 +135,16 @@ function getBlogTags(props: ApiDefaultProps & { blogID: number }) {
   signal: props.signal,
  });
 }
+// blog states
+const blogStatesApi = '/blogStates';
+function getBlogStates(props: ApiDefaultProps) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ return axios.get<BlogState[]>(`${blogStatesApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+
 // blog images
 
 const blogImagesApi = '/blogImages';
@@ -280,6 +296,7 @@ export {
  type BlogCategory,
  type Blog,
  type PagedResponse,
+ type BlogState,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -297,4 +314,5 @@ export {
  getBlogTags,
  blogsApi,
  blogCategoriesApi,
+ getBlogStates,
 };

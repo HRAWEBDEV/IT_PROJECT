@@ -45,6 +45,7 @@
  "articles": {
   "title": "اخبار و مقاله‌ها",
   "category": "دسته بندی",
+  "state": "وضعیت",
   "addArticle": "افزودن اخبار و مقاله",
   "articleTitle": "عنوان",
   "actions": "عملیات",

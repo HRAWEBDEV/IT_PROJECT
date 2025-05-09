@@ -7,6 +7,7 @@ import {
  type Blog,
  getBlogs,
  getBlogCategories,
+ getBlogStates,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
@@ -55,8 +56,23 @@ export default function ArticlesWrapper() {
     locale,
    });
    const data = result.data.payload.BlogCategories;
+   return data;
+  },
+ });
+
+ const {
+  data: articleStates = [],
+  isLoading: isArticleStatesLoading,
+  isFetching: isArticleStatesFetching,
+ } = useQuery({
+  queryKey: ['dashboard', 'articlesStates'],
+  async queryFn() {
+   const result = await getBlogStates({
+    locale,
+   });
+   const data = result.data;
    if (data.length) {
-    filtersUseForm.setValue('category', {
+    filtersUseForm.setValue('state', {
      id: data[0].id.toString(),
      name: data[0].name,
     });
@@ -70,6 +86,7 @@ export default function ArticlesWrapper() {
   isLoading,
   isFetching,
  } = useQuery({
+  enabled: !!filtersUseForm.getValues('state'),
   queryKey: [
    'dashboard',
    'articles',
@@ -77,17 +94,17 @@ export default function ArticlesWrapper() {
    pagination.pageSize,
    tagCategory?.id || '',
   ],
-  enabled: !!filtersUseForm.getValues('category'),
   async queryFn() {
    const blogCategory = filtersUseForm.getValues('category');
+   const blogState = filtersUseForm.getValues('state');
    const result = await getBlogs({
     locale,
     pagination: {
      limit: pagination.pageSize,
      offset: pagination.page + 1,
     },
-    blogStateID: 1,
-    blogCategoryID: Number(blogCategory.id),
+    blogStateID: Number(blogState.id),
+    blogCategoryID: blogCategory ? Number(blogCategory.id) : undefined,
    });
    const pacakge = result.data.payload.Blogs;
    const data = pacakge.rows;
@@ -102,9 +119,11 @@ export default function ArticlesWrapper() {
    <FormProvider {...filtersUseForm}>
     <ArticlesFilters
      articleCategories={articleCategories}
+     articleStates={articleStates}
      isLoadingCategories={
       isArticleCategoriesLoading || isArticleCategoriesFetching
      }
+     isLoadingStates={isArticleStatesLoading || isArticleStatesFetching}
      setOpenAddArticle={() => setOpenEditArticle(true)}
      setOpenAddCategory={() => setOpenAddCategory(true)}
     />
