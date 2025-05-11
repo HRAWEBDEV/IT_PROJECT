@@ -115,7 +115,13 @@ function updateBlog(
  props: ApiDefaultProps &
   Pick<
    Blog,
-   'blogCategoryID' | 'header' | 'description' | 'id' | 'body' | 'blogStateID'
+   | 'blogCategoryID'
+   | 'header'
+   | 'description'
+   | 'id'
+   | 'body'
+   | 'blogStateID'
+   | 'showForCard'
   > & {
    blogImage?: { imageUrl: string; lang: SupportedLocales; blogID: number };
   } & { blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[] }

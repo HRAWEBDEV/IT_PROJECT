@@ -130,6 +130,7 @@ export default function AddArticle({
        id: article.id,
        ...newBlog,
        blogStateID: article.blogStateID,
+       showForCard: article.showForCard,
        blogImage: blogImage
         ? {
            ...blogImage,

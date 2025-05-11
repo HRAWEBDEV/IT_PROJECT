@@ -79,6 +79,7 @@ export default function AddContent({ open, onClose, article }: Props) {
     description: article.description,
     header: article.header,
     body: content,
+    showForCard: article.showForCard,
     blogStateID: article.blogStateID,
     blogImage: blogImage
      ? {

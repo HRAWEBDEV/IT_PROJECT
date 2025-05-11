@@ -81,6 +81,7 @@ export default function AddImage({ open, onClose, article }: Props) {
     header: article.header,
     description: article.description,
     blogStateID: article.blogStateID,
+    showForCard: article.showForCard,
     blogTags: tagResult.data.payload.BlogTags.map((item) => ({
      tagID: item.tagID,
      lang: locale,
