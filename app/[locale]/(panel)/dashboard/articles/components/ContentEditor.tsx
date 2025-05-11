@@ -1,70 +1,11 @@
 import { forwardRef } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import type { CKEditor as CKEditorType } from '@ckeditor/ckeditor5-react';
-import { useAppConfig } from '@/services/app-config/appConfig';
-import { createBlogImage } from '@/services/api-actions/globalApiActions';
 import {
- ClassicEditor,
- Autoformat,
- FontSize,
- Bold,
- Italic,
- Underline,
- BlockQuote,
- Base64UploadAdapter,
- CloudServices,
- Essentials,
- Heading,
- Image,
- ImageCaption,
- ImageResize,
- ImageStyle,
- ImageToolbar,
- ImageUpload,
- PictureEditing,
- Indent,
- IndentBlock,
- Link,
- List,
- MediaEmbed,
- Mention,
- Paragraph,
- PasteFromOffice,
- Table,
- TableColumnResize,
- TableToolbar,
- TextTransformation,
-} from 'ckeditor5';
-import type { FileLoader, UploadAdapter } from '@ckeditor/ckeditor5-upload';
-
-// Custom upload adapter class
-class CustomUploadAdapter implements UploadAdapter {
- private loader: FileLoader;
- constructor(loader: FileLoader) {
-  this.loader = loader;
- }
- async upload() {
-  const formData = new FormData();
-  const file = await this.loader.file;
-  if (!file) {
-   throw new Error('No file selected');
-  }
-  formData.append('FormFile', file);
-  try {
-   const response = await createBlogImage(formData);
-   return {
-    default:
-     (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace('API', '') +
-     response.data,
-   };
-  } catch (error) {
-   throw error;
-  }
- }
- abort() {
-  // Abort upload process
- }
-}
+ CKEditor as CKEditorType,
+ useCKEditorCloud,
+} from '@ckeditor/ckeditor5-react';
+import { useAppConfig } from '@/services/app-config/appConfig';
+import { ClassicEditor } from 'ckeditor5';
 
 type ContentEditorProps = Omit<
  React.ComponentProps<typeof CKEditorType>,
@@ -76,6 +17,50 @@ const ContentEditor = forwardRef<
  ContentEditorProps
 >(function ContentEditor(props, ref) {
  const { locale } = useAppConfig();
+ const cloud = useCKEditorCloud({
+  version: '45.0.0',
+  premium: false,
+ });
+ if (cloud.status === 'error') {
+  return <div>Error!</div>;
+ }
+
+ if (cloud.status === 'loading') {
+  return <div>Loading...</div>;
+ }
+
+ const {
+  ClassicEditor,
+  Autoformat,
+  FontSize,
+  Bold,
+  Italic,
+  Underline,
+  BlockQuote,
+  CloudServices,
+  Essentials,
+  Heading,
+  Image,
+  ImageCaption,
+  ImageResize,
+  ImageStyle,
+  ImageToolbar,
+  ImageUpload,
+  PictureEditing,
+  Indent,
+  IndentBlock,
+  Link,
+  List,
+  MediaEmbed,
+  Mention,
+  Paragraph,
+  PasteFromOffice,
+  Table,
+  TableColumnResize,
+  TableToolbar,
+  TextTransformation,
+ } = cloud.CKEditor;
+
  return (
   <CKEditor
    ref={ref}
@@ -102,7 +87,6 @@ const ContentEditor = forwardRef<
      ImageStyle,
      ImageToolbar,
      ImageUpload,
-     Base64UploadAdapter,
      Indent,
      IndentBlock,
      Italic,
@@ -241,12 +225,6 @@ const ContentEditor = forwardRef<
     htmlEmbed: {
      showPreviews: true,
     },
-   }}
-   onReady={(editor) => {
-    // Configure the upload adapter
-    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-     return new CustomUploadAdapter(loader);
-    };
    }}
   />
  );
