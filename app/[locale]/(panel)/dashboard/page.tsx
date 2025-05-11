@@ -17,5 +17,5 @@ export const generateMetadata = async ({
 };
 
 export default function page() {
- return <div className='h-[2000px]'></div>;
+ return <div></div>;
 }

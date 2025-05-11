@@ -119,7 +119,6 @@ export default function AddContent({ open, onClose, article }: Props) {
    open={open}
    fullScreen={!isLargeDevice}
    maxWidth='xl'
-   onClose={onClose}
    component={'form'}
    onSubmit={(e) => {
     e.preventDefault();
