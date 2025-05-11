@@ -6,6 +6,75 @@ import {
 } from '@ckeditor/ckeditor5-react';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { ClassicEditor } from 'ckeditor5';
+import type { Editor } from '@ckeditor/ckeditor5-core';
+import type {
+ FileLoader,
+ UploadAdapter,
+ UploadResponse,
+} from '@ckeditor/ckeditor5-upload';
+import { createBlogImage } from '@/services/api-actions/globalApiActions';
+
+// Custom upload adapter
+class CustomUploadAdapter implements UploadAdapter {
+ private loader: FileLoader;
+ private editor: Editor;
+
+ constructor(loader: FileLoader, editor: Editor) {
+  this.loader = loader;
+  this.editor = editor;
+ }
+
+ upload(): Promise<UploadResponse> {
+  return this.loader.file.then(
+   (file) =>
+    new Promise<UploadResponse>((resolve, reject) => {
+     if (!file) {
+      this.removeUploadedImage();
+      reject(new Error('No file selected'));
+      return;
+     }
+     const formData = new FormData();
+     formData.append('FormFile', file as Blob);
+     createBlogImage(formData)
+      .then((response) => {
+       resolve({
+        default: (process.env.NEXT_PUBLIC_BASE_URL || '') + response.data,
+       });
+      })
+      .catch((err) => {
+       this.removeUploadedImage();
+       reject(new Error(err));
+      });
+    })
+  );
+ }
+
+ private removeUploadedImage(): void {
+  const root = this.editor.model.document.getRoot();
+  if (!root) return;
+
+  const images = Array.from(root.getChildren()).filter((node) =>
+   node.is('element', 'imageBlock')
+  );
+  if (images.length > 0) {
+   this.editor.model.change((writer) => {
+    writer.remove(images[images.length - 1]);
+   });
+  }
+ }
+ abort(): void {
+  this.removeUploadedImage();
+ }
+}
+
+// Plugin that registers the custom upload adapter
+function CustomUploadAdapterPlugin(editor: Editor): void {
+ editor.plugins.get('FileRepository').createUploadAdapter = (
+  loader: FileLoader
+ ): UploadAdapter => {
+  return new CustomUploadAdapter(loader, editor);
+ };
+}
 
 type ContentEditorProps = Omit<
  React.ComponentProps<typeof CKEditorType>,
@@ -21,6 +90,7 @@ const ContentEditor = forwardRef<
   version: '45.0.0',
   premium: false,
  });
+
  if (cloud.status === 'error') {
   return <div>Error!</div>;
  }
@@ -34,9 +104,9 @@ const ContentEditor = forwardRef<
   Autoformat,
   Bold,
   Italic,
+  Highlight,
   Underline,
   BlockQuote,
-  Base64UploadAdapter,
   CloudServices,
   Essentials,
   Heading,
@@ -51,6 +121,7 @@ const ContentEditor = forwardRef<
   IndentBlock,
   Link,
   List,
+  Font,
   MediaEmbed,
   Mention,
   Paragraph,
@@ -58,7 +129,9 @@ const ContentEditor = forwardRef<
   Table,
   TableColumnResize,
   TableToolbar,
+  Autosave,
   TextTransformation,
+  Strikethrough,
  } = cloud.CKEditor;
 
  return (
@@ -78,6 +151,8 @@ const ContentEditor = forwardRef<
      Bold,
      CloudServices,
      Essentials,
+     Font,
+     Highlight,
      Heading,
      Image,
      ImageCaption,
@@ -85,12 +160,13 @@ const ContentEditor = forwardRef<
      ImageStyle,
      ImageToolbar,
      ImageUpload,
-     Base64UploadAdapter,
+     CustomUploadAdapterPlugin,
      Indent,
      IndentBlock,
      Italic,
      Link,
      List,
+     Strikethrough,
      MediaEmbed,
      Mention,
      Paragraph,
@@ -101,6 +177,7 @@ const ContentEditor = forwardRef<
      TableToolbar,
      TextTransformation,
      Underline,
+     Autosave,
     ],
     toolbar: [
      'undo',
@@ -111,6 +188,12 @@ const ContentEditor = forwardRef<
      'bold',
      'italic',
      'underline',
+     'strikethrough',
+     'fontSize',
+     'fontFamily',
+     'fontColor',
+     'fontBackgroundColor',
+     'highlight',
      '|',
      'link',
      'uploadImage',
@@ -159,6 +242,12 @@ const ContentEditor = forwardRef<
      ],
     },
     image: {
+     insert: {
+      integrations: ['upload', 'url'],
+     },
+     upload: {
+      types: ['jpeg', 'png', 'gif', 'webp'],
+     },
      resizeOptions: [
       {
        name: 'resizeImage:original',
@@ -185,6 +274,8 @@ const ContentEditor = forwardRef<
       'imageStyle:breakText',
       '|',
       'resizeImage',
+      '|',
+      'uploadImage',
      ],
     },
     link: {

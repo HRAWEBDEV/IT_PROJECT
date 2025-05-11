@@ -3,7 +3,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import Backdrop from '@mui/material/Backdrop';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -21,8 +20,8 @@ import type { CKEditor as CKEditorType } from '@ckeditor/ckeditor5-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { useAppConfig } from '@/services/app-config/appConfig';
-import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { AxiosError } from 'axios';
+import { useHeightController } from '@/hooks/useHeightController';
 
 const Editor = dynamic(
  () =>
@@ -41,7 +40,13 @@ type Props = {
 };
 
 export default function AddContent({ open, onClose, article }: Props) {
- const { isLargeDevice } = useAppMonitorConfig();
+ const titleRef = useRef<HTMLDivElement>(null);
+ const actionsRef = useRef<HTMLDivElement>(null);
+ const { height } = useHeightController({
+  enviromentRefs: [titleRef, actionsRef],
+ });
+ console.log(height);
+
  const { locale } = useAppConfig();
  const queryClient = useQueryClient();
  const { enqueueSnackbar } = useSnackbar();
@@ -108,10 +113,10 @@ export default function AddContent({ open, onClose, article }: Props) {
 
  return (
   <Dialog
+   ref={titleRef}
    disableEnforceFocus={true}
    open={open}
-   fullWidth
-   fullScreen={!isLargeDevice}
+   fullScreen={true}
    maxWidth='xl'
    onClose={onClose}
    component={'form'}
@@ -142,7 +147,7 @@ export default function AddContent({ open, onClose, article }: Props) {
      />
     </div>
    </DialogContent>
-   <DialogActions>
+   <DialogActions ref={actionsRef}>
     <Button
      className='w-[6rem]'
      variant='outlined'
