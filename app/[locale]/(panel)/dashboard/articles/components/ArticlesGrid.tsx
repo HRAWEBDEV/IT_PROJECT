@@ -17,6 +17,7 @@ import { useSnackbar } from 'notistack';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { AxiosError } from 'axios';
 
 type Props = {
  articlesList: Blog[];
@@ -82,9 +83,9 @@ export default function ArticlesGrid({
     variant: 'success',
    });
   },
-  onError() {
+  onError(error: AxiosError) {
    enqueueSnackbar({
-    message: errorTryAgainLater as string,
+    message: (error.response?.data as string) || errorTryAgainLater,
     variant: 'error',
    });
   },

@@ -11,6 +11,7 @@ import {
  Italic,
  Underline,
  BlockQuote,
+ Base64UploadAdapter,
  CloudServices,
  Essentials,
  Heading,
@@ -43,7 +44,6 @@ class CustomUploadAdapter implements UploadAdapter {
   this.loader = loader;
  }
  async upload() {
-  console.log('here');
   const formData = new FormData();
   const file = await this.loader.file;
   if (!file) {
@@ -102,6 +102,7 @@ const ContentEditor = forwardRef<
      ImageStyle,
      ImageToolbar,
      ImageUpload,
+     Base64UploadAdapter,
      Indent,
      IndentBlock,
      Italic,
@@ -203,12 +204,42 @@ const ContentEditor = forwardRef<
       '|',
       'resizeImage',
      ],
+     styles: {
+      options: ['inline', 'block', 'side'],
+     },
+     upload: {
+      types: ['jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff'],
+     },
     },
     link: {
      addTargetToExternalLinks: true,
+     decorators: {
+      openInNewTab: {
+       mode: 'manual',
+       label: 'Open in a new tab',
+       defaultValue: true,
+       attributes: {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+       },
+      },
+     },
     },
     table: {
      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
+    },
+    htmlSupport: {
+     allow: [
+      {
+       name: /.*/,
+       attributes: true,
+       classes: true,
+       styles: true,
+      },
+     ],
+    },
+    htmlEmbed: {
+     showPreviews: true,
     },
    }}
    onReady={(editor) => {

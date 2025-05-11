@@ -22,10 +22,12 @@ export default async function layout({
     process.env.NEXT_PUBLIC_API_BASE_URL
    }${blogsApi}/${name}?${blogsParams.toString()}`
   );
-  const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-   Blog: Blog;
-  }>;
-  blog = blogsPackage.payload.Blog;
+  if (blogsResult.ok) {
+   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+    Blog: Blog;
+   }>;
+   blog = blogsPackage.payload.Blog;
+  }
  } catch {}
  return (
   <div>

@@ -15,6 +15,7 @@ import '../globals.css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'ckeditor5/ckeditor5.css';
 
 const enRoboto = LocalFont({
  variable: '--en-roboto',

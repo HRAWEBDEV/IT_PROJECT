@@ -56,10 +56,12 @@ export default async function page({
     process.env.NEXT_PUBLIC_API_BASE_URL
    }${blogsApi}?${blogsParams.toString()}`
   );
-  const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-   Blogs: PagedResponse<Blog[]>;
-  }>;
-  blogs = blogsPackage.payload.Blogs.rows;
+  if (blogsResult.ok) {
+   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+    Blogs: PagedResponse<Blog[]>;
+   }>;
+   blogs = blogsPackage.payload.Blogs.rows;
+  }
  } catch {}
 
  return (

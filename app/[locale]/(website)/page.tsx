@@ -28,10 +28,12 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
     process.env.NEXT_PUBLIC_API_BASE_URL
    }${blogsApi}?${blogsParams.toString()}`
   );
-  const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-   Blogs: Blog[];
-  }>;
-  blogs = blogsPackage.payload.Blogs;
+  if (blogsResult.ok) {
+   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+    Blogs: Blog[];
+   }>;
+   blogs = blogsPackage.payload.Blogs;
+  }
  } catch {}
 
  return (
