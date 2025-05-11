@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import Backdrop from '@mui/material/Backdrop';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
@@ -24,7 +25,10 @@ import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { AxiosError } from 'axios';
 
 const Editor = dynamic(
- () => import('./ContentEditor').then((mod) => mod.default),
+ () =>
+  import('../../../../../../components/ck-editor/ContentEditor').then(
+   (mod) => mod.default
+  ),
  {
   ssr: false,
  }
@@ -104,6 +108,7 @@ export default function AddContent({ open, onClose, article }: Props) {
 
  return (
   <Dialog
+   disableEnforceFocus={true}
    open={open}
    fullWidth
    fullScreen={!isLargeDevice}

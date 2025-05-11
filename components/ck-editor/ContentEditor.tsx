@@ -32,11 +32,11 @@ const ContentEditor = forwardRef<
  const {
   ClassicEditor,
   Autoformat,
-  FontSize,
   Bold,
   Italic,
   Underline,
   BlockQuote,
+  Base64UploadAdapter,
   CloudServices,
   Essentials,
   Heading,
@@ -67,7 +67,6 @@ const ContentEditor = forwardRef<
    editor={ClassicEditor}
    {...props}
    config={{
-    style: {},
     licenseKey: process.env.NEXT_PUBLIC_CKEDITOR_API_KEY,
     language: {
      ui: locale,
@@ -77,7 +76,6 @@ const ContentEditor = forwardRef<
      Autoformat,
      BlockQuote,
      Bold,
-     FontSize,
      CloudServices,
      Essentials,
      Heading,
@@ -87,6 +85,7 @@ const ContentEditor = forwardRef<
      ImageStyle,
      ImageToolbar,
      ImageUpload,
+     Base64UploadAdapter,
      Indent,
      IndentBlock,
      Italic,
@@ -109,7 +108,6 @@ const ContentEditor = forwardRef<
      '|',
      'heading',
      '|',
-     'fontSize',
      'bold',
      'italic',
      'underline',
@@ -188,42 +186,14 @@ const ContentEditor = forwardRef<
       '|',
       'resizeImage',
      ],
-     styles: {
-      options: ['inline', 'block', 'side'],
-     },
-     upload: {
-      types: ['jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff'],
-     },
     },
     link: {
      addTargetToExternalLinks: true,
-     decorators: {
-      openInNewTab: {
-       mode: 'manual',
-       label: 'Open in a new tab',
-       defaultValue: true,
-       attributes: {
-        target: '_blank',
-        rel: 'noopener noreferrer',
-       },
-      },
-     },
+     defaultProtocol: 'https://',
+     allowedProtocols: ['http://', 'https://', 'mailto:', 'tel:'],
     },
     table: {
      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
-    },
-    htmlSupport: {
-     allow: [
-      {
-       name: /.*/,
-       attributes: true,
-       classes: true,
-       styles: true,
-      },
-     ],
-    },
-    htmlEmbed: {
-     showPreviews: true,
     },
    }}
   />

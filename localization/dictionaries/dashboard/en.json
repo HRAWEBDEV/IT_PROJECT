@@ -1,14 +1,70 @@
 {
- "title": "AITNET | Technology and Information | Dashboard",
+ "title": "Aitnet | Technology and Information | Dashboard",
+ "deleteItemConfirmation": "Are you sure you want to delete this item?",
+ "errorTryAgainLater": "An error occurred while saving the data, please try again later",
+ "changesSavedSuccessfully": "The operation was successful",
+ "cancel": "Cancel",
+ "confirm": "Confirm",
+ "profile": {
+  "returnToWebsite": "Return to Website",
+  "exit": "Exit"
+ },
  "navigation": {
   "settings": "Settings",
-  "initInfo": "Initial Information",
-  "services": "Services",
-  "projects": "Projects",
-  "newsAndArticles": "News and Articles"
+  "initialInfo": "Initial Information",
+  "tags": "Tags",
+  "articles": "Articles",
+  "articlesCategories": "Articles Categories",
+  "articlesList": "Articles List"
  },
- "profile": {
-  "returnToSite": "Return to site",
-  "exit": "Exit"
+ "tags": {
+  "title": "Tags",
+  "category": "Category",
+  "addTag": "Add Tag",
+  "tagTitle": "Tag Title",
+  "actions": "Actions",
+  "editTag": "Edit",
+  "deleteTag": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "errorTryAgainLater": "An error occurred while saving the data, please try again later"
+ },
+ "articlesCategories": {
+  "title": "Articles Categories",
+  "category": "Category",
+  "addCategory": "Add Category",
+  "categoryTitle": "Title",
+  "actions": "Actions",
+  "editCategory": "Edit",
+  "deleteCategory": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "description": "Description",
+  "errorTryAgainLater": "An error occurred while saving the data, please try again later"
+ },
+ "articles": {
+  "title": "Articles",
+  "category": "Category",
+  "state": "State",
+  "addArticle": "Add Article",
+  "articleTitle": "Title",
+  "actions": "Actions",
+  "editArticle": "Edit",
+  "deleteArticle": "Delete",
+  "cancel": "Cancel",
+  "save": "Save",
+  "images": "Images",
+  "tags": "Tags",
+  "description": "Description",
+  "content": "Content",
+  "errorTryAgainLater": "An error occurred while saving the data, please try again later",
+  "atLeastOneCategory": "Adding at least one category is required",
+  "dragFileOrClickToUpload": "Drag the file into the box or click to upload",
+  "fileLimitMessage": "The file size must be less than 5 megabytes",
+  "fileExtension": "The file format must be png, jpg or jpeg",
+  "changeState": "Change State",
+  "preview": "Preview",
+  "noPreview": "No Preview",
+  "addContent": "Add Content"
  }
 }

@@ -2,8 +2,7 @@
 import { type Blog } from '@/services/api-actions/globalApiActions';
 import dynamic from 'next/dynamic';
 const ContentEditor = dynamic(
- () =>
-  import('@/app/[locale]/(panel)/dashboard/articles/components/ContentEditor'),
+ () => import('@/components/ck-editor/ContentEditor'),
  {
   ssr: false,
  }
