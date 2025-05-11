@@ -144,9 +144,7 @@ export default function AddImage({ open, onClose, article }: Props) {
          <div className='min-h-[14rem] rounded-lg overflow-hidden relative'>
           <ImageWrapper
            img={{
-            src:
-             (process.env.NEXT_PUBLIC_API_BASE_URL || '').replace('API', '') +
-             item.imageUrl,
+            src: (process.env.NEXT_PUBLIC_BASE_URL || '') + item.imageUrl,
             alt: 'blog image',
             className: 'object-cover object-center',
            }}
