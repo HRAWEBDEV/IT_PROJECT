@@ -48,11 +48,9 @@ class CustomUploadAdapter implements UploadAdapter {
     })
   );
  }
-
  private removeUploadedImage(): void {
   const root = this.editor.model.document.getRoot();
   if (!root) return;
-
   const images = Array.from(root.getChildren()).filter((node) =>
    node.is('element', 'imageBlock')
   );
@@ -246,6 +244,18 @@ const ContentEditor = forwardRef<
        title: 'Heading 4',
        class: 'ck-heading_heading4',
       },
+      {
+       model: 'heading5',
+       view: 'h5',
+       title: 'Heading 5',
+       class: 'ck-heading_heading5',
+      },
+      {
+       model: 'heading6',
+       view: 'h6',
+       title: 'Heading 6',
+       class: 'ck-heading_heading6',
+      },
      ],
     },
     image: {
@@ -293,6 +303,20 @@ const ContentEditor = forwardRef<
     table: {
      contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells'],
     },
+   }}
+   onReady={(editor) => {
+    const toolbarElement = editor.ui.view.toolbar.element;
+    editor.on('change:isReadOnly', (evt, propertyName, isReadOnly) => {
+     if (isReadOnly) {
+      if (toolbarElement) {
+       toolbarElement.style.display = 'none';
+      }
+     } else {
+      if (toolbarElement) {
+       toolbarElement.style.display = 'flex';
+      }
+     }
+    });
    }}
   />
  );

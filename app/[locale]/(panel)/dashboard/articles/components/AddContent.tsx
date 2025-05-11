@@ -22,6 +22,7 @@ import { useSnackbar } from 'notistack';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { AxiosError } from 'axios';
 import { useHeightController } from '@/hooks/useHeightController';
+import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 
 const Editor = dynamic(
  () =>
@@ -40,13 +41,12 @@ type Props = {
 };
 
 export default function AddContent({ open, onClose, article }: Props) {
+ const { isLargeDevice } = useAppMonitorConfig();
  const titleRef = useRef<HTMLDivElement>(null);
  const actionsRef = useRef<HTMLDivElement>(null);
- const { height } = useHeightController({
+ const {} = useHeightController({
   enviromentRefs: [titleRef, actionsRef],
  });
- console.log(height);
-
  const { locale } = useAppConfig();
  const queryClient = useQueryClient();
  const { enqueueSnackbar } = useSnackbar();
@@ -117,7 +117,7 @@ export default function AddContent({ open, onClose, article }: Props) {
    ref={titleRef}
    disableEnforceFocus={true}
    open={open}
-   fullScreen={true}
+   fullScreen={!isLargeDevice}
    maxWidth='xl'
    onClose={onClose}
    component={'form'}
