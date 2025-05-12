@@ -178,19 +178,27 @@ export default function ArticlesWrapper() {
    <AddCategory
     open={openAddCategory}
     category={null}
-    onClose={() => setOpenAddCategory(false)}
+    onClose={() => {
+     setOpenAddCategory(false);
+    }}
    />
    {openArticleContent && selectedArticle && (
     <AddContent
      open={openArticleContent}
-     onClose={() => setOpenArticleContent(false)}
+     onClose={() => {
+      setOpenArticleContent(false);
+      setSelectedArticle(null);
+     }}
      article={selectedArticle}
     />
    )}
    {openChangeState && selectedArticle && (
     <ChangeState
      open={openChangeState}
-     onClose={() => setOpenChangeState(false)}
+     onClose={() => {
+      setSelectedArticle(null);
+      setOpenChangeState(false);
+     }}
      article={selectedArticle}
      blogStates={articleStates}
     />
@@ -199,7 +207,10 @@ export default function ArticlesWrapper() {
     <AddImage
      open={openAddImage}
      article={selectedArticle}
-     onClose={() => setOpenAddImage(false)}
+     onClose={() => {
+      setOpenAddImage(false);
+      setSelectedArticle(null);
+     }}
     />
    )}
   </div>
