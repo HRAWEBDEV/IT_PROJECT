@@ -16,7 +16,9 @@ export default function AuthProvider({ children }: PropsWithChildren) {
   setIsLogedIn(true);
  }, []);
  const getAuthToken = useCallback(() => {
-  return getAuthFromCookie();
+  const token = getAuthFromCookie();
+  if (token) setIsLogedIn(true);
+  return token;
  }, []);
  const removeAuthToken = useCallback(() => {
   logout();

@@ -11,6 +11,8 @@ import { locales } from '@/localization/locales';
 import ReactQueryProvider from '@/services/react-query/ReactQueryProvider';
 import AxiosInterceptor from '@/services/axios/AxiosInterceptor';
 import ToastrProvider from '@/services/notifications/ToastrProvider';
+import AuthProvider from '@/services/auth/AuthProvider';
+import AuthCheck from '@/services/auth/AuthCheck';
 import '../globals.css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
@@ -98,8 +100,11 @@ export default async function RootLayout({
        <MuiLocalization>
         <AppMonitorProvider>
          <ReactQueryProvider>
-          <AxiosInterceptor />
-          <ToastrProvider>{children}</ToastrProvider>
+          <AuthProvider>
+           <AuthCheck />
+           <AxiosInterceptor />
+           <ToastrProvider>{children}</ToastrProvider>
+          </AuthProvider>
          </ReactQueryProvider>
         </AppMonitorProvider>
        </MuiLocalization>

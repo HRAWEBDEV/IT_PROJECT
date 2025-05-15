@@ -1,4 +1,5 @@
 'use client';
+import { useAuth } from '@/services/auth/authContext';
 import Link from 'next/link';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useNavigationContext } from '../../services/NavigationContext';
@@ -12,6 +13,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
 import InputAdornment from '@mui/material/InputAdornment';
+import LoginIcon from '@mui/icons-material/Login';
 import Search from '../Search/Search';
 import LanguageIcon from '@mui/icons-material/Language';
 import Profile from '../profile/Profile';
@@ -23,8 +25,10 @@ import Services from './Services';
 import Projects from './Projects';
 import Language from '../language/Language';
 import { type Dic, type WithDictionary } from '@/localization/locales';
+import { Tooltip } from '@mui/material';
 
 export default function Header({ dic }: WithDictionary) {
+ const { isLogedIn } = useAuth();
  const [showServiceOptions, setShowServiceOptions] = useState(false);
  const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
@@ -191,18 +195,29 @@ export default function Header({ dic }: WithDictionary) {
      >
       {mode === 'dark' ? <NightsStayOutlinedIcon /> : <WbSunnyOutlinedIcon />}
      </IconButton>
-     <IconButton
-      LinkComponent={Link}
-      href='/auth'
-      sx={{ padding: 0 }}
-      color='secondary'
-      // onClick={(e) => {
-      //  setProfileAnchor(e.currentTarget);
-      //  handleToggleProfile();
-      // }}
-     >
-      <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />
-     </IconButton>
+     {isLogedIn ? (
+      <IconButton
+       sx={{ padding: 0 }}
+       color='secondary'
+       onClick={(e) => {
+        setProfileAnchor(e.currentTarget);
+        handleToggleProfile();
+       }}
+      >
+       <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />
+      </IconButton>
+     ) : (
+      <Tooltip title={(dic.navigation as Dic).login as string}>
+       <IconButton
+        LinkComponent={Link}
+        href='/auth'
+        color='secondary'
+        className='!bg-secondary-dark !text-secondary-foreground'
+       >
+        <LoginIcon />
+       </IconButton>
+      </Tooltip>
+     )}
     </div>
    </div>
    <Search
