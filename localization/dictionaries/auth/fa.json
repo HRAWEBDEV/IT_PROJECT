@@ -1,5 +1,7 @@
 {
  "invalidPhoneNoMessage": "شماره همراه معتبر نیست",
+ "editPhoneNo": "ویرایش شماره همراه",
+ "invalidOtpMessage": "کد ورود معتبر نیست",
  "codeSentSuccessfully": "کد ارسال شد",
  "errorHappendTryAgainLater": "خطایی رخ داده است، لطفا دوباره تلاش کنید",
  "signIn": "ورود",
@@ -13,5 +15,6 @@
  "lastName": "نام خانوادگی",
  "phone": "شماره همراه",
  "email": "ایمیل",
- "sendCode": "ارسال کد"
+ "sendCode": "ارسال کد",
+ "loginCode": "کد ورود"
 }

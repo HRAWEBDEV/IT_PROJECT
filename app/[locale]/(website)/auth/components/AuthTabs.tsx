@@ -13,8 +13,9 @@ export default function AuthTabs({ dic }: Props) {
  const lastPart = pathname.split('/').at(-1);
 
  return (
-  <div className='sticky top-0 bg-background border-b border-neutral-300 dark:border-neutral-700'>
+  <div>
    <Tabs
+    className='opacity-0'
     indicatorColor='secondary'
     textColor='secondary'
     value={lastPart === 'sign-up' ? 'sign-up' : 'login'}
