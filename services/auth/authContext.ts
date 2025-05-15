@@ -8,7 +8,7 @@ const authCookieName = 'auth';
 function getAuthFromCookie(): string | null {
  const cookie = getCookie(authCookieName);
  if (!cookie) return null;
- return JSON.parse(cookie) as string;
+ return cookie as string;
 }
 
 function setAuthToCookie(value: string) {

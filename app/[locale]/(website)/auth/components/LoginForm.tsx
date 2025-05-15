@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { GradientButton } from '@/components/Button/GradientButton';
@@ -20,11 +20,14 @@ import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import Button from '@mui/material/Button';
 import { useAuth } from '@/services/auth/authContext';
 import { useRouter } from 'next/navigation';
+import { useTimer } from '@/hooks/useTimer';
 
 type Props = WithDictionary;
 const phoneNoDigitsCount = 11;
 
 export default function LoginForm({ dic }: Props) {
+ const { startTimer, minutes, seconds, isRunning, pauseTimer, resetTimer } =
+  useTimer(120);
  const router = useRouter();
  const { setAuthToken } = useAuth();
  const [loginStep, setLoginStep] = useState(1);
@@ -49,6 +52,8 @@ export default function LoginForm({ dic }: Props) {
     message: dic.codeSentSuccessfully as string,
    });
    setLoginStep(2);
+   resetTimer();
+   startTimer();
   },
   onError: (err: AxiosError) => {
    snackbar.enqueueSnackbar({
@@ -80,6 +85,13 @@ export default function LoginForm({ dic }: Props) {
    });
   },
  });
+
+ useEffect(() => {
+  if (isRunning && loginStep === 2) return;
+  setLoginStep(1);
+  setOtp('');
+  pauseTimer();
+ }, [isRunning, loginStep, pauseTimer]);
 
  const register = (
   <>
@@ -192,7 +204,7 @@ export default function LoginForm({ dic }: Props) {
     >
      {dic.confirm as string}
     </GradientButton>
-    <div className='mt-4'>
+    <div className='mt-4 flex justify-between items-center flex-wrap gap-4'>
      <Button
       loading={isAuthPending}
       color='warning'
@@ -203,6 +215,15 @@ export default function LoginForm({ dic }: Props) {
      >
       <span>{dic.editPhoneNo as string}</span>
      </Button>
+     <div className='flex items-center font-medium text-lg text-red-600 dark:text-red-400'>
+      <span className='inline-block min-w-[3rem] text-center'>
+       {seconds.toString().padStart(2, '0')}
+      </span>
+      :
+      <span className='inline-block min-w-[3rem] text-center'>
+       {minutes.toString().padStart(2, '0')}
+      </span>
+     </div>
     </div>
    </div>
   </>
