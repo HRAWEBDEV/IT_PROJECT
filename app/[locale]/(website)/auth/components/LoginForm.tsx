@@ -1,55 +1,73 @@
 'use client';
+import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import { GradientButton } from '@/components/Button/GradientButton';
-import Button from '@mui/material/Button';
-import LockIcon from '@mui/icons-material/Lock';
+import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import IconButton from '@mui/material/IconButton';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import PersonIcon from '@mui/icons-material/Person';
-import Link from 'next/link';
 import { type WithDictionary } from '@/localization/locales';
+import { iranPhoneRegex } from '@/utils/validationRegex';
+import { useSnackbar } from 'notistack';
+import { registerUser } from '@/services/api-actions/authApiActionts';
+import { useMutation } from '@tanstack/react-query';
 
 type Props = WithDictionary;
+const phoneNoDigitsCount = 11;
 
 export default function LoginForm({ dic }: Props) {
+ const [loginStep, setLoginStep] = useState(1);
+ const [phoneNo, setPhoneNo] = useState('');
+ const [invalidPhoneNoMessage, setInvalidPhoneNoMessage] = useState('');
+ const snackbar = useSnackbar();
+
+ function handleRegisterUser() {
+  const isValidNo =
+   phoneNo.length === phoneNoDigitsCount && iranPhoneRegex.test(phoneNo);
+  if (!isValidNo) {
+   snackbar.enqueueSnackbar({
+    variant: 'error',
+    message: dic.invalidPhoneNoMessage as string,
+   });
+   return;
+  }
+ }
+
  return (
   <form className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
-   <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-10'>
+   <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-20'>
     LOGO
    </div>
-   <div className='grid gap-6 mb-10'>
+   <div className='grid gap-6 mb-8'>
     <TextField
+     inputMode='numeric'
      size='medium'
-     label={dic.userName as string}
+     label={dic.phone as string}
      fullWidth
      required
-     slotProps={{
-      input: {
-       endAdornment: (
-        <InputAdornment position='end' className='-me-2'>
-         <IconButton disabled>
-          <PersonIcon />
-         </IconButton>
-        </InputAdornment>
-       ),
-      },
+     value={phoneNo}
+     onChange={(e) => {
+      const value = e.target.value;
+      if (value.length > phoneNoDigitsCount) {
+       return;
+      }
+      setInvalidPhoneNoMessage('');
+      const isValidNo =
+       value === '' || value === '0' || Number(value) ? true : false;
+      if (value.length === phoneNoDigitsCount && !iranPhoneRegex.test(value)) {
+       setInvalidPhoneNoMessage(dic.invalidPhoneNoMessage as string);
+      }
+      if (isValidNo) {
+       setPhoneNo(value);
+      }
      }}
-    />
-    <TextField
-     size='medium'
-     label={dic.password as string}
-     required
-     fullWidth
+     error={!!invalidPhoneNoMessage}
+     helperText={invalidPhoneNoMessage}
      slotProps={{
       input: {
-       endAdornment: (
-        <InputAdornment position='end' className='-me-2'>
-         <IconButton>
-          <VisibilityIcon />
-         </IconButton>
+       startAdornment: (
+        <InputAdornment position='start' className='-me-2'>
          <IconButton disabled>
-          <LockIcon />
+          <PhoneEnabledIcon />
          </IconButton>
         </InputAdornment>
        ),
@@ -58,14 +76,14 @@ export default function LoginForm({ dic }: Props) {
     />
    </div>
    <div className='mb-6'>
-    <GradientButton className='min-h-[3rem]' size='large' fullWidth>
-     {dic.confirm as string}
+    <GradientButton
+     className='min-h-[3rem]'
+     size='large'
+     fullWidth
+     onClick={handleRegisterUser}
+    >
+     {dic.sendCode as string}
     </GradientButton>
-   </div>
-   <div>
-    <Button LinkComponent={Link} href='#'>
-     {dic.forgotPassword as string}
-    </Button>
    </div>
   </form>
  );

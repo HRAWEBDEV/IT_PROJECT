@@ -1,4 +1,5 @@
 {
+ "invalidPhoneNoMessage": "شماره همراه معتبر نیست",
  "signIn": "ورود",
  "signUp": "ثبت نام",
  "userName": "نام کاربری",
@@ -9,5 +10,6 @@
  "firstName": "نام",
  "lastName": "نام خانوادگی",
  "phone": "شماره همراه",
- "email": "ایمیل"
+ "email": "ایمیل",
+ "sendCode": "ارسال کد"
 }

@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import Tabs from '@mui/material/Tabs';
-import BadgeIcon from '@mui/icons-material/Badge';
 import LoginIcon from '@mui/icons-material/Login';
 import Tab from '@mui/material/Tab';
 import { usePathname } from 'next/navigation';
@@ -28,6 +27,7 @@ export default function AuthTabs({ dic }: Props) {
       flexGrow: 1,
       flexBasis: 0,
       fontWeight: 500,
+      maxWidth: 'unset',
      },
     }}
    >
@@ -37,13 +37,6 @@ export default function AuthTabs({ dic }: Props) {
      icon={<LoginIcon fontSize='large' />}
      value='login'
      label={dic.signIn as string}
-    />
-    <Tab
-     LinkComponent={Link}
-     href='/auth/sign-up'
-     icon={<BadgeIcon fontSize='large' />}
-     value='sign-up'
-     label={dic.signUp as string}
     />
    </Tabs>
   </div>
