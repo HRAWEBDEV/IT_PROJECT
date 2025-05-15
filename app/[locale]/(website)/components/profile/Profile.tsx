@@ -8,6 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
+import { useAuth } from '@/services/auth/authContext';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 
 type Props = {
@@ -22,6 +23,7 @@ export default function Profile({
  isOpen,
  dic,
 }: Props) {
+ const { removeAuthToken } = useAuth();
  const { isLargeDevice } = useAppMonitorConfig();
 
  const profileList = [
@@ -44,7 +46,13 @@ export default function Profile({
     <span>{(dic.profile as Dic).favorite as string}</span>
    </Link>
   </MenuItem>,
-  <MenuItem key={'exit'}>
+  <MenuItem
+   key={'exit'}
+   onClick={() => {
+    removeAuthToken();
+    onClose();
+   }}
+  >
    <div className='flex gap-3'>
     <LogoutIcon color='warning' />
     <span>{(dic.profile as Dic).exit as string}</span>

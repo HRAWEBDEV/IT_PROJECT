@@ -29,7 +29,7 @@ export default function LoginForm({ dic }: Props) {
  const { startTimer, minutes, seconds, isRunning, pauseTimer, resetTimer } =
   useTimer(120);
  const router = useRouter();
- const { setAuthToken } = useAuth();
+ const { setAuthToken, isLogedIn } = useAuth();
  const [loginStep, setLoginStep] = useState(1);
  const [otp, setOtp] = useState('');
  const [phoneNo, setPhoneNo] = useState('');
@@ -93,8 +93,12 @@ export default function LoginForm({ dic }: Props) {
   pauseTimer();
  }, [isRunning, loginStep, pauseTimer]);
 
+ useEffect(() => {
+  if (isLogedIn) router.push('/');
+ }, [isLogedIn, router]);
+
  const register = (
-  <>
+  <form>
    <div className='grid gap-6 mb-8'>
     <TextField
      inputMode='numeric'
@@ -139,6 +143,7 @@ export default function LoginForm({ dic }: Props) {
      className='min-h-[3rem]'
      size='large'
      fullWidth
+     type='submit'
      onClick={(e) => {
       e.preventDefault();
       const isValidNo =
@@ -156,11 +161,11 @@ export default function LoginForm({ dic }: Props) {
      {dic.sendCode as string}
     </GradientButton>
    </div>
-  </>
+  </form>
  );
 
  const verify = (
-  <>
+  <form>
    <div className='flex flex-col items-center justify-center mb-8'>
     <div>
      <label className='inline-block mb-2' htmlFor='login-code'>
@@ -197,6 +202,7 @@ export default function LoginForm({ dic }: Props) {
      className='min-h-[3rem]'
      size='large'
      fullWidth
+     type='submit'
      onClick={(e) => {
       e.preventDefault();
       handleAuth(otp);
@@ -226,15 +232,15 @@ export default function LoginForm({ dic }: Props) {
      </div>
     </div>
    </div>
-  </>
+  </form>
  );
 
  return (
-  <form className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
+  <div className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
    <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-20'>
     LOGO
    </div>
    {loginStep === 1 ? register : verify}
-  </form>
+  </div>
  );
 }
