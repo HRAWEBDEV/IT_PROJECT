@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import { type WithDictionary } from '@/localization/locales';
 import { iranPhoneRegex } from '@/utils/validationRegex';
 import { useSnackbar } from 'notistack';
-import { registerUser } from '@/services/api-actions/authApiActionts';
+import { registerUser, login } from '@/services/api-actions/authApiActionts';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import {
@@ -18,22 +18,30 @@ import {
 } from '@/components/ui/input-otp';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import Button from '@mui/material/Button';
+import { useAuth } from '@/services/auth/authContext';
+import { useRouter } from 'next/navigation';
 
 type Props = WithDictionary;
 const phoneNoDigitsCount = 11;
 
 export default function LoginForm({ dic }: Props) {
- const [loginStep, setLoginStep] = useState(2);
+ const router = useRouter();
+ const { setAuthToken } = useAuth();
+ const [loginStep, setLoginStep] = useState(1);
  const [otp, setOtp] = useState('');
  const [phoneNo, setPhoneNo] = useState('');
  const [invalidPhoneNoMessage, setInvalidPhoneNoMessage] = useState('');
  const snackbar = useSnackbar();
 
- const { mutate: handleRegisterUser, isPending: isRegistering } = useMutation({
+ const {
+  data: user,
+  mutate: handleRegisterUser,
+  isPending: isRegistering,
+ } = useMutation({
   mutationFn: () => {
    return registerUser({
     cellPhone: phoneNo,
-   });
+   }).then((res) => res.data.payload.User);
   },
   onSuccess: () => {
    snackbar.enqueueSnackbar({
@@ -41,6 +49,27 @@ export default function LoginForm({ dic }: Props) {
     message: dic.codeSentSuccessfully as string,
    });
    setLoginStep(2);
+  },
+  onError: (err: AxiosError) => {
+   snackbar.enqueueSnackbar({
+    variant: 'error',
+    message:
+     (err.response?.data as string) ||
+     (dic.errorHappendTryAgainLater as string),
+   });
+  },
+ });
+
+ const { mutate: handleAuth, isPending: isAuthPending } = useMutation({
+  mutationFn(otp: string) {
+   return login({
+    userID: user!.personID,
+    verifyCode: otp,
+   }).then((res) => res.data.payload);
+  },
+  onSuccess(data) {
+   router.push('/');
+   setAuthToken(data.Token);
   },
   onError: (err: AxiosError) => {
    snackbar.enqueueSnackbar({
@@ -98,7 +127,8 @@ export default function LoginForm({ dic }: Props) {
      className='min-h-[3rem]'
      size='large'
      fullWidth
-     onClick={() => {
+     onClick={(e) => {
+      e.preventDefault();
       const isValidNo =
        phoneNo.length === phoneNoDigitsCount && iranPhoneRegex.test(phoneNo);
       if (!isValidNo) {
@@ -127,12 +157,15 @@ export default function LoginForm({ dic }: Props) {
      <div style={{ direction: 'ltr' }}>
       <InputOTP
        pattern={REGEXP_ONLY_DIGITS}
-       maxLength={6}
+       maxLength={5}
        autoFocus
        id='login-code'
        value={otp}
        onChange={(value) => {
         setOtp(value);
+        if (value.length === 5) {
+         handleAuth(value);
+        }
        }}
       >
        <InputOTPGroup>
@@ -141,7 +174,6 @@ export default function LoginForm({ dic }: Props) {
         <InputOTPSlot index={2} />
         <InputOTPSlot index={3} />
         <InputOTPSlot index={4} />
-        <InputOTPSlot index={5} />
        </InputOTPGroup>
       </InputOTP>
      </div>
@@ -153,15 +185,20 @@ export default function LoginForm({ dic }: Props) {
      className='min-h-[3rem]'
      size='large'
      fullWidth
+     onClick={(e) => {
+      e.preventDefault();
+      handleAuth(otp);
+     }}
     >
      {dic.confirm as string}
     </GradientButton>
     <div className='mt-4'>
      <Button
+      loading={isAuthPending}
       color='warning'
       onClick={() => {
-       setOtp('');
        setLoginStep(1);
+       setOtp('');
       }}
      >
       <span>{dic.editPhoneNo as string}</span>

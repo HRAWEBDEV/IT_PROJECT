@@ -1,13 +1,27 @@
 import { axios } from '../axios/axios';
+import { type ResponseShape } from './globalApiActions';
 
 const registerApi = '/UI/Login';
 const loginApi = '/UI/Authenticate';
+
+type RegisterUser = {
+ personID: number;
+};
+
+type Auth = {
+ Token: string;
+ RoleAccesses: [];
+};
 
 function registerUser({ cellPhone }: { cellPhone: string }) {
  const params = new URLSearchParams({
   cellPhone,
  });
- return axios.get(`${registerApi}?${params.toString()}`);
+ return axios.get<
+  ResponseShape<{
+   User: RegisterUser;
+  }>
+ >(`${registerApi}?${params.toString()}`);
 }
 
 function login({ userID, verifyCode }: { userID: number; verifyCode: string }) {
@@ -15,7 +29,7 @@ function login({ userID, verifyCode }: { userID: number; verifyCode: string }) {
   userID: userID.toString(),
   verifyCode,
  });
- return axios.get(`${loginApi}?${params.toString()}`);
+ return axios.get<ResponseShape<Auth>>(`${loginApi}?${params.toString()}`);
 }
 
 export { registerUser, login };
