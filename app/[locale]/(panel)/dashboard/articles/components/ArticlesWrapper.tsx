@@ -23,6 +23,7 @@ import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import AddImage from './AddImage';
 import AddContent from './AddContent';
 import ChangeState from './ChangeState';
+import ArticleComments from './comments/ArticleComments';
 
 export default function ArticlesWrapper() {
  const [filterModel, setFilterModel] = useState<GridFilterModel>({
@@ -30,6 +31,7 @@ export default function ArticlesWrapper() {
  });
  const [openChangeState, setOpenChangeState] = useState(false);
  const [openArticleContent, setOpenArticleContent] = useState(false);
+ const [openArticleComments, setOpenArticleComments] = useState(false);
  const [openAddImage, setOpenAddImage] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
  const [openEditArticle, setOpenEditArticle] = useState(false);
@@ -138,6 +140,7 @@ export default function ArticlesWrapper() {
     {articleCategories.length ? (
      <ArticlesGrid
       articlesList={articlesList}
+      setOpenArticleComments={() => setOpenArticleComments(true)}
       isLoading={isLoading || isFetching}
       pagination={pagination}
       setPagination={setPagination}
@@ -210,6 +213,15 @@ export default function ArticlesWrapper() {
      onClose={() => {
       setOpenAddImage(false);
       setSelectedArticle(null);
+     }}
+    />
+   )}
+   {openArticleComments && selectedArticle && (
+    <ArticleComments
+     open={openArticleComments}
+     article={selectedArticle}
+     onClose={() => {
+      setOpenArticleComments(false);
      }}
     />
    )}

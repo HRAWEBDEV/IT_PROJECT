@@ -42,9 +42,6 @@
   "description": "توضیحات",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
  },
- "articlesComments": {
-  "title": "نظرات اخبار و مقاله‌ها"
- },
  "articles": {
   "title": "اخبار و مقاله‌ها",
   "category": "دسته بندی",
@@ -67,6 +64,15 @@
   "fileExtension": "فرمت فایل باید png, jpg یا jpeg باشد",
   "changeState": "تغییر وضعیت",
   "preview": "پیش نمایش",
-  "noPreview": "عدم نمایش"
+  "noPreview": "عدم نمایش",
+  "comments": "نظرات"
+ },
+ "articlesComments": {
+  "title": "نظرات اخبار و مقاله‌ها",
+  "noItemFound": "هیچ آیتمی یافت نشد",
+  "commentState": "وضعیت",
+  "pending": "درحال بررسی",
+  "approved": "تایید شده",
+  "rejected": "رد شده"
  }
 }

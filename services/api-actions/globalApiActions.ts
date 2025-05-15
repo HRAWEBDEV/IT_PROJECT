@@ -201,6 +201,7 @@ function getBlogComments(
  props: ApiDefaultProps & {
   blogID: number;
   isForHomepage?: boolean;
+  commentStateID?: number;
  }
 ): Promise<AxiosResponse<ResponseShape<{ BlogComments: Blog[] }>>> {
  const params = new URLSearchParams();
@@ -214,6 +215,9 @@ function getBlogComments(
   'isForDashboard',
   props.isForHomepage === undefined || props.isForHomepage ? 'false' : 'true'
  );
+ if (props.commentStateID) {
+  params.append('commentStateID', props.commentStateID.toString());
+ }
  return axios.get(`${blogCommentsApi}?${params.toString()}`, {
   signal: props.signal,
  });

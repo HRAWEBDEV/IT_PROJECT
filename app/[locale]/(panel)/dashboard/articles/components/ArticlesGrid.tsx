@@ -15,6 +15,7 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import CommentIcon from '@mui/icons-material/Comment';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AxiosError } from 'axios';
@@ -32,6 +33,7 @@ type Props = {
  setShowAddImage: (show: boolean) => void;
  setOpenArticleContent: () => void;
  setOpenChangeState: () => void;
+ setOpenArticleComments: () => void;
  rowCount: number;
 };
 
@@ -47,6 +49,7 @@ export default function ArticlesGrid({
  selectedArticle,
  setOpenArticleContent,
  setOpenChangeState,
+ setOpenArticleComments,
  filterModel,
  setFilterModel,
 }: Props) {
@@ -189,6 +192,16 @@ export default function ArticlesGrid({
          onClick={() => {
           setSelectedArticle(row);
           setOpenArticleContent();
+         }}
+         showInMenu
+        />,
+        <GridActionsCellItem
+         key={'comments'}
+         label={articles.comments as string}
+         icon={<CommentIcon color='secondary' />}
+         onClick={() => {
+          setSelectedArticle(row);
+          setOpenArticleComments();
          }}
          showInMenu
         />,
