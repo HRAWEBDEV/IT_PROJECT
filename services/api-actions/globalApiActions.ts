@@ -51,6 +51,15 @@ type Blog = {
  imageUrl?: string;
 };
 
+type BlogComment = {
+ id: number;
+ parentID: number;
+ blogID: number;
+ comment: string;
+ commentStateID: number;
+ lang: SupportedLocales;
+};
+
 type BlogState = {
  id: number;
  name: string;
@@ -186,6 +195,48 @@ function getBlogTags(
   signal: props.signal,
  });
 }
+// blog comments
+const blogCommentsApi = '/blogComments';
+function getBlogComments(
+ props: ApiDefaultProps & {
+  blogID: number;
+  isForHomepage?: boolean;
+ }
+): Promise<AxiosResponse<ResponseShape<{ BlogComments: Blog[] }>>> {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogID', props.blogID.toString());
+ params.append(
+  'isForHomePage',
+  props.isForHomepage === undefined ? 'true' : props.isForHomepage.toString()
+ );
+ params.append(
+  'isForDashboard',
+  props.isForHomepage === undefined || props.isForHomepage ? 'false' : 'true'
+ );
+ return axios.get(`${blogCommentsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createBlogComment(newComment: BlogComment) {
+ return axios.post(blogCommentsApi, newComment);
+}
+function updateBlogComment(newComment: BlogComment) {
+ return axios.put(blogCommentsApi, newComment);
+}
+function deleteBlogComment({
+ commentID,
+ lang,
+}: {
+ commentID: number;
+ lang: SupportedLocales;
+}) {
+ const params = new URLSearchParams();
+ params.append('lang', lang);
+ params.append('commentID', commentID.toString());
+ return axios.delete(`${blogCommentsApi}?${params.toString()}`);
+}
+
 // blog states
 const blogStatesApi = '/blogStates';
 function getBlogStates(props: ApiDefaultProps) {
@@ -356,6 +407,7 @@ export {
  type PagedResponse,
  type BlogState,
  type PaginationProps,
+ type BlogComment,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -376,4 +428,8 @@ export {
  blogCategoriesApi,
  getBlogStates,
  getBlog,
+ getBlogComments,
+ createBlogComment,
+ updateBlogComment,
+ deleteBlogComment,
 };
