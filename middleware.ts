@@ -12,6 +12,10 @@ function middleware(request: NextRequest) {
  );
  const defaultLocale = 'fa';
  const userLocale = request.cookies.get('locale')?.value || defaultLocale;
+ const userToken = request.cookies.get('auth')?.value;
+ if (pathSegments[2] === 'dashboard' && !userToken) {
+  return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));
+ }
  if (!matchedLocale) {
   return NextResponse.redirect(
    new URL(`/${userLocale}/${pathWithSearch}`, request.url)

@@ -180,7 +180,7 @@ export default function LoginForm({ dic }: Props) {
        value={otp}
        onChange={(value) => {
         setOtp(value);
-        if (value.length === 5) {
+        if (value.length === 5 && !isAuthPending) {
          handleAuth(value);
         }
        }}

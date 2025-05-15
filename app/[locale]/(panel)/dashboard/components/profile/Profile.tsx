@@ -9,6 +9,8 @@ import WebAssetIcon from '@mui/icons-material/WebAsset';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { type Dic } from '@/localization/locales';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
+import { useAuth } from '@/services/auth/authContext';
+import { useRouter } from 'next/navigation';
 
 type Props = {
  isOpen: boolean;
@@ -17,6 +19,8 @@ type Props = {
 };
 
 export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
+ const router = useRouter();
+ const { removeAuthToken } = useAuth();
  const { isLargeDevice } = useAppMonitorConfig();
  const { profile } = useWebsiteDictionary() as {
   profile: Dic;
@@ -38,7 +42,14 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
     </div>
    </Link>
   </MenuItem>,
-  <MenuItem key={'exit'}>
+  <MenuItem
+   key={'exit'}
+   onClick={() => {
+    removeAuthToken();
+    router.push('/');
+    onClose();
+   }}
+  >
    <div className='flex gap-3'>
     <LogoutIcon color='warning' />
     <span>{profile.exit as string}</span>
