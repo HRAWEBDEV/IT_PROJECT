@@ -84,7 +84,7 @@ export default function LoginForm({ dic }: Props) {
        startAdornment: (
         <InputAdornment position='start' className='-me-2'>
          <IconButton disabled>
-          <PhoneEnabledIcon />
+          <PhoneEnabledIcon color='primary' />
          </IconButton>
         </InputAdornment>
        ),
