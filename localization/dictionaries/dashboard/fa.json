@@ -15,7 +15,8 @@
   "tags": "تگ ها",
   "articles": "اخبار و مقــاله‌ها",
   "articlesCategories": "دسته بندی اخبار و مقاله‌ها",
-  "articlesList": "لیست اخبار و مقاله‌ها"
+  "articlesList": "لیست اخبار و مقاله‌ها",
+  "articlesComments": "نظرات اخبار و مقــاله‌ها"
  },
  "tags": {
   "title": "تگ‌هـــا",
@@ -41,6 +42,9 @@
   "save": "ثبت",
   "description": "توضیحات",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
+ },
+ "articlesComments": {
+  "title": "نظرات اخبار و مقاله‌ها"
  },
  "articles": {
   "title": "اخبار و مقاله‌ها",

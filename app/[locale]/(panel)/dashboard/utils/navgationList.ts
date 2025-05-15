@@ -36,6 +36,11 @@ export const navigationList: NavigationItem[] = [
     title: 'articlesCategories',
     href: '/dashboard/articles-categories',
    },
+   {
+    type: 'articles-comments',
+    title: 'articlesComments',
+    href: '/dashboard/articles-comments',
+   },
   ],
  },
 ] as const;
