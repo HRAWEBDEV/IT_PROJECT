@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ArticleFilters from './ArticleFilters';
 import ArticlesList from './ArticlesList';
 import Pagination from '@mui/material/Pagination';
@@ -24,6 +24,7 @@ type Props = WithDictionary & {
 };
 
 export default function Articles({ dic, serverBlogs }: Props) {
+ const filtersRef = useRef<HTMLDivElement>(null);
  const router = useRouter();
  const pathname = usePathname();
  const searchParams = useSearchParams();
@@ -106,11 +107,6 @@ export default function Articles({ dic, serverBlogs }: Props) {
   searchParams,
  ]);
 
-
- useEffect(()=>{
-  window.scrollTo(0, 392);
- },[pagination.page,blogCategory])
-
  useEffect(() => {
   const categoryID = searchParams.get('categoryID');
   const categoryName = searchParams.get('categoryName');
@@ -127,6 +123,8 @@ export default function Articles({ dic, serverBlogs }: Props) {
    <section>
     <ArticleFilters
      dic={dic}
+     filtersRef={filtersRef}
+     ref={filtersRef}
      blogCategories={blogCategories}
      isLoadingBlogCategory={blogCategoriesLoading || blogCategoriesFetching}
     />
