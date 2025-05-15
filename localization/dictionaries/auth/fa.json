@@ -1,5 +1,7 @@
 {
  "invalidPhoneNoMessage": "شماره همراه معتبر نیست",
+ "codeSentSuccessfully": "کد ارسال شد",
+ "errorHappendTryAgainLater": "خطایی رخ داده است، لطفا دوباره تلاش کنید",
  "signIn": "ورود",
  "signUp": "ثبت نام",
  "userName": "نام کاربری",

@@ -10,6 +10,7 @@ import { iranPhoneRegex } from '@/utils/validationRegex';
 import { useSnackbar } from 'notistack';
 import { registerUser } from '@/services/api-actions/authApiActionts';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
 type Props = WithDictionary;
 const phoneNoDigitsCount = 11;
@@ -20,23 +21,31 @@ export default function LoginForm({ dic }: Props) {
  const [invalidPhoneNoMessage, setInvalidPhoneNoMessage] = useState('');
  const snackbar = useSnackbar();
 
- function handleRegisterUser() {
-  const isValidNo =
-   phoneNo.length === phoneNoDigitsCount && iranPhoneRegex.test(phoneNo);
-  if (!isValidNo) {
+ const { mutate: handleRegisterUser, isPending: isRegistering } = useMutation({
+  mutationFn: () => {
+   return registerUser({
+    cellPhone: phoneNo,
+   });
+  },
+  onSuccess: () => {
+   snackbar.enqueueSnackbar({
+    variant: 'success',
+    message: dic.codeSentSuccessfully as string,
+   });
+   setLoginStep(2);
+  },
+  onError: (err: AxiosError) => {
    snackbar.enqueueSnackbar({
     variant: 'error',
-    message: dic.invalidPhoneNoMessage as string,
+    message:
+     (err.response?.data as string) ||
+     (dic.errorHappendTryAgainLater as string),
    });
-   return;
-  }
- }
+  },
+ });
 
- return (
-  <form className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
-   <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-20'>
-    LOGO
-   </div>
+ const register = (
+  <>
    <div className='grid gap-6 mb-8'>
     <TextField
      inputMode='numeric'
@@ -77,14 +86,41 @@ export default function LoginForm({ dic }: Props) {
    </div>
    <div className='mb-6'>
     <GradientButton
+     loading={isRegistering}
      className='min-h-[3rem]'
      size='large'
      fullWidth
-     onClick={handleRegisterUser}
+     onClick={() => {
+      const isValidNo =
+       phoneNo.length === phoneNoDigitsCount && iranPhoneRegex.test(phoneNo);
+      if (!isValidNo) {
+       snackbar.enqueueSnackbar({
+        variant: 'error',
+        message: dic.invalidPhoneNoMessage as string,
+       });
+       return;
+      }
+      handleRegisterUser();
+     }}
     >
      {dic.sendCode as string}
     </GradientButton>
    </div>
+  </>
+ );
+
+ return (
+  <form className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
+   <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-20'>
+    LOGO
+   </div>
+   {loginStep === 1 ? (
+    register
+   ) : (
+    <div>
+     <TextField label={dic.code as string} fullWidth required />
+    </div>
+   )}
   </form>
  );
 }
