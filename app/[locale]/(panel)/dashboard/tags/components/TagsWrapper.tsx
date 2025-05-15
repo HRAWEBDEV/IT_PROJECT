@@ -50,7 +50,7 @@ export default function TagsWrapper() {
     locale,
    });
    const data = result.data.payload.TagTypes;
-   if (data.length) {
+   if (data.length && !tagCategory) {
     filtersUseForm.setValue('category', {
      id: data[0].id.toString(),
      name: data[0].name,

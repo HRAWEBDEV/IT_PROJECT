@@ -76,7 +76,7 @@ export default function ArticlesWrapper() {
     locale,
    });
    const data = result.data;
-   if (data.length) {
+   if (data.length && !blogState) {
     filtersUseForm.setValue('state', {
      id: data[0].id.toString(),
      name: data[0].name,
