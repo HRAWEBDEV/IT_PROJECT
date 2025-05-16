@@ -113,30 +113,34 @@ export default function Comment({ comment }: { comment: BlogComment }) {
     </div>
    </div>
    <Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
-    <MenuItem
-     disabled={isChangingCommentState}
-     onClick={() => {
-      changeCommentState();
-      handleCloseMenu();
-     }}
-    >
-     <div className='flex items-center gap-2'>
-      <SettingsIcon color='secondary' />
-      <span>{articlesComments.changeState as string}</span>
-     </div>
-    </MenuItem>
-    <MenuItem
-     disabled={isDeletingComment}
-     onClick={() => {
-      setShowConfirm(true);
-      handleCloseMenu();
-     }}
-    >
-     <div className='flex items-center gap-2'>
-      <DeleteIcon color='error' />
-      <span>{articlesComments.delete as string}</span>
-     </div>
-    </MenuItem>
+    {comment.commentStateID === CommentState.Pending && (
+     <MenuItem
+      disabled={isChangingCommentState}
+      onClick={() => {
+       changeCommentState();
+       handleCloseMenu();
+      }}
+     >
+      <div className='flex items-center gap-2'>
+       <SettingsIcon color='secondary' />
+       <span>{articlesComments.changeState as string}</span>
+      </div>
+     </MenuItem>
+    )}
+    {comment.commentStateID !== CommentState.Rejected && (
+     <MenuItem
+      disabled={isDeletingComment}
+      onClick={() => {
+       setShowConfirm(true);
+       handleCloseMenu();
+      }}
+     >
+      <div className='flex items-center gap-2'>
+       <DeleteIcon color='error' />
+       <span>{articlesComments.delete as string}</span>
+      </div>
+     </MenuItem>
+    )}
    </Menu>
    {!!comment.childs?.length && comment.childs.length > 0 && (
     <div className='relative ms-5 ps-5 mb-4 pb-2 before:content-[""] before:absolute before:start-0 before:top-0 before:bottom-0 before:border-s-[2px] before:border-dashed before:border-neutral-300 dark:before:border-neutral-700'>
