@@ -5,7 +5,7 @@ import { axios } from './axios';
 import { useAppConfig } from '../app-config/appConfig';
 
 export default function AxiosInterceptor() {
- const { locale } = useAppConfig();
+ const { localeInfo } = useAppConfig();
  const { getAuthToken } = useAuth();
  useEffect(() => {
   const cleanUp = () => {
@@ -13,10 +13,10 @@ export default function AxiosInterceptor() {
   };
   const requestWatcher = axios.interceptors.request.use((config) => {
    config.headers.set('Authorization', `Bearer ${getAuthToken()}`);
-   config.headers.set('languageID', locale);
+   config.headers.set('languageID', localeInfo.id);
    return config;
   });
   return cleanUp;
- }, [getAuthToken, locale]);
+ }, [getAuthToken, localeInfo]);
  return <></>;
 }

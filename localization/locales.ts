@@ -8,6 +8,7 @@ type WithDictionary = {
 
 const locales = {
  fa: {
+  id: 1,
   dir: 'rtl',
   langAlias: 'fa',
   lang: 'persian',
@@ -17,6 +18,7 @@ const locales = {
   long: 'فارسی',
  },
  en: {
+  id: 2,
   dir: 'ltr',
   langAlias: 'en',
   lang: 'english',
