@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -6,13 +7,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
-// import Button from '@mui/material/Button';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import { useQuery } from '@tanstack/react-query';
 import {
  type Blog,
+ type BlogComment,
  getBlogComments,
 } from '@/services/api-actions/globalApiActions';
 import ArticleCommentsFilter from './ArticleCommentsFilter';
@@ -21,6 +22,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type CommentState, commentStateSchema } from '../../schemas/comments';
 import { commentStates } from '../../utils/CommentState';
 import CommentList from './CommentList';
+import { type CommentMode } from '../../utils/commentModes';
+import AddComment from './AddComment';
 
 type Props = {
  open: boolean;
@@ -29,19 +32,24 @@ type Props = {
 };
 
 export default function ArticleComments({ open, onClose, article }: Props) {
+ const [selectedComment, setSelectedComment] = useState<BlogComment | null>(
+  null
+ );
+ const [selectedParentComment, setSelectedParentComment] =
+  useState<BlogComment | null>(null);
+ const [commentMode, setCommentMode] = useState<CommentMode>('none');
+
  const { isLargeDevice } = useAppMonitorConfig();
  const { locale } = useAppConfig();
  const { articlesComments } = useWebsiteDictionary() as {
   articlesComments: Dic;
  };
-
  const filtersUseForm = useForm<CommentState>({
   resolver: zodResolver(commentStateSchema),
   defaultValues: {
    state: commentStates[0],
   },
  });
-
  const commentState = filtersUseForm.watch('state');
 
  const {
@@ -60,6 +68,13 @@ export default function ArticleComments({ open, onClose, article }: Props) {
    }).then((res) => res.data.payload.BlogComments);
   },
  });
+ //
+ function handleCloseAddComment() {
+  setSelectedComment(null);
+  setSelectedParentComment(null);
+  setCommentMode('none');
+ }
+ //
 
  let content = <div></div>;
 
@@ -76,7 +91,20 @@ export default function ArticleComments({ open, onClose, article }: Props) {
    </div>
   );
  } else {
-  content = <CommentList comments={comments} />;
+  content = (
+   <CommentList
+    depth={1}
+    comments={comments}
+    parentComment={selectedParentComment}
+    selectedComment={selectedComment}
+    selectedParentComment={selectedParentComment}
+    commentMode={commentMode}
+    setSelectedComment={setSelectedComment}
+    setSelectedParentComment={setSelectedParentComment}
+    setCommentMode={setCommentMode}
+    onCloseAddComment={handleCloseAddComment}
+   />
+  );
  }
 
  return (
@@ -103,7 +131,19 @@ export default function ArticleComments({ open, onClose, article }: Props) {
    </DialogTitle>
    <DialogContent dividers>
     <FormProvider {...filtersUseForm}>
-     <ArticleCommentsFilter />
+     <ArticleCommentsFilter setCommentMode={setCommentMode} />
+     <div className='mb-8'>
+      {commentMode === 'add' && (
+       <AddComment
+        blogID={article.id}
+        commentMode={commentMode}
+        comment={selectedComment}
+        parentComment={selectedParentComment}
+        onClose={handleCloseAddComment}
+        setCommentMode={setCommentMode}
+       />
+      )}
+     </div>
      {content}
     </FormProvider>
    </DialogContent>

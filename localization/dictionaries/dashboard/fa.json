@@ -78,6 +78,10 @@
   "changeState": "تغییر وضعیت",
   "delete": "حذف",
   "confirm": "تایید",
-  "cancel": "انصراف"
+  "cancel": "انصراف",
+  "addComment": "افزودن نظر",
+  "reply": "پاسخ",
+  "edit": "ویرایش",
+  "addCommentPlaceholder": "نظر خود را اینجا بنویسید"
  }
 }

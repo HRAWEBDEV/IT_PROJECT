@@ -17,7 +17,7 @@ const ToastrProvider: FC<TProps> = ({ children }) => {
    preventDuplicate={true}
    maxSnack={8}
    action={(snackbarId) => (
-    <div className='absolute end-0 top-[50%] translate-y-[-50%]'>
+    <div className='absolute end-0 top-0'>
      <IconButton
       sx={{
        color: 'inherit',

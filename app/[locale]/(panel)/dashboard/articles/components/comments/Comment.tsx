@@ -20,8 +20,38 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import ReplyIcon from '@mui/icons-material/Reply';
+import { CommentMode } from '../../utils/commentModes';
+import AddComment from './AddComment';
+import EditIcon from '@mui/icons-material/Edit';
 
-export default function Comment({ comment }: { comment: BlogComment }) {
+export default function Comment({
+ comment,
+ parentComment,
+ setSelectedComment,
+ setSelectedParentComment,
+ setCommentMode,
+ onCloseAddComment,
+ selectedComment,
+ selectedParentComment,
+ commentMode,
+ depth,
+}: {
+ depth: number;
+ comment: BlogComment;
+ parentComment: BlogComment | null;
+ selectedComment: BlogComment | null;
+ selectedParentComment: BlogComment | null;
+ commentMode: CommentMode;
+ setSelectedComment: (comment: BlogComment | null) => void;
+ setSelectedParentComment: (comment: BlogComment | null) => void;
+ setCommentMode: (mode: CommentMode) => void;
+ onCloseAddComment: () => void;
+}) {
+ const isSameComment =
+  commentMode === 'reply'
+   ? comment.id === selectedParentComment?.id
+   : selectedComment?.id === comment.id;
  const { enqueueSnackbar } = useSnackbar();
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
@@ -96,23 +126,58 @@ export default function Comment({ comment }: { comment: BlogComment }) {
  //
  return (
   <li>
-   <div className='rounded-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 mb-4'>
-    <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between items-center gap-4'>
-     <span className='font-medium text-base'>{comment.writerUserName}</span>
-     <div className='flex flex-wrap gap-2 items-center'>
-      <div className={`${commentStateClass} p-1 rounded-lg px-3`}>
-       {comment.commentStateName}
+   {
+    isSameComment && commentMode === 'edit' ? null:
+    <div className='rounded-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 mb-4'>
+     <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between items-center gap-4'>
+      <span className='font-medium text-base'>{comment.writerUserName}</span>
+      <div className='flex flex-wrap gap-2 items-center'>
+       <div className={`${commentStateClass} p-1 rounded-lg px-3`}>
+        {comment.commentStateName}
+       </div>
+       <IconButton onClick={handleOpenMenu}>
+        <MoreVertIcon />
+       </IconButton>
       </div>
-      <IconButton onClick={handleOpenMenu}>
-       <MoreVertIcon />
-      </IconButton>
+     </div>
+     <div className='p-3 text-neutral-500 dark:text-neutral-200'>
+      {comment.comment}
      </div>
     </div>
-    <div className='p-3 text-neutral-500 dark:text-neutral-200'>
-     {comment.comment}
-    </div>
-   </div>
+   }
    <Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
+    {comment.commentStateID !== CommentState.Rejected && (
+     <MenuItem
+      onClick={() => {
+       setSelectedComment(comment);
+       setSelectedParentComment(parentComment);
+       setCommentMode('edit');
+       handleCloseMenu();
+      }}
+     >
+      <div className='flex items-center gap-2'>
+       <EditIcon color='primary' />
+       <span>{articlesComments.edit as string}</span>
+      </div>
+     </MenuItem>
+    )}
+    {comment.commentStateID !== CommentState.Rejected &&
+     depth < 2 &&
+     comment.childs?.length === 0 && (
+      <MenuItem
+       onClick={() => {
+        setSelectedComment(null);
+        setSelectedParentComment(comment);
+        setCommentMode('reply');
+        handleCloseMenu();
+       }}
+      >
+       <div className='flex items-center gap-2'>
+        <ReplyIcon color='primary' />
+        <span>{articlesComments.reply as string}</span>
+       </div>
+      </MenuItem>
+     )}
     {comment.commentStateID === CommentState.Pending && (
      <MenuItem
       disabled={isChangingCommentState}
@@ -142,9 +207,32 @@ export default function Comment({ comment }: { comment: BlogComment }) {
      </MenuItem>
     )}
    </Menu>
+   {(commentMode === 'reply' || commentMode === 'edit') && isSameComment && (
+    <div className='mb-8'>
+     <AddComment
+      comment={selectedComment}
+      setCommentMode={setCommentMode}
+      blogID={comment.blogID}
+      parentComment={selectedParentComment}
+      commentMode={commentMode}
+      onClose={onCloseAddComment}
+     />
+    </div>
+   )}
    {!!comment.childs?.length && comment.childs.length > 0 && (
     <div className='relative ms-5 ps-5 mb-4 pb-2 before:content-[""] before:absolute before:start-0 before:top-0 before:bottom-0 before:border-s-[2px] before:border-dashed before:border-neutral-300 dark:before:border-neutral-700'>
-     <CommentList comments={comment.childs} />
+     <CommentList
+      depth={depth + 1}
+      comments={comment.childs}
+      selectedComment={selectedComment}
+      selectedParentComment={selectedParentComment}
+      commentMode={commentMode}
+      parentComment={comment}
+      setSelectedComment={setSelectedComment}
+      setSelectedParentComment={setSelectedParentComment}
+      setCommentMode={setCommentMode}
+      onCloseAddComment={onCloseAddComment}
+     />
     </div>
    )}
    <ConfirmBox

@@ -53,7 +53,7 @@ type Blog = {
 
 type BlogComment = {
  id: number;
- parentID: number;
+ parentID: number | null;
  blogID: number;
  comment: string;
  commentStateID: number;
@@ -246,10 +246,7 @@ function createBlogComment(
  return axios.post(blogCommentsApi, newComment);
 }
 function updateBlogComment(
- newComment: Omit<
-  BlogComment,
-  'childs' | 'writerUserName' | 'commentStateID' | 'commentStateName'
- >
+ newComment: Omit<BlogComment, 'childs' | 'writerUserName' | 'commentStateName'>
 ) {
  return axios.put(blogCommentsApi, newComment);
 }
