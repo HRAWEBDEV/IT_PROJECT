@@ -1,12 +1,10 @@
 import { axios } from '../axios/axios';
-import { type ResponseShape } from './globalApiActions';
+import { type ResponseShape, type User } from './globalApiActions';
 
 const registerApi = '/UI/Login';
 const loginApi = '/UI/Authenticate';
 
-type RegisterUser = {
- personID: number;
-};
+type RegisterUser = User;
 
 type Auth = {
  Token: string;

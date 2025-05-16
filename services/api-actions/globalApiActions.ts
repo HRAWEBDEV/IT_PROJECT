@@ -65,6 +65,18 @@ type BlogState = {
  name: string;
 };
 
+type User = {
+ personID: number;
+ userName: string;
+ cellPhone: string | null;
+ firstName: string;
+ lastName: string;
+ profileImage: string | null;
+ verified: boolean;
+ disabled: boolean;
+ blackList: boolean;
+};
+
 // blogs actions
 const blogsApi = '/blogs';
 function getBlogs<T extends { pagination?: PaginationProps }>(
@@ -402,6 +414,68 @@ function getTagCategories(props: ApiDefaultProps) {
  });
 }
 
+//
+const usersApi = '/users';
+function getUsers<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps &
+  T & {
+   searchText?: string;
+   verified?: boolean;
+   disabled?: boolean;
+   blackList?: boolean;
+  }
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       Users: PagedResponse<User[]>;
+      }
+    : { Users: User[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
+ params.append(
+  'verified',
+  props.verified === undefined ? 'true' : props.verified.toString()
+ );
+ params.append(
+  'disabled',
+  props.disabled === undefined ? 'true' : props.disabled.toString()
+ );
+ params.append(
+  'blackList',
+  props.blackList === undefined ? 'true' : props.blackList.toString()
+ );
+ return axios.get(`${usersApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+
+function getUser(
+ props: ApiDefaultProps & { userID: number }
+): Promise<AxiosResponse<ResponseShape<{ User: User }>>> {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ return axios.get(`${usersApi}/${props.userID}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+
+function UpdateUser(newUser: User) {
+ return axios.put(`${usersApi}`, newUser);
+}
+
 export {
  type ResponseShape,
  type TagCategory,
@@ -412,6 +486,7 @@ export {
  type BlogState,
  type PaginationProps,
  type BlogComment,
+ type User,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -436,4 +511,7 @@ export {
  createBlogComment,
  updateBlogComment,
  deleteBlogComment,
+ getUsers,
+ getUser,
+ UpdateUser,
 };
