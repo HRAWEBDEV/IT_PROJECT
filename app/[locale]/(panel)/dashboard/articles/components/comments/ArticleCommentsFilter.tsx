@@ -20,17 +20,11 @@ export default function ArticleCommentsFilter() {
      name='state'
      render={({ field }) => (
       <Autocomplete
+       disableClearable={true}
        size='small'
        {...field}
        onChange={(_, value) => {
-        field.onChange(
-         value
-          ? {
-             id: value.id.toString(),
-             name: value.name,
-            }
-          : null
-        );
+        field.onChange(value);
        }}
        options={commentStates}
        getOptionLabel={(option) =>
