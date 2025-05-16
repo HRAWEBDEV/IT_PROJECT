@@ -8,7 +8,7 @@ import {
 } from './authContext';
 
 export default function AuthProvider({ children }: PropsWithChildren) {
- const [isLogedIn, setIsLogedIn] = useState(false);
+ const [isLogedIn, setIsLogedIn] = useState(true);
  //
  const setAuthToken = useCallback((value: string) => {
   setAuthToCookie(value);

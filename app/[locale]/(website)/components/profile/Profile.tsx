@@ -10,6 +10,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useAuth } from '@/services/auth/authContext';
 import { type Dic, type WithDictionary } from '@/localization/locales';
+import { useRouter } from 'next/navigation';
 
 type Props = {
  isOpen: boolean;
@@ -23,6 +24,7 @@ export default function Profile({
  isOpen,
  dic,
 }: Props) {
+ const router = useRouter();
  const { removeAuthToken } = useAuth();
  const { isLargeDevice } = useAppMonitorConfig();
 
@@ -51,6 +53,7 @@ export default function Profile({
    onClick={() => {
     removeAuthToken();
     onClose();
+    router.push('/');
    }}
   >
    <div className='flex gap-3'>

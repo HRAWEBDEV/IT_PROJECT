@@ -4,8 +4,14 @@ import Link from 'next/link';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BadgeIcon from '@mui/icons-material/Badge';
+import { useAuth } from '@/services/auth/authContext';
+import { useRouter } from 'next/navigation';
+
 export default function ProfileMenu() {
  const { headerIsVisible } = useNavigationContext();
+ const { removeAuthToken } = useAuth();
+ const router = useRouter();
+
  return (
   <aside className='py-4'>
    <div
@@ -43,6 +49,10 @@ export default function ProfileMenu() {
       <Link
        href='#'
        className='flex p-4 ps-6 relative before:content-[""] before:absolute before:start-0 before:inset-y-0 before:w-1 before:bg-transparent before:rounded-ee-sm before:rounded-se-sm [&[aria-selected="true"]]:before:bg-primary-dark hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors'
+       onClick={() => {
+        removeAuthToken();
+        router.push('/');
+       }}
       >
        <div className='flex gap-4 items-center'>
         <LogoutIcon color='error' />

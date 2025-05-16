@@ -6,27 +6,24 @@ import ProfileMenu from './ProfileMenu';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Footer from '../../../components/footer/Footer';
 import Button from '@mui/material/Button';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useAuth } from '@/services/auth/authContext';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useRouter } from 'next/navigation';
 
 export default function ProfileLayout({ children }: PropsWithChildren) {
  const { isLargeDevice } = useAppMonitorConfig();
  const pathname = usePathname();
- const router = useRouter();
  const page = pathname.split('/').at(-1);
  const { isFetchingUser, isLogedIn } = useAuth();
+ const router = useRouter();
 
- useEffect(() => {
-  if (isLargeDevice && page === 'profile') {
-   router.push('/profile');
-  }
- }, [isLargeDevice, page, router]);
  useEffect(() => {
   if (!isLogedIn) {
    router.push('/');
   }
  }, [isLogedIn, router]);
+
  return (
   <>
    {isFetchingUser ? (
