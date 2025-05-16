@@ -101,9 +101,10 @@ export default async function RootLayout({
         <AppMonitorProvider>
          <ReactQueryProvider>
           <AuthProvider>
-           <AuthCheck />
            <AxiosInterceptor />
-           <ToastrProvider>{children}</ToastrProvider>
+           <AuthCheck>
+            <ToastrProvider>{children}</ToastrProvider>
+           </AuthCheck>
           </AuthProvider>
          </ReactQueryProvider>
         </AppMonitorProvider>

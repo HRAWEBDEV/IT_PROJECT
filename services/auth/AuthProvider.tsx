@@ -1,5 +1,11 @@
 'use client';
-import { useState, PropsWithChildren, useCallback, useMemo } from 'react';
+import {
+ useState,
+ PropsWithChildren,
+ useCallback,
+ useMemo,
+ useEffect,
+} from 'react';
 import {
  authContext,
  getAuthFromCookie,
@@ -9,6 +15,7 @@ import {
 
 export default function AuthProvider({ children }: PropsWithChildren) {
  const [isLogedIn, setIsLogedIn] = useState(true);
+ const [firstSet, setFirstSet] = useState(false);
  //
  const setAuthToken = useCallback((value: string) => {
   setAuthToCookie(value);
@@ -31,9 +38,15 @@ export default function AuthProvider({ children }: PropsWithChildren) {
    setAuthToken,
    getAuthToken,
    removeAuthToken,
-   isFetchingUser: false,
+   firstSet,
   };
- }, [isLogedIn, setAuthToken, getAuthToken, removeAuthToken]);
+ }, [isLogedIn, setAuthToken, getAuthToken, removeAuthToken, firstSet]);
+
+ useEffect(() => {
+  if (firstSet) return;
+  getAuthToken();
+  setFirstSet(true);
+ }, [firstSet, getAuthToken]);
 
  return <authContext.Provider value={ctx}>{children}</authContext.Provider>;
 }

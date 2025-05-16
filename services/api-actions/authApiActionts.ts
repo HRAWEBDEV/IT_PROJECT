@@ -3,8 +3,14 @@ import { type ResponseShape, type User } from './globalApiActions';
 
 const registerApi = '/UI/Login';
 const loginApi = '/UI/Authenticate';
+const getUserInfoApi = '/UI/UserInfo';
 
 type RegisterUser = User;
+type UserInfo = {
+ User: User;
+ HasDashboard: boolean;
+ RoleAccesses: [];
+};
 
 type Auth = {
  Token: string;
@@ -30,4 +36,8 @@ function login({ userID, verifyCode }: { userID: number; verifyCode: string }) {
  return axios.get<ResponseShape<Auth>>(`${loginApi}?${params.toString()}`);
 }
 
-export { registerUser, login };
+function getUserInfo({ signal }: { signal?: AbortSignal }) {
+ return axios.get<ResponseShape<UserInfo>>(getUserInfoApi, { signal });
+}
+
+export { type UserInfo, registerUser, login, getUserInfo };

@@ -30,7 +30,7 @@ function logout() {
 
 type Store = {
  isLogedIn: boolean;
- isFetchingUser: boolean;
+ firstSet: boolean;
  setAuthToken: (value: string) => void;
  getAuthToken: () => string | null;
  removeAuthToken: () => void;

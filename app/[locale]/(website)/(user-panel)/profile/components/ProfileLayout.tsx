@@ -10,12 +10,14 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/services/auth/authContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useRouter } from 'next/navigation';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
 
 export default function ProfileLayout({ children }: PropsWithChildren) {
  const { isLargeDevice } = useAppMonitorConfig();
+ const { userInfo, isFetchingUser } = useAuthCheck();
  const pathname = usePathname();
  const page = pathname.split('/').at(-1);
- const { isFetchingUser, isLogedIn } = useAuth();
+ const { isLogedIn } = useAuth();
  const router = useRouter();
 
  useEffect(() => {
@@ -26,7 +28,7 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
 
  return (
   <>
-   {isFetchingUser ? (
+   {isFetchingUser || !userInfo ? (
     <div className='p-4 min-h-[calc(100vh_-_var(--header-height))] flex justify-center items-center'>
      <CircularProgress />
     </div>
