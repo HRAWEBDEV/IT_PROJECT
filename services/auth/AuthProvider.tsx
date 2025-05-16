@@ -23,7 +23,11 @@ export default function AuthProvider({ children }: PropsWithChildren) {
  }, []);
  const getAuthToken = useCallback(() => {
   const token = getAuthFromCookie();
-  if (token) setIsLogedIn(true);
+  if (token) {
+   setIsLogedIn(true);
+  } else {
+   setIsLogedIn(false);
+  }
   return token;
  }, []);
  const removeAuthToken = useCallback(() => {
