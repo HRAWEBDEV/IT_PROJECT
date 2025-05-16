@@ -19,6 +19,7 @@ import ArticleCommentsFilter from './ArticleCommentsFilter';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type CommentState, commentStateSchema } from '../../schemas/comments';
+import { commentStates } from '../../utils/CommentState';
 import CommentList from './CommentList';
 
 type Props = {
@@ -37,7 +38,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
  const filtersUseForm = useForm<CommentState>({
   resolver: zodResolver(commentStateSchema),
   defaultValues: {
-   state: null,
+   state: commentStates[0],
   },
  });
 

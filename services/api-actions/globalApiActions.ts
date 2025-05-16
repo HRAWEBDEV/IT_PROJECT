@@ -262,8 +262,21 @@ function deleteBlogComment({
 }) {
  const params = new URLSearchParams();
  params.append('lang', lang);
- params.append('commentID', commentID.toString());
+ params.append('blogCommentID', commentID.toString());
  return axios.delete(`${blogCommentsApi}?${params.toString()}`);
+}
+
+function changeBlogCommentState(
+ props: ApiDefaultProps & {
+  blogCommentID: number;
+ }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogCommentID', props.blogCommentID.toString());
+ return axios.patch(`${blogCommentsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
 }
 
 // blog states
@@ -527,4 +540,5 @@ export {
  getUsers,
  getUser,
  UpdateUser,
+ changeBlogCommentState,
 };

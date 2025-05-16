@@ -69,10 +69,15 @@
  },
  "articlesComments": {
   "title": "نظرات اخبار و مقاله‌ها",
+  "deleteCommentConfirmation": "آیا از حذف این نظر اطمینان دارید؟",
   "noItemFound": "هیچ آیتمی یافت نشد",
   "commentState": "وضعیت",
   "pending": "ایجاد شده",
   "approved": "تایید شده",
-  "rejected": "رد شده"
+  "rejected": "رد شده",
+  "changeState": "تغییر وضعیت",
+  "delete": "حذف",
+  "confirm": "تایید",
+  "cancel": "انصراف"
  }
 }
