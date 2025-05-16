@@ -31,6 +31,7 @@ export default function AuthProvider({ children }: PropsWithChildren) {
    setAuthToken,
    getAuthToken,
    removeAuthToken,
+   isFetchingUser: false,
   };
  }, [isLogedIn, setAuthToken, getAuthToken, removeAuthToken]);
 

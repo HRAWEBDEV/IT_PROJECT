@@ -13,7 +13,8 @@ function middleware(request: NextRequest) {
  const defaultLocale = 'fa';
  const userLocale = request.cookies.get('locale')?.value || defaultLocale;
  const userToken = request.cookies.get('auth')?.value;
- if (pathSegments[2] === 'dashboard' && !userToken) {
+ const lockedRoutes = ['dashboard', 'profile'];
+ if (lockedRoutes.includes(pathSegments[2]) && !userToken) {
   return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));
  }
  if (!matchedLocale) {
