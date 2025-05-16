@@ -19,4 +19,4 @@ const commentStates = [
  },
 ];
 
-export { commentStates, type CommentState };
+export { commentStates, CommentState };

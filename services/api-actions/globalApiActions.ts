@@ -57,7 +57,10 @@ type BlogComment = {
  blogID: number;
  comment: string;
  commentStateID: number;
+ commentStateName: string;
  lang: SupportedLocales;
+ writerUserName: string;
+ childs: BlogComment[] | null;
 };
 
 type BlogState = {
@@ -215,7 +218,7 @@ function getBlogComments(
   isForHomepage?: boolean;
   commentStateID?: number;
  }
-): Promise<AxiosResponse<ResponseShape<{ BlogComments: Blog[] }>>> {
+): Promise<AxiosResponse<ResponseShape<{ BlogComments: BlogComment[] }>>> {
  const params = new URLSearchParams();
  params.append('lang', props.locale);
  params.append('blogID', props.blogID.toString());
@@ -234,10 +237,20 @@ function getBlogComments(
   signal: props.signal,
  });
 }
-function createBlogComment(newComment: BlogComment) {
+function createBlogComment(
+ newComment: Omit<
+  BlogComment,
+  'childs' | 'writerUserName' | 'commentStateID' | 'commentStateName'
+ >
+) {
  return axios.post(blogCommentsApi, newComment);
 }
-function updateBlogComment(newComment: BlogComment) {
+function updateBlogComment(
+ newComment: Omit<
+  BlogComment,
+  'childs' | 'writerUserName' | 'commentStateID' | 'commentStateName'
+ >
+) {
  return axios.put(blogCommentsApi, newComment);
 }
 function deleteBlogComment({

@@ -19,6 +19,7 @@ import ArticleCommentsFilter from './ArticleCommentsFilter';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type CommentState, commentStateSchema } from '../../schemas/comments';
+import CommentList from './CommentList';
 
 type Props = {
  open: boolean;
@@ -51,7 +52,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
   queryFn({ signal }) {
    return getBlogComments({
     blogID: article.id,
-    isForHomepage: true,
+    isForHomepage: false,
     locale: locale,
     signal,
     commentStateID: commentState?.id,
@@ -74,6 +75,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
    </div>
   );
  } else {
+  content = <CommentList comments={comments} />;
  }
 
  return (
@@ -81,7 +83,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
    open={open}
    fullWidth
    fullScreen={!isLargeDevice}
-   maxWidth='xl'
+   maxWidth='md'
    onClose={onClose}
    component={'form'}
    onSubmit={(e) => {
@@ -93,7 +95,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
      <span className='text-base font-bold'>
       {articlesComments.title as string}
      </span>
-     <IconButton color='error'>
+     <IconButton color='error' onClick={onClose}>
       <CloseIcon />
      </IconButton>
     </div>
