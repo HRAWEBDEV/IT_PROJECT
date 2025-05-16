@@ -1,13 +1,18 @@
 'use client';
+import { useNavigationContext } from '../../../services/NavigationContext';
 import Link from 'next/link';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BadgeIcon from '@mui/icons-material/Badge';
-
 export default function ProfileMenu() {
+ const { headerIsVisible } = useNavigationContext();
  return (
   <aside className='py-4'>
-   <div className='sticky top-[calc(var(--header-height)_+_1rem)] rounded-lg border border-neutral-300 dark:border-neutral-700'>
+   <div
+    className={`sticky ${
+     headerIsVisible ? 'top-[calc(var(--header-height)_+_1rem)]' : 'top-[1rem]'
+    } rounded-lg border border-neutral-300 dark:border-neutral-700`}
+   >
     <div className='text-base text-center p-4 text-primary-dark font-medium border-b border-neutral-300 dark:border-neutral-700'>
      <span>حمیدرضا اکبری</span>
     </div>

@@ -7,36 +7,51 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Footer from '../../../components/footer/Footer';
 import Button from '@mui/material/Button';
 import { usePathname, useRouter } from 'next/navigation';
+import { useAuth } from '@/services/auth/authContext';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function ProfileLayout({ children }: PropsWithChildren) {
  const { isLargeDevice } = useAppMonitorConfig();
  const pathname = usePathname();
  const router = useRouter();
  const page = pathname.split('/').at(-1);
+ const { isFetchingUser, isLogedIn } = useAuth();
 
  useEffect(() => {
   if (isLargeDevice && page === 'profile') {
-   router.push('/profile/favorites');
+   router.push('/profile');
   }
  }, [isLargeDevice, page, router]);
+ useEffect(() => {
+  if (!isLogedIn) {
+   router.push('/');
+  }
+ }, [isLogedIn, router]);
  return (
   <>
-   <div className='container grid gap-4 lg:grid-cols-[16rem_1fr]'>
-    {isLargeDevice && <ProfileMenu />}
-    <div className='overflow-hidden'>
-     <div className='p-4'>
-      {!isLargeDevice && page !== 'profile' && (
-       <Button color='error' LinkComponent={Link} href='/profile'>
-        <div className='flex gap-2 items-center'>
-         <ArrowForwardIcon />
-         <span>بازگشت</span>
-        </div>
-       </Button>
-      )}
-     </div>
-     {children}
+   {isFetchingUser ? (
+    <div className='p-4 min-h-[calc(100vh_-_var(--header-height))] flex justify-center items-center'>
+     <CircularProgress />
     </div>
-   </div>
+   ) : (
+    <div className='container grid gap-4 lg:grid-cols-[16rem_1fr] min-h-[calc(100vh_-_var(--header-height))]'>
+     {isLargeDevice && <ProfileMenu />}
+     <div className='overflow-hidden'>
+      <div className='p-4'>
+       {!isLargeDevice && page !== 'profile' && (
+        <Button color='error' LinkComponent={Link} href='/profile'>
+         <div className='flex gap-2 items-center'>
+          <ArrowForwardIcon />
+          <span>بازگشت</span>
+         </div>
+        </Button>
+       )}
+      </div>
+      {children}
+     </div>
+    </div>
+   )}
+
    <Footer />
   </>
  );
