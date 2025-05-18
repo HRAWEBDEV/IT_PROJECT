@@ -1,6 +1,7 @@
 import { type BlogComment } from '@/services/api-actions/globalApiActions';
 import Comment from './Comment';
 import { CommentMode } from '../../utils/commentModes';
+import { type CommentSetting } from '../../utils/commentSetting';
 
 export default function CommentList({
  comments,
@@ -13,6 +14,7 @@ export default function CommentList({
  selectedComment,
  selectedParentComment,
  depth,
+ manage = true,
 }: {
  depth: number;
  comments: BlogComment[];
@@ -24,11 +26,12 @@ export default function CommentList({
  setSelectedParentComment: (comment: BlogComment | null) => void;
  setCommentMode: (mode: CommentMode) => void;
  onCloseAddComment: () => void;
-}) {
+} & CommentSetting) {
  return (
   <ul>
    {comments.map((cm) => (
     <Comment
+     manage={manage}
      depth={depth}
      comment={cm}
      key={cm.id}

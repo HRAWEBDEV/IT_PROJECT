@@ -24,14 +24,21 @@ import { commentStates } from '../../utils/CommentState';
 import CommentList from './CommentList';
 import { type CommentMode } from '../../utils/commentModes';
 import AddComment from './AddComment';
+import { CommentState as CommentStateEnum } from '../../utils/CommentState';
+import { type CommentSetting } from '../../utils/commentSetting';
 
 type Props = {
  open: boolean;
  article: Blog;
  onClose: () => void;
-};
+} & CommentSetting;
 
-export default function ArticleComments({ open, onClose, article }: Props) {
+export default function ArticleComments({
+ open,
+ onClose,
+ article,
+ manage = true,
+}: Props) {
  const [selectedComment, setSelectedComment] = useState<BlogComment | null>(
   null
  );
@@ -61,10 +68,10 @@ export default function ArticleComments({ open, onClose, article }: Props) {
   queryFn({ signal }) {
    return getBlogComments({
     blogID: article.id,
-    isForHomepage: false,
+    isForHomepage: manage ? false : true,
     locale: locale,
     signal,
-    commentStateID: commentState?.id,
+    commentStateID: manage ? commentState?.id : CommentStateEnum.Approved,
    }).then((res) => res.data.payload.BlogComments);
   },
  });
@@ -93,6 +100,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
  } else {
   content = (
    <CommentList
+    manage={manage}
     depth={1}
     comments={comments}
     parentComment={selectedParentComment}
@@ -131,7 +139,7 @@ export default function ArticleComments({ open, onClose, article }: Props) {
    </DialogTitle>
    <DialogContent dividers>
     <FormProvider {...filtersUseForm}>
-     <ArticleCommentsFilter setCommentMode={setCommentMode} />
+     <ArticleCommentsFilter setCommentMode={setCommentMode} manage={manage} />
      <div className='mb-8'>
       {commentMode === 'add' && (
        <AddComment

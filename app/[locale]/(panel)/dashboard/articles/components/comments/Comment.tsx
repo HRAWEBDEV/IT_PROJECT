@@ -25,6 +25,7 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import { CommentMode } from '../../utils/commentModes';
 import AddComment from './AddComment';
 import EditIcon from '@mui/icons-material/Edit';
+import { type CommentSetting } from '../../utils/commentSetting';
 
 const buttonStyle = {
  padding: 0,
@@ -45,6 +46,7 @@ export default function Comment({
  selectedParentComment,
  commentMode,
  depth,
+ manage,
 }: {
  depth: number;
  comment: BlogComment;
@@ -56,7 +58,7 @@ export default function Comment({
  setSelectedParentComment: (comment: BlogComment | null) => void;
  setCommentMode: (mode: CommentMode) => void;
  onCloseAddComment: () => void;
-}) {
+} & CommentSetting) {
  const [showMore, setShowMore] = useState(false);
  const isSameComment =
   commentMode === 'reply'
@@ -154,19 +156,21 @@ export default function Comment({
   <li>
    {isSameComment && commentMode === 'edit' ? null : (
     <div className='rounded-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 mb-4'>
-     <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between flex-wrap items-center gap-4'>
+     <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between flex-wrap items-center gap-4 min-h-[3rem]'>
       <div>
        <h6 className='font-medium text-base'>{comment.writerUserName}</h6>
        <p></p>
       </div>
-      <div className='flex flex-wrap gap-2 items-center'>
-       <div className={`${commentStateClass} p-1 rounded-lg px-3`}>
-        {comment.commentStateName}
+      {manage && (
+       <div className='flex flex-wrap gap-2 items-center'>
+        <div className={`${commentStateClass} p-1 rounded-lg px-3`}>
+         {comment.commentStateName}
+        </div>
+        <IconButton onClick={handleOpenMenu}>
+         <MoreVertIcon />
+        </IconButton>
        </div>
-       <IconButton onClick={handleOpenMenu}>
-        <MoreVertIcon />
-       </IconButton>
-      </div>
+      )}
      </div>
      <p className='p-3 text-neutral-500 dark:text-neutral-200 leading-6'>
       {visibleComment}
@@ -265,6 +269,7 @@ export default function Comment({
      <CommentList
       depth={depth + 1}
       comments={comment.childs}
+      manage={manage}
       selectedComment={selectedComment}
       selectedParentComment={selectedParentComment}
       commentMode={commentMode}
