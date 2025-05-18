@@ -34,7 +34,7 @@ export default function Profile({
   <MenuItem key={'profile'}>
    <Link href={'/profile'} className='w-full flex gap-3'>
     <AssignmentIndIcon color='primary' />
-    <span>{(dic.profile as Dic).profile as string}</span>
+    <span>{userInfo?.User.personFullName}</span>
    </Link>
   </MenuItem>,
   <Divider key={'main-divider'} />,
