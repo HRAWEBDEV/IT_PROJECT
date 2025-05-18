@@ -1,4 +1,6 @@
 {
+ "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
+ "changesSavedSuccessfully": "عملیات با موفقیت انجام شد",
  "navigation": {
   "home": "خانه",
   "services": "خدمـــات",
@@ -24,5 +26,15 @@
  "search": {
   "title": "جستجو",
   "placeholder": "جستجوی خدمات، پروژه‌ها، اخبار ...."
+ },
+ "userPanel": {
+  "userInfo": "اطلاعات کاربر",
+  "favorites": "علاقه مندی ها",
+  "exit": "خروج",
+  "firstName": "نام",
+  "lastName": "نام خانوادگی",
+  "cellPhone": "شماره تلفن",
+  "email": "ایمیل",
+  "updateUserInfo": "بروزرسانی اطلاعات"
  }
 }

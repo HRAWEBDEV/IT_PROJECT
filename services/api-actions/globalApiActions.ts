@@ -79,6 +79,8 @@ type User = {
  cellPhone: string | null;
  firstName: string;
  lastName: string;
+ personFullName: string;
+ email: string | null;
  profileImage: string | null;
  verified: boolean;
  disabled: boolean;

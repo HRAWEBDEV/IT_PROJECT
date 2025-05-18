@@ -10,6 +10,7 @@ import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { type Dic } from '@/localization/locales';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { useAuth } from '@/services/auth/authContext';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
 import { useRouter } from 'next/navigation';
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
 
 export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
  const router = useRouter();
+ const { userInfo } = useAuthCheck();
  const { removeAuthToken } = useAuth();
  const { isLargeDevice } = useAppMonitorConfig();
  const { profile } = useWebsiteDictionary() as {
@@ -30,7 +32,7 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
   <MenuItem key={'user-name'}>
    <div className='flex gap-3'>
     <PersonIcon color='primary' />
-    <span>امیررضا حسینی</span>
+    <span>{userInfo?.User.personFullName}</span>
    </div>
   </MenuItem>,
   <Divider key={'divider'} />,

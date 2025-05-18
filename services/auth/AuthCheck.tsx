@@ -1,5 +1,5 @@
 'use client';
-import { PropsWithChildren, useEffect, useMemo } from 'react';
+import { PropsWithChildren, useEffect, useMemo, useCallback } from 'react';
 import { authCheckContext } from './authCheckContext';
 import { getUserInfo } from '../api-actions/authApiActionts';
 import { useMutation } from '@tanstack/react-query';
@@ -29,12 +29,17 @@ export default function AuthCheck({ children }: PropsWithChildren) {
   },
  });
 
+ const refreshUserInfo = useCallback(() => {
+  getUserInfoMutate({ signal: new AbortController().signal });
+ }, [getUserInfoMutate]);
+
  const ctx = useMemo(() => {
   return {
    userInfo: isLogedIn ? userInfo : null,
    isFetchingUser,
+   refreshUserInfo,
   };
- }, [userInfo, isFetchingUser, isLogedIn]);
+ }, [userInfo, isFetchingUser, isLogedIn, refreshUserInfo]);
 
  useEffect(() => {
   if (!firstSet || !isLogedIn) return;

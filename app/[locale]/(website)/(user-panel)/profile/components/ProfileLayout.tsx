@@ -23,17 +23,21 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
  useEffect(() => {
   if (!isLogedIn) {
    router.push('/');
+   return;
   }
- }, [isLogedIn, router]);
+  if (page === 'profile') {
+   router.push('/profile/user-info');
+  }
+ }, [isLogedIn, router, page]);
 
  return (
   <>
    {isFetchingUser || !userInfo ? (
-    <div className='p-4 min-h-[calc(100vh_-_var(--header-height))] flex justify-center items-center'>
+    <div className='p-4 min-h-[20rem] flex justify-center items-center'>
      <CircularProgress />
     </div>
    ) : (
-    <div className='container grid gap-4 lg:grid-cols-[16rem_1fr] min-h-[calc(100vh_-_var(--header-height))]'>
+    <div className='container grid gap-4 lg:grid-cols-[16rem_1fr] min-h-[30rem]'>
      {isLargeDevice && <ProfileMenu />}
      <div className='overflow-hidden'>
       <div className='p-4'>

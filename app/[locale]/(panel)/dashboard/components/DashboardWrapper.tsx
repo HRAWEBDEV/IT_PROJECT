@@ -10,8 +10,8 @@ export default function DashboardWrapper({ children }: PropsWithChildren) {
  const { isLogedIn } = useAuth();
  const { userInfo, isFetchingUser } = useAuthCheck();
  const router = useRouter();
-
  useEffect(() => {
+  // TODO check has dashboard
   if (!isLogedIn) router.push('/');
  }, [isLogedIn, router]);
 

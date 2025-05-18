@@ -5,11 +5,13 @@ import { type UserInfo } from '../api-actions/authApiActionts';
 type Store = {
  userInfo: UserInfo | null;
  isFetchingUser: boolean;
+ refreshUserInfo: () => void;
 };
 
 const authCheckContext = createContext<Store | null>({
  userInfo: null,
  isFetchingUser: false,
+ refreshUserInfo: () => {},
 });
 
 function useAuthCheck() {
