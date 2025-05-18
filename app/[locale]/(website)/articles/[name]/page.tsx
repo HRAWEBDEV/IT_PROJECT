@@ -76,9 +76,9 @@ export default async function page({
  return (
   <section>
    <Content blog={blog} dic={dic} />
+   <Tags tags={blogTags} dic={dic} />
    <WhyUs dic={dic} />
    <CommentSection />
-   <Tags tags={blogTags} />
   </section>
  );
 }
