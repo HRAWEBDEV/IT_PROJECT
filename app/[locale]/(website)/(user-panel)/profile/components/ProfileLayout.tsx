@@ -25,9 +25,6 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
    router.push('/');
    return;
   }
-  if (page === 'profile') {
-   router.push('/profile/user-info');
-  }
  }, [isLogedIn, router, page]);
 
  return (
