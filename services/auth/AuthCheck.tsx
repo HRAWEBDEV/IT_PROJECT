@@ -9,7 +9,7 @@ import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 export default function AuthCheck({ children }: PropsWithChildren) {
- const { firstSet, isLogedIn } = useAuth();
+ const { firstSet, isLogedIn, removeAuthToken } = useAuth();
  const { enqueueSnackbar } = useSnackbar();
  const router = useRouter();
  const {
@@ -18,13 +18,21 @@ export default function AuthCheck({ children }: PropsWithChildren) {
   isPending: isFetchingUser,
  } = useMutation({
   mutationFn: ({ signal }: { signal?: AbortSignal }) => {
-   return getUserInfo({ signal }).then((res) => res.data.payload);
+   return getUserInfo({ signal }).then((res) => {
+    const userInfo = res.data.payload;
+    if (!userInfo.User) {
+     removeAuthToken();
+     router.push('/');
+    }
+    return userInfo;
+   });
   },
   onError: (error: AxiosError) => {
    enqueueSnackbar({
     message: error.response?.data as string,
     variant: 'error',
    });
+   removeAuthToken();
    router.push('/');
   },
  });
