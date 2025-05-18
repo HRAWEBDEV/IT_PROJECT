@@ -55,7 +55,7 @@ export default function ArticlesList({ dic, blogs, isLoadingBlogs }: Props) {
      blogs.map((item) => (
       <li key={item.id}>
        <Link
-        href={`/articles/${item.id}`}
+        href={`/articles/${item.id}?${encodeURI(item.header)}`}
         style={{
          transition: 'transform 0.5s ease',
         }}
