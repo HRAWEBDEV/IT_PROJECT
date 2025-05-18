@@ -32,7 +32,7 @@ export default function Profile({
 
  const profileList = [
   <MenuItem key={'profile'}>
-   <Link href={'/profile'} className='w-full flex gap-3'>
+   <Link href={'/profile/user-info'} className='w-full flex gap-3'>
     <AssignmentIndIcon color='primary' />
     <span>{userInfo?.User.personFullName}</span>
    </Link>
