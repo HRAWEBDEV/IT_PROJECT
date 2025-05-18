@@ -40,4 +40,4 @@ function getUserInfo({ signal }: { signal?: AbortSignal }) {
  return axios.get<ResponseShape<UserInfo>>(getUserInfoApi, { signal });
 }
 
-export { type UserInfo, registerUser, login, getUserInfo };
+export { type UserInfo, registerUser, login, getUserInfo, getUserInfoApi };

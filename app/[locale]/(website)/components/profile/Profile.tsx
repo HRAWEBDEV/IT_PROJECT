@@ -9,6 +9,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useAuth } from '@/services/auth/authContext';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { useRouter } from 'next/navigation';
 
@@ -24,6 +25,7 @@ export default function Profile({
  isOpen,
  dic,
 }: Props) {
+ const { userInfo } = useAuthCheck();
  const router = useRouter();
  const { removeAuthToken } = useAuth();
  const { isLargeDevice } = useAppMonitorConfig();
@@ -36,12 +38,15 @@ export default function Profile({
    </Link>
   </MenuItem>,
   <Divider key={'main-divider'} />,
-  <MenuItem key={'dashboard'}>
-   <Link href={'/dashboard'} className='w-full flex gap-3'>
-    <DashboardIcon color='secondary' />
-    <span>{(dic.profile as Dic).dashboard as string}</span>
-   </Link>
-  </MenuItem>,
+  userInfo?.HasDashboard ? (
+   <MenuItem key={'dashboard'}>
+    <Link href={'/dashboard'} className='w-full flex gap-3'>
+     <DashboardIcon color='secondary' />
+     <span>{(dic.profile as Dic).dashboard as string}</span>
+    </Link>
+    ,
+   </MenuItem>
+  ) : null,
   <MenuItem key={'fav'}>
    <Link href={'/profile/favorites'} className='w-full flex gap-3'>
     <FavoriteIcon color='error' />
