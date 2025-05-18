@@ -55,6 +55,13 @@ export default function ArticlesGrid({
 }: Props) {
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
+ const dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+ });
  const { enqueueSnackbar } = useSnackbar();
  const [openConfirm, setOpenConfirm] = useState(false);
  const {
@@ -128,6 +135,16 @@ export default function ArticlesGrid({
     paginationMode='server'
     rows={articlesList}
     columns={[
+     {
+      field: 'createDateTimeOffset',
+      headerName: articles.createDateTime as string,
+      width: 140,
+      headerAlign: 'center',
+      align: 'center',
+      valueFormatter(value) {
+       return value && dateTimeFormatter.format(new Date(value));
+      },
+     },
      {
       field: 'header',
       headerName: articles.articleTitle as string,

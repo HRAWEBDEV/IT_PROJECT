@@ -46,7 +46,7 @@ type Blog = {
  blogCategoryName: string;
  blogStateID: number;
  blogStateName: string;
- createDateTime: string;
+ createDateTimeOffset: string;
  showForCard: boolean;
  imageUrl?: string;
 };
@@ -60,6 +60,7 @@ type BlogComment = {
  commentStateName: string;
  lang: SupportedLocales;
  writerUserName: string;
+ createDateTimeOffset: string;
  childs: BlogComment[] | null;
 };
 
@@ -240,13 +241,20 @@ function getBlogComments(
 function createBlogComment(
  newComment: Omit<
   BlogComment,
-  'childs' | 'writerUserName' | 'commentStateID' | 'commentStateName'
+  | 'childs'
+  | 'writerUserName'
+  | 'commentStateID'
+  | 'commentStateName'
+  | 'createDateTimeOffset'
  >
 ) {
  return axios.post(blogCommentsApi, newComment);
 }
 function updateBlogComment(
- newComment: Omit<BlogComment, 'childs' | 'writerUserName' | 'commentStateName'>
+ newComment: Omit<
+  BlogComment,
+  'childs' | 'writerUserName' | 'commentStateName' | 'createDateTimeOffset'
+ >
 ) {
  return axios.put(blogCommentsApi, newComment);
 }

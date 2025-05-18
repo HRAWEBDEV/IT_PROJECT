@@ -81,7 +81,7 @@ export default function ArticlesList({ dic, blogs, isLoadingBlogs }: Props) {
          <div className='mb-1 flex'>
           <div className='text-primary-dark font-medium'>
            <span className='text-[0.7rem]'>
-            {dateFormatter.format(new Date(item.createDateTime + 'Z'))}
+            {dateFormatter.format(new Date(item.createDateTimeOffset))}
            </span>
           </div>
          </div>

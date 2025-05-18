@@ -56,6 +56,7 @@
   "images": "تصاویر",
   "tags": "تگ ها",
   "description": "توضیحات",
+  "createDateTime": "تاریخ و ساعت",
   "content": "محتوا",
   "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
   "atLeastOneCategory": "افزودن حداقل یک دسته بندی الزامی است",

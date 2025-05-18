@@ -55,6 +55,13 @@ export default function Comment({
  const { enqueueSnackbar } = useSnackbar();
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
+ //  const dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+ //   year: 'numeric',
+ //   month: 'long',
+ //   day: '2-digit',
+ //   hour: '2-digit',
+ //   minute: '2-digit',
+ //  });
  const [showConfirm, setShowConfirm] = useState(false);
  const { articlesComments, errorTryAgainLater } = useWebsiteDictionary() as {
   articlesComments: Dic;
@@ -124,13 +131,17 @@ export default function Comment({
    },
   });
  //
+ //  add comment create date time
+
  return (
   <li>
-   {
-    isSameComment && commentMode === 'edit' ? null:
+   {isSameComment && commentMode === 'edit' ? null : (
     <div className='rounded-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 mb-4'>
-     <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between items-center gap-4'>
-      <span className='font-medium text-base'>{comment.writerUserName}</span>
+     <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between flex-wrap items-center gap-4'>
+      <div>
+       <h6 className='font-medium text-base'>{comment.writerUserName}</h6>
+       <p></p>
+      </div>
       <div className='flex flex-wrap gap-2 items-center'>
        <div className={`${commentStateClass} p-1 rounded-lg px-3`}>
         {comment.commentStateName}
@@ -144,7 +155,7 @@ export default function Comment({
       {comment.comment}
      </div>
     </div>
-   }
+   )}
    <Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
     {comment.commentStateID !== CommentState.Rejected && (
      <MenuItem

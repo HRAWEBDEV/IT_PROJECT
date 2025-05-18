@@ -61,7 +61,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
           <div className='flex gap-1 items-center text-secondary'>
            <CalendarMonthIcon fontSize='small' />
            <span>
-            {dateFormatter.format(new Date(item.createDateTime + 'Z'))}
+            {dateFormatter.format(new Date(item.createDateTimeOffset))}
            </span>
           </div>
           <div></div>
