@@ -6,11 +6,12 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from './authContext';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function AuthCheck({ children }: PropsWithChildren) {
  const { firstSet, isLogedIn } = useAuth();
  const { enqueueSnackbar } = useSnackbar();
-
+ const router = useRouter();
  const {
   data: userInfo = null,
   mutate: getUserInfoMutate,
@@ -24,6 +25,7 @@ export default function AuthCheck({ children }: PropsWithChildren) {
     message: error.response?.data as string,
     variant: 'error',
    });
+   router.push('/');
   },
  });
 

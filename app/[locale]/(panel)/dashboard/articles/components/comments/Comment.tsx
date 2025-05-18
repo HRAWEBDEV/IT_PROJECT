@@ -26,6 +26,7 @@ import { CommentMode } from '../../utils/commentModes';
 import AddComment from './AddComment';
 import EditIcon from '@mui/icons-material/Edit';
 import { type CommentSetting } from '../../utils/commentSetting';
+import { useAuth } from '@/services/auth/authContext';
 
 const buttonStyle = {
  padding: 0,
@@ -60,6 +61,7 @@ export default function Comment({
  onCloseAddComment: () => void;
 } & CommentSetting) {
  const [showMore, setShowMore] = useState(false);
+ const { isLogedIn } = useAuth();
  const isSameComment =
   commentMode === 'reply'
    ? comment.id === selectedParentComment?.id
@@ -74,13 +76,13 @@ export default function Comment({
  const { enqueueSnackbar } = useSnackbar();
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
- //  const dateTimeFormatter = new Intl.DateTimeFormat(locale, {
- //   year: 'numeric',
- //   month: 'long',
- //   day: '2-digit',
- //   hour: '2-digit',
- //   minute: '2-digit',
- //  });
+ const dateTimeFormatter = new Intl.DateTimeFormat(locale, {
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+ });
  const [showConfirm, setShowConfirm] = useState(false);
  const { articlesComments, errorTryAgainLater } = useWebsiteDictionary() as {
   articlesComments: Dic;
@@ -104,7 +106,19 @@ export default function Comment({
    commentStateClass = 'bg-red-700 dark:bg-red-800 text-primary-foreground';
    break;
  }
+ //
+ const canReply =
+  comment.commentStateID !== CommentState.Rejected &&
+  depth < 2 &&
+  comment.childs?.length === 0 &&
+  isLogedIn;
 
+ function handleReply() {
+  setSelectedComment(null);
+  setSelectedParentComment(comment);
+  setCommentMode('reply');
+  handleCloseMenu();
+ }
  //
  const { mutate: deleteComment, isPending: isDeletingComment } = useMutation({
   mutationFn: () => {
@@ -154,40 +168,55 @@ export default function Comment({
 
  return (
   <li>
+   <span className='text-[0.65rem] font-medium'>
+    {dateTimeFormatter.format(new Date(comment.createDateTimeOffset))}
+   </span>
    {isSameComment && commentMode === 'edit' ? null : (
     <div className='rounded-lg bg-neutral-50 dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-700 mb-4'>
      <div className='bg-neutral-200 dark:bg-neutral-800 p-3 py-1 flex justify-between flex-wrap items-center gap-4 min-h-[3rem]'>
       <div>
        <h6 className='font-medium text-base'>{comment.writerUserName}</h6>
-       <p></p>
       </div>
-      {manage && (
-       <div className='flex flex-wrap gap-2 items-center'>
-        <div className={`${commentStateClass} p-1 rounded-lg px-3`}>
-         {comment.commentStateName}
-        </div>
-        <IconButton onClick={handleOpenMenu}>
-         <MoreVertIcon />
-        </IconButton>
-       </div>
-      )}
+      <div className='flex flex-wrap items-center'>
+       {isLogedIn && manage && (
+        <>
+         {manage && (
+          <div className={`${commentStateClass} p-1 rounded-lg px-3 me-4`}>
+           {comment.commentStateName}
+          </div>
+         )}
+         {canReply && (
+          <IconButton onClick={handleReply}>
+           <ReplyIcon color='primary' />
+          </IconButton>
+         )}
+         {manage && (
+          <IconButton onClick={handleOpenMenu}>
+           <MoreVertIcon />
+          </IconButton>
+         )}
+        </>
+       )}
+      </div>
      </div>
-     <p className='p-3 text-neutral-500 dark:text-neutral-200 leading-6'>
-      {visibleComment}
-      {isLongComment && (
-       <Button
-        variant='text'
-        size='small'
-        color={showMore ? 'error' : 'secondary'}
-        sx={buttonStyle}
-        onClick={() => setShowMore(!showMore)}
-       >
-        {showMore
-         ? (articlesComments.showLess as string)
-         : (articlesComments.showMore as string)}
-       </Button>
-      )}
-     </p>
+     <div>
+      <p className='p-3 text-neutral-500 dark:text-neutral-200 leading-6'>
+       {visibleComment}
+       {isLongComment && (
+        <Button
+         variant='text'
+         size='small'
+         color={showMore ? 'error' : 'secondary'}
+         sx={buttonStyle}
+         onClick={() => setShowMore(!showMore)}
+        >
+         {showMore
+          ? (articlesComments.showLess as string)
+          : (articlesComments.showMore as string)}
+        </Button>
+       )}
+      </p>
+     </div>
     </div>
    )}
    <Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
@@ -206,23 +235,14 @@ export default function Comment({
       </div>
      </MenuItem>
     )}
-    {comment.commentStateID !== CommentState.Rejected &&
-     depth < 2 &&
-     comment.childs?.length === 0 && (
-      <MenuItem
-       onClick={() => {
-        setSelectedComment(null);
-        setSelectedParentComment(comment);
-        setCommentMode('reply');
-        handleCloseMenu();
-       }}
-      >
-       <div className='flex items-center gap-2'>
-        <ReplyIcon color='primary' />
-        <span>{articlesComments.reply as string}</span>
-       </div>
-      </MenuItem>
-     )}
+    {canReply && (
+     <MenuItem onClick={handleReply}>
+      <div className='flex items-center gap-2'>
+       <ReplyIcon color='primary' />
+       <span>{articlesComments.reply as string}</span>
+      </div>
+     </MenuItem>
+    )}
     {comment.commentStateID === CommentState.Pending && (
      <MenuItem
       disabled={isChangingCommentState}
