@@ -30,7 +30,7 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
  return (
   <>
    {isFetchingUser || !userInfo ? (
-    <div className='p-4 min-h-[20rem] flex justify-center items-center'>
+    <div className='p-4 min-h-[35rem] flex justify-center items-center'>
      <CircularProgress />
     </div>
    ) : (

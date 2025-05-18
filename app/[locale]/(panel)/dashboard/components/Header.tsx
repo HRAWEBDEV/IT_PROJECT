@@ -13,7 +13,6 @@ import Profile from './profile/Profile';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Language from '@/app/[locale]/(website)/components/language/Language';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
