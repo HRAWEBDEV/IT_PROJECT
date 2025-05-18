@@ -302,7 +302,6 @@ function getBlogStates(props: ApiDefaultProps) {
 }
 
 // blog images
-
 const blogImagesApi = '/blogImages';
 function getBlogImages(props: ApiDefaultProps & { blogID: number }) {
  const params = new URLSearchParams();
@@ -500,6 +499,14 @@ function getUsers<T extends { pagination?: PaginationProps }>(
  });
 }
 
+function updateUserImage(formData: FormData) {
+ return axios.post<string>(usersApi, formData, {
+  headers: {
+   'Content-Type': 'multipart/form-data',
+  },
+ });
+}
+
 function getUser(
  props: ApiDefaultProps & { userID: number }
 ): Promise<AxiosResponse<ResponseShape<{ User: User }>>> {
@@ -510,7 +517,7 @@ function getUser(
  });
 }
 
-function UpdateUser(newUser: User) {
+function updateUser(newUser: User) {
  return axios.put(`${usersApi}`, newUser);
 }
 
@@ -553,6 +560,7 @@ export {
  deleteBlogComment,
  getUsers,
  getUser,
- UpdateUser,
+ updateUserImage,
+ updateUser,
  changeBlogCommentState,
 };

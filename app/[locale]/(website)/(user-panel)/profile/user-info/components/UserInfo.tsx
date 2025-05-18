@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import { GradientButton } from '@/components/Button/GradientButton';
@@ -10,10 +10,15 @@ import { userInfoSchema, type UserInfoSchema } from '../schemas/userInfo';
 import { iranPhoneRegex, phoneNoDigitsCount } from '@/utils/validationRegex';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthCheck } from '@/services/auth/authCheckContext';
-import { UpdateUser } from '@/services/api-actions/globalApiActions';
+import { updateUser } from '@/services/api-actions/globalApiActions';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import AddImage from './AddImage';
+
 export default function UserInfo() {
+ const [showUpdateImage, setShowUpdateImage] = useState(false);
  const { enqueueSnackbar } = useSnackbar();
  const { userInfo, refreshUserInfo } = useAuthCheck();
  const { userPanel, errorTryAgainLater, changesSavedSuccessfully } =
@@ -42,7 +47,7 @@ export default function UserInfo() {
  });
  const cellPhone = watch('cellPhone');
 
- const { mutate: updateUser, isPending: isUpdating } = useMutation({
+ const { mutate: handleUpdateUser, isPending: isUpdating } = useMutation({
   async mutationFn(data: UserInfoSchema) {
    if (!userInfo?.User) return;
    const newUser = {
@@ -52,7 +57,7 @@ export default function UserInfo() {
     cellPhone: data.cellPhone,
     email: data.email,
    };
-   return UpdateUser(newUser);
+   return updateUser(newUser);
   },
   onSuccess: () => {
    enqueueSnackbar(changesSavedSuccessfully, {
@@ -77,8 +82,24 @@ export default function UserInfo() {
  }, [userInfo?.User, setValue]);
 
  return (
-  <div>
+  <div className='mb-8'>
    <h2 className='font-bold text-2xl mb-8'>{userPanel.userInfo as string}</h2>
+   <div className='flex flex-col gap-4 justify-center items-center mb-8'>
+    <Avatar
+     alt='user profile image'
+     src={`${process.env.NEXT_PUBLIC_BASE_URL}${
+      userInfo?.User.profileImage || ''
+     }`}
+     sx={{ height: '14rem', width: '14rem' }}
+    />
+    <Button
+     variant='contained'
+     color='primary'
+     onClick={() => setShowUpdateImage(true)}
+    >
+     {userPanel.changeProfilePicture as string}
+    </Button>
+   </div>
    <form className=''>
     <div className='grid gap-4 grid-cols-2 mb-6'>
      <TextField
@@ -133,7 +154,7 @@ export default function UserInfo() {
       onClick={(e) => {
        e.preventDefault();
        handleSubmit((data) => {
-        updateUser(data);
+        handleUpdateUser(data);
        })();
       }}
      >
@@ -141,6 +162,7 @@ export default function UserInfo() {
      </GradientButton>
     </div>
    </form>
+   <AddImage open={showUpdateImage} onClose={() => setShowUpdateImage(false)} />
   </div>
  );
 }

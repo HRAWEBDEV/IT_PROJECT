@@ -35,6 +35,7 @@
   "lastName": "نام خانوادگی",
   "cellPhone": "شماره تلفن",
   "email": "ایمیل",
-  "updateUserInfo": "بروزرسانی اطلاعات"
+  "updateUserInfo": "بروزرسانی اطلاعات",
+  "changeProfilePicture": "تغییر عکس پروفایل"
  }
 }

@@ -26,9 +26,11 @@ import Projects from './Projects';
 import Language from '../language/Language';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { Tooltip } from '@mui/material';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
 
 export default function Header({ dic }: WithDictionary) {
  const { isLogedIn } = useAuth();
+ const { userInfo } = useAuthCheck();
  const [showServiceOptions, setShowServiceOptions] = useState(false);
  const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
@@ -204,7 +206,13 @@ export default function Header({ dic }: WithDictionary) {
         handleToggleProfile();
        }}
       >
-       <Avatar sx={{ bgcolor: (theme) => theme.palette.primary.main }} />
+       <Avatar
+        alt='user profile image'
+        src={`${process.env.NEXT_PUBLIC_BASE_URL}${
+         userInfo?.User.profileImage || ''
+        }`}
+        sx={{ bgcolor: (theme) => theme.palette.primary.main }}
+       />
       </IconButton>
      ) : (
       <Tooltip title={(dic.navigation as Dic).login as string}>

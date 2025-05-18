@@ -14,10 +14,13 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Language from '@/app/[locale]/(website)/components/language/Language';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Avatar from '@mui/material/Avatar';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
 
 export default function Header() {
+ const { userInfo } = useAuthCheck();
  const { navIsVisible, setNavIsVisible } = useNavigationContext();
  const { mode, changeMode, localeInfo } = useAppConfig();
  const { isLargeDevice } = useAppMonitorConfig();
@@ -83,8 +86,16 @@ export default function Header() {
      >
       <div className='flex items-center'>
        <ArrowDropDownIcon />
-       <span className='pe-2 hidden lg:inline-block'>امیررضا حسینی</span>
-       <AccountCircleIcon fontSize='large' />
+       <span className='pe-2 hidden lg:inline-block'>
+        {userInfo?.User.personFullName}
+       </span>
+       <Avatar
+        alt='user profile image'
+        src={`${process.env.NEXT_PUBLIC_BASE_URL}${
+         userInfo?.User.profileImage || ''
+        }`}
+        sx={{ bgcolor: (theme) => theme.palette.primary.main }}
+       />
       </div>
      </Button>
     </div>
