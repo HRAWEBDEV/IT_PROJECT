@@ -100,7 +100,7 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
    ) : (
     comments.length && (
      <div>
-      {true && (
+      {comments.length > 9 && (
        <div className='mb-4 flex justify-end'>
         <Button
          variant='outlined'
