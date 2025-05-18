@@ -7,6 +7,7 @@ import {
  type Blog,
 } from '@/services/api-actions/globalApiActions';
 import { AppParams } from '@/utils/appParams';
+import NotFoundWrapper from '@/app/[locale]/[...not-found]/components/NotFoundWrapper';
 
 export default async function layout({
  children,
@@ -31,9 +32,15 @@ export default async function layout({
  } catch {}
  return (
   <div>
-   <Banner blog={blog} />
-   {children}
-   <Footer />
+   {blog ? (
+    <>
+     <Banner blog={blog} />
+     {children}
+     <Footer />
+    </>
+   ) : (
+    <NotFoundWrapper />
+   )}
   </div>
  );
 }
