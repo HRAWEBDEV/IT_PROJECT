@@ -22,7 +22,7 @@ export default function Header() {
  const { mode, changeMode, localeInfo } = useAppConfig();
  const { isLargeDevice } = useAppMonitorConfig();
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
-  useQueryToggler('show-profile');
+  useQueryToggler('show-profile', false);
  const { isQueryTrue: isLanguageOpen, handleToggle: handleToggleLanguage } =
   useQueryToggler('show-language');
  const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(

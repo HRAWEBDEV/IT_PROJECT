@@ -32,7 +32,7 @@ export default function Header({ dic }: WithDictionary) {
  const [showServiceOptions, setShowServiceOptions] = useState(false);
  const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
-  useQueryToggler('show-profile');
+  useQueryToggler('show-profile', false);
  const { isQueryTrue: isLanguageOpen, handleToggle: handleToggleLanguage } =
   useQueryToggler('show-language');
  const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(

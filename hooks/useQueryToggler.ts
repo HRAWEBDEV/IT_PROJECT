@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 
-export function useQueryToggler(queryName: string) {
+export function useQueryToggler(queryName: string, goBack: boolean = true) {
  const router = useRouter();
  const searchParams = useSearchParams();
  const pathname = usePathname();
@@ -25,9 +25,12 @@ export function useQueryToggler(queryName: string) {
     router.push(newPath, { scroll: false });
    } else {
     router.replace(newPath, { scroll: false });
+    if (goBack) {
+     router.back();
+    }
    }
   },
-  [isQueryTrue, pathname, queryName, router, searchParams]
+  [isQueryTrue, pathname, queryName, router, searchParams, goBack]
  );
 
  return {
