@@ -18,9 +18,13 @@ export default async function layout({
   locale,
   path: 'layout',
  });
+ const dashboardDic = await getDictionary({
+  locale,
+  path: 'dashboard',
+ });
 
  return (
-  <WebsiteDictionaryProvider dic={dic}>
+  <WebsiteDictionaryProvider dic={{ ...dashboardDic, ...dic }}>
    <NavigationProvider>
     <Header dic={dic} />
     <Main>{children}</Main>

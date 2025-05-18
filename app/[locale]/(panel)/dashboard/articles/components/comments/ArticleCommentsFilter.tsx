@@ -26,7 +26,7 @@ export default function ArticleCommentsFilter({
  return (
   <div className='mb-4 rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 bg-background'>
    {!isLogedIn ? (
-    <p className='text-center font-medium'>
+    <p className='text-center font-medium text-lg'>
      <span>{articlesComments.toReply as string}</span>
      <Link href='/auth'>
       <span className='text-red-800 dark:text-red-600'>

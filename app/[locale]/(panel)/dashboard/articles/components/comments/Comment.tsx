@@ -168,7 +168,7 @@ export default function Comment({
 
  return (
   <li>
-   <span className='text-[0.65rem] font-medium'>
+   <span className='text-[0.7rem] font-medium mb-2'>
     {dateTimeFormatter.format(new Date(comment.createDateTimeOffset))}
    </span>
    {isSameComment && commentMode === 'edit' ? null : (

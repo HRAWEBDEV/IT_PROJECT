@@ -14,6 +14,7 @@ export default async function layout({
  params,
 }: PropsWithChildren<{ params: Promise<AppParams & { name: string }> }>) {
  const { locale, name } = await params;
+
  let blog: Blog | null = null;
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
