@@ -1,6 +1,7 @@
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import GroupsIcon from '@mui/icons-material/Groups';
+import { type WithDictionary } from '@/localization/locales';
 
 const whyUs = [
  {
@@ -33,13 +34,13 @@ const whyUs = [
  },
 ];
 
-export default function WhyUs() {
+export default function WhyUs({ dic }: WithDictionary) {
  return (
   <section id='services' className='mb-14'>
    <div className='container'>
     <div className='text-center mb-12'>
      <div className='pb-2 mb-2 relative after:content-[""] before:content-[""] after:absolute after:start-[50%] after:bottom-0 after:w-[10rem] after:translate-x-[50%] after:h-[4px] after:bg-neutral-400 before:absolute before:start-[50%] before:bottom-[1px] before:w-[15rem] before:translate-x-[50%] before:h-[2px] before:bg-neutral-400 after:rounded-3xl before:rounded-3xl'>
-      <h2 className='text-2xl font-bold lg:text-3xl'>چـــــرا ما</h2>
+      <h2 className='text-2xl font-bold lg:text-3xl'>{dic.whyUs as string}</h2>
      </div>
     </div>
    </div>

@@ -1,8 +1,16 @@
 {
  "title": "اخبار و مقــاله‌ها",
+ "description": "اخبار و مقاله‌ها",
  "search": "جستجو",
  "categories": "دسته‌بندی‌ها",
  "show": "نمایش",
  "continue": "ادامه مطالب",
- "noItemFound": "هیچ مقاله‌ای یافت نشد"
+ "noItemFound": "هیچ مقاله‌ای یافت نشد",
+ "whyUs": "چرا ما ؟",
+ "professional": "تیم مجرب و متخصص",
+ "quality": "کیفیت",
+ "onlineSupport": "پشتیبانی آنلاین",
+ "improvePerformance": "بهبود عملکرد",
+ "tags": "تـــگ‌ها",
+ "publishedAt": "تاریخ انتشار: "
 }

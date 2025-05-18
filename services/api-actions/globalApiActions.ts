@@ -32,6 +32,10 @@ type Tag = {
  tagTypeID: number;
  tagTypeName: string;
 };
+type BlogTag = {
+ tagID: number;
+ tagName: string;
+};
 type BlogCategory = {
  id: number;
  name: string;
@@ -205,11 +209,12 @@ function getBlogTags(
  if (props.searchText) {
   params.append('searchText', props.searchText);
  }
- return axios.get<
-  ResponseShape<{ BlogTags: { tagID: number; tagName: string }[] }>
- >(`${getBlogTagsApi}?${params.toString()}`, {
-  signal: props.signal,
- });
+ return axios.get<ResponseShape<{ BlogTags: BlogTag[] }>>(
+  `${getBlogTagsApi}?${params.toString()}`,
+  {
+   signal: props.signal,
+  }
+ );
 }
 // blog comments
 const blogCommentsApi = '/blogComments';
@@ -518,6 +523,7 @@ export {
  type PaginationProps,
  type BlogComment,
  type User,
+ type BlogTag,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -532,6 +538,7 @@ export {
  updateBlog,
  getBlogImages,
  createBlogImage,
+ getBlogTagsApi,
  getBlogTags,
  patchBlog,
  blogsApi,
