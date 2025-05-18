@@ -69,7 +69,7 @@
   "comments": "نظرات"
  },
  "articlesComments": {
-  "title": "نظرات اخبار و مقاله‌ها",
+  "title": "نظرات",
   "deleteCommentConfirmation": "آیا از حذف این نظر اطمینان دارید؟",
   "noItemFound": "هیچ آیتمی یافت نشد",
   "commentState": "وضعیت",
@@ -83,6 +83,8 @@
   "addComment": "افزودن نظر",
   "reply": "پاسخ",
   "edit": "ویرایش",
+  "showMore": "نمایش بیشتر",
+  "showLess": "نمایش کمتر",
   "addCommentPlaceholder": "نظر خود را اینجا بنویسید"
  }
 }

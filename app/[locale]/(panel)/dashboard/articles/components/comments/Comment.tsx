@@ -7,6 +7,7 @@ import {
 import CommentList from './CommentList';
 import { CommentState } from '../../utils/CommentState';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -24,6 +25,14 @@ import ReplyIcon from '@mui/icons-material/Reply';
 import { CommentMode } from '../../utils/commentModes';
 import AddComment from './AddComment';
 import EditIcon from '@mui/icons-material/Edit';
+
+const buttonStyle = {
+ padding: 0,
+ paddingInline: '1rem',
+ fontSize: '0.75rem',
+};
+
+const clipTextLength = 200;
 
 export default function Comment({
  comment,
@@ -48,10 +57,18 @@ export default function Comment({
  setCommentMode: (mode: CommentMode) => void;
  onCloseAddComment: () => void;
 }) {
+ const [showMore, setShowMore] = useState(false);
  const isSameComment =
   commentMode === 'reply'
    ? comment.id === selectedParentComment?.id
    : selectedComment?.id === comment.id;
+ const isLongComment = comment.comment.length > clipTextLength;
+ const visibleComment = isLongComment
+  ? showMore
+    ? comment.comment
+    : comment.comment.slice(0, clipTextLength) + ' ...'
+  : comment.comment;
+
  const { enqueueSnackbar } = useSnackbar();
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
@@ -151,9 +168,22 @@ export default function Comment({
        </IconButton>
       </div>
      </div>
-     <div className='p-3 text-neutral-500 dark:text-neutral-200'>
-      {comment.comment}
-     </div>
+     <p className='p-3 text-neutral-500 dark:text-neutral-200 leading-6'>
+      {visibleComment}
+      {isLongComment && (
+       <Button
+        variant='text'
+        size='small'
+        color={showMore ? 'error' : 'secondary'}
+        sx={buttonStyle}
+        onClick={() => setShowMore(!showMore)}
+       >
+        {showMore
+         ? (articlesComments.showLess as string)
+         : (articlesComments.showMore as string)}
+       </Button>
+      )}
+     </p>
     </div>
    )}
    <Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
