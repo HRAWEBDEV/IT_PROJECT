@@ -36,8 +36,9 @@ async function middleware(request: NextRequest) {
    );
    if (userInfo.ok) {
     const userInfoData = (await userInfo.json()) as ResponseShape<UserInfo>;
-    if (userInfoData.payload.HasDashboard) return;
-    return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));
+    if (!userInfoData.payload.HasDashboard) {
+     return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));
+    }
    }
   } catch {
    return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));

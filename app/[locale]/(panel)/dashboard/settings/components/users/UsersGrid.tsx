@@ -1,7 +1,13 @@
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
-import { DataGrid, GridPaginationModel } from '@mui/x-data-grid';
+import {
+ DataGrid,
+ GridPaginationModel,
+ GridActionsCellItem,
+} from '@mui/x-data-grid';
 import { type User } from '@/services/api-actions/globalApiActions';
+import CheckIcon from '@mui/icons-material/Check';
+import KeyIcon from '@mui/icons-material/Key';
 
 type Props = {
  usersList: User[];
@@ -41,7 +47,7 @@ export default function UsersGrid({
     columns={[
      {
       field: 'userName',
-      headerName: users.username as string,
+      headerName: users.userName as string,
       minWidth: 150,
      },
      {
@@ -65,6 +71,53 @@ export default function UsersGrid({
       field: 'phone',
       headerName: users.phone as string,
       minWidth: 250,
+     },
+     {
+      field: 'verified',
+      headerName: users.verfied as string,
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell({ value }) {
+       return value ? <CheckIcon color='secondary' /> : '---';
+      },
+     },
+     {
+      field: 'blackList',
+      headerName: users.blackList as string,
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell({ value }) {
+       return value ? <CheckIcon color='error' /> : '---';
+      },
+     },
+     {
+      field: 'disabled',
+      headerName: users.disabled as string,
+      width: 100,
+      headerAlign: 'center',
+      align: 'center',
+      renderCell({ value }) {
+       return value ? <CheckIcon color='warning' /> : '---';
+      },
+     },
+     {
+      type: 'actions',
+      field: 'actions',
+      headerAlign: 'center',
+      align: 'center',
+      headerName: users.actions as string,
+      getActions() {
+       return [
+        <GridActionsCellItem
+         key={'edit'}
+         label={users.access as string}
+         icon={<KeyIcon color='warning' />}
+         showInMenu
+        />,
+       ];
+      },
      },
     ]}
    />
