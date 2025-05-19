@@ -23,6 +23,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import Chip from '@mui/material/Chip';
 
 type Props = {
  open: boolean;
@@ -32,6 +33,9 @@ type Props = {
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
+
+// fix options of roles
+const fixedOptions = [1, 2];
 
 export default function AddTag({ open, onClose, user }: Props) {
  const [userRoles, setUserRoles] = useState<Role[]>([]);
@@ -103,6 +107,7 @@ export default function AddTag({ open, onClose, user }: Props) {
    <DialogContent dividers>
     <Autocomplete
      multiple
+     getOptionDisabled={(option) => fixedOptions.includes(option.id)}
      loading={isLoadingRoles || isLoadingUserRoles}
      size='small'
      isOptionEqualToValue={(option, value) => option.id === value.id}
@@ -111,6 +116,19 @@ export default function AddTag({ open, onClose, user }: Props) {
      options={roles}
      onChange={(_, newValue) => {
       setUserRoles(newValue);
+     }}
+     renderTags={(value, getTagProps) => {
+      return value.map((option, index) => {
+       const { key, ...tagProps } = getTagProps({ index });
+       return (
+        <Chip
+         key={key}
+         label={option.name}
+         {...tagProps}
+         disabled={fixedOptions.includes(option.id)}
+        />
+       );
+      });
      }}
      renderInput={(params) => (
       <TextField {...params} label={users.access as string} />
