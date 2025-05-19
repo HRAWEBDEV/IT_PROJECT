@@ -8,6 +8,7 @@ import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { type Blog } from '@/services/api-actions/globalApiActions';
+import ImageWrapper from '@/components/ImageWrapper';
 
 const dateFormatter = new Intl.DateTimeFormat('fa', {
  year: 'numeric',
@@ -43,14 +44,20 @@ export default function Articles({ dic, serverBlogs }: Props) {
         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
        >
         <div className='shrink-0 rounded-lg overflow-hidden h-[14rem] lg:w-[12rem] lg:h-[10rem]'>
-         <img
-          style={{
-           transition: 'transform 0.3s ease',
+         <ImageWrapper
+          img={{
+           style: {
+            transition: 'transform 0.3s ease',
+           },
+           loading: 'lazy',
+           className:
+            'h-full w-full object-cover object-center brightness-90 group-hover:scale-105',
+           src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
+           alt: 'services imageg',
           }}
-          loading='lazy'
-          className='h-full w-full object-cover object-center brightness-90 group-hover:scale-105'
-          src='/services/security-camera-installation.jpg'
-          alt='services imageg'
+          wrapper={{
+           className: 'h-full w-full',
+          }}
          />
         </div>
         <div className='flex-grow'>
