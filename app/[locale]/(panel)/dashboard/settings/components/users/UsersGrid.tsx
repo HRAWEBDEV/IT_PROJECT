@@ -63,8 +63,8 @@ export default function UsersGrid({
     disabled,
     blackList,
    }: {
-    disabled: boolean;
-    blackList: boolean;
+    disabled?: boolean;
+    blackList?: boolean;
    }) {
     return changeUserState({
      userID: selectedUser!.personID,
@@ -232,14 +232,11 @@ export default function UsersGrid({
      setSelectedUser(null);
     }}
     onConfirm={() => {
-     let disabled = selectedUser!.disabled;
-     let blackList = selectedUser!.blackList;
      if (stateAction === 'disabled') {
-      disabled = !disabled;
+      changeUserStateMutate({ disabled: !selectedUser!.disabled });
      } else {
-      blackList = !blackList;
+      changeUserStateMutate({ blackList: !selectedUser!.blackList });
      }
-     changeUserStateMutate({ disabled, blackList });
     }}
    />
   </div>

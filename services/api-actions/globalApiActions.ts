@@ -523,13 +523,17 @@ function updateUser(newUser: User) {
 
 function changeUserState(props: {
  userID: number;
- disabled: boolean;
- blackList: boolean;
+ disabled?: boolean;
+ blackList?: boolean;
 }) {
  const params = new URLSearchParams();
  params.append('userID', props.userID.toString());
- params.append('disabled', props.disabled.toString());
- params.append('blackList', props.blackList.toString());
+ if (props.disabled !== undefined) {
+  params.append('disabled', props.disabled.toString());
+ }
+ if (props.blackList !== undefined) {
+  params.append('blackList', props.blackList.toString());
+ }
  return axios.patch(`/Users/UserStateChanger?${params.toString()}`);
 }
 export {
