@@ -7,7 +7,8 @@ import {
 } from '@mui/x-data-grid';
 import { type User } from '@/services/api-actions/globalApiActions';
 import CheckIcon from '@mui/icons-material/Check';
-import KeyIcon from '@mui/icons-material/Key';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 
 type Props = {
  usersList: User[];
@@ -113,7 +114,13 @@ export default function UsersGrid({
         <GridActionsCellItem
          key={'edit'}
          label={users.access as string}
-         icon={<KeyIcon color='warning' />}
+         icon={<ManageAccountsIcon color='warning' />}
+         showInMenu
+        />,
+        <GridActionsCellItem
+         key={'edit'}
+         label={users.changeState as string}
+         icon={<ChangeCircleIcon color='error' />}
          showInMenu
         />,
        ];
