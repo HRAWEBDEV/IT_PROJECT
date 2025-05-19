@@ -3,6 +3,7 @@
  "deleteItemConfirmation": "آیا از حذف این آیتم اطمینان دارید؟",
  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
  "changesSavedSuccessfully": "عملیات با موفقیت انجام شد",
+ "noItemsFound": "هیچ آیتمی یافت نشد",
  "cancel": "انصراف",
  "confirm": "تایید",
  "profile": {
@@ -95,6 +96,13 @@
   "search": "جستجو",
   "verfied": "تایید شده",
   "disabled": "غیرفعال",
-  "blackList": "لیست سیاه"
+  "blackList": "لیست سیاه",
+  "userName": "نام کاربری",
+  "firstname": "نام",
+  "lastname": "نام خانوادگی",
+  "email": "ایمیل",
+  "phone": "شماره تلفن",
+  "actions": "عملیات",
+  "role": "نقش"
  }
 }

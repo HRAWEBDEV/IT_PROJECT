@@ -6,7 +6,7 @@ import { type Dic } from '@/localization/locales';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import Switch from '@mui/material/Switch';
+import Checkbox from '@mui/material/Checkbox';
 
 type Props = {
  test: string;
@@ -43,7 +43,7 @@ export default function UsersFilters({}: Props) {
     name='disabled'
     render={({ field }) => (
      <FormControlLabel
-      control={<Switch {...field} />}
+      control={<Checkbox {...field} checked={field.value} />}
       label={users.disabled as string}
      />
     )}
@@ -53,7 +53,7 @@ export default function UsersFilters({}: Props) {
     name='blackList'
     render={({ field }) => (
      <FormControlLabel
-      control={<Switch {...field} />}
+      control={<Checkbox {...field} checked={field.value} />}
       label={users.blackList as string}
      />
     )}
@@ -63,7 +63,7 @@ export default function UsersFilters({}: Props) {
     name='verified'
     render={({ field }) => (
      <FormControlLabel
-      control={<Switch {...field} />}
+      control={<Checkbox {...field} checked={field.value} />}
       label={users.verfied as string}
      />
     )}

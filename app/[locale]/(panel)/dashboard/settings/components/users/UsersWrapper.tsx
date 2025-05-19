@@ -14,6 +14,7 @@ import {
  type UsersFiltersSchema,
  usersFiltersSchema,
 } from '../../schemas/usersFilters';
+import { useDebounceValue } from '@/hooks/useDebounceValue';
 
 export default function UsersWrapper() {
  const usersFilters = useForm<UsersFiltersSchema>({
@@ -39,17 +40,28 @@ export default function UsersWrapper() {
   pageSize: 10,
  });
  const { locale } = useAppConfig();
- const { users } = useWebsiteDictionary() as { users: Dic };
+ const { users, noItemsFound } = useWebsiteDictionary() as {
+  users: Dic;
+  noItemsFound: string;
+ };
+ const debouncedSearch = useDebounceValue(search, 300);
 
  const { data: usersList = [], isLoading } = useQuery({
-  queryKey: ['users', pagination.page, search, disabled, verified, blackList],
+  queryKey: [
+   'users',
+   pagination.page,
+   debouncedSearch,
+   disabled,
+   verified,
+   blackList,
+  ],
   async queryFn({ signal }) {
    const usersPackage = await getUsers({
     locale,
     signal,
     blackList,
     disabled,
-    searchText: search,
+    searchText: debouncedSearch,
     verified,
     pagination: {
      limit: pagination.pageSize,
@@ -60,13 +72,28 @@ export default function UsersWrapper() {
    return usersPackage.rows;
   },
  });
+ console.log(usersList);
 
  return (
   <section>
    <h2 className='font-bold text-2xl mb-4'>{users.title as string}</h2>
    <FormProvider {...usersFilters}>
     <UsersFilters test='test' />
-    <UsersGrid />
+    {true ? (
+     <UsersGrid
+      usersList={usersList}
+      isLoading={isLoading}
+      pagination={pagination}
+      setPagination={setPagination}
+      rowsCount={rowsCount}
+     />
+    ) : (
+     <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
+      <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
+       {noItemsFound as string}
+      </p>
+     </div>
+    )}
    </FormProvider>
   </section>
  );
