@@ -11,10 +11,10 @@ export default function DashboardWrapper({ children }: PropsWithChildren) {
  const { userInfo, isFetchingUser } = useAuthCheck();
  const router = useRouter();
  useEffect(() => {
-  if (!isLogedIn) {
+  if (!isLogedIn || (userInfo && !userInfo.HasDashboard)) {
    router.push('/');
   }
- }, [isLogedIn, router]);
+ }, [isLogedIn, router, userInfo]);
 
  return (
   <div>
