@@ -147,10 +147,6 @@ export default function AddTag({ open, onClose, user }: Props) {
      type='submit'
      loading={isUpdatingUserRole}
      onClick={() => {
-      if (userRoles.length === 0) {
-       onClose();
-       return;
-      }
       updateUserRoleMutate(
        userRoles.map((item) => ({
         userID: user.personID,
