@@ -3,6 +3,7 @@
  "deleteItemConfirmation": "آیا از حذف این آیتم اطمینان دارید؟",
  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
  "changesSavedSuccessfully": "عملیات با موفقیت انجام شد",
+ "actionConfirmMessage": "آیا از این عملیات اطمینان دارید؟",
  "noItemsFound": "هیچ آیتمی یافت نشد",
  "cancel": "انصراف",
  "confirm": "تایید",

@@ -530,7 +530,7 @@ function changeUserState(props: {
  params.append('userID', props.userID.toString());
  params.append('disabled', props.disabled.toString());
  params.append('blackList', props.blackList.toString());
- return axios.patch(`${usersApi}?${params.toString()}`);
+ return axios.patch(`/Users/UserStateChanger?${params.toString()}`);
 }
 export {
  type ResponseShape,
