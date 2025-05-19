@@ -521,6 +521,17 @@ function updateUser(newUser: User) {
  return axios.put(`${usersApi}`, newUser);
 }
 
+function changeUserState(props: {
+ userID: number;
+ disabled: boolean;
+ blackList: boolean;
+}) {
+ const params = new URLSearchParams();
+ params.append('userID', props.userID.toString());
+ params.append('disabled', props.disabled.toString());
+ params.append('blackList', props.blackList.toString());
+ return axios.patch(`${usersApi}?${params.toString()}`);
+}
 export {
  type ResponseShape,
  type TagCategory,
@@ -563,4 +574,5 @@ export {
  updateUserImage,
  updateUser,
  changeBlogCommentState,
+ changeUserState,
 };

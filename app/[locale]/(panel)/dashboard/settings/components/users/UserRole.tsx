@@ -47,18 +47,19 @@ export default function AddTag({ open, onClose, user }: Props) {
    users: Dic;
   };
 
- const { data: roles = [], isLoading: isLoadingRoles } = useQuery({
-  queryKey: ['roles'],
+ const { data: roles, isLoading: isLoadingRoles } = useQuery({
+  queryKey: ['all-roles', user.personID],
   queryFn: ({ signal }) =>
    getRoles({ signal }).then((res) => res.data.payload.Roles),
  });
 
  const { isLoading: isLoadingUserRoles } = useQuery({
   queryKey: ['userRoles', user.personID],
+  enabled: !!roles,
   queryFn: ({ signal }) =>
    getUserRoles({ signal, userID: user.personID }).then((res) => {
     const userRoles = res.data.payload.UserRoles;
-    const selectedRoles = roles.filter((item) =>
+    const selectedRoles = roles!.filter((item) =>
      userRoles.some((role) => role.roleID === item.id)
     );
     setUserRoles(selectedRoles);
@@ -113,7 +114,7 @@ export default function AddTag({ open, onClose, user }: Props) {
      isOptionEqualToValue={(option, value) => option.id === value.id}
      getOptionLabel={(option) => option.name}
      value={userRoles}
-     options={roles}
+     options={roles || []}
      onChange={(_, newValue) => {
       setUserRoles(newValue);
      }}
@@ -165,10 +166,6 @@ export default function AddTag({ open, onClose, user }: Props) {
      type='submit'
      loading={isUpdatingUserRole}
      onClick={() => {
-      if (userRoles.length === 0) {
-       onClose();
-       return;
-      }
       updateUserRoleMutate(
        userRoles.map((item) => ({
         userID: user.personID,
