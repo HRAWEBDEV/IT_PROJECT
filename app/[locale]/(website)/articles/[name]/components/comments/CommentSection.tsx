@@ -98,7 +98,7 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
      <CircularProgress />
     </div>
    ) : (
-    comments.length && (
+    !!comments.length && (
      <div>
       {comments.length > 9 && (
        <div className='mb-4 flex justify-end'>
