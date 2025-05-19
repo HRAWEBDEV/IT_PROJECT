@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
  getRoles,
  getUserRoles,
@@ -38,6 +38,7 @@ const checkedIcon = <CheckBoxIcon fontSize='small' />;
 const fixedOptions = [1, 2];
 
 export default function AddTag({ open, onClose, user }: Props) {
+ const queryClient = useQueryClient();
  const [userRoles, setUserRoles] = useState<Role[]>([]);
  const { enqueueSnackbar } = useSnackbar();
  const { users, changesSavedSuccessfully, errorTryAgainLater } =
@@ -49,22 +50,19 @@ export default function AddTag({ open, onClose, user }: Props) {
 
  const { data: roles, isLoading: isLoadingRoles } = useQuery({
   queryKey: ['all-roles', user.personID],
-  queryFn: ({ signal }) =>
-   getRoles({ signal }).then((res) => res.data.payload.Roles),
- });
-
- const { isLoading: isLoadingUserRoles } = useQuery({
-  queryKey: ['userRoles', user.personID],
-  enabled: !!roles,
-  queryFn: ({ signal }) =>
-   getUserRoles({ signal, userID: user.personID }).then((res) => {
-    const userRoles = res.data.payload.UserRoles;
-    const selectedRoles = roles!.filter((item) =>
-     userRoles.some((role) => role.roleID === item.id)
-    );
-    setUserRoles(selectedRoles);
-    return selectedRoles;
-   }),
+  async queryFn({ signal }) {
+   const roles = await getRoles({ signal }).then(
+    (res) => res.data.payload.Roles
+   );
+   const userRoles = await getUserRoles({ signal, userID: user.personID }).then(
+    (res) => res.data.payload.UserRoles
+   );
+   const selectedRoles = roles!.filter((item) =>
+    userRoles.some((role) => role.roleID === item.id)
+   );
+   setUserRoles(selectedRoles);
+   return roles;
+  },
  });
 
  const { mutate: updateUserRoleMutate, isPending: isUpdatingUserRole } =
@@ -72,6 +70,7 @@ export default function AddTag({ open, onClose, user }: Props) {
    mutationFn: (newRole: { userID: number; roleID: number }[]) =>
     updateUserRole(newRole),
    onSuccess() {
+    queryClient.invalidateQueries({ queryKey: ['all-roles', user.personID] });
     enqueueSnackbar({
      message: changesSavedSuccessfully,
      variant: 'success',
@@ -109,7 +108,7 @@ export default function AddTag({ open, onClose, user }: Props) {
     <Autocomplete
      multiple
      getOptionDisabled={(option) => fixedOptions.includes(option.id)}
-     loading={isLoadingRoles || isLoadingUserRoles}
+     loading={isLoadingRoles}
      size='small'
      isOptionEqualToValue={(option, value) => option.id === value.id}
      getOptionLabel={(option) => option.name}
