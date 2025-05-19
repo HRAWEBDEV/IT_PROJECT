@@ -15,7 +15,8 @@
   "tags": "تگ ها",
   "articles": "اخبار و مقــاله‌ها",
   "articlesCategories": "دسته بندی اخبار و مقاله‌ها",
-  "articlesList": "لیست اخبار و مقاله‌ها"
+  "articlesList": "لیست اخبار و مقاله‌ها",
+  "users": "کاربران"
  },
  "tags": {
   "title": "تگ‌هـــا",
@@ -88,5 +89,12 @@
   "addCommentPlaceholder": "نظر خود را اینجا بنویسید",
   "logIn": "وارد شوید",
   "toReply": "برای ثبت دیدگاه ابتدا "
+ },
+ "users": {
+  "title": "کاربران",
+  "search": "جستجو",
+  "verfied": "تایید شده",
+  "disabled": "غیرفعال",
+  "blackList": "لیست سیاه"
  }
 }

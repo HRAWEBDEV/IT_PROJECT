@@ -1,0 +1,73 @@
+import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
+import { Controller, useFormContext } from 'react-hook-form';
+import { type UsersFiltersSchema } from '../../schemas/usersFilters';
+import SearchIcon from '@mui/icons-material/Search';
+import { type Dic } from '@/localization/locales';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import Switch from '@mui/material/Switch';
+
+type Props = {
+ test: string;
+};
+
+export default function UsersFilters({}: Props) {
+ const { control, register } = useFormContext<UsersFiltersSchema>();
+ const { users } = useWebsiteDictionary() as {
+  users: Dic;
+ };
+
+ return (
+  <form
+   onSubmit={(e) => e.preventDefault()}
+   className='bg-background grid lg:items-center lg:grid-cols-[repeat(1,minmax(0,20rem))_repeat(3,max-content)]  border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 mb-4 gap-4'
+  >
+   <TextField
+    {...register('search')}
+    size='small'
+    label={users.search as string}
+    type='search'
+    slotProps={{
+     input: {
+      endAdornment: (
+       <InputAdornment position='end' className='-me-2'>
+        <SearchIcon color='primary' />
+       </InputAdornment>
+      ),
+     },
+    }}
+   />
+   <Controller
+    control={control}
+    name='disabled'
+    render={({ field }) => (
+     <FormControlLabel
+      control={<Switch {...field} />}
+      label={users.disabled as string}
+     />
+    )}
+   />
+   <Controller
+    control={control}
+    name='blackList'
+    render={({ field }) => (
+     <FormControlLabel
+      control={<Switch {...field} />}
+      label={users.blackList as string}
+     />
+    )}
+   />
+   <Controller
+    control={control}
+    name='verified'
+    render={({ field }) => (
+     <FormControlLabel
+      control={<Switch {...field} />}
+      label={users.verfied as string}
+     />
+    )}
+   />
+  </form>
+ );
+}
