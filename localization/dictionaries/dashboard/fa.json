@@ -104,6 +104,8 @@
   "phone": "شماره تلفن",
   "actions": "عملیات",
   "access": "دسترسی‌ها",
-  "changeState": "تغییر وضعیت"
+  "changeState": "تغییر وضعیت",
+  "confirm": "تایید",
+  "cancel": "انصراف"
  }
 }

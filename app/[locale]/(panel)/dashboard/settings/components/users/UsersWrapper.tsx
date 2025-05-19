@@ -3,7 +3,7 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import UsersGrid from './UsersGrid';
 import UsersFilters from './UsersFilters';
-import { getUsers } from '@/services/api-actions/globalApiActions';
+import { getUsers, type User } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useQuery } from '@tanstack/react-query';
 import { GridPaginationModel } from '@mui/x-data-grid';
@@ -15,8 +15,11 @@ import {
  usersFiltersSchema,
 } from '../../schemas/usersFilters';
 import { useDebounceValue } from '@/hooks/useDebounceValue';
+import UserRole from './UserRole';
 
 export default function UsersWrapper() {
+ const [showUserRole, setShowUserRole] = useState(false);
+ const [selectedUser, setSelectedUser] = useState<User | null>(null);
  const usersFilters = useForm<UsersFiltersSchema>({
   resolver: zodResolver(usersFiltersSchema),
   defaultValues: {
@@ -72,20 +75,22 @@ export default function UsersWrapper() {
    return usersPackage.rows;
   },
  });
- console.log(usersList);
 
  return (
   <section>
    <h2 className='font-bold text-2xl mb-4'>{users.title as string}</h2>
    <FormProvider {...usersFilters}>
     <UsersFilters test='test' />
-    {true ? (
+    {usersList.length > 0 ? (
      <UsersGrid
       usersList={usersList}
       isLoading={isLoading}
       pagination={pagination}
       setPagination={setPagination}
       rowsCount={rowsCount}
+      selectedUser={selectedUser}
+      setShowUserRole={setShowUserRole}
+      setSelectedUser={setSelectedUser}
      />
     ) : (
      <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
@@ -95,6 +100,13 @@ export default function UsersWrapper() {
      </div>
     )}
    </FormProvider>
+   {showUserRole && selectedUser && (
+    <UserRole
+     open={showUserRole}
+     user={selectedUser}
+     onClose={() => setShowUserRole(false)}
+    />
+   )}
   </section>
  );
 }

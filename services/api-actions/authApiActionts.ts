@@ -11,10 +11,14 @@ type UserInfo = {
  HasDashboard: boolean;
  RoleAccesses: [];
 };
-
+type RoleAccesses = unknown[];
+type Role = {
+ id: number;
+ name: string;
+};
 type Auth = {
  Token: string;
- RoleAccesses: [];
+ RoleAccesses: RoleAccesses;
 };
 
 function registerUser({ cellPhone }: { cellPhone: string }) {
@@ -39,5 +43,46 @@ function login({ userID, verifyCode }: { userID: number; verifyCode: string }) {
 function getUserInfo({ signal }: { signal?: AbortSignal }) {
  return axios.get<ResponseShape<UserInfo>>(getUserInfoApi, { signal });
 }
+//
+const userRoleApi = '/UserRoles';
 
-export { type UserInfo, registerUser, login, getUserInfo, getUserInfoApi };
+function getUserRoles({
+ signal,
+ userID,
+}: {
+ signal?: AbortSignal;
+ userID: number;
+}) {
+ const params = new URLSearchParams({
+  userID: userID.toString(),
+ });
+ return axios.get<
+  ResponseShape<{ UserRoles: { userID: number; roleID: number }[] }>
+ >(`${userRoleApi}?${params.toString()}`, { signal });
+}
+
+function updateUserRole(newRole: { userID: number; roleID: number }[]) {
+ return axios.post(userRoleApi, newRole);
+}
+//
+const roleApi = '/Roles';
+function getRoles({ signal }: { signal?: AbortSignal }) {
+ return axios.get<
+  ResponseShape<{
+   Roles: Role[];
+  }>
+ >(roleApi, { signal });
+}
+
+export {
+ type UserInfo,
+ type RoleAccesses,
+ type Role,
+ registerUser,
+ login,
+ getUserInfo,
+ getUserInfoApi,
+ getUserRoles,
+ updateUserRole,
+ getRoles,
+};

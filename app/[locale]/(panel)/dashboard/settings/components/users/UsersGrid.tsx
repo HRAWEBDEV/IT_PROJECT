@@ -15,6 +15,9 @@ type Props = {
  isLoading: boolean;
  pagination: GridPaginationModel;
  rowsCount: number;
+ selectedUser: User | null;
+ setShowUserRole: (showUserRole: boolean) => void;
+ setSelectedUser: (selectedUser: User | null) => void;
  setPagination: (pagination: GridPaginationModel) => void;
 };
 
@@ -24,6 +27,8 @@ export default function UsersGrid({
  pagination,
  setPagination,
  rowsCount,
+ setSelectedUser,
+ setShowUserRole,
 }: Props) {
  const { users } = useWebsiteDictionary() as {
   users: Dic;
@@ -109,12 +114,16 @@ export default function UsersGrid({
       headerAlign: 'center',
       align: 'center',
       headerName: users.actions as string,
-      getActions() {
+      getActions({row}) {
        return [
         <GridActionsCellItem
          key={'edit'}
          label={users.access as string}
          icon={<ManageAccountsIcon color='warning' />}
+         onClick={() => {
+          setSelectedUser(row as User);
+          setShowUserRole(true);
+         }}
          showInMenu
         />,
         <GridActionsCellItem
