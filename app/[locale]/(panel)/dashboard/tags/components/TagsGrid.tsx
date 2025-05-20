@@ -15,6 +15,7 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import { useAccessContext } from '../../services/access/accessContext';
 
 type Props = {
  tagsList: Tag[];
@@ -41,6 +42,7 @@ export default function TagsGrid({
  filterModel,
  setFilterModel,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const {
   tags,
   deleteItemConfirmation,
@@ -129,29 +131,38 @@ export default function TagsGrid({
       align: 'center',
       headerName: tags.actions as string,
       getActions({ row }) {
-       return [
-        <GridActionsCellItem
-         key={'edit'}
-         label={tags.editTag as string}
-         icon={<EditIcon color='secondary' />}
-         onClick={() => {
-          setSelectedTag(row);
-          setOpenAddTag();
-         }}
-         showInMenu
-        />,
-        <GridActionsCellItem
-         key={'remove'}
-         disabled={isPending}
-         label={tags.deleteTag as string}
-         icon={<DeleteIcon color='error' />}
-         onClick={() => {
-          setSelectedTag(row);
-          setOpenConfirm(true);
-         }}
-         showInMenu
-        />,
-       ];
+       const actions = [];
+       if (roleAccess.update) {
+        actions.push(
+         <GridActionsCellItem
+          key={'edit'}
+          disabled={!roleAccess.update}
+          label={tags.editTag as string}
+          icon={<EditIcon color='secondary' />}
+          onClick={() => {
+           setSelectedTag(row);
+           setOpenAddTag();
+          }}
+          showInMenu
+         />
+        );
+       }
+       if (roleAccess.remove) {
+        actions.push(
+         <GridActionsCellItem
+          key={'remove'}
+          disabled={isPending || !roleAccess.remove}
+          label={tags.deleteTag as string}
+          icon={<DeleteIcon color='error' />}
+          onClick={() => {
+           setSelectedTag(row);
+           setOpenConfirm(true);
+          }}
+          showInMenu
+         />
+        );
+       }
+       return actions;
       },
      },
     ]}

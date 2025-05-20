@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { Controller, useFormContext } from 'react-hook-form';
 import { type FilterSchema } from '../schemas/filtersSchema';
 import { type TagCategory } from '@/services/api-actions/globalApiActions';
+import { useAccessContext } from '../../services/access/accessContext';
 
 type Props = {
  setOpenAddTag: () => void;
@@ -18,6 +19,7 @@ export default function TagsFilters({
  isLoadingCategories,
  setOpenAddTag,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const { tags } = useWebsiteDictionary() as {
   tags: Dic;
  };
@@ -49,9 +51,11 @@ export default function TagsFilters({
      />
     )}
    />
-   <Button variant='outlined' color='secondary' onClick={setOpenAddTag}>
-    {tags.addTag as string}
-   </Button>
+   {roleAccess.write && (
+    <Button variant='outlined' color='secondary' onClick={setOpenAddTag}>
+     {tags.addTag as string}
+    </Button>
+   )}
   </form>
  );
 }

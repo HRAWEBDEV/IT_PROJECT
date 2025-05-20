@@ -16,8 +16,11 @@ import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
 import TagsGrid from './TagsGrid';
 import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
 import AddTag from './AddTag';
+import { useAccessContext } from '../../services/access/accessContext';
+import NoAccessGranted from '../../components/NoAccessGranted';
 
 export default function TagsWrapper() {
+ const { roleAccess } = useAccessContext();
  const [filterModel, setFilterModel] = useState<GridFilterModel>({
   items: [],
  });
@@ -93,36 +96,42 @@ export default function TagsWrapper() {
  });
 
  return (
-  <div>
-   <h1 className='font-bold text-2xl mb-4'>{tags.title as string}</h1>
-   <FormProvider {...filtersUseForm}>
-    <TagsFilters
-     tagCategories={tagCategories}
-     isLoadingCategories={isTagCategoriesLoading || isTagCategoriesFetching}
-     setOpenAddTag={() => setOpenEditTag(true)}
-    />
-    <TagsGrid
-     filterModel={filterModel}
-     setFilterModel={setFilterModel}
-     tagsList={tagsList}
-     isLoading={isLoading || isFetching}
-     pagination={pagination}
-     setPagination={setPagination}
-     rowCount={rowCount}
-     setOpenAddTag={() => setOpenEditTag(true)}
-     selectedTag={selectedTag}
-     setSelectedTag={setSelectedTag}
-    />
-   </FormProvider>
-   <AddTag
-    open={openEditTag}
-    tag={selectedTag}
-    tagCategories={tagCategories}
-    onClose={() => {
-     setOpenEditTag(false);
-     setSelectedTag(null);
-    }}
-   />
-  </div>
+  <>
+   {roleAccess.read ? (
+    <div>
+     <h1 className='font-bold text-2xl mb-4'>{tags.title as string}</h1>
+     <FormProvider {...filtersUseForm}>
+      <TagsFilters
+       tagCategories={tagCategories}
+       isLoadingCategories={isTagCategoriesLoading || isTagCategoriesFetching}
+       setOpenAddTag={() => setOpenEditTag(true)}
+      />
+      <TagsGrid
+       filterModel={filterModel}
+       setFilterModel={setFilterModel}
+       tagsList={tagsList}
+       isLoading={isLoading || isFetching}
+       pagination={pagination}
+       setPagination={setPagination}
+       rowCount={rowCount}
+       setOpenAddTag={() => setOpenEditTag(true)}
+       selectedTag={selectedTag}
+       setSelectedTag={setSelectedTag}
+      />
+     </FormProvider>
+     <AddTag
+      open={openEditTag}
+      tag={selectedTag}
+      tagCategories={tagCategories}
+      onClose={() => {
+       setOpenEditTag(false);
+       setSelectedTag(null);
+      }}
+     />
+    </div>
+   ) : (
+    <NoAccessGranted />
+   )}
+  </>
  );
 }
