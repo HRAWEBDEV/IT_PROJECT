@@ -9,6 +9,7 @@ import {
  type BlogCategory,
  type BlogState,
 } from '@/services/api-actions/globalApiActions';
+import { useAccessContext } from '../../services/access/accessContext';
 
 type Props = {
  articleCategories: BlogCategory[];
@@ -27,6 +28,7 @@ export default function ArticlesFilters({
  articleStates,
  isLoadingStates,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const { articles, articlesCategories } = useWebsiteDictionary() as {
   articles: Dic;
   articlesCategories: Dic;
@@ -80,23 +82,25 @@ export default function ArticlesFilters({
      />
     )}
    />
-   <div className='flex items-center gap-2 justify-end'>
-    <Button
-     variant='outlined'
-     color='info'
-     onClick={() => setOpenAddCategory()}
-    >
-     {articlesCategories.addCategory as string}
-    </Button>
-    <Button
-     variant='outlined'
-     color='secondary'
-     onClick={setOpenAddArticle}
-     disabled={!articleCategories.length}
-    >
-     {articles.addArticle as string}
-    </Button>
-   </div>
+   {roleAccess.write && (
+    <div className='flex items-center gap-2 justify-end'>
+     <Button
+      variant='outlined'
+      color='info'
+      onClick={() => setOpenAddCategory()}
+     >
+      {articlesCategories.addCategory as string}
+     </Button>
+     <Button
+      variant='outlined'
+      color='secondary'
+      onClick={setOpenAddArticle}
+      disabled={!articleCategories.length}
+     >
+      {articles.addArticle as string}
+     </Button>
+    </div>
+   )}
   </form>
  );
 }

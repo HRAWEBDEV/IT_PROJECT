@@ -19,6 +19,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AxiosError } from 'axios';
+import { useAccessContext } from '../../services/access/accessContext';
 
 type Props = {
  articlesList: Blog[];
@@ -53,6 +54,7 @@ export default function ArticlesGrid({
  filterModel,
  setFilterModel,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const queryClient = useQueryClient();
  const { locale } = useAppConfig();
  const dateTimeFormatter = new Intl.DateTimeFormat(locale, {
@@ -181,37 +183,43 @@ export default function ArticlesGrid({
       align: 'center',
       headerName: articles.actions as string,
       getActions({ row }) {
-       return [
-        <GridActionsCellItem
-         key={'edit'}
-         label={articles.editArticle as string}
-         icon={<EditIcon color='secondary' />}
-         onClick={() => {
-          setSelectedArticle(row);
-          setOpenAddArticle();
-         }}
-         showInMenu
-        />,
-        <GridActionsCellItem
-         key={'images'}
-         label={articles.images as string}
-         icon={<ImageOutlinedIcon color='warning' />}
-         onClick={() => {
-          setSelectedArticle(row);
-          setShowAddImage(true);
-         }}
-         showInMenu
-        />,
-        <GridActionsCellItem
-         key={'content'}
-         label={articles.content as string}
-         icon={<ArticleIcon color='primary' />}
-         onClick={() => {
-          setSelectedArticle(row);
-          setOpenArticleContent();
-         }}
-         showInMenu
-        />,
+       const actions = [];
+       if (roleAccess.update) {
+        actions.push(
+         <GridActionsCellItem
+          key={'edit'}
+          label={articles.editArticle as string}
+          icon={<EditIcon color='secondary' />}
+          onClick={() => {
+           setSelectedArticle(row);
+           setOpenAddArticle();
+          }}
+          showInMenu
+         />,
+         <GridActionsCellItem
+          key={'images'}
+          label={articles.images as string}
+          icon={<ImageOutlinedIcon color='warning' />}
+          onClick={() => {
+           setSelectedArticle(row);
+           setShowAddImage(true);
+          }}
+          showInMenu
+         />,
+         <GridActionsCellItem
+          key={'content'}
+          label={articles.content as string}
+          icon={<ArticleIcon color='primary' />}
+          onClick={() => {
+           setSelectedArticle(row);
+           setOpenArticleContent();
+          }}
+          showInMenu
+         />
+        );
+       }
+
+       actions.push(
         <GridActionsCellItem
          key={'comments'}
          label={articles.comments as string}
@@ -221,38 +229,48 @@ export default function ArticlesGrid({
           setOpenArticleComments();
          }}
          showInMenu
-        />,
-        <GridActionsCellItem
-         key={'preview'}
-         disabled={isPendingPreview}
-         label={
-          row.showForCard
-           ? (articles.preview as string)
-           : (articles.noPreview as string)
-         }
-         icon={
-          row.showForCard ? (
-           <StarIcon color='warning' />
-          ) : (
-           <StarIcon color='disabled' />
-          )
-         }
-         onClick={() => {
-          mutatePreview(row);
-         }}
-         showInMenu
-        />,
-        <GridActionsCellItem
-         key={'changeState'}
-         label={articles.changeState as string}
-         icon={<SettingsIcon color='error' />}
-         onClick={() => {
-          setSelectedArticle(row);
-          setOpenChangeState();
-         }}
-         showInMenu
-        />,
-       ];
+        />
+       );
+
+       if (roleAccess.changeState) {
+        actions.push(
+         <GridActionsCellItem
+          key={'preview'}
+          disabled={isPendingPreview}
+          label={
+           row.showForCard
+            ? (articles.preview as string)
+            : (articles.noPreview as string)
+          }
+          icon={
+           row.showForCard ? (
+            <StarIcon color='warning' />
+           ) : (
+            <StarIcon color='disabled' />
+           )
+          }
+          onClick={() => {
+           mutatePreview(row);
+          }}
+          showInMenu
+         />
+        );
+       }
+       if (roleAccess.remove) {
+        actions.push(
+         <GridActionsCellItem
+          key={'changeState'}
+          label={articles.changeState as string}
+          icon={<SettingsIcon color='error' />}
+          onClick={() => {
+           setSelectedArticle(row);
+           setOpenChangeState();
+          }}
+          showInMenu
+         />
+        );
+       }
+       return actions;
       },
      },
     ]}
