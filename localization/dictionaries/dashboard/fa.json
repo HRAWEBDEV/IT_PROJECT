@@ -109,5 +109,18 @@
   "changeState": "تغییر وضعیت",
   "confirm": "تایید",
   "cancel": "انصراف"
+ },
+ "initialInfo": {
+  "title": "اطلاعات اولیه",
+  "name": "نام",
+  "address": "آدرس",
+  "telePhoneNumber": "شماره تلفن",
+  "mobileNumber": "شماره همراه",
+  "faxNumber": "شماره فکس",
+  "nationalCode": "کد ملی",
+  "email": "ایمیل",
+  "description": "توضیحات",
+  "save": "ثبت",
+  "cancel": "انصراف"
  }
 }

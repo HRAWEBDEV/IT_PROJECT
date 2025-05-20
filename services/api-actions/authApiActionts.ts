@@ -5,6 +5,23 @@ const registerApi = '/UI/Login';
 const loginApi = '/UI/Authenticate';
 const getUserInfoApi = '/UI/UserInfo';
 
+type Owner = {
+ id: number;
+ postalCode: string | null;
+ nationalCode: string | null;
+ registerNo: string | null;
+ addressName: string | null;
+ telephone1: string | null;
+ telephone2: string | null;
+ telephone3: string | null;
+ cellPhone1: string | null;
+ cellPhone2: string | null;
+ cellPhone3: string | null;
+ fax: string | null;
+ email: string | null;
+ longitude: number | null;
+ latitude: number | null;
+};
 type RegisterUser = User;
 type RoleAccess = {
  formID: number;
@@ -84,11 +101,20 @@ function getRoles({ signal }: { signal?: AbortSignal }) {
   }>
  >(roleApi, { signal });
 }
+//
+const ownerApi = '/Owner';
+function getOwner({ signal }: { signal?: AbortSignal }) {
+ return axios.get<Owner>(ownerApi, { signal });
+}
+function updateOwner(owner: Owner) {
+ return axios.post(ownerApi, owner);
+}
 
 export {
  type UserInfo,
  type RoleAccess,
  type Role,
+ type Owner,
  registerUser,
  login,
  getUserInfo,
@@ -96,4 +122,6 @@ export {
  getUserRoles,
  updateUserRole,
  getRoles,
+ getOwner,
+ updateOwner,
 };
