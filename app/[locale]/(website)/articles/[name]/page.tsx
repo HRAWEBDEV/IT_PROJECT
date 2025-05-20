@@ -44,46 +44,49 @@ export default async function page({
  let blog: Blog | null = null;
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
- try {
-  const blogsResult = await fetch(
-   `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}/${name}?${blogsParams.toString()}`,
-   {
-    headers: {
-     languageID: activeLocale.id.toString(),
-    },
+ if (activeLocale.id) {
+  try {
+   const blogsResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${blogsApi}/${name}?${blogsParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (blogsResult.ok) {
+    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+     Blog: Blog;
+    }>;
+    blog = blogsPackage.payload.Blog;
    }
-  );
-  if (blogsResult.ok) {
-   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-    Blog: Blog;
-   }>;
-   blog = blogsPackage.payload.Blog;
-  }
- } catch {}
-
+  } catch {}
+ }
  const blogTagsParams = new URLSearchParams();
  blogTagsParams.set('lang', locale);
  blogTagsParams.set('blogID', name);
- try {
-  const blogTagsResult = await fetch(
-   `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-   }${getBlogTagsApi}?${blogTagsParams.toString()}`,
-   {
-    headers: {
-     languageID: activeLocale.id.toString(),
-    },
+ if (activeLocale.id) {
+  try {
+   const blogTagsResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${getBlogTagsApi}?${blogTagsParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (blogTagsResult.ok) {
+    const blogTagsPackage = (await blogTagsResult.json()) as ResponseShape<{
+     BlogTags: BlogTag[];
+    }>;
+    blogTags = blogTagsPackage.payload.BlogTags;
    }
-  );
-  if (blogTagsResult.ok) {
-   const blogTagsPackage = (await blogTagsResult.json()) as ResponseShape<{
-    BlogTags: BlogTag[];
-   }>;
-   blogTags = blogTagsPackage.payload.BlogTags;
-  }
- } catch {}
+  } catch {}
+ }
 
  return (
   <section>

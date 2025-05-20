@@ -25,25 +25,26 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  blogsParams.set('lang', locale);
  blogsParams.set('blogStateID', '2');
  blogsParams.set('showForCard', 'true');
- try {
-  const blogsResult = await fetch(
-   `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}?${blogsParams.toString()}`,
-   {
-    headers: {
-     languageID: activeLocale.id.toString(),
-    },
+ if (activeLocale.id) {
+  try {
+   const blogsResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${blogsApi}?${blogsParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (blogsResult.ok) {
+    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+     Blogs: Blog[];
+    }>;
+    blogs = blogsPackage.payload.Blogs;
    }
-  );
-  if (blogsResult.ok) {
-   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-    Blogs: Blog[];
-   }>;
-   blogs = blogsPackage.payload.Blogs;
-  }
- } catch {}
- console.log(blogs);
+  } catch {}
+ }
 
  return (
   <div id='home-page'>

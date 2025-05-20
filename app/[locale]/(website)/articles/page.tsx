@@ -52,24 +52,26 @@ export default async function page({
  blogsParams.set('blogStateID', '1');
  blogsParams.set('limit', paginationLimit.toString());
  blogsParams.set('offset', offset || '1');
- try {
-  const blogsResult = await fetch(
-   `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}?${blogsParams.toString()}`,
-   {
-    headers: {
-     languageID: activeLocale.id.toString(),
-    },
+ if (activeLocale.id) {
+  try {
+   const blogsResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${blogsApi}?${blogsParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (blogsResult.ok) {
+    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+     Blogs: PagedResponse<Blog[]>;
+    }>;
+    blogs = blogsPackage.payload.Blogs.rows;
    }
-  );
-  if (blogsResult.ok) {
-   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-    Blogs: PagedResponse<Blog[]>;
-   }>;
-   blogs = blogsPackage.payload.Blogs.rows;
-  }
- } catch {}
+  } catch {}
+ }
 
  return (
   <div>

@@ -20,24 +20,26 @@ export default async function layout({
  let blog: Blog | null = null;
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
- try {
-  const blogsResult = await fetch(
-   `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}/${name}?${blogsParams.toString()}`,
-   {
-    headers: {
-     languageID: activeLocale.id.toString(),
-    },
+ if (activeLocale.id) {
+  try {
+   const blogsResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${blogsApi}/${name}?${blogsParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (blogsResult.ok) {
+    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+     Blog: Blog;
+    }>;
+    blog = blogsPackage.payload.Blog;
    }
-  );
-  if (blogsResult.ok) {
-   const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-    Blog: Blog;
-   }>;
-   blog = blogsPackage.payload.Blog;
-  }
- } catch {}
+  } catch {}
+ }
 
  return (
   <div>
