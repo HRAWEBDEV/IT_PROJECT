@@ -18,6 +18,7 @@ import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import { useAccessContext } from '../../../services/access/accessContext';
 
 type Props = {
  usersList: User[];
@@ -40,6 +41,7 @@ export default function UsersGrid({
  selectedUser,
  setShowUserRole,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const queryClient = useQueryClient();
  const [openConfirmBox, setOpenConfirmBox] = useState(false);
  const [stateAction, setStateAction] = useState<'blackList' | 'disabled'>(
@@ -172,54 +174,62 @@ export default function UsersGrid({
       align: 'center',
       headerName: users.actions as string,
       getActions({ row }) {
-       return [
-        <GridActionsCellItem
-         key={'edit'}
-         label={users.access as string}
-         icon={<ManageAccountsIcon color='warning' />}
-         onClick={() => {
-          setSelectedUser(row as User);
-          setShowUserRole(true);
-         }}
-         showInMenu
-        />,
-        <GridActionsCellItem
-         disabled={isChangingUserState}
-         key={'blackList'}
-         label={users.blackList as string}
-         onClick={() => {
-          setStateAction('blackList');
-          setOpenConfirmBox(true);
-          setSelectedUser(row as User);
-         }}
-         icon={
-          !row.blackList ? (
-           <ToggleOffIcon color='error' />
-          ) : (
-           <ToggleOnIcon color='success' />
-          )
-         }
-         showInMenu
-        />,
-        <GridActionsCellItem
-         disabled={isChangingUserState}
-         key={'disabled'}
-         label={users.disabled as string}
-         onClick={() => {
-          setStateAction('disabled');
-          setOpenConfirmBox(true);
-          setSelectedUser(row as User);
-         }}
-         icon={
-          !row.disabled ? (
-           <ToggleOffIcon color='error' />
-          ) : (
-           <ToggleOnIcon color='success' />
-          )
-         }
-         showInMenu
-        />,
-       ];
+       const actions = [];
+       if (roleAccess.update) {
+        actions.push(
+         <GridActionsCellItem
+          key={'edit'}
+          label={users.access as string}
+          icon={<ManageAccountsIcon color='warning' />}
+          onClick={() => {
+           setSelectedUser(row as User);
+           setShowUserRole(true);
+          }}
+          showInMenu
+         />
+        );
+       }
+       if (roleAccess.changeState) {
+        actions.push(
+         <GridActionsCellItem
+          disabled={isChangingUserState}
+          key={'blackList'}
+          label={users.blackList as string}
+          onClick={() => {
+           setStateAction('blackList');
+           setOpenConfirmBox(true);
+           setSelectedUser(row as User);
+          }}
+          icon={
+           !row.blackList ? (
+            <ToggleOffIcon color='error' />
+           ) : (
+            <ToggleOnIcon color='success' />
+           )
+          }
+          showInMenu
+         />,
+         <GridActionsCellItem
+          disabled={isChangingUserState}
+          key={'disabled'}
+          label={users.disabled as string}
+          onClick={() => {
+           setStateAction('disabled');
+           setOpenConfirmBox(true);
+           setSelectedUser(row as User);
+          }}
+          icon={
+           !row.disabled ? (
+            <ToggleOffIcon color='error' />
+           ) : (
+            <ToggleOnIcon color='success' />
+           )
+          }
+          showInMenu
+         />
+        );
+       }
+       return actions;
       },
      },
     ]}

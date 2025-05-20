@@ -16,8 +16,11 @@ import {
 } from '../../schemas/usersFilters';
 import { useDebounceValue } from '@/hooks/useDebounceValue';
 import UserRole from './UserRole';
+import { useAccessContext } from '../../../services/access/accessContext';
+import NoAccessGranted from '../../../components/NoAccessGranted';
 
 export default function UsersWrapper() {
+ const { roleAccess } = useAccessContext();
  const [showUserRole, setShowUserRole] = useState(false);
  const [selectedUser, setSelectedUser] = useState<User | null>(null);
  const usersFilters = useForm<UsersFiltersSchema>({
@@ -77,36 +80,42 @@ export default function UsersWrapper() {
  });
 
  return (
-  <section>
-   <h2 className='font-bold text-2xl mb-4'>{users.title as string}</h2>
-   <FormProvider {...usersFilters}>
-    <UsersFilters test='test' />
-    {usersList.length > 0 ? (
-     <UsersGrid
-      usersList={usersList}
-      isLoading={isLoading}
-      pagination={pagination}
-      setPagination={setPagination}
-      rowsCount={rowsCount}
-      selectedUser={selectedUser}
-      setShowUserRole={setShowUserRole}
-      setSelectedUser={setSelectedUser}
-     />
-    ) : (
-     <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
-      <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
-       {noItemsFound as string}
-      </p>
-     </div>
-    )}
-   </FormProvider>
-   {showUserRole && selectedUser && (
-    <UserRole
-     open={showUserRole}
-     user={selectedUser}
-     onClose={() => setShowUserRole(false)}
-    />
+  <>
+   {roleAccess.read ? (
+    <section>
+     <h2 className='font-bold text-2xl mb-4'>{users.title as string}</h2>
+     <FormProvider {...usersFilters}>
+      <UsersFilters test='test' />
+      {usersList.length > 0 ? (
+       <UsersGrid
+        usersList={usersList}
+        isLoading={isLoading}
+        pagination={pagination}
+        setPagination={setPagination}
+        rowsCount={rowsCount}
+        selectedUser={selectedUser}
+        setShowUserRole={setShowUserRole}
+        setSelectedUser={setSelectedUser}
+       />
+      ) : (
+       <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
+        <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
+         {noItemsFound as string}
+        </p>
+       </div>
+      )}
+     </FormProvider>
+     {showUserRole && selectedUser && (
+      <UserRole
+       open={showUserRole}
+       user={selectedUser}
+       onClose={() => setShowUserRole(false)}
+      />
+     )}
+    </section>
+   ) : (
+    <NoAccessGranted />
    )}
-  </section>
+  </>
  );
 }
