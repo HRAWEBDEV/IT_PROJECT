@@ -22,6 +22,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useMutation } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import AccessProvider from '@/app/[locale]/(panel)/dashboard/services/access/AccessProvider';
 
 type Props = {
  blog: Blog | null;
@@ -197,12 +198,14 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
      </Link>
     </p>
    )}
-   <ArticleComments
-    open={showAllComments}
-    onClose={() => setShowAllComments(false)}
-    article={blog!}
-    manage={false}
-   />
+   <AccessProvider formTitle='articlesComments'>
+    <ArticleComments
+     open={showAllComments}
+     onClose={() => setShowAllComments(false)}
+     article={blog!}
+     manage={false}
+    />
+   </AccessProvider>
   </section>
  );
 }

@@ -11,6 +11,7 @@ import { CommentMode } from '../../utils/commentModes';
 import { useAuth } from '@/services/auth/authContext';
 import { type CommentSetting } from '../../utils/commentSetting';
 import Link from 'next/link';
+import { useAccessContext } from '../../../services/access/accessContext';
 
 export default function ArticleCommentsFilter({
  setCommentMode,
@@ -18,6 +19,7 @@ export default function ArticleCommentsFilter({
 }: {
  setCommentMode: (mode: CommentMode) => void;
 } & CommentSetting) {
+ const { roleAccess } = useAccessContext();
  const { isLogedIn } = useAuth();
  const { control } = useFormContext<CommentState>();
  const { articlesComments } = useWebsiteDictionary() as {
@@ -65,16 +67,18 @@ export default function ArticleCommentsFilter({
        />
       )}
      </div>
-     <div className='flex justify-end'>
-      <Button
-       className='w-[7rem]'
-       variant='contained'
-       color='secondary'
-       onClick={() => setCommentMode('add')}
-      >
-       {articlesComments.addComment as string}
-      </Button>
-     </div>
+     {(roleAccess.write || !manage) && (
+      <div className='flex justify-end'>
+       <Button
+        className='w-[7rem]'
+        variant='contained'
+        color='secondary'
+        onClick={() => setCommentMode('add')}
+       >
+        {articlesComments.addComment as string}
+       </Button>
+      </div>
+     )}
     </div>
    )}
   </div>

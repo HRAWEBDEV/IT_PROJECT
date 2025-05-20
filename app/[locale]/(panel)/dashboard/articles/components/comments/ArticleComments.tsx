@@ -26,6 +26,8 @@ import { type CommentMode } from '../../utils/commentModes';
 import AddComment from './AddComment';
 import { CommentState as CommentStateEnum } from '../../utils/CommentState';
 import { type CommentSetting } from '../../utils/commentSetting';
+import { useAccessContext } from '../../../services/access/accessContext';
+import NoAccessGranted from '../../../components/NoAccessGranted';
 
 type Props = {
  open: boolean;
@@ -39,6 +41,7 @@ export default function ArticleComments({
  article,
  manage = true,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const [selectedComment, setSelectedComment] = useState<BlogComment | null>(
   null
  );
@@ -138,22 +141,26 @@ export default function ArticleComments({
     </div>
    </DialogTitle>
    <DialogContent dividers>
-    <FormProvider {...filtersUseForm}>
-     <ArticleCommentsFilter setCommentMode={setCommentMode} manage={manage} />
-     <div className='mb-8'>
-      {commentMode === 'add' && (
-       <AddComment
-        blogID={article.id}
-        commentMode={commentMode}
-        comment={selectedComment}
-        parentComment={selectedParentComment}
-        onClose={handleCloseAddComment}
-        setCommentMode={setCommentMode}
-       />
-      )}
-     </div>
-     {content}
-    </FormProvider>
+    {roleAccess.read || !manage ? (
+     <FormProvider {...filtersUseForm}>
+      <ArticleCommentsFilter setCommentMode={setCommentMode} manage={manage} />
+      <div className='mb-8'>
+       {commentMode === 'add' && (
+        <AddComment
+         blogID={article.id}
+         commentMode={commentMode}
+         comment={selectedComment}
+         parentComment={selectedParentComment}
+         onClose={handleCloseAddComment}
+         setCommentMode={setCommentMode}
+        />
+       )}
+      </div>
+      {content}
+     </FormProvider>
+    ) : (
+     <NoAccessGranted />
+    )}
    </DialogContent>
   </Dialog>
  );

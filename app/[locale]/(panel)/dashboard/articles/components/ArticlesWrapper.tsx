@@ -26,6 +26,7 @@ import ChangeState from './ChangeState';
 import ArticleComments from './comments/ArticleComments';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
+import AccessProvider from '../../services/access/AccessProvider';
 
 export default function ArticlesWrapper() {
  const { roleAccess } = useAccessContext();
@@ -222,13 +223,15 @@ export default function ArticlesWrapper() {
       />
      )}
      {openArticleComments && selectedArticle && (
-      <ArticleComments
-       open={openArticleComments}
-       article={selectedArticle}
-       onClose={() => {
-        setOpenArticleComments(false);
-       }}
-      />
+      <AccessProvider formTitle='articlesComments'>
+       <ArticleComments
+        open={openArticleComments}
+        article={selectedArticle}
+        onClose={() => {
+         setOpenArticleComments(false);
+        }}
+       />
+      </AccessProvider>
      )}
     </div>
    ) : (

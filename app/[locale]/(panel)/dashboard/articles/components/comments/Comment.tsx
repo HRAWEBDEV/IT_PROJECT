@@ -27,6 +27,7 @@ import AddComment from './AddComment';
 import EditIcon from '@mui/icons-material/Edit';
 import { type CommentSetting } from '../../utils/commentSetting';
 import { useAuth } from '@/services/auth/authContext';
+import { useAccessContext } from '../../../services/access/accessContext';
 
 const buttonStyle = {
  padding: 0,
@@ -60,6 +61,7 @@ export default function Comment({
  setCommentMode: (mode: CommentMode) => void;
  onCloseAddComment: () => void;
 } & CommentSetting) {
+ const { roleAccess } = useAccessContext();
  const [showMore, setShowMore] = useState(false);
  const { isLogedIn } = useAuth();
  const isSameComment =
@@ -185,7 +187,7 @@ export default function Comment({
            {comment.commentStateName}
           </div>
          )}
-         {canReply && (
+         {canReply && roleAccess.write && (
           <IconButton onClick={handleReply}>
            <ReplyIcon color='primary' />
           </IconButton>
@@ -220,7 +222,7 @@ export default function Comment({
     </div>
    )}
    <Menu open={open} onClose={handleCloseMenu} anchorEl={anchorEl}>
-    {comment.commentStateID !== CommentState.Rejected && (
+    {comment.commentStateID !== CommentState.Rejected && roleAccess.update && (
      <MenuItem
       onClick={() => {
        setSelectedComment(comment);
@@ -243,21 +245,22 @@ export default function Comment({
       </div>
      </MenuItem>
     )}
-    {comment.commentStateID === CommentState.Pending && (
-     <MenuItem
-      disabled={isChangingCommentState}
-      onClick={() => {
-       changeCommentState();
-       handleCloseMenu();
-      }}
-     >
-      <div className='flex items-center gap-2'>
-       <SettingsIcon color='secondary' />
-       <span>{articlesComments.changeState as string}</span>
-      </div>
-     </MenuItem>
-    )}
-    {comment.commentStateID !== CommentState.Rejected && (
+    {comment.commentStateID === CommentState.Pending &&
+     roleAccess.changeState && (
+      <MenuItem
+       disabled={isChangingCommentState}
+       onClick={() => {
+        changeCommentState();
+        handleCloseMenu();
+       }}
+      >
+       <div className='flex items-center gap-2'>
+        <SettingsIcon color='secondary' />
+        <span>{articlesComments.changeState as string}</span>
+       </div>
+      </MenuItem>
+     )}
+    {comment.commentStateID !== CommentState.Rejected && roleAccess.remove && (
      <MenuItem
       disabled={isDeletingComment}
       onClick={() => {
