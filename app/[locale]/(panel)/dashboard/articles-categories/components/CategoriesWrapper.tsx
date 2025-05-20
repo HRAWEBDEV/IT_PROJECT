@@ -12,8 +12,11 @@ import CategoryGrid from './CategoryGrid';
 import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
 import CategoryFilters from './CategoryFilters';
 import AddCategory from './AddCategory';
+import { useAccessContext } from '../../services/access/accessContext';
+import NoAccessGranted from '../../components/NoAccessGranted';
 
 export default function CategoriesWrapper() {
+ const { roleAccess } = useAccessContext();
  const [filterModel, setFilterModel] = useState<GridFilterModel>({
   items: [],
  });
@@ -61,31 +64,37 @@ export default function CategoriesWrapper() {
  });
 
  return (
-  <div>
-   <h1 className='font-bold text-2xl mb-4'>
-    {articlesCategories.title as string}
-   </h1>
-   <CategoryFilters setOpenAddCategory={() => setOpenEditCategory(true)} />
-   <CategoryGrid
-    categoriesList={categoriesList}
-    filterModel={filterModel}
-    setFilterModel={setFilterModel}
-    isLoading={isLoading || isFetching}
-    pagination={pagination}
-    setPagination={setPagination}
-    rowCount={rowCount}
-    setOpenAddCategory={() => setOpenEditCategory(true)}
-    selectedCategory={selectedCategory}
-    setSelectedCategory={setSelectedCategory}
-   />
-   <AddCategory
-    open={openEditCategory}
-    category={selectedCategory}
-    onClose={() => {
-     setOpenEditCategory(false);
-     setSelectedCategory(null);
-    }}
-   />
-  </div>
+  <>
+   {roleAccess.read ? (
+    <div>
+     <h1 className='font-bold text-2xl mb-4'>
+      {articlesCategories.title as string}
+     </h1>
+     <CategoryFilters setOpenAddCategory={() => setOpenEditCategory(true)} />
+     <CategoryGrid
+      categoriesList={categoriesList}
+      filterModel={filterModel}
+      setFilterModel={setFilterModel}
+      isLoading={isLoading || isFetching}
+      pagination={pagination}
+      setPagination={setPagination}
+      rowCount={rowCount}
+      setOpenAddCategory={() => setOpenEditCategory(true)}
+      selectedCategory={selectedCategory}
+      setSelectedCategory={setSelectedCategory}
+     />
+     <AddCategory
+      open={openEditCategory}
+      category={selectedCategory}
+      onClose={() => {
+       setOpenEditCategory(false);
+       setSelectedCategory(null);
+      }}
+     />
+    </div>
+   ) : (
+    <NoAccessGranted />
+   )}
+  </>
  );
 }

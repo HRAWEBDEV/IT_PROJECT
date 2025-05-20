@@ -18,6 +18,7 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import { useAccessContext } from '../../services/access/accessContext';
 
 type Props = {
  categoriesList: BlogCategory[];
@@ -44,6 +45,7 @@ export default function CategoryGrid({
  filterModel,
  setFilterModel,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const {
   articlesCategories,
   deleteItemConfirmation,
@@ -136,29 +138,37 @@ export default function CategoryGrid({
       align: 'center',
       headerName: articlesCategories.actions as string,
       getActions({ row }) {
-       return [
-        <GridActionsCellItem
-         key={'edit'}
-         label={articlesCategories.editCategory as string}
-         icon={<EditIcon color='secondary' />}
-         onClick={() => {
-          setSelectedCategory(row);
-          setOpenAddCategory();
-         }}
-         showInMenu
-        />,
-        <GridActionsCellItem
-         key={'remove'}
-         disabled={isPending}
-         label={articlesCategories.deleteCategory as string}
-         icon={<DeleteIcon color='error' />}
-         onClick={() => {
-          setSelectedCategory(row);
-          setOpenConfirm(true);
-         }}
-         showInMenu
-        />,
-       ];
+       const actions = [];
+       if (roleAccess.update) {
+        actions.push(
+         <GridActionsCellItem
+          key={'edit'}
+          label={articlesCategories.editCategory as string}
+          icon={<EditIcon color='secondary' />}
+          onClick={() => {
+           setSelectedCategory(row);
+           setOpenAddCategory();
+          }}
+          showInMenu
+         />
+        );
+       }
+       if (roleAccess.remove) {
+        actions.push(
+         <GridActionsCellItem
+          key={'remove'}
+          disabled={isPending}
+          label={articlesCategories.deleteCategory as string}
+          icon={<DeleteIcon color='error' />}
+          onClick={() => {
+           setSelectedCategory(row);
+           setOpenConfirm(true);
+          }}
+          showInMenu
+         />
+        );
+       }
+       return actions;
       },
      },
     ]}
