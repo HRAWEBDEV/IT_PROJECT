@@ -9,19 +9,30 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import NavList from './NavList';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
+import { RoleAccessFormIDs } from '@/utils/roleAccessFormIDs';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
 
 type Props = {
  item: NavigationItem;
 };
 
 export default function NavItem({ item }: Props) {
+ const formID = RoleAccessFormIDs[item.title as keyof typeof RoleAccessFormIDs];
+ const { userInfo } = useAuthCheck();
+ let isAllowed = true;
  const { setNavIsVisible } = useNavigationContext();
  const [isOpen, setIsOpen] = useState(false);
  const pathname = usePathname();
  const { navigation } = useWebsiteDictionary() as {
   navigation: Dic;
  };
- return (
+
+ if (formID && !item.children) {
+  const navAccess = userInfo?.RoleAccesses.find((acc) => acc.formID === formID);
+  isAllowed = navAccess?.read || false;
+ }
+
+ return isAllowed ? (
   <li>
    <Link
     aria-selected={pathname.endsWith(item.href)}
@@ -55,5 +66,5 @@ export default function NavItem({ item }: Props) {
     </AnimatePresence>
    </div>
   </li>
- );
+ ) : null;
 }

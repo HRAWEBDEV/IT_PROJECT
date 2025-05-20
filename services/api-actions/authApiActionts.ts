@@ -6,19 +6,30 @@ const loginApi = '/UI/Authenticate';
 const getUserInfoApi = '/UI/UserInfo';
 
 type RegisterUser = User;
+type RoleAccess = {
+ formID: number;
+ roleName: string;
+ uiFormName: string;
+ formName: string;
+ read: boolean;
+ write: boolean;
+ remove: boolean;
+ update: boolean;
+ changeState: boolean;
+};
 type UserInfo = {
  User: User;
  HasDashboard: boolean;
- RoleAccesses: [];
+ RoleAccesses: RoleAccess[];
 };
-type RoleAccesses = unknown[];
+
 type Role = {
  id: number;
  name: string;
 };
 type Auth = {
  Token: string;
- RoleAccesses: RoleAccesses;
+ RoleAccesses: RoleAccess[];
 };
 
 function registerUser({ cellPhone }: { cellPhone: string }) {
@@ -76,7 +87,7 @@ function getRoles({ signal }: { signal?: AbortSignal }) {
 
 export {
  type UserInfo,
- type RoleAccesses,
+ type RoleAccess,
  type Role,
  registerUser,
  login,

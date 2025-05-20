@@ -1,5 +1,6 @@
 import NavItem from './NavItem';
 import { type NavigationItem } from '../../utils/navgationList';
+
 type Props = { navigationList: NavigationItem[]; isSubList?: boolean };
 export default function NavList({ navigationList, isSubList = false }: Props) {
  return (
