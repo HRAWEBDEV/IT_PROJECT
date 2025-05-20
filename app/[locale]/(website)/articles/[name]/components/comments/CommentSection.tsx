@@ -9,7 +9,6 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { CommentState as CommentStateEnum } from '@/app/[locale]/(panel)/dashboard/articles/utils/CommentState';
 import Link from 'next/link';
 import Button from '@mui/material/Button';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { useQuery } from '@tanstack/react-query';
 import {
  type Blog,
@@ -17,18 +16,16 @@ import {
  createBlogComment,
 } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
-import { Pagination } from 'swiper/modules';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useMutation } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import AccessProvider from '@/app/[locale]/(panel)/dashboard/services/access/AccessProvider';
+import CommentList from './CommentList';
 
 type Props = {
  blog: Blog | null;
 };
-
-const commentTextLimit = 200;
 
 export default function CommentSection({ dic, blog }: WithDictionary & Props) {
  const { enqueueSnackbar } = useSnackbar();
@@ -42,14 +39,6 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
   };
  const { isLogedIn } = useAuth();
  const { locale } = useAppConfig();
-
- const dateTimeFormatter = new Intl.DateTimeFormat(locale, {
-  year: 'numeric',
-  month: 'long',
-  day: '2-digit',
-  hour: '2-digit',
-  minute: '2-digit',
- });
 
  const { data: comments = [], isLoading } = useQuery({
   queryKey: ['blogCommentsSection', blog!.id],
@@ -94,72 +83,6 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
    <h3 className='text-2xl font-medium lg:text-3xl mb-6'>
     {dic.comments as string}
    </h3>
-   {isLoading ? (
-    <div className='flex justify-center items-center min-h-[8rem]'>
-     <CircularProgress />
-    </div>
-   ) : (
-    !!comments.length && (
-     <div>
-      <div className='mb-4 flex justify-end'>
-       <Button
-        variant='outlined'
-        color='primary'
-        onClick={() => setShowAllComments(true)}
-       >
-        {dic.showAllComments as string}
-       </Button>
-      </div>
-      <Swiper
-       spaceBetween={20}
-       pagination
-       modules={[Pagination]}
-       breakpoints={{
-        768: {
-         slidesPerView: 2,
-        },
-        1024: {
-         slidesPerView: 3,
-        },
-        1258: {
-         slidesPerView: 4,
-        },
-       }}
-       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
-      >
-       {comments.slice(0, 9).map((comment) => (
-        <SwiperSlide key={comment.id}>
-         <p className='text-[0.7rem] font-medium mb-2'>
-          {dateTimeFormatter.format(new Date(comment.createDateTimeOffset))}
-         </p>
-         <article className='rounded-lg border border-neutral-300 dark:border-neutral-700'>
-          <header className='p-3 mb-1 border-b border-neutral-300 dark:border-neutral-700'>
-           <p className='font-medium'>{comment.writerUserName}</p>
-          </header>
-          <div className='p-3 min-h-[10rem]'>
-           <p className='leading-6 text-neutral-500 dark:text-neutral-200'>
-            {comment.comment.length > commentTextLimit
-             ? comment.comment.slice(0, commentTextLimit) + '...'
-             : comment.comment}
-            {comment.comment.length > commentTextLimit && (
-             <Button
-              variant='text'
-              color='primary'
-              className='!py-0'
-              onClick={() => setShowAllComments(true)}
-             >
-              {articlesComments.showMore as string}
-             </Button>
-            )}
-           </p>
-          </div>
-         </article>
-        </SwiperSlide>
-       ))}
-      </Swiper>
-     </div>
-    )
-   )}
    {isLogedIn ? (
     <form className=''>
      <div className='mb-4'>
@@ -188,13 +111,36 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
     </form>
    ) : (
     <p className='text-center font-medium text-lg'>
-     <span>{articlesComments.toReply as string}</span>
+     <span>{articlesComments.toReply as string}</span>{' '}
      <Link href='/auth'>
+      {' '}
       <span className='text-red-800 dark:text-red-600'>
+       {' '}
        <u>{articlesComments.logIn as string}</u>
       </span>
      </Link>
     </p>
+   )}
+   {isLoading ? (
+    <div className='flex justify-center items-center min-h-[8rem]'>
+     <CircularProgress />
+    </div>
+   ) : (
+    <CommentList depth={0} comments={comments.slice(0, 4)} />
+   )}
+   {!!comments.length && (
+    <div>
+     <div className='mb-4 flex justify-end'>
+      <Button
+       loading={isLoading}
+       variant='outlined'
+       color='primary'
+       onClick={() => setShowAllComments(true)}
+      >
+       {dic.showAllComments as string}
+      </Button>
+     </div>
+    </div>
    )}
    <AccessProvider formTitle='articlesComments'>
     <ArticleComments
