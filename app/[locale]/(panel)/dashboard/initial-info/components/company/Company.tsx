@@ -55,9 +55,9 @@ export default function Company() {
   noItemsFound: string;
  };
 
- const { mutate: updateOwnerMutate, isPending: isUpdating } = useMutation({
-  mutationFn() {},
- });
+ // const { mutate: updateOwnerMutate, isPending: isUpdating } = useMutation({
+ //  mutationFn() {},
+ // });
 
  const {
   data: owner,
