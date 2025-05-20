@@ -31,6 +31,7 @@ export default async function layout({
    blog = blogsPackage.payload.Blog;
   }
  } catch {}
+
  return (
   <div>
    {blog ? (
