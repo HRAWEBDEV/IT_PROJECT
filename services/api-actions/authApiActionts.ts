@@ -8,9 +8,11 @@ const getUserInfoApi = '/UI/UserInfo';
 type Owner = {
  id: number;
  postalCode: string | null;
+ ownerName: string | null;
  nationalCode: string | null;
  registerNo: string | null;
  addressName: string | null;
+ descriptionName: string | null;
  telephone1: string | null;
  telephone2: string | null;
  telephone3: string | null;
