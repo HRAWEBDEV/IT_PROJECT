@@ -11,6 +11,7 @@ import {
  ResponseShape,
 } from '@/services/api-actions/globalApiActions';
 import { paginationLimit } from './utils/blogsPaginationInfo';
+import { locales } from '@/localization/locales';
 
 export const generateMetadata = async ({
  params,
@@ -39,6 +40,7 @@ export default async function page({
 }) {
  const { offset } = await searchParams;
  const { locale } = await params;
+ const activeLocale = locales[locale];
  const dic = await getDictionary({
   locale,
   path: 'articles',
@@ -54,7 +56,12 @@ export default async function page({
   const blogsResult = await fetch(
    `${
     process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}?${blogsParams.toString()}`
+   }${blogsApi}?${blogsParams.toString()}`,
+   {
+    headers: {
+     languageID: activeLocale.id.toString(),
+    },
+   }
   );
   if (blogsResult.ok) {
    const blogsPackage = (await blogsResult.json()) as ResponseShape<{

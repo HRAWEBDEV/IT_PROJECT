@@ -10,9 +10,12 @@ import {
  type ResponseShape,
  blogsApi,
 } from '@/services/api-actions/globalApiActions';
+import { locales } from '@/localization/locales';
 
 export default async function page({ params }: { params: Promise<AppParams> }) {
  const { locale } = await params;
+ const activeLocale = locales[locale];
+
  const dic = await getDictionary({
   locale,
   path: 'home',
@@ -26,7 +29,12 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   const blogsResult = await fetch(
    `${
     process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}?${blogsParams.toString()}`
+   }${blogsApi}?${blogsParams.toString()}`,
+   {
+    headers: {
+     languageID: activeLocale.id.toString(),
+    },
+   }
   );
   if (blogsResult.ok) {
    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
@@ -35,6 +43,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
    blogs = blogsPackage.payload.Blogs;
   }
  } catch {}
+ console.log(blogs);
 
  return (
   <div id='home-page'>

@@ -8,12 +8,14 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { AppParams } from '@/utils/appParams';
 import NotFoundWrapper from '@/app/[locale]/[...not-found]/components/NotFoundWrapper';
+import { locales } from '@/localization/locales';
 
 export default async function layout({
  children,
  params,
 }: PropsWithChildren<{ params: Promise<AppParams & { name: string }> }>) {
  const { locale, name } = await params;
+ const activeLocale = locales[locale];
 
  let blog: Blog | null = null;
  const blogsParams = new URLSearchParams();
@@ -22,7 +24,12 @@ export default async function layout({
   const blogsResult = await fetch(
    `${
     process.env.NEXT_PUBLIC_API_BASE_URL
-   }${blogsApi}/${name}?${blogsParams.toString()}`
+   }${blogsApi}/${name}?${blogsParams.toString()}`,
+   {
+    headers: {
+     languageID: activeLocale.id.toString(),
+    },
+   }
   );
   if (blogsResult.ok) {
    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
