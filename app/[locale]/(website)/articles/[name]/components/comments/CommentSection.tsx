@@ -101,17 +101,15 @@ export default function CommentSection({ dic, blog }: WithDictionary & Props) {
    ) : (
     !!comments.length && (
      <div>
-      {comments.length > 9 && (
-       <div className='mb-4 flex justify-end'>
-        <Button
-         variant='outlined'
-         color='primary'
-         onClick={() => setShowAllComments(true)}
-        >
-         {dic.showAllComments as string}
-        </Button>
-       </div>
-      )}
+      <div className='mb-4 flex justify-end'>
+       <Button
+        variant='outlined'
+        color='primary'
+        onClick={() => setShowAllComments(true)}
+       >
+        {dic.showAllComments as string}
+       </Button>
+      </div>
       <Swiper
        spaceBetween={20}
        pagination
