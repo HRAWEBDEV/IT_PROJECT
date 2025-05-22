@@ -87,6 +87,34 @@ type User = {
  blackList: boolean;
 };
 
+// projects
+type Project = {
+ id: number;
+};
+type ProjectCategory = {
+ id: number;
+};
+type ProjectState = {
+ id: number;
+};
+type ProjectTag = {
+ id: number;
+};
+// services
+
+type Service = {
+ id: number;
+};
+type ServiceCategory = {
+ id: number;
+};
+type ServiceState = {
+ id: number;
+};
+type ServiceTag = {
+ id: number;
+};
+
 // blogs actions
 const blogsApi = '/blogs';
 function getBlogs<T extends { pagination?: PaginationProps }>(
@@ -536,6 +564,403 @@ function changeUserState(props: {
  }
  return axios.patch(`/Users/UserStateChanger?${params.toString()}`);
 }
+// projects
+const projectsApi = '/projects';
+function getProjects<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps &
+  T & {
+   projectStateID: number;
+   projectCategoryID?: number;
+   searchText?: string;
+   showForCards: boolean;
+  }
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       Projects: PagedResponse<Project[]>;
+      }
+    : { Project: Project[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ if (props.projectCategoryID) {
+  params.append('projectCategoryID', props.projectCategoryID.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
+ params.append('projectStateID', props.projectStateID.toString());
+ params.append('showForCard', props.showForCards.toString());
+ return axios.get(`${projectsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createProject(
+ props: ApiDefaultProps &
+  Pick<Blog, 'blogCategoryID' | 'header' | 'description'> & {
+   blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[];
+  }
+) {
+ const newProject = {
+  blogCategoryID: props.blogCategoryID,
+  header: props.header,
+  description: props.description,
+  body: 'writing',
+  blogStateID: 1,
+  lang: props.locale,
+  blogTags: props.blogTags || null,
+ };
+ return axios.post(projectsApi, newProject);
+}
+function updateProject(
+ props: ApiDefaultProps &
+  Pick<
+   Blog,
+   | 'blogCategoryID'
+   | 'header'
+   | 'description'
+   | 'id'
+   | 'body'
+   | 'blogStateID'
+   | 'showForCard'
+  > & {
+   blogImage?: { imageUrl: string; lang: SupportedLocales; blogID: number };
+  } & { blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[] }
+) {
+ const newProject = {
+  blogCategoryID: props.blogCategoryID,
+  header: props.header,
+  description: props.description,
+  body: 'writing',
+  blogStateID: 1,
+  lang: props.locale,
+  blogTags: props.blogTags || null,
+ };
+ return axios.put(projectsApi, newProject);
+}
+
+function patchProject(
+ props: ApiDefaultProps & {
+  projectID: number;
+  projectStateID?: number;
+  isFour?: boolean;
+ }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('projectID', props.projectID.toString());
+ if (props.projectStateID) {
+  params.append('projectStateID', props.projectStateID.toString());
+ }
+ if (props.isFour !== undefined) {
+  params.append('isFour', props.isFour.toString());
+ }
+ return axios.patch(`${projectsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+
+function getProject(props: ApiDefaultProps & { projectID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('projectID', props.projectID.toString());
+ return axios.get(`${projectsApi}/${props.projectID}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+// project categories
+const projectCategoriesApi = '/projectCategories';
+function getProjectCategories<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps &
+  T & {
+   searchText?: string;
+  }
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       ProjectCategories: PagedResponse<ProjectCategory[]>;
+      }
+    : { ProjectCategories: ProjectCategory[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
+ return axios.get(`${projectCategoriesApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createProjectCategory(
+ props: ApiDefaultProps & Pick<ProjectCategory, 'id'>
+) {
+ const newProjectCategory = {
+  id: props.id,
+ };
+ return axios.post(projectCategoriesApi, newProjectCategory);
+}
+function updateProjectCategory(
+ props: ApiDefaultProps & Pick<ProjectCategory, 'id'>
+) {
+ const newProjectCategory = {
+  id: props.id,
+  lang: props.locale,
+ };
+ return axios.put(projectCategoriesApi, newProjectCategory);
+}
+
+function deleteProjectCategory(
+ props: ApiDefaultProps & {
+  projectCategoryID: number;
+ }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('projectCategoryID', props.projectCategoryID.toString());
+ return axios.delete(`${projectCategoriesApi}?${params.toString()}`);
+}
+// project state
+
+const projecteStatesApi = '/projectStates';
+function getProjectStates<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps & T
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       ProjectCategories: PagedResponse<ProjectCategory[]>;
+      }
+    : { ProjectCategories: ProjectCategory[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ return axios.get(`${projecteStatesApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+// projects tags
+const projectTagsApi = '/projectTags';
+function getProjectTags(props: ApiDefaultProps & { projectID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('projectID', props.projectID.toString());
+ return axios.get<ResponseShape<{ ProjectTags: ProjectTag[] }>>(
+  `${projectTagsApi}?${params.toString()}`,
+  {
+   signal: props.signal,
+  }
+ );
+}
+// services
+const servicesApi = '/services';
+function getServices<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps &
+  T & {
+   serviceStateID: number;
+   serviceCategoryID?: number;
+   searchText?: string;
+   showForCards: boolean;
+  }
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       Services: PagedResponse<Service[]>;
+      }
+    : { Services: Service[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ if (props.serviceCategoryID) {
+  params.append('serviceCategoryID', props.serviceCategoryID.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
+ params.append('serviceStateID', props.serviceStateID.toString());
+ params.append('showForCard', props.showForCards.toString());
+ return axios.get(`${servicesApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createService(props: ApiDefaultProps & Pick<Service, 'id'>) {
+ const newService = {
+  id: props.id,
+  lang: props.locale,
+ };
+ return axios.post(servicesApi, newService);
+}
+function updateService(props: ApiDefaultProps & Pick<Service, 'id'>) {
+ const newService = {
+  id: props.id,
+  lang: props.locale,
+ };
+ return axios.put(servicesApi, newService);
+}
+
+function patchService(
+ props: ApiDefaultProps & {
+  serviceID: number;
+  serviceStateID?: number;
+  isFour?: boolean;
+ }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('serviceID', props.serviceID.toString());
+ if (props.serviceStateID) {
+  params.append('serviceStateID', props.serviceStateID.toString());
+ }
+ if (props.isFour !== undefined) {
+  params.append('isFour', props.isFour.toString());
+ }
+ return axios.patch(`${projectsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+
+function getService(props: ApiDefaultProps & { serviceID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('serviceID', props.serviceID.toString());
+ return axios.get(`${servicesApi}/${props.serviceID}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+// service categories
+const serviceCategoriesApi = '/serviceCategories';
+function getServiceCategories<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps &
+  T & {
+   searchText?: string;
+  }
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       ServiceCategories: PagedResponse<ServiceCategory[]>;
+      }
+    : { ServiceCategories: ServiceCategory[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
+ return axios.get(`${projectCategoriesApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createServiceCategory(
+ props: ApiDefaultProps & Pick<ServiceCategory, 'id'>
+) {
+ const newServiceCategory = {
+  id: props.id,
+ };
+ return axios.post(serviceCategoriesApi, newServiceCategory);
+}
+function updateServiceCategory(
+ props: ApiDefaultProps & Pick<ServiceCategory, 'id'>
+) {
+ const newServiceCategory = {
+  id: props.id,
+  lang: props.locale,
+ };
+ return axios.put(serviceCategoriesApi, newServiceCategory);
+}
+
+function deleteServiceCategory(
+ props: ApiDefaultProps & {
+  serviceCategoryID: number;
+ }
+) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('serviceCategoryID', props.serviceCategoryID.toString());
+ return axios.delete(`${serviceCategoriesApi}?${params.toString()}`);
+}
+// service state
+const serviceStatesApi = '/serviceStates';
+function getServiceStates<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps & T
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       ServiceStates: PagedResponse<ServiceState[]>;
+      }
+    : { ServiceStates: ServiceState[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ return axios.get(`${serviceStatesApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+// service tags
+const serviceTagsApi = '/serviceTags';
+function getServiceTags(props: ApiDefaultProps & { serviceID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('serviceID', props.serviceID.toString());
+ return axios.get<ResponseShape<{ ServiceTags: ServiceTag[] }>>(
+  `${serviceTagsApi}?${params.toString()}`,
+  {
+   signal: props.signal,
+  }
+ );
+}
+//
 export {
  type ResponseShape,
  type TagCategory,
@@ -548,6 +973,14 @@ export {
  type BlogComment,
  type User,
  type BlogTag,
+ type Project,
+ type ProjectCategory,
+ type ProjectState,
+ type ProjectTag,
+ type Service,
+ type ServiceCategory,
+ type ServiceState,
+ type ServiceTag,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -579,4 +1012,34 @@ export {
  updateUser,
  changeBlogCommentState,
  changeUserState,
+ projectsApi,
+ getProjects,
+ getProject,
+ createProject,
+ updateProject,
+ patchProject,
+ projectCategoriesApi,
+ getProjectCategories,
+ createProjectCategory,
+ updateProjectCategory,
+ deleteProjectCategory,
+ projecteStatesApi,
+ getProjectStates,
+ projectTagsApi,
+ getProjectTags,
+ servicesApi,
+ getServices,
+ createService,
+ updateService,
+ patchService,
+ getService,
+ serviceCategoriesApi,
+ getServiceCategories,
+ createServiceCategory,
+ updateServiceCategory,
+ deleteServiceCategory,
+ serviceStatesApi,
+ getServiceStates,
+ serviceTagsApi,
+ getServiceTags,
 };
