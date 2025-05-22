@@ -11,8 +11,6 @@ export default function AccessProvider({
  formTitle: keyof typeof RoleAccessFormIDs;
 } & PropsWithChildren) {
  const { userInfo } = useAuthCheck();
-
- console.log(userInfo);
  const formID = RoleAccessFormIDs[formTitle as keyof typeof RoleAccessFormIDs];
  const access = useMemo(() => {
   return userInfo?.RoleAccesses.find((acc) => acc.formID === formID);

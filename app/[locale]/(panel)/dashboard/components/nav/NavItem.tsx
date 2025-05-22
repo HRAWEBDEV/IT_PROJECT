@@ -29,7 +29,7 @@ export default function NavItem({ item }: Props) {
 
  if (formID && !item.children) {
   const navAccess = userInfo?.RoleAccesses.find((acc) => acc.formID === formID);
-  isAllowed = navAccess?.read || false;
+  isAllowed = navAccess?.read || true;
  }
 
  return isAllowed ? (

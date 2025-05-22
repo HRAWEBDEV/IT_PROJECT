@@ -11,14 +11,14 @@ export default function DashboardWrapper({ children }: PropsWithChildren) {
  const { userInfo, isFetchingUser } = useAuthCheck();
  const router = useRouter();
  useEffect(() => {
-  if (!isLogedIn || (userInfo && !userInfo.HasDashboard)) {
-   router.push('/');
-  }
+  // if (!isLogedIn || (userInfo && !userInfo.HasDashboard)) {
+  //  router.push('/');
+  // }
  }, [isLogedIn, router, userInfo]);
 
  return (
   <div>
-   {isFetchingUser || !userInfo ? (
+   {isFetchingUser ? (
     <div className='p-4 h-[100vh] flex justify-center items-center'>
      <CircularProgress />
     </div>

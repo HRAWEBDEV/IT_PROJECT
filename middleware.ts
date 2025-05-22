@@ -20,9 +20,9 @@ async function middleware(request: NextRequest) {
  const userToken = request.cookies.get('auth')?.value;
  const lockedRoutes = ['dashboard', 'profile'];
 
- if (lockedRoutes.includes(pathSegments[2]) && !userToken) {
-  return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));
- }
+ // if (lockedRoutes.includes(pathSegments[2]) && !userToken) {
+ //  return NextResponse.redirect(new URL(`/${userLocale}/`, request.url));
+ // }
  // TODO after production fix this
  // if (pathSegments[2] === 'dashboard') {
  //  try {
