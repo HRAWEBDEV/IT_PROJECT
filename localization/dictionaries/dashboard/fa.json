@@ -149,6 +149,16 @@
   "title": "خدمــــات"
  },
  "servicesCategories": {
-  "title": "دسته‌بندی خدمـــات"
+  "title": "دسته بندی خدمـــات",
+  "category": "دسته بندی",
+  "addCategory": "افزودن دسته بندی",
+  "categoryTitle": "عنوان",
+  "actions": "عملیات",
+  "editCategory": "ویرایش",
+  "deleteCategory": "حذف",
+  "cancel": "انصراف",
+  "save": "ثبت",
+  "description": "توضیحات",
+  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
  }
 }

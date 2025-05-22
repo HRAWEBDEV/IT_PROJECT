@@ -3,26 +3,26 @@ import { useState } from 'react';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import {
- ProjectCategory,
- getProjectCategories,
+ ServiceCategory,
+ getServiceCategories,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
-import ProjectsCategoriesGrid from './ProjectsCategoriesGrid';
+import ServicesCategoriesGrid from './ServicesCategoriesGrid';
 import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
-import ProjectsCategoriesFilters from './ProjectsCategoriesFilters';
-import AddProjectCategory from './AddProjectCategory';
+import ServicesCategoriesFilters from './ServicesCategoriesFilters';
+import AddServiceCategory from './AddServiceCategory';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
 
-export default function ProjectsCategoriesWrapper() {
+export default function ServicesCategoriesWrapper() {
  const { roleAccess } = useAccessContext();
  const [filterModel, setFilterModel] = useState<GridFilterModel>({
   items: [],
  });
  const [openEditCategory, setOpenEditCategory] = useState(false);
  const [selectedCategory, setSelectedCategory] =
-  useState<ProjectCategory | null>(null);
+  useState<ServiceCategory | null>(null);
  const [rowCount, setRowCount] = useState(0);
  const [pagination, setPagination] = useState<GridPaginationModel>({
   page: 0,
@@ -30,8 +30,8 @@ export default function ProjectsCategoriesWrapper() {
  });
  //
  const { locale } = useAppConfig();
- const { projectsCategories } = useWebsiteDictionary() as {
-  projectsCategories: Dic;
+ const { servicesCategories } = useWebsiteDictionary() as {
+  servicesCategories: Dic;
  };
 
  const {
@@ -40,14 +40,14 @@ export default function ProjectsCategoriesWrapper() {
   isFetching,
  } = useQuery({
   queryKey: [
-   'projects',
-   'projectsCategories',
+   'services',
+   'servicesCategories',
    pagination.page + 1,
    pagination.pageSize,
    filterModel?.quickFilterValues?.[0] || '',
   ],
   async queryFn() {
-   const result = await getProjectCategories({
+   const result = await getServiceCategories({
     locale,
     pagination: {
      limit: pagination.pageSize,
@@ -55,7 +55,7 @@ export default function ProjectsCategoriesWrapper() {
     },
     searchText: filterModel?.quickFilterValues?.[0] || undefined,
    });
-   const pacakge = result.data.payload.ProjectCategories;
+   const pacakge = result.data.payload.ServiceCategories;
    const data = pacakge.rows;
    setRowCount(pacakge.rowsCount);
    return data;
@@ -67,12 +67,12 @@ export default function ProjectsCategoriesWrapper() {
    {true ? (
     <div>
      <h1 className='font-bold text-2xl mb-4'>
-      {projectsCategories.title as string}
+      {servicesCategories.title as string}
      </h1>
-     <ProjectsCategoriesFilters
+     <ServicesCategoriesFilters
       setOpenAddCategory={() => setOpenEditCategory(true)}
      />
-     <ProjectsCategoriesGrid
+     <ServicesCategoriesGrid
       categoriesList={categoriesList}
       filterModel={filterModel}
       setFilterModel={setFilterModel}
@@ -84,7 +84,7 @@ export default function ProjectsCategoriesWrapper() {
       selectedCategory={selectedCategory}
       setSelectedCategory={setSelectedCategory}
      />
-     <AddProjectCategory
+     <AddServiceCategory
       open={openEditCategory}
       category={selectedCategory}
       onClose={() => {
