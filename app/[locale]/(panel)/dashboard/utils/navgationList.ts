@@ -36,10 +36,39 @@ export const navigationList: NavigationItem[] = [
     title: 'articlesCategories',
     href: '/dashboard/articles-categories',
    },
+  ],
+ },
+ {
+  type: 'services',
+  title: 'services',
+  href: '#',
+  children: [
    {
-    type: 'articles-comments',
-    title: 'articlesComments',
-    href: '/dashboard/articles-comments',
+    type: 'service-list',
+    title: 'serviceList',
+    href: '/dashboard/services',
+   },
+   {
+    type: 'services-categories',
+    title: 'servicesCategories',
+    href: '/dashboard/services-categories',
+   },
+  ],
+ },
+ {
+  type: 'projects',
+  title: 'projects',
+  href: '#',
+  children: [
+   {
+    type: 'project-list',
+    title: 'projectList',
+    href: '/dashboard/projects',
+   },
+   {
+    type: 'projects-categories',
+    title: 'projectsCategories',
+    href: '/dashboard/projects-categories',
    },
   ],
  },

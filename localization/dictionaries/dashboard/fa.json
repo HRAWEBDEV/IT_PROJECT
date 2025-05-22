@@ -16,6 +16,12 @@
   "settings": "تنظیمات",
   "initialInfo": "اطلاعات اولیه",
   "tags": "تگ ها",
+  "services": "خدمــات",
+  "serviceList": "لیست خدمــات",
+  "servicesCategories": "دسته‌بندی خدمــات",
+  "projects": "پروژه‌هــــا",
+  "projectList": "لیست پروژه‌هــــا",
+  "projectsCategories": "دسته‌بندی پروژه‌ها",
   "articles": "اخبار و مقــاله‌ها",
   "articlesCategories": "دسته بندی اخبار و مقاله‌ها",
   "articlesList": "لیست اخبار و مقاله‌ها",
@@ -122,5 +128,17 @@
   "description": "توضیحات",
   "save": "ثبت",
   "cancel": "انصراف"
+ },
+ "projects": {
+  "title": "پروژه‌هــــا"
+ },
+ "projectsCategories": {
+  "title": "دسته‌بندی پروژه‌هـــا"
+ },
+ "services": {
+  "title": "خدمــــات"
+ },
+ "servicesCategories": {
+  "title": "دسته‌بندی خدمـــات"
  }
 }
