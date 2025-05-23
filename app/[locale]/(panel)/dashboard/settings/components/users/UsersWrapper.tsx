@@ -83,7 +83,7 @@ export default function UsersWrapper() {
  return (
   <>
    {roleAccess.read ? (
-    <section>
+    <section className='mb-8'>
      <h2 className='font-bold text-2xl mb-4'>{users.title as string}</h2>
      <FormProvider {...usersFilters}>
       <UsersFilters test='test' />

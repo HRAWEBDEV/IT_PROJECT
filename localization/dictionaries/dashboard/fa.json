@@ -126,8 +126,15 @@
   "nationalCode": "کد ملی",
   "email": "ایمیل",
   "description": "توضیحات",
+  "contactUs": "تماس با ما",
+  "firstName": "نام",
+  "lastName": "نام خانوادگی",
+  "cellPhone": "شماره همراه",
   "save": "ثبت",
-  "cancel": "انصراف"
+  "cancel": "انصراف",
+  "search": "جستجو",
+  "isRead": "خوانده شده",
+  "deleted": "حذف شده"
  },
  "projects": {
   "title": "پروژه‌هــــا",
