@@ -64,7 +64,7 @@ export default function ServicesCategoriesGrid({
  const { mutate: deleteMutate, isPending } = useMutation({
   onSuccess() {
    queryClient.invalidateQueries({
-    queryKey: ['services', 'servicesCategories'],
+    queryKey: ['dashboard', 'servicesCategories'],
    });
    enqueueSnackbar({
     message: changesSavedSuccessfully,

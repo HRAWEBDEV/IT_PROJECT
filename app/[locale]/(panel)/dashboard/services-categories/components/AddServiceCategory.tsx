@@ -45,7 +45,7 @@ export default function AddCategory({ open, category, onClose }: Props) {
  const { mutate: mutateCategory, isPending: isCreating } = useMutation({
   onSuccess() {
    queryClient.invalidateQueries({
-    queryKey: ['services', 'servicesCategories'],
+    queryKey: ['dashboard', 'servicesCategories'],
    });
    enqueueSnackbar({
     message: changesSavedSuccessfully,
