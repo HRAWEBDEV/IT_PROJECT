@@ -134,7 +134,9 @@
   "cancel": "انصراف",
   "search": "جستجو",
   "isRead": "خوانده شده",
-  "deleted": "حذف شده"
+  "isNotRead": "خوانده نشده",
+  "deleted": "حذف شده",
+  "showInfo": "نمایش اطلاعات"
  },
  "projects": {
   "title": "پروژه‌هــــا",

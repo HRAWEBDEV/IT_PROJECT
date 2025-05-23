@@ -149,6 +149,8 @@ type ContactUs = {
  lastName: string;
  cellPhone: string;
  email: string;
+ isRead:boolean;
+ deleted:boolean
 };
 
 // blogs actions
