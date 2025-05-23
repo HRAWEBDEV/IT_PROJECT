@@ -13,6 +13,7 @@ import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { motion } from 'motion/react';
 import { type Dic, type WithDictionary } from '@/localization/locales';
+import { type Service } from '@/services/api-actions/globalApiActions';
 
 const iconSize = '2.5rem';
 const projects = [
@@ -40,7 +41,9 @@ const projects = [
  },
 ];
 
-type Props = WithDictionary;
+type Props = {
+ services: Service[];
+} & WithDictionary;
 
 export default function Services({ dic }: Props) {
  return (

@@ -10,6 +10,7 @@ import Link from 'next/link';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type Dic, type WithDictionary } from '@/localization/locales';
+import { type Project } from '@/services/api-actions/globalApiActions';
 // import HandymanIcon from '@mui/icons-material/Handyman';
 
 const projects = [
@@ -35,7 +36,9 @@ const projects = [
  },
 ];
 
-type Props = WithDictionary;
+type Props = {
+ projects:Project[]
+} &  WithDictionary;
 
 export default function Projects({ dic }: Props) {
  return (
