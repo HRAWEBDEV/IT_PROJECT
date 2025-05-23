@@ -58,77 +58,77 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  projectsParams.set('blogStateID', '2');
  projectsParams.set('showForCard', 'true');
 
- if (activeLocale.id) {
-  try {
-   const projectResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${projectsApi}?${projectsParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
-   if (projectResult.ok) {
-    const blogsPackage = (await projectResult.json()) as ResponseShape<{
-     Projects: Project[];
-    }>;
-    projects = blogsPackage.payload.Projects;
-   }
-  } catch {}
- }
+ // if (activeLocale.id) {
+ //  try {
+ //   const projectResult = await fetch(
+ //    `${
+ //     process.env.NEXT_PUBLIC_API_BASE_URL
+ //    }${projectsApi}?${projectsParams.toString()}`,
+ //    {
+ //     headers: {
+ //      languageID: activeLocale.id.toString(),
+ //     },
+ //    }
+ //   );
+ //   if (projectResult.ok) {
+ //    const blogsPackage = (await projectResult.json()) as ResponseShape<{
+ //     Projects: Project[];
+ //    }>;
+ //    projects = blogsPackage.payload.Projects;
+ //   }
+ //  } catch {}
+ // }
 
  let services: Service[] = [];
  const servicesParams = new URLSearchParams();
  servicesParams.set('lang', locale);
  servicesParams.set('blogStateID', '2');
  servicesParams.set('showForCard', 'true');
- if (activeLocale.id) {
-  try {
-   const servicesResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${servicesApi}?${servicesParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
-   if (servicesResult.ok) {
-    const servicesPackage = (await servicesResult.json()) as ResponseShape<{
-     Services: Service[];
-    }>;
-    services = servicesPackage.payload.Services;
-   }
-  } catch {}
- }
+ // if (activeLocale.id) {
+ //  try {
+ //   const servicesResult = await fetch(
+ //    `${
+ //     process.env.NEXT_PUBLIC_API_BASE_URL
+ //    }${servicesApi}?${servicesParams.toString()}`,
+ //    {
+ //     headers: {
+ //      languageID: activeLocale.id.toString(),
+ //     },
+ //    }
+ //   );
+ //   if (servicesResult.ok) {
+ //    const servicesPackage = (await servicesResult.json()) as ResponseShape<{
+ //     Services: Service[];
+ //    }>;
+ //    services = servicesPackage.payload.Services;
+ //   }
+ //  } catch {}
+ // }
 
  let servicesCategories: ServiceCategory[] = [];
  const servicesCategoriesParams = new URLSearchParams();
  servicesCategoriesParams.set('lang', locale);
- if (activeLocale.id) {
-  try {
-   const servicesCategoriesResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
-   if (servicesCategoriesResult.ok) {
-    const servicesCategoriesPackage =
-     (await servicesCategoriesResult.json()) as ResponseShape<{
-      ServiceCategories: ServiceCategory[];
-     }>;
-    servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
-   }
-  } catch {}
- }
+ // if (activeLocale.id) {
+ //  try {
+ //   const servicesCategoriesResult = await fetch(
+ //    `${
+ //     process.env.NEXT_PUBLIC_API_BASE_URL
+ //    }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
+ //    {
+ //     headers: {
+ //      languageID: activeLocale.id.toString(),
+ //     },
+ //    }
+ //   );
+ //   if (servicesCategoriesResult.ok) {
+ //    const servicesCategoriesPackage =
+ //     (await servicesCategoriesResult.json()) as ResponseShape<{
+ //      ServiceCategories: ServiceCategory[];
+ //     }>;
+ //    servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
+ //   }
+ //  } catch {}
+ // }
 
  return (
   <div id='home-page'>

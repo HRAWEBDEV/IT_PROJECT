@@ -5,8 +5,8 @@ export enum RoleAccessFormIDs {
  articlesCategories = 4,
  articlesList = 5,
  articlesComments = 6,
- projectsCategories = 7,
- projectsList = 8,
- servicesCategories = 10,
- servicesList = 11,
+ servicesCategories = 7,
+ servicesList = 8,
+ projectsCategories = 9,
+ projectsList = 10,
 }

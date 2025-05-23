@@ -139,7 +139,7 @@ export default function ProjectsCategoriesGrid({
       headerName: projectsCategories.actions as string,
       getActions({ row }) {
        const actions = [];
-       if (true) {
+       if (roleAccess.update) {
         actions.push(
          <GridActionsCellItem
           key={'edit'}
@@ -153,7 +153,7 @@ export default function ProjectsCategoriesGrid({
          />
         );
        }
-       if (true) {
+       if (roleAccess.remove) {
         actions.push(
          <GridActionsCellItem
           key={'remove'}
