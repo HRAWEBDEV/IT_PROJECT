@@ -35,6 +35,7 @@ export default function UsersGrid({
  rowsCount,
  setSelectedContactUs,
  selectedContactUs,
+ setOpenContactUsInfo
 }: Props) {
  const queryClient = useQueryClient();
  const [openConfirmBox, setOpenConfirmBox] = useState(false);
