@@ -149,8 +149,8 @@ type ContactUs = {
  lastName: string;
  cellPhone: string;
  email: string | null;
- isRead:boolean;
- deleted:boolean
+ isRead: boolean;
+ deleted: boolean;
 };
 
 // blogs actions
@@ -685,10 +685,11 @@ function updateProject(
   projectCategoryID: props.projectCategoryID,
   header: props.header,
   description: props.description,
-  body: 'writing',
-  projectStateID: 1,
+  body: props.body,
+  projectStateID: props.projectStateID,
   lang: props.locale,
   projectTags: props.projectTags || null,
+  id: props.id,
  };
  return axios.put(projectsApi, newProject);
 }
@@ -1156,5 +1157,5 @@ export {
  contactUsApi,
  getContactUs,
  addContactUs,
- readContactUs
+ readContactUs,
 };

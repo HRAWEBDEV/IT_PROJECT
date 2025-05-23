@@ -22,11 +22,8 @@ import IconButton from '@mui/material/IconButton';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 import ChangeState from './ChangeState';
 import AddContent from './AddContent';
-// import AddImage from './AddImage';
-// import ArticleComments from './comments/ArticleComments';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
-import AccessProvider from '../../services/access/AccessProvider';
 
 export default function ArticlesWrapper() {
  const { roleAccess } = useAccessContext();
@@ -35,8 +32,6 @@ export default function ArticlesWrapper() {
  });
  const [openChangeState, setOpenChangeState] = useState(false);
  const [openProjectContent, setOpenProjectContent] = useState(false);
- const [openProjectComments, setOpenProjectComments] = useState(false);
- const [openAddImage, setOpenAddImage] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
  const [openEditProject, setOpenEditProject] = useState(false);
  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -130,7 +125,7 @@ export default function ArticlesWrapper() {
 
  return (
   <>
-   {true ? (
+   {roleAccess.read ? (
     <div>
      <h1 className='font-bold text-2xl mb-4'>{projects.title as string}</h1>
      <FormProvider {...filtersUseForm}>
@@ -147,7 +142,6 @@ export default function ArticlesWrapper() {
       {projectCategories.length ? (
        <ProjectsGrid
         projectsList={projectsList}
-        setOpenProjectComments={() => setOpenProjectComments(true)}
         isLoading={isLoading || isFetching}
         pagination={pagination}
         setPagination={setPagination}
@@ -157,7 +151,6 @@ export default function ArticlesWrapper() {
         setOpenAddProject={() => setOpenEditProject(true)}
         selectedProject={selectedProject}
         setSelectedProject={setSelectedProject}
-        setShowAddImage={setOpenAddImage}
         setOpenProjectContent={() => setOpenProjectContent(true)}
         setOpenChangeState={() => setOpenChangeState(true)}
        />
@@ -213,48 +206,6 @@ export default function ArticlesWrapper() {
        project={selectedProject}
       />
      )}
-     {/* {openArticleContent && selectedArticle && (
-      <AddContent
-       open={openArticleContent}
-       onClose={() => {
-        setOpenArticleContent(false);
-        setSelectedArticle(null);
-       }}
-       article={selectedArticle}
-      />
-     )}
-     {openChangeState && selectedArticle && (
-      <ChangeState
-       open={openChangeState}
-       onClose={() => {
-        setSelectedArticle(null);
-        setOpenChangeState(false);
-       }}
-       article={selectedArticle}
-       blogStates={articleStates}
-      />
-     )}
-     {openAddImage && selectedArticle && (
-      <AddImage
-       open={openAddImage}
-       article={selectedArticle}
-       onClose={() => {
-        setOpenAddImage(false);
-        setSelectedArticle(null);
-       }}
-      />
-     )}
-     {openArticleComments && selectedArticle && (
-      <AccessProvider formTitle='articlesComments'>
-       <ArticleComments
-        open={openArticleComments}
-        article={selectedArticle}
-        onClose={() => {
-         setOpenArticleComments(false);
-        }}
-       />
-      </AccessProvider>
-     )} */}
     </div>
    ) : (
     <NoAccessGranted />

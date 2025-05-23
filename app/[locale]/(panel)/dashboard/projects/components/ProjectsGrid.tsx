@@ -17,8 +17,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import CommentIcon from '@mui/icons-material/Comment';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AxiosError } from 'axios';
@@ -34,10 +32,8 @@ type Props = {
  setSelectedProject: (project: Project | null) => void;
  setOpenAddProject: () => void;
  setPagination: (pagination: GridPaginationModel) => void;
- setShowAddImage: (show: boolean) => void;
  setOpenProjectContent: () => void;
  setOpenChangeState: () => void;
- setOpenProjectComments: () => void;
  rowCount: number;
 };
 
@@ -49,11 +45,9 @@ export default function ArticlesGrid({
  rowCount,
  setSelectedProject,
  setOpenAddProject,
- setShowAddImage,
  selectedProject,
  setOpenProjectContent,
  setOpenChangeState,
- setOpenProjectComments,
  filterModel,
  setFilterModel,
 }: Props) {
@@ -200,16 +194,6 @@ export default function ArticlesGrid({
           showInMenu
          />,
          <GridActionsCellItem
-          key={'images'}
-          label={projects.images as string}
-          icon={<ImageOutlinedIcon color='warning' />}
-          onClick={() => {
-           setSelectedProject(row);
-           setShowAddImage(true);
-          }}
-          showInMenu
-         />,
-         <GridActionsCellItem
           key={'content'}
           label={projects.content as string}
           icon={<ArticleIcon color='primary' />}
@@ -221,19 +205,6 @@ export default function ArticlesGrid({
          />
         );
        }
-
-       actions.push(
-        <GridActionsCellItem
-         key={'comments'}
-         label={projects.comments as string}
-         icon={<CommentIcon color='secondary' />}
-         onClick={() => {
-          setSelectedProject(row);
-          setOpenProjectComments();
-         }}
-         showInMenu
-        />
-       );
 
        if (roleAccess.changeState) {
         actions.push(
