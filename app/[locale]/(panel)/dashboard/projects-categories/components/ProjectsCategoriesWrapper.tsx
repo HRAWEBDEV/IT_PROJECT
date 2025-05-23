@@ -40,7 +40,7 @@ export default function ProjectsCategoriesWrapper() {
   isFetching,
  } = useQuery({
   queryKey: [
-   'projects',
+   'dashboard',
    'projectsCategories',
    pagination.page + 1,
    pagination.pageSize,
