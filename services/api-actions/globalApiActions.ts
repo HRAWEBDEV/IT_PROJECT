@@ -141,6 +141,15 @@ type ServiceTag = {
  tagID: number;
  tagName: string;
 };
+// contact us
+type ContactUs = {
+ id: number;
+ personID: number;
+ firstName: string;
+ lastName: string;
+ cellPhone: string;
+ email: string;
+};
 
 // blogs actions
 const blogsApi = '/blogs';
@@ -1010,6 +1019,56 @@ function getServiceTags(props: ApiDefaultProps & { serviceID: number }) {
  );
 }
 //
+const contactUsApi = '/contact-us';
+function getContactUs<T extends { pagination?: PaginationProps }>(
+ props: ApiDefaultProps &
+  T & {
+   isRead?: boolean;
+   deleted?: boolean;
+   searchText?: string;
+  }
+): Promise<
+ AxiosResponse<
+  ResponseShape<
+   T['pagination'] extends PaginationProps
+    ? {
+       ContactUs: PagedResponse<ContactUs[]>;
+      }
+    : { ContactUs: ContactUs[] }
+  >
+ >
+> {
+ const { pagination } = props;
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ if (pagination) {
+  params.append('limit', pagination.limit.toString());
+  params.append('offset', pagination.offset.toString());
+ }
+ if (props.searchText) {
+  params.append('searchText', props.searchText);
+ }
+ params.append(
+  'isRead',
+  props.isRead === undefined ? 'false' : props.isRead.toString()
+ );
+ params.append(
+  'deleted',
+  props.deleted === undefined ? 'false' : props.deleted.toString()
+ );
+ return axios.get(`${contactUsApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+const addContactUs = (newContactUs: ContactUs) => {
+ return axios.post(contactUsApi, newContactUs);
+};
+const readContactUs = (contactUsID: number) => {
+ const params = new URLSearchParams();
+ params.append('contactUsID', contactUsID.toString());
+ return axios.patch(`${contactUsApi}?${params.toString()}`);
+};
+//
 export {
  type ResponseShape,
  type TagCategory,
@@ -1030,6 +1089,7 @@ export {
  type ServiceCategory,
  type ServiceState,
  type ServiceTag,
+ type ContactUs,
  getBlogs,
  getBlogCategories,
  getTags,
@@ -1091,4 +1151,8 @@ export {
  getServiceStates,
  serviceTagsApi,
  getServiceTags,
+ contactUsApi,
+ getContactUs,
+ addContactUs,
+ readContactUs
 };
