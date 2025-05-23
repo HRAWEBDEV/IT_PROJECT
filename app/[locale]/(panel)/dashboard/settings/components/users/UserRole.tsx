@@ -49,7 +49,7 @@ export default function AddTag({ open, onClose, user }: Props) {
   };
 
  const { data: roles, isLoading: isLoadingRoles } = useQuery({
-  queryKey: ['all-roles', user.personID],
+  queryKey: ['dashboard', 'users', 'all-roles', user.personID],
   async queryFn({ signal }) {
    const roles = await getRoles({ signal }).then(
     (res) => res.data.payload.Roles
@@ -70,7 +70,9 @@ export default function AddTag({ open, onClose, user }: Props) {
    mutationFn: (newRole: { userID: number; roleID: number }[]) =>
     updateUserRole(newRole),
    onSuccess() {
-    queryClient.invalidateQueries({ queryKey: ['all-roles', user.personID] });
+    queryClient.invalidateQueries({
+     queryKey: ['dashboard', 'users', 'all-roles', user.personID],
+    });
     enqueueSnackbar({
      message: changesSavedSuccessfully,
      variant: 'success',

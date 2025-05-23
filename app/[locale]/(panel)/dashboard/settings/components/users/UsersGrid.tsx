@@ -82,7 +82,7 @@ export default function UsersGrid({
     setOpenConfirmBox(false);
     setSelectedUser(null);
     queryClient.invalidateQueries({
-     queryKey: ['users'],
+     queryKey: ['dashboard', 'users'],
     });
    },
    onError(err: AxiosError) {

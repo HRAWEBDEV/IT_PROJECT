@@ -54,6 +54,7 @@ export default function UsersWrapper() {
 
  const { data: usersList = [], isLoading } = useQuery({
   queryKey: [
+   'dashboard',
    'users',
    pagination.page,
    debouncedSearch,
