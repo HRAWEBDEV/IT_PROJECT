@@ -64,7 +64,7 @@ export default function ServicesCategoriesWrapper() {
 
  return (
   <>
-   {true ? (
+   {roleAccess.read ? (
     <div>
      <h1 className='font-bold text-2xl mb-4'>
       {servicesCategories.title as string}
