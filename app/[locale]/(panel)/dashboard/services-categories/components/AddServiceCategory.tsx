@@ -27,7 +27,7 @@ import { AxiosError } from 'axios';
 
 type Props = {
  open: boolean;
- category: BlogCategory | null;
+ category: ServiceCategory | null;
  onClose: () => void;
 };
 
@@ -45,7 +45,7 @@ export default function AddCategory({ open, category, onClose }: Props) {
  const { mutate: mutateCategory, isPending: isCreating } = useMutation({
   onSuccess() {
    queryClient.invalidateQueries({
-    queryKey: ['dashboard', 'servicesCategories'],
+    queryKey: ['services', 'servicesCategories'],
    });
    enqueueSnackbar({
     message: changesSavedSuccessfully,
@@ -61,17 +61,14 @@ export default function AddCategory({ open, category, onClose }: Props) {
   },
   mutationFn: async (data: AddCategorySchema) => {
    const newCategory = {
+    id: category?.id || 0,
     locale,
     name: data.title,
     description: data.description,
    };
-   return Promise.resolve();
-   //  return category
-   //   ? updateBlogCategory({
-   //      ...newCategory,
-   //      id: category.id,
-   //     })
-   //   : createBlogCategory(newCategory);
+   return category
+    ? updateServiceCategory(newCategory)
+    : createServiceCategory(newCategory);
   },
  });
  const {

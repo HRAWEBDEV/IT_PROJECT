@@ -109,6 +109,8 @@ type Service = {
 };
 type ServiceCategory = {
  id: number;
+ name: string;
+ description: string;
 };
 type ServiceState = {
  id: number;
@@ -869,7 +871,7 @@ function getService(props: ApiDefaultProps & { serviceID: number }) {
  });
 }
 // service categories
-const serviceCategoriesApi = '/serviceCategories';
+const serviceCategoriesApi = '/service-categories';
 function getServiceCategories<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
@@ -896,24 +898,29 @@ function getServiceCategories<T extends { pagination?: PaginationProps }>(
  if (props.searchText) {
   params.append('searchText', props.searchText);
  }
- return axios.get(`${projectCategoriesApi}?${params.toString()}`, {
+ return axios.get(`${serviceCategoriesApi}?${params.toString()}`, {
   signal: props.signal,
  });
 }
 function createServiceCategory(
- props: ApiDefaultProps & Pick<ServiceCategory, 'id'>
-) {
- const newServiceCategory = {
-  id: props.id,
- };
- return axios.post(serviceCategoriesApi, newServiceCategory);
-}
-function updateServiceCategory(
- props: ApiDefaultProps & Pick<ServiceCategory, 'id'>
+ props: ApiDefaultProps & Pick<ServiceCategory, 'id' | 'name' | 'description'>
 ) {
  const newServiceCategory = {
   id: props.id,
   lang: props.locale,
+  name: props.name,
+  description: props.description,
+ };
+ return axios.post(serviceCategoriesApi, newServiceCategory);
+}
+function updateServiceCategory(
+ props: ApiDefaultProps & Pick<ServiceCategory, 'id' | 'name' | 'description'>
+) {
+ const newServiceCategory = {
+  id: props.id,
+  lang: props.locale,
+  name: props.name,
+  description: props.description,
  };
  return axios.put(serviceCategoriesApi, newServiceCategory);
 }

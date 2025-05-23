@@ -139,7 +139,7 @@ export default function ServicesCategoriesGrid({
       headerName: servicesCategories.actions as string,
       getActions({ row }) {
        const actions = [];
-       if (roleAccess.update) {
+       if (true) {
         actions.push(
          <GridActionsCellItem
           key={'edit'}
@@ -153,7 +153,7 @@ export default function ServicesCategoriesGrid({
          />
         );
        }
-       if (roleAccess.remove) {
+       if (true) {
         actions.push(
          <GridActionsCellItem
           key={'remove'}
