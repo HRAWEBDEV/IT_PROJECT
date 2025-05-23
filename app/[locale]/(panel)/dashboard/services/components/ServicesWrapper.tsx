@@ -13,8 +13,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import ServicesGrid from './ServicesGrid';
 import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
-// import ArticlesGrid from './ArticlesGrid';
 import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
 // import AddArticle from './AddArticle';
 import AddCategory from '../../services-categories/components/AddServiceCategory';
@@ -145,24 +145,23 @@ export default function ArticlesWrapper() {
        setOpenAddCategory={() => setOpenAddCategory(true)}
       />
       {serviceCategories.length ? (
-       <></>
+       <ServicesGrid
+        servicesList={servicesList}
+        setOpenServiceComments={() => setOpenServiceComments(true)}
+        isLoading={isLoading || isFetching}
+        pagination={pagination}
+        setPagination={setPagination}
+        rowCount={rowCount}
+        filterModel={filterModel}
+        setFilterModel={setFilterModel}
+        setOpenAddService={() => setOpenEditService(true)}
+        selectedService={selectedService}
+        setSelectedService={setSelectedService}
+        setShowAddImage={setOpenAddImage}
+        setOpenServiceContent={() => setOpenServiceContent(true)}
+        setOpenChangeState={() => setOpenChangeState(true)}
+       />
       ) : (
-       // <ArticlesGrid
-       //  articlesList={articlesList}
-       //  setOpenArticleComments={() => setOpenArticleComments(true)}
-       //  isLoading={isLoading || isFetching}
-       //  pagination={pagination}
-       //  setPagination={setPagination}
-       //  rowCount={rowCount}
-       //  filterModel={filterModel}
-       //  setFilterModel={setFilterModel}
-       //  setOpenAddArticle={() => setOpenEditArticle(true)}
-       //  selectedArticle={selectedArticle}
-       //  setSelectedArticle={setSelectedArticle}
-       //  setShowAddImage={setOpenAddImage}
-       //  setOpenArticleContent={() => setOpenArticleContent(true)}
-       //  setOpenChangeState={() => setOpenChangeState(true)}
-       // />
        <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
         <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
          {services.atLeastOneCategory as string}
