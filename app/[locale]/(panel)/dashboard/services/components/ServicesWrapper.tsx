@@ -61,7 +61,7 @@ export default function ArticlesWrapper() {
   isLoading: isServiceCategoriesLoading,
   isFetching: isServiceCategoriesFetching,
  } = useQuery({
-  queryKey: ['services', 'servicesCategories'],
+  queryKey: ['dashboard', 'servicesCategories'],
   async queryFn() {
    const result = await getServiceCategories({
     locale,

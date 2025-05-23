@@ -82,7 +82,7 @@ export default function AddContent({ open, onClose, project }: Props) {
   },
   onSuccess() {
    queryClient.invalidateQueries({
-    queryKey: ['dashboard', 'articles'],
+    queryKey: ['dashboard', 'projects'],
    });
    enqueueSnackbar({
     message: changesSavedSuccessfully as string,

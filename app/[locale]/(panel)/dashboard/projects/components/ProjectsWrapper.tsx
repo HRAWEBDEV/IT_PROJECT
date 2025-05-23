@@ -61,7 +61,7 @@ export default function ArticlesWrapper() {
   isLoading: isProjectCategoriesLoading,
   isFetching: isProjectCategoriesFetching,
  } = useQuery({
-  queryKey: ['projects', 'projectsCategories'],
+  queryKey: ['dashboard', 'projectsCategories'],
   async queryFn() {
    const result = await getProjectCategories({
     locale,
@@ -76,7 +76,7 @@ export default function ArticlesWrapper() {
   isLoading: isProjectStatesLoading,
   isFetching: isProjectStatesFetching,
  } = useQuery({
-  queryKey: ['projects', 'projectsStates'],
+  queryKey: ['dashboard', 'projectsStates'],
   async queryFn() {
    const result = await getProjectStates({
     locale,
