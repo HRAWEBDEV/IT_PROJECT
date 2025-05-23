@@ -58,23 +58,30 @@ export default function ArticleComments({
   resolver: zodResolver(commentStateSchema),
   defaultValues: {
    state: commentStates[0],
+   removed: false,
   },
  });
  const commentState = filtersUseForm.watch('state');
+ const removed = filtersUseForm.watch('removed');
 
  const {
   data: comments = [],
   isLoading,
   isError,
  } = useQuery({
-  queryKey: ['blogComments', article.id, commentState],
+  queryKey: ['blogComments', article.id, commentState, removed],
   queryFn({ signal }) {
    return getBlogComments({
     blogID: article.id,
+    dashboard: manage,
     isForHomepage: manage ? false : true,
     locale: locale,
     signal,
-    commentStateID: manage ? commentState?.id : CommentStateEnum.Approved,
+    commentStateID: manage
+     ? removed
+       ? CommentStateEnum.Rejected
+       : undefined
+     : CommentStateEnum.Approved,
    }).then((res) => res.data.payload.BlogComments);
   },
  });

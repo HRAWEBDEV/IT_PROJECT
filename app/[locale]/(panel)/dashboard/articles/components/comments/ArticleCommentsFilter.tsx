@@ -3,14 +3,13 @@ import { type Dic } from '@/localization/locales';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { useFormContext, Controller } from 'react-hook-form';
 import { type CommentState } from '../../schemas/comments';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import { commentStates } from '../../utils/CommentState';
 import Button from '@mui/material/Button';
 import { CommentMode } from '../../utils/commentModes';
 import { useAuth } from '@/services/auth/authContext';
 import { type CommentSetting } from '../../utils/commentSetting';
 import Link from 'next/link';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { useAccessContext } from '../../../services/access/accessContext';
 
 export default function ArticleCommentsFilter({
@@ -37,31 +36,24 @@ export default function ArticleCommentsFilter({
      </Link>
     </p>
    ) : (
-    <div className='grid lg:grid-cols-[minmax(0,20rem)_max-content] gap-4 lg:justify-between'>
+    <div className='grid lg:grid-cols-[max-content_max-content] gap-4 lg:justify-between'>
      <div>
       {manage && (
        <Controller
         control={control}
-        name='state'
+        name='removed'
         render={({ field }) => (
-         <Autocomplete
-          fullWidth
-          disableClearable={true}
-          size='small'
-          {...field}
-          onChange={(_, value) => {
-           field.onChange(value);
-          }}
-          options={commentStates}
-          getOptionLabel={(option) =>
-           articlesComments[option.name as keyof Dic] as string
-          }
-          renderInput={(params) => (
-           <TextField
-            {...params}
-            label={articlesComments.commentState as string}
+         <FormControlLabel
+          control={
+           <Switch
+            {...field}
+            checked={field.value}
+            onChange={(newValue) => {
+             field.onChange(newValue);
+            }}
            />
-          )}
+          }
+          label={articlesComments.rejected as string}
          />
         )}
        />

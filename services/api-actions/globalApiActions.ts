@@ -290,6 +290,7 @@ function getBlogComments(
  props: ApiDefaultProps & {
   blogID: number;
   isForHomepage?: boolean;
+  dashboard?: boolean;
   commentStateID?: number;
  }
 ): Promise<AxiosResponse<ResponseShape<{ BlogComments: BlogComment[] }>>> {
@@ -297,8 +298,8 @@ function getBlogComments(
  params.append('lang', props.locale);
  params.append('blogID', props.blogID.toString());
  params.append(
-  'isForHomePage',
-  props.isForHomepage === undefined ? 'true' : props.isForHomepage.toString()
+  'dashboard',
+  props.dashboard === undefined ? 'false' : props.dashboard.toString()
  );
  params.append(
   'isForDashboard',

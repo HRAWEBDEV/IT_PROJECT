@@ -5,6 +5,7 @@ const commentStateSchema = z.object({
   id: z.number(),
   name: z.string(),
  }),
+ removed: z.boolean(),
 });
 
 type CommentState = z.infer<typeof commentStateSchema>;
