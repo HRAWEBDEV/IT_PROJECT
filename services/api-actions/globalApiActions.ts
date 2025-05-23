@@ -117,6 +117,16 @@ type ProjectTag = {
 // services
 type Service = {
  id: number;
+ header: string;
+ description: string;
+ body: string;
+ projectCategoryID: number;
+ projectCategoryName: string;
+ projectStateID: number;
+ projectStateName: string;
+ createDateTimeOffset: string;
+ showForCard: boolean;
+ imageUrl?: string;
 };
 type ServiceCategory = {
  id: number;
@@ -128,7 +138,8 @@ type ServiceState = {
  name: string;
 };
 type ServiceTag = {
- id: number;
+ tagID: number;
+ tagName: string;
 };
 
 // blogs actions
@@ -940,26 +951,11 @@ function deleteServiceCategory(
 }
 // service state
 const serviceStatesApi = '/serviceStates';
-function getServiceStates<T extends { pagination?: PaginationProps }>(
- props: ApiDefaultProps & T
-): Promise<
- AxiosResponse<
-  ResponseShape<
-   T['pagination'] extends PaginationProps
-    ? {
-       ServiceStates: PagedResponse<ServiceState[]>;
-      }
-    : { ServiceStates: ServiceState[] }
-  >
- >
-> {
- const { pagination } = props;
+function getServiceStates(
+ props: ApiDefaultProps
+): Promise<AxiosResponse<ServiceState[]>> {
  const params = new URLSearchParams();
  params.append('lang', props.locale);
- if (pagination) {
-  params.append('limit', pagination.limit.toString());
-  params.append('offset', pagination.offset.toString());
- }
  return axios.get(`${serviceStatesApi}?${params.toString()}`, {
   signal: props.signal,
  });
