@@ -10,9 +10,7 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import {
  type ProjectCategory,
- createBlogCategory,
  createProjectCategory,
- updateBlogCategory,
  updateProjectCategory,
 } from '@/services/api-actions/globalApiActions';
 import {
@@ -47,7 +45,7 @@ export default function AddCategory({ open, category, onClose }: Props) {
  const { mutate: mutateCategory, isPending: isCreating } = useMutation({
   onSuccess() {
    queryClient.invalidateQueries({
-    queryKey: ['dashboard', 'articlesCategories'],
+    queryKey: ['projects', 'projectsCategories'],
    });
    enqueueSnackbar({
     message: changesSavedSuccessfully,
@@ -63,16 +61,13 @@ export default function AddCategory({ open, category, onClose }: Props) {
   },
   mutationFn: async (data: AddCategorySchema) => {
    const newCategory = {
-    id: 1,
+    id: category?.id || 0,
     locale,
     name: data.title,
     description: data.description,
    };
    return category
-    ? updateProjectCategory({
-       ...newCategory,
-       id: category.id,
-      })
+    ? updateProjectCategory(newCategory)
     : createProjectCategory(newCategory);
   },
  });
@@ -91,8 +86,8 @@ export default function AddCategory({ open, category, onClose }: Props) {
 
  useEffect(() => {
   if (category) {
-   //  setValue('title', category.name);
-   //  setValue('description', category.description);
+   setValue('title', category.name);
+   setValue('description', category.description);
   } else {
    setValue('title', '');
    setValue('description', '');

@@ -93,6 +93,8 @@ type Project = {
 };
 type ProjectCategory = {
  id: number;
+ name: string;
+ description: string;
 };
 type ProjectState = {
  id: number;
@@ -678,7 +680,7 @@ function getProject(props: ApiDefaultProps & { projectID: number }) {
  });
 }
 // project categories
-const projectCategoriesApi = '/projectCategories';
+const projectCategoriesApi = '/project-categories';
 function getProjectCategories<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
@@ -710,19 +712,24 @@ function getProjectCategories<T extends { pagination?: PaginationProps }>(
  });
 }
 function createProjectCategory(
- props: ApiDefaultProps & Pick<ProjectCategory, 'id'>
-) {
- const newProjectCategory = {
-  id: props.id,
- };
- return axios.post(projectCategoriesApi, newProjectCategory);
-}
-function updateProjectCategory(
- props: ApiDefaultProps & Pick<ProjectCategory, 'id'>
+ props: ApiDefaultProps & Pick<ProjectCategory, 'id' | 'name' | 'description'>
 ) {
  const newProjectCategory = {
   id: props.id,
   lang: props.locale,
+  name: props.name,
+  description: props.description,
+ };
+ return axios.post(projectCategoriesApi, newProjectCategory);
+}
+function updateProjectCategory(
+ props: ApiDefaultProps & Pick<ProjectCategory, 'id' | 'name' | 'description'>
+) {
+ const newProjectCategory = {
+  id: props.id,
+  lang: props.locale,
+  name: props.name,
+  description: props.description,
  };
  return axios.put(projectCategoriesApi, newProjectCategory);
 }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import {
- ProjectCategory,
+ type ProjectCategory,
  getProjectCategories,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
