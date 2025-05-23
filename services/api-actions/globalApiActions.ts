@@ -895,10 +895,11 @@ function updateService(
   serviceCategoryID: props.serviceCategoryID,
   header: props.header,
   description: props.description,
-  body: 'writing',
-  serviceStateID: 1,
+  body: props.body,
+  serviceStateID: props.serviceStateID,
   lang: props.locale,
   serviceTags: props.serviceTags || null,
+  id: props.id,
  };
  return axios.put(servicesApi, newService);
 }
@@ -919,7 +920,7 @@ function patchService(
  if (props.isFour !== undefined) {
   params.append('isFour', props.isFour.toString());
  }
- return axios.patch(`${projectsApi}?${params.toString()}`, {
+ return axios.patch(`${servicesApi}?${params.toString()}`, {
   signal: props.signal,
  });
 }

@@ -20,13 +20,10 @@ import AddService from './AddService';
 import AddCategory from '../../services-categories/components/AddServiceCategory';
 import IconButton from '@mui/material/IconButton';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
-// import AddImage from './AddImage';
-// import AddContent from './AddContent';
-// import ChangeState from './ChangeState';
-// import ArticleComments from './comments/ArticleComments';
+import AddContent from './AddContent';
+import ChangeState from './ChangeState';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
-import AccessProvider from '../../services/access/AccessProvider';
 
 export default function ArticlesWrapper() {
  const { roleAccess } = useAccessContext();
@@ -35,8 +32,6 @@ export default function ArticlesWrapper() {
  });
  const [openChangeState, setOpenChangeState] = useState(false);
  const [openServiceContent, setOpenServiceContent] = useState(false);
- const [openServiceComments, setOpenServiceComments] = useState(false);
- const [openAddImage, setOpenAddImage] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
  const [openEditService, setOpenEditService] = useState(false);
  const [selectedService, setSelectedService] = useState<Service | null>(null);
@@ -130,7 +125,7 @@ export default function ArticlesWrapper() {
 
  return (
   <>
-   {true ? (
+   {roleAccess.read ? (
     <div>
      <h1 className='font-bold text-2xl mb-4'>{services.title as string}</h1>
      <FormProvider {...filtersUseForm}>
@@ -147,7 +142,6 @@ export default function ArticlesWrapper() {
       {serviceCategories.length ? (
        <ServicesGrid
         servicesList={servicesList}
-        setOpenServiceComments={() => setOpenServiceComments(true)}
         isLoading={isLoading || isFetching}
         pagination={pagination}
         setPagination={setPagination}
@@ -157,7 +151,6 @@ export default function ArticlesWrapper() {
         setOpenAddService={() => setOpenEditService(true)}
         selectedService={selectedService}
         setSelectedService={setSelectedService}
-        setShowAddImage={setOpenAddImage}
         setOpenServiceContent={() => setOpenServiceContent(true)}
         setOpenChangeState={() => setOpenChangeState(true)}
        />
@@ -192,48 +185,27 @@ export default function ArticlesWrapper() {
        setOpenAddCategory(false);
       }}
      />
-     {/* {openArticleContent && selectedArticle && (
+     {openServiceContent && selectedService && (
       <AddContent
-       open={openArticleContent}
+       open={openServiceContent}
        onClose={() => {
-        setOpenArticleContent(false);
-        setSelectedArticle(null);
+        setOpenServiceContent(false);
+        setSelectedService(null);
        }}
-       article={selectedArticle}
+       service={selectedService}
       />
      )}
-     {openChangeState && selectedArticle && (
+     {openChangeState && selectedService && (
       <ChangeState
        open={openChangeState}
        onClose={() => {
-        setSelectedArticle(null);
+        setSelectedService(null);
         setOpenChangeState(false);
        }}
-       article={selectedArticle}
-       blogStates={articleStates}
+       service={selectedService}
+       serviceStates={serviceStates}
       />
      )}
-     {openAddImage && selectedArticle && (
-      <AddImage
-       open={openAddImage}
-       article={selectedArticle}
-       onClose={() => {
-        setOpenAddImage(false);
-        setSelectedArticle(null);
-       }}
-      />
-     )}
-     {openArticleComments && selectedArticle && (
-      <AccessProvider formTitle='articlesComments'>
-       <ArticleComments
-        open={openArticleComments}
-        article={selectedArticle}
-        onClose={() => {
-         setOpenArticleComments(false);
-        }}
-       />
-      </AccessProvider>
-     )} */}
     </div>
    ) : (
     <NoAccessGranted />

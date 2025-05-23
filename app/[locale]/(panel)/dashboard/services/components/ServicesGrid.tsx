@@ -17,8 +17,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import ConfirmBox from '@/components/ConfirmBox';
 import { useSnackbar } from 'notistack';
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
-import CommentIcon from '@mui/icons-material/Comment';
 import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AxiosError } from 'axios';
@@ -34,10 +32,8 @@ type Props = {
  setSelectedService: (service: Service | null) => void;
  setOpenAddService: () => void;
  setPagination: (pagination: GridPaginationModel) => void;
- setShowAddImage: (show: boolean) => void;
  setOpenServiceContent: () => void;
  setOpenChangeState: () => void;
- setOpenServiceComments: () => void;
  rowCount: number;
 };
 
@@ -49,11 +45,9 @@ export default function ArticlesGrid({
  rowCount,
  setSelectedService,
  setOpenAddService,
- setShowAddImage,
  selectedService,
  setOpenServiceContent,
  setOpenChangeState,
- setOpenServiceComments,
  filterModel,
  setFilterModel,
 }: Props) {
@@ -200,16 +194,6 @@ export default function ArticlesGrid({
           showInMenu
          />,
          <GridActionsCellItem
-          key={'images'}
-          label={services.images as string}
-          icon={<ImageOutlinedIcon color='warning' />}
-          onClick={() => {
-           setSelectedService(row);
-           setShowAddImage(true);
-          }}
-          showInMenu
-         />,
-         <GridActionsCellItem
           key={'content'}
           label={services.content as string}
           icon={<ArticleIcon color='primary' />}
@@ -221,19 +205,6 @@ export default function ArticlesGrid({
          />
         );
        }
-
-       actions.push(
-        <GridActionsCellItem
-         key={'comments'}
-         label={services.comments as string}
-         icon={<CommentIcon color='secondary' />}
-         onClick={() => {
-          setSelectedService(row);
-          setOpenServiceComments();
-         }}
-         showInMenu
-        />
-       );
 
        if (roleAccess.changeState) {
         actions.push(
@@ -283,7 +254,7 @@ export default function ArticlesGrid({
     open={openConfirm}
     onConfirm={async () => {
      if (!selectedService) return;
-     //  deleteMutate(selectedService.id);
+     // deleteMutate(selectedService.id);
      setOpenConfirm(false);
      setSelectedService(null);
     }}
