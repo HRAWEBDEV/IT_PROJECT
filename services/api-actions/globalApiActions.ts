@@ -148,7 +148,7 @@ type ContactUs = {
  firstName: string;
  lastName: string;
  cellPhone: string;
- email: string;
+ email: string | null;
  isRead:boolean;
  deleted:boolean
 };

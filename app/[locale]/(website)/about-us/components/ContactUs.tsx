@@ -11,10 +11,76 @@ import { TfiInstagram } from 'react-icons/tfi';
 import { GradientButton } from '@/components/Button/GradientButton';
 import TextField from '@mui/material/TextField';
 import { type WithDictionary } from '@/localization/locales';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type ContactUsSchema, contactUsSchema } from '../schemas/contactUs';
+import { useAuthCheck } from '@/services/auth/authCheckContext';
+import { useMutation } from '@tanstack/react-query';
+import { addContactUs } from '@/services/api-actions/globalApiActions';
+import { useSnackbar } from 'notistack';
+import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
+import { AxiosError } from 'axios';
 
 type Props = WithDictionary;
 
 export default function ContactUs({ dic }: Props) {
+ const { enqueueSnackbar } = useSnackbar();
+ const { changesSavedSuccessfully, errorTryAgainLater } =
+  useWebsiteDictionary() as {
+   changesSavedSuccessfully: string;
+   errorTryAgainLater: string;
+  };
+ const { userInfo } = useAuthCheck();
+ const {
+  register,
+  handleSubmit,
+  formState: { errors },
+ } = useForm<ContactUsSchema>({
+  resolver: zodResolver(contactUsSchema),
+  defaultValues:
+   userInfo && userInfo.User
+    ? {
+       firstName: userInfo.User.firstName,
+       lastName: userInfo.User.lastName,
+       email: userInfo.User.email || '',
+       phone: userInfo.User.cellPhone || '',
+       description: '',
+      }
+    : {
+       firstName: '',
+       lastName: '',
+       email: '',
+       phone: '',
+       description: '',
+      },
+ });
+
+ const { mutate: addContactUsMutation, isPending } = useMutation({
+  mutationFn: (data: ContactUsSchema) =>
+   addContactUs({
+    id: 0,
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email || null,
+    cellPhone: data.phone,
+    personID: userInfo?.User.personID || 0,
+    isRead: false,
+    deleted: false,
+   }),
+  onSuccess: () => {
+   enqueueSnackbar({
+    message: changesSavedSuccessfully,
+    variant: 'success',
+   });
+  },
+  onError: (err: AxiosError) => {
+   enqueueSnackbar({
+    message: (err.response?.data as string) || errorTryAgainLater,
+    variant: 'error',
+   });
+  },
+ });
+
  return (
   <section className='container mb-6'>
    <article className='flex items-center gap-2 mb-6'>
@@ -68,18 +134,47 @@ export default function ContactUs({ dic }: Props) {
     </div>
     <form>
      <div className='grid gap-4 grid-cols-2 mb-4'>
-      <TextField label={dic.firstName as string} />
-      <TextField label={dic.lastName as string} />
-      <TextField label={dic.phone as string} />
-      <TextField label={dic.email as string} />
+      <TextField
+       {...register('firstName')}
+       error={!!errors.firstName}
+       label={dic.firstName as string}
+      />
+      <TextField
+       {...register('lastName')}
+       error={!!errors.lastName}
+       label={dic.lastName as string}
+      />
+      <TextField
+       {...register('phone')}
+       error={!!errors.phone}
+       label={dic.phone as string}
+      />
+      <TextField
+       {...register('email')}
+       error={!!errors.email}
+       label={dic.email as string}
+      />
       <TextField
        minRows={3}
        multiline
        className='col-span-full'
+       error={!!errors.description}
        label={dic.discription as string}
+       {...register('description')}
       />
      </div>
-     <GradientButton size='large' className='w-full h-[3rem]'>
+     <GradientButton
+      type='submit'
+      loading={isPending}
+      size='large'
+      className='w-full h-[3rem]'
+      onClick={(e) => {
+       e.preventDefault();
+       handleSubmit((data) => {
+        addContactUsMutation(data);
+       })();
+      }}
+     >
       <div className='flex gap-2'>
        <span className='font-medium text-base'>
         {dic.confirmAndSend as string}
