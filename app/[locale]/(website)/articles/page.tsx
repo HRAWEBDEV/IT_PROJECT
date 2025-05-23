@@ -36,9 +36,10 @@ export default async function page({
  params: Promise<AppParams>;
  searchParams: Promise<{
   offset?: string;
+  categoryID?: string;
  }>;
 }) {
- const { offset } = await searchParams;
+ const { offset, categoryID } = await searchParams;
  const { locale } = await params;
  const activeLocale = locales[locale];
  const dic = await getDictionary({
@@ -50,6 +51,9 @@ export default async function page({
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
  blogsParams.set('blogStateID', '1');
+ if (categoryID) {
+  blogsParams.set('blogCategoryID', categoryID);
+ }
  blogsParams.set('limit', paginationLimit.toString());
  blogsParams.set('offset', offset || '1');
  if (activeLocale.id) {

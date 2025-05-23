@@ -6,6 +6,11 @@ import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import {
+ type Service,
+ type ServiceCategory,
+} from '@/services/api-actions/globalApiActions';
+import { WithDictionary } from '@/localization/locales';
 
 const iconSize = '2.2rem';
 const projects = [
@@ -37,7 +42,12 @@ const projects = [
  },
 ] as const;
 
-function Services() {
+type Props = {
+ services: Service[];
+ servicesCategories: ServiceCategory[];
+} & WithDictionary;
+
+function Services({}: Props) {
  const [selectedService, setSelectedService] =
   useState<(typeof projects)[number]['type']>('technology');
 
@@ -62,9 +72,8 @@ function Services() {
        }}
        key={item.title}
       >
-       <Link
-        className='transition-colors rounded-lg'
-        href='#'
+       <button
+        className='transition-colors rounded-lg w-full'
         onClick={() => setSelectedService(item.type)}
        >
         <div className='flex flex-col lg:flex-row items-center gap-4 pb-3'>
@@ -76,7 +85,7 @@ function Services() {
           {item.icon}
          </div>
          <div className={`flex-grow`}>
-          <h3 className='font-medium text-base'>{item.title}</h3>
+          <h3 className='font-medium text-base text-start'>{item.title}</h3>
          </div>
         </div>
         {/* use motion underline */}
@@ -87,7 +96,7 @@ function Services() {
           id='underline'
          />
         )}
-       </Link>
+       </button>
       </motion.li>
      ))}
     </ul>

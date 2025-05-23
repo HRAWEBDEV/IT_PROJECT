@@ -1,15 +1,111 @@
 import Services from './components/Services';
 import Footer from '../components/footer/Footer';
-import { Metadata } from 'next';
+import { getDictionary } from '@/localization/getDic';
+import { AppParams } from '@/utils/appParams';
+import {
+ type ResponseShape,
+ type Service,
+ type ServiceCategory,
+ serviceCategoriesApi,
+ servicesApi,
+} from '@/services/api-actions/globalApiActions';
+import { locales } from '@/localization/locales';
 
-export const metadata: Metadata = {
- title: 'آیتی نترا |‌ فناوری و اطلاعات | خدمات',
+export const generateMetadata = async ({
+ params,
+}: {
+ params: Promise<AppParams>;
+}) => {
+ const { locale } = await params;
+
+ const dic = await getDictionary({
+  locale,
+  path: 'services',
+ });
+
+ return {
+  title: dic.titles as string,
+ };
 };
 
-export default function page() {
+export default async function page({
+ params,
+ searchParams,
+}: {
+ params: Promise<AppParams>;
+ searchParams: Promise<{
+  categoryID?: string;
+ }>;
+}) {
+ const { categoryID } = await searchParams;
+ const { locale } = await params;
+ const activeLocale = locales[locale];
+ const dic = await getDictionary({
+  locale,
+  path: 'services',
+ });
+
+ let services: Service[] = [];
+ const servicesParams = new URLSearchParams();
+ servicesParams.set('lang', locale);
+ servicesParams.set('blogStateID', '2');
+ if (categoryID) {
+  servicesParams.set('serviceCategoryID', categoryID);
+ }
+ servicesParams.set('showForCard', 'true');
+ if (activeLocale.id) {
+  try {
+   const servicesResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${servicesApi}?${servicesParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (servicesResult.ok) {
+    const servicesPackage = (await servicesResult.json()) as ResponseShape<{
+     Services: Service[];
+    }>;
+    services = servicesPackage.payload.Services;
+   }
+  } catch {}
+ }
+
+ let servicesCategories: ServiceCategory[] = [];
+ const servicesCategoriesParams = new URLSearchParams();
+ servicesCategoriesParams.set('lang', locale);
+ if (activeLocale.id) {
+  try {
+   const servicesCategoriesResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (servicesCategoriesResult.ok) {
+    const servicesCategoriesPackage =
+     (await servicesCategoriesResult.json()) as ResponseShape<{
+      ServiceCategories: ServiceCategory[];
+     }>;
+    servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
+   }
+  } catch {}
+ }
+
  return (
   <div>
-   <Services />
+   <Services
+    dic={dic}
+    services={services}
+    servicesCategories={servicesCategories}
+   />
    <Footer />
   </div>
  );
