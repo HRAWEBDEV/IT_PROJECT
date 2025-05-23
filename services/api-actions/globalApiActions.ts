@@ -90,6 +90,16 @@ type User = {
 // projects
 type Project = {
  id: number;
+ header: string;
+ description: string;
+ body: string;
+ projectCategoryID: number;
+ projectCategoryName: string;
+ projectStateID: number;
+ projectStateName: string;
+ createDateTimeOffset: string;
+ showForCard: boolean;
+ imageUrl?: string;
 };
 type ProjectCategory = {
  id: number;
@@ -98,12 +108,13 @@ type ProjectCategory = {
 };
 type ProjectState = {
  id: number;
+ name: string;
 };
 type ProjectTag = {
- id: number;
+ tagID: number;
+ tagName: string;
 };
 // services
-
 type Service = {
  id: number;
 };
@@ -114,6 +125,7 @@ type ServiceCategory = {
 };
 type ServiceState = {
  id: number;
+ name: string;
 };
 type ServiceTag = {
  id: number;
@@ -610,44 +622,51 @@ function getProjects<T extends { pagination?: PaginationProps }>(
 }
 function createProject(
  props: ApiDefaultProps &
-  Pick<Blog, 'blogCategoryID' | 'header' | 'description'> & {
-   blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[];
+  Pick<Project, 'projectCategoryID' | 'header' | 'description'> & {
+   projectTags?: { tagID: number; lang: SupportedLocales; projectID: number }[];
   }
 ) {
  const newProject = {
-  blogCategoryID: props.blogCategoryID,
+  id: 0,
+  projectCategoryID: props.projectCategoryID,
   header: props.header,
   description: props.description,
   body: 'writing',
-  blogStateID: 1,
+  projectStateID: 1,
   lang: props.locale,
-  blogTags: props.blogTags || null,
+  projectTags: props.projectTags || null,
  };
  return axios.post(projectsApi, newProject);
 }
 function updateProject(
  props: ApiDefaultProps &
   Pick<
-   Blog,
-   | 'blogCategoryID'
+   Project,
+   | 'projectCategoryID'
    | 'header'
    | 'description'
    | 'id'
    | 'body'
-   | 'blogStateID'
+   | 'projectStateID'
    | 'showForCard'
   > & {
-   blogImage?: { imageUrl: string; lang: SupportedLocales; blogID: number };
-  } & { blogTags?: { tagID: number; lang: SupportedLocales; blogID: number }[] }
+   projectImage?: {
+    imageUrl: string;
+    lang: SupportedLocales;
+    projectID: number;
+   };
+  } & {
+   projectTags?: { tagID: number; lang: SupportedLocales; projectID: number }[];
+  }
 ) {
  const newProject = {
-  blogCategoryID: props.blogCategoryID,
+  projectCategoryID: props.projectCategoryID,
   header: props.header,
   description: props.description,
   body: 'writing',
-  blogStateID: 1,
+  projectStateID: 1,
   lang: props.locale,
-  blogTags: props.blogTags || null,
+  projectTags: props.projectTags || null,
  };
  return axios.put(projectsApi, newProject);
 }
@@ -747,28 +766,12 @@ function deleteProjectCategory(
  return axios.delete(`${projectCategoriesApi}?${params.toString()}`);
 }
 // project state
-
 const projecteStatesApi = '/projectStates';
-function getProjectStates<T extends { pagination?: PaginationProps }>(
- props: ApiDefaultProps & T
-): Promise<
- AxiosResponse<
-  ResponseShape<
-   T['pagination'] extends PaginationProps
-    ? {
-       ProjectCategories: PagedResponse<ProjectCategory[]>;
-      }
-    : { ProjectCategories: ProjectCategory[] }
-  >
- >
-> {
- const { pagination } = props;
+function getProjectStates(
+ props: ApiDefaultProps
+): Promise<AxiosResponse<ProjectState[]>> {
  const params = new URLSearchParams();
  params.append('lang', props.locale);
- if (pagination) {
-  params.append('limit', pagination.limit.toString());
-  params.append('offset', pagination.offset.toString());
- }
  return axios.get(`${projecteStatesApi}?${params.toString()}`, {
   signal: props.signal,
  });
