@@ -134,6 +134,11 @@ export default function UserInfo() {
         setValue('cellPhone', value);
        }
       }}
+      slotProps={{
+       input: {
+        readOnly: true,
+       },
+      }}
       inputMode='numeric'
       size='small'
       label={userPanel.cellPhone as string}
