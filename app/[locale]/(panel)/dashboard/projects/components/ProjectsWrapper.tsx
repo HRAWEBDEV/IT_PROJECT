@@ -20,9 +20,9 @@ import AddProject from './AddProject';
 import AddCategory from '../../projects-categories/components/AddProjectCategory';
 import IconButton from '@mui/material/IconButton';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import ChangeState from './ChangeState';
 // import AddImage from './AddImage';
 // import AddContent from './AddContent';
-// import ChangeState from './ChangeState';
 // import ArticleComments from './comments/ArticleComments';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
@@ -192,6 +192,17 @@ export default function ArticlesWrapper() {
        setOpenAddCategory(false);
       }}
      />
+     {openChangeState && selectedProject && (
+      <ChangeState
+       open={openChangeState}
+       onClose={() => {
+        setSelectedProject(null);
+        setOpenChangeState(false);
+       }}
+       project={selectedProject}
+       projectStates={projectStates}
+      />
+     )}
      {/* {openArticleContent && selectedArticle && (
       <AddContent
        open={openArticleContent}
