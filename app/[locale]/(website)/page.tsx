@@ -9,10 +9,12 @@ import {
  type Blog,
  type Service,
  type Project,
+ type ServiceCategory,
  type ResponseShape,
  blogsApi,
  projectsApi,
  servicesApi,
+ serviceCategoriesApi,
 } from '@/services/api-actions/globalApiActions';
 import { locales } from '@/localization/locales';
 
@@ -103,10 +105,39 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   } catch {}
  }
 
+ let servicesCategories: ServiceCategory[] = [];
+ const servicesCategoriesParams = new URLSearchParams();
+ servicesCategoriesParams.set('lang', locale);
+ if (activeLocale.id) {
+  try {
+   const servicesCategoriesResult = await fetch(
+    `${
+     process.env.NEXT_PUBLIC_API_BASE_URL
+    }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
+    {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }
+   );
+   if (servicesCategoriesResult.ok) {
+    const servicesCategoriesPackage =
+     (await servicesCategoriesResult.json()) as ResponseShape<{
+      ServiceCategories: ServiceCategory[];
+     }>;
+    servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
+   }
+  } catch {}
+ }
+
  return (
   <div id='home-page'>
    <Hero dic={dic} />
-   <Services dic={dic} services={services} />
+   <Services
+    dic={dic}
+    services={services}
+    servicesCategories={servicesCategories}
+   />
    <Projects dic={dic} projects={projects} />
    <Articles dic={dic} serverBlogs={blogs} />
    <Footer />
