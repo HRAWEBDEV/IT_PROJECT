@@ -120,10 +120,10 @@ type Service = {
  header: string;
  description: string;
  body: string;
- projectCategoryID: number;
- projectCategoryName: string;
- projectStateID: number;
- projectStateName: string;
+ serviceCategoryID: number;
+ serviceCategoryName: string;
+ serviceStateID: number;
+ serviceStateName: string;
  createDateTimeOffset: string;
  showForCard: boolean;
  imageUrl?: string;
@@ -840,17 +840,53 @@ function getServices<T extends { pagination?: PaginationProps }>(
   signal: props.signal,
  });
 }
-function createService(props: ApiDefaultProps & Pick<Service, 'id'>) {
+function createService(
+ props: ApiDefaultProps &
+  Pick<Service, 'serviceCategoryID' | 'header' | 'description'> & {
+   serviceTags?: { tagID: number; lang: SupportedLocales; serviceID: number }[];
+  }
+) {
  const newService = {
-  id: props.id,
+  id: 0,
+  serviceCategoryID: props.serviceCategoryID,
+  header: props.header,
+  description: props.description,
+  body: 'writing',
+  serviceStateID: 1,
   lang: props.locale,
+  serviceTags: props.serviceTags || null,
  };
  return axios.post(servicesApi, newService);
 }
-function updateService(props: ApiDefaultProps & Pick<Service, 'id'>) {
+function updateService(
+ props: ApiDefaultProps &
+  Pick<
+   Service,
+   | 'serviceCategoryID'
+   | 'header'
+   | 'description'
+   | 'id'
+   | 'body'
+   | 'serviceStateID'
+   | 'showForCard'
+  > & {
+   serviceImage?: {
+    imageUrl: string;
+    lang: SupportedLocales;
+    serviceID: number;
+   };
+  } & {
+   serviceTags?: { tagID: number; lang: SupportedLocales; serviceID: number }[];
+  }
+) {
  const newService = {
-  id: props.id,
+  serviceCategoryID: props.serviceCategoryID,
+  header: props.header,
+  description: props.description,
+  body: 'writing',
+  serviceStateID: 1,
   lang: props.locale,
+  serviceTags: props.serviceTags || null,
  };
  return axios.put(servicesApi, newService);
 }

@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ServicesGrid from './ServicesGrid';
 import { type FilterSchema, filtersSchema } from '../schemas/filtersSchema';
 import { GridPaginationModel, GridFilterModel } from '@mui/x-data-grid';
-// import AddArticle from './AddArticle';
+import AddService from './AddService';
 import AddCategory from '../../services-categories/components/AddServiceCategory';
 import IconButton from '@mui/material/IconButton';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
@@ -176,7 +176,7 @@ export default function ArticlesWrapper() {
        </div>
       )}
      </FormProvider>
-     {/* <AddArticle
+     <AddService
       open={openEditService}
       service={selectedService}
       serviceCategories={serviceCategories}
@@ -184,7 +184,7 @@ export default function ArticlesWrapper() {
        setOpenEditService(false);
        setSelectedService(null);
       }}
-     /> */}
+     />
      <AddCategory
       open={openAddCategory}
       category={null}
