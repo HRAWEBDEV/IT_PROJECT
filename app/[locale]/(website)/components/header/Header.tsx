@@ -76,7 +76,11 @@ export default function Header({ dic }: WithDictionary) {
     </div>
     <div>
      <Link href={'/'} className='text-xl text-primary font-bold'>
-      LOGO
+      <img
+       src='/images/logo.png'
+       alt='website logo'
+       className='w-[3rem] lg:w-[3.8rem] dark:brightness-200'
+      />
      </Link>
     </div>
     <menu className='hidden lg:flex lg:flex-grow ms-5 me-10 lg:self-stretch'>
