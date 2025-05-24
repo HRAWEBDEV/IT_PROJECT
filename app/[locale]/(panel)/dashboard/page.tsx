@@ -17,5 +17,14 @@ export const generateMetadata = async ({
 };
 
 export default function page() {
- return <div></div>;
+ return (
+  <div className='flex justify-center items-center flex-col h-full'>
+   <div className='text-primary-dark'>
+    <div className='mb-8'>
+     <img src='/images/logo.png' alt='dashboard logo' className='w-[20rem]' />
+    </div>
+    <p className='text-center text-2xl font-bold'>خوش آمــــدید</p>
+   </div>
+  </div>
+ );
 }
