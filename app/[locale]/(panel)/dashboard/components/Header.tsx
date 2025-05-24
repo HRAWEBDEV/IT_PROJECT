@@ -17,6 +17,7 @@ import Avatar from '@mui/material/Avatar';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
 import { useAuthCheck } from '@/services/auth/authCheckContext';
+import LogoIcon from '@/components/icons/LogoIcon';
 
 export default function Header() {
  const { userInfo } = useAuthCheck();
@@ -49,8 +50,8 @@ export default function Header() {
       )}
      </IconButton>
     </div>
-    <div className='lg:w-[--dashboard-nav-width] lg:flex lg:items-center lg:justify-center lg:border-e border-neutral-300 dark:border-neutral-700'>
-     <span className='font-medium text-xl'>LOGO</span>
+    <div className='lg:w-[--dashboard-nav-width] lg:flex lg:items-center lg:justify-center lg:border-e border-neutral-300 dark:border-neutral-700 text-primary-dark'>
+     <LogoIcon width='50px' height='50px' fill='currentColor' />
     </div>
    </div>
    <div className='flex'>
@@ -86,7 +87,10 @@ export default function Header() {
       <div className='flex items-center'>
        <ArrowDropDownIcon />
        <span className='pe-2 hidden lg:inline-block'>
-        {userInfo?.User.personFullName}
+        {userInfo?.User.personFullName &&
+        userInfo?.User.personFullName.length > 10
+         ? userInfo?.User.personFullName.slice(0, 10) + '...'
+         : userInfo?.User.personFullName}
        </span>
        <Avatar
         alt='user profile image'
