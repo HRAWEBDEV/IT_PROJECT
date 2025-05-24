@@ -18,6 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useNavigationContext } from '@/app/[locale]/(website)/services/NavigationContext';
 import { useAuthCheck } from '@/services/auth/authCheckContext';
 import LogoIcon from '@/components/icons/LogoIcon';
+import Link from 'next/link';
 
 export default function Header() {
  const { userInfo } = useAuthCheck();
@@ -51,7 +52,9 @@ export default function Header() {
      </IconButton>
     </div>
     <div className='lg:w-[--dashboard-nav-width] lg:flex lg:items-center lg:justify-center lg:border-e border-neutral-300 dark:border-neutral-700 text-primary-dark'>
-     <LogoIcon width='50px' height='50px' fill='currentColor' />
+     <Link href='/dashboard'>
+      <LogoIcon width='50px' height='50px' fill='currentColor' />
+     </Link>
     </div>
    </div>
    <div className='flex'>
