@@ -1,29 +1,24 @@
+'use client';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
-
-export const generateMetadata = async ({
- params,
-}: {
- params: Promise<AppParams>;
-}) => {
- const { locale } = await params;
- const dic = await getDictionary({
-  locale,
-  path: 'dashboard',
- });
- return {
-  title: dic.title,
- };
-};
+import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 
 export default function page() {
+ const { welcome } = useWebsiteDictionary() as {
+  welcome: string;
+ };
  return (
   <div className='flex justify-center items-center flex-col h-full'>
    <div className='text-primary-dark'>
     <div className='mb-8'>
-     <img src='/images/logo.png' alt='dashboard logo' className='w-[20rem]' />
+     <img
+      src='/images/logo.png'
+      alt='dashboard logo'
+      className='w-[20rem]'
+      draggable={false}
+     />
     </div>
-    <p className='text-center text-2xl font-bold'>خوش آمــــدید</p>
+    <p className='text-center text-2xl font-bold'>{welcome}</p>
    </div>
   </div>
  );

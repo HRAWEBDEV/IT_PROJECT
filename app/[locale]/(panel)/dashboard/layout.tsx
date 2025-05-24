@@ -8,6 +8,21 @@ import { type AppParams } from '@/utils/appParams';
 import Main from './components/nav/Main';
 import NavigationProvider from '../../(website)/services/NavigationProvider';
 
+export const generateMetadata = async ({
+ params,
+}: {
+ params: Promise<AppParams>;
+}) => {
+ const { locale } = await params;
+ const dic = await getDictionary({
+  locale,
+  path: 'dashboard',
+ });
+ return {
+  title: dic.title,
+ };
+};
+
 export default async function layout({
  children,
  params,
