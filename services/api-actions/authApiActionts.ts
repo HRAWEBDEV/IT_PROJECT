@@ -109,7 +109,7 @@ function getOwner({ signal }: { signal?: AbortSignal }) {
  return axios.get<Owner>(ownerApi, { signal });
 }
 function updateOwner(owner: Owner) {
- return axios.post(ownerApi, owner);
+ return axios.put(ownerApi, owner);
 }
 
 export {

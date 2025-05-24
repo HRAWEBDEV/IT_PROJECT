@@ -1,63 +1,64 @@
 'use client';
-import { useState } from 'react';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { type Dic } from '@/localization/locales';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import {
- type Owner,
- getOwner,
- updateOwner,
-} from '@/services/api-actions/authApiActionts';
+import { getOwner, updateOwner } from '@/services/api-actions/authApiActionts';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAccessContext } from '../../../services/access/accessContext';
 import NoAccessGranted from '../../../components/NoAccessGranted';
+import { useSnackbar } from 'notistack';
+import { AxiosError } from 'axios';
+import {
+ type TCompanySchema,
+ companySchema,
+} from '../../schemas/companySchema';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const phoneNumberLimit = 3;
 const mobileNumberLimit = 3;
 
-type FormInfo = Pick<
- Owner,
- | 'ownerName'
- | 'nationalCode'
- | 'email'
- | 'fax'
- | 'addressName'
- | 'descriptionName'
- | 'postalCode'
-> & {
- phoneNumbers: Owner['cellPhone1'][];
- mobileNumbers: Owner['telephone1'][];
-};
-
-const defaultFormInfo: FormInfo = {
- ownerName: '',
- nationalCode: '',
- email: '',
- fax: '',
- addressName: '',
- descriptionName: '',
- postalCode: '',
- phoneNumbers: [''],
- mobileNumbers: [''],
-};
-
 export default function Company() {
- const [formInfo, setFormInfo] = useState<FormInfo>(defaultFormInfo);
+ const {
+  register,
+  handleSubmit,
+  setValue,
+  formState: { errors },
+ } = useForm<TCompanySchema>({
+  resolver: zodResolver(companySchema),
+  defaultValues: {
+   ownerName: '',
+   nationalCode: '',
+   email: '',
+   fax: '',
+   addressName: '',
+   descriptionName: '',
+   registerNo: '',
+   postalCode: '',
+   telephone1: '',
+   telephone2: '',
+   telephone3: '',
+   cellPhone1: '',
+   cellPhone2: '',
+   cellPhone3: '',
+  },
+ });
+ const { enqueueSnackbar } = useSnackbar();
  const queryClient = useQueryClient();
  const { roleAccess } = useAccessContext();
- const { initialInfo, noItemsFound } = useWebsiteDictionary() as {
+ const {
+  initialInfo,
+  noItemsFound,
+  errorTryAgainLater,
+  changesSavedSuccessfully,
+ } = useWebsiteDictionary() as {
   initialInfo: Dic;
   noItemsFound: string;
+  errorTryAgainLater: string;
+  changesSavedSuccessfully: string;
  };
-
- // const { mutate: updateOwnerMutate, isPending: isUpdating } = useMutation({
- //  mutationFn() {},
- // });
 
  const {
   data: owner,
@@ -67,7 +68,56 @@ export default function Company() {
   queryKey: ['owner'],
   async queryFn({ signal }) {
    const owner = await getOwner({ signal }).then((res) => res.data);
+   setValue('ownerName', owner.ownerName || '');
+   setValue('nationalCode', owner.nationalCode || '');
+   setValue('email', owner.email || '');
+   setValue('fax', owner.fax || '');
+   setValue('addressName', owner.addressName || '');
+   setValue('descriptionName', owner.descriptionName || '');
+   setValue('registerNo', owner.registerNo || '');
+   setValue('postalCode', owner.postalCode || '');
+   setValue('telephone1', owner.telephone1 || '');
+   setValue('telephone2', owner.telephone2 || '');
+   setValue('telephone3', owner.telephone3 || '');
+   setValue('cellPhone1', owner.cellPhone1 || '');
+   setValue('cellPhone2', owner.cellPhone2 || '');
+   setValue('cellPhone3', owner.cellPhone3 || '');
    return owner;
+  },
+ });
+
+ const { mutate: updateOwnerMutate, isPending: isUpdating } = useMutation({
+  mutationFn(data: TCompanySchema) {
+   return updateOwner({
+    ...owner!,
+    ownerName: data.ownerName,
+    nationalCode: data.nationalCode || null,
+    email: data.email || null,
+    fax: data.fax || null,
+    addressName: data.addressName || null,
+    descriptionName: data.descriptionName || null,
+    registerNo: data.registerNo || null,
+    postalCode: data.postalCode || null,
+    telephone1: data.telephone1 || null,
+    telephone2: data.telephone2 || null,
+    telephone3: data.telephone3 || null,
+    cellPhone1: data.cellPhone1 || null,
+    cellPhone2: data.cellPhone2 || null,
+    cellPhone3: data.cellPhone3 || null,
+   });
+  },
+  onSuccess() {
+   enqueueSnackbar({
+    message: changesSavedSuccessfully,
+    variant: 'success',
+   });
+   queryClient.invalidateQueries({ queryKey: ['owner'] });
+  },
+  onError(err: AxiosError) {
+   enqueueSnackbar({
+    message: (err.response?.data as string) || errorTryAgainLater,
+    variant: 'error',
+   });
   },
  });
 
@@ -100,161 +150,109 @@ export default function Company() {
     <div className='grid gap-4'>
      <div className='grid grid-cols-2 gap-4'>
       <TextField
-       name='ownerName'
+       {...register('ownerName')}
        size='small'
        label={initialInfo.name as string}
-       value={formInfo.ownerName}
-       onChange={(e) => setFormInfo({ ...formInfo, ownerName: e.target.value })}
+       error={!!errors.ownerName}
+       helperText={errors.ownerName?.message}
       />
       <TextField
-       name='nationalCode'
+       {...register('nationalCode')}
        size='small'
        label={initialInfo.nationalCode as string}
-       value={formInfo.nationalCode}
-       onChange={(e) =>
-        setFormInfo({ ...formInfo, nationalCode: e.target.value })
-       }
+       error={!!errors.nationalCode}
+       helperText={errors.nationalCode?.message}
       />
       <TextField
-       name='email'
+       {...register('email')}
        size='small'
        label={initialInfo.email as string}
-       value={formInfo.email}
-       onChange={(e) => setFormInfo({ ...formInfo, email: e.target.value })}
+       error={!!errors.email}
       />
       <TextField
-       name='fax'
+       {...register('fax')}
        size='small'
        label={initialInfo.faxNumber as string}
-       value={formInfo.fax}
-       onChange={(e) => setFormInfo({ ...formInfo, fax: e.target.value })}
+       error={!!errors.fax}
+       helperText={errors.fax?.message}
+      />
+      <TextField
+       {...register('postalCode')}
+       size='small'
+       label={initialInfo.postalCode as string}
+       error={!!errors.postalCode}
+       helperText={errors.postalCode?.message}
+      />
+      <TextField
+       {...register('registerNo')}
+       size='small'
+       label={initialInfo.registerNo as string}
+       error={!!errors.registerNo}
+       helperText={errors.registerNo?.message}
       />
      </div>
-     <div className='grid gap-4'>
-      {formInfo.phoneNumbers.map((no, index) => (
-       <div className='flex gap-4' key={index}>
-        <TextField
-         name={`phoneNumber-${index}`}
-         className='flex-grow'
-         fullWidth
-         size='small'
-         label={initialInfo.telePhoneNumber as string}
-         value={no}
-         onChange={(e) =>
-          setFormInfo((pre) => {
-           const newPhoneNumbers = [...pre.phoneNumbers];
-           newPhoneNumbers[index] = e.target.value;
-           return { ...pre, phoneNumbers: newPhoneNumbers };
-          })
-         }
-        />
-        <div className='flex gap-2'>
-         <IconButton
-          color='error'
-          disabled={formInfo.phoneNumbers.length === 1}
-          onClick={() => {
-           setFormInfo((pre) => {
-            const newPhoneNumbers = [...pre.phoneNumbers];
-            newPhoneNumbers.splice(index, 1);
-            return { ...pre, phoneNumbers: newPhoneNumbers };
-           });
-          }}
-         >
-          <RemoveCircleOutlineIcon />
-         </IconButton>
-         <IconButton
-          color='secondary'
-          disabled={formInfo.phoneNumbers.length >= phoneNumberLimit}
-          onClick={() => {
-           setFormInfo((pre) => {
-            const newPhoneNumbers = [...pre.phoneNumbers];
-            newPhoneNumbers.push('');
-            return { ...pre, phoneNumbers: newPhoneNumbers };
-           });
-          }}
-         >
-          <AddCircleOutlineIcon />
-         </IconButton>
-        </div>
-       </div>
+     <div className='grid grid-cols-3 gap-4'>
+      {Array.from({ length: phoneNumberLimit }).map((_, index) => (
+       <TextField
+        key={index}
+        {...register(
+         `telephone${(index + 1).toString()}` as keyof TCompanySchema
+        )}
+        size='small'
+        label={initialInfo.telePhoneNumber as string}
+        error={
+         !!errors[`telephone${(index + 1).toString()}` as keyof TCompanySchema]
+        }
+       />
       ))}
      </div>
-     <div className='grid gap-4'>
-      {formInfo.mobileNumbers.map((no, index) => (
-       <div className='flex gap-4' key={index}>
-        <TextField
-         name={`mobileNumber-${index}`}
-         className='flex-grow'
-         size='small'
-         label={initialInfo.mobileNumber as string}
-         value={no}
-         onChange={(e) =>
-          setFormInfo((pre) => {
-           const newMobileNumbers = [...pre.mobileNumbers];
-           newMobileNumbers[index] = e.target.value;
-           return { ...pre, mobileNumbers: newMobileNumbers };
-          })
-         }
-        />
-        <div className='flex gap-2'>
-         <IconButton
-          color='error'
-          disabled={formInfo.mobileNumbers.length === 1}
-          onClick={() => {
-           setFormInfo((pre) => {
-            const newMobileNumbers = [...pre.mobileNumbers];
-            newMobileNumbers.splice(index, 1);
-            return { ...pre, mobileNumbers: newMobileNumbers };
-           });
-          }}
-         >
-          <RemoveCircleOutlineIcon />
-         </IconButton>
-         <IconButton
-          color='secondary'
-          disabled={formInfo.mobileNumbers.length >= mobileNumberLimit}
-          onClick={() => {
-           setFormInfo((pre) => {
-            const newMobileNumbers = [...pre.mobileNumbers];
-            newMobileNumbers.push('');
-            return { ...pre, mobileNumbers: newMobileNumbers };
-           });
-          }}
-         >
-          <AddCircleOutlineIcon />
-         </IconButton>
-        </div>
-       </div>
+     <div className='grid grid-cols-3 gap-4'>
+      {Array.from({ length: mobileNumberLimit }).map((_, index) => (
+       <TextField
+        key={index}
+        {...register(
+         `cellPhone${(index + 1).toString()}` as keyof TCompanySchema
+        )}
+        size='small'
+        label={initialInfo.mobileNumber as string}
+        error={
+         !!errors[`cellPhone${(index + 1).toString()}` as keyof TCompanySchema]
+        }
+       />
       ))}
      </div>
      <TextField
-      name='addressName'
-      value={formInfo.addressName}
-      onChange={(e) =>
-       setFormInfo({ ...formInfo, addressName: e.target.value })
-      }
+      {...register('addressName')}
       multiline
       rows={2}
       fullWidth
       size='small'
       label={initialInfo.address as string}
+      error={!!errors.addressName}
      />
      <TextField
-      name='descriptionName'
+      {...register('descriptionName')}
       multiline
       rows={4}
       fullWidth
       size='small'
       label={initialInfo.description as string}
-      value={formInfo.descriptionName}
-      onChange={(e) =>
-       setFormInfo({ ...formInfo, descriptionName: e.target.value })
-      }
+      error={!!errors.descriptionName}
      />
     </div>
     {roleAccess.update && (
      <div className='flex justify-end gap-4 mt-6'>
-      <Button className='w-[8rem]' variant='contained' color='primary'>
+      <Button
+       className='w-[8rem]'
+       variant='contained'
+       color='primary'
+       loading={isUpdating}
+       onClick={() => {
+        handleSubmit((data) => {
+         updateOwnerMutate(data);
+        })();
+       }}
+      >
        {initialInfo.save as string}
       </Button>
      </div>
