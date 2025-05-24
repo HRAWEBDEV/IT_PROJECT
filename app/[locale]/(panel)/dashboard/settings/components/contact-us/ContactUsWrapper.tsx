@@ -18,8 +18,11 @@ import { useAppConfig } from '@/services/app-config/appConfig';
 import { useDebounceValue } from '@/hooks/useDebounceValue';
 import ContactUsFilters from './ContactUsFilters';
 import ContactUsGrid from './ContactUsGrid';
+import { useAccessContext } from '../../../services/access/accessContext';
+import NoAccessGranted from '../../../components/NoAccessGranted';
 
 export default function ContactUsWrapper() {
+ const { roleAccess } = useAccessContext();
  const [openContactUsInfo, setOpenContactUsInfo] = useState(false);
  const [selectedContactUs, setSelectedContactUs] = useState<ContactUs | null>(
   null
@@ -80,31 +83,35 @@ export default function ContactUsWrapper() {
  });
 
  return (
-  <section>
-   <h2 className='font-bold text-2xl mb-4'>
-    {initialInfo.contactUs as string}
-   </h2>
-   <FormProvider {...filtersUseForm}>
-    <ContactUsFilters test='test' />
-   </FormProvider>
-   {true ? (
-    <ContactUsGrid
-     contactUsList={contactUsList}
-     isLoading={isLoading}
-     pagination={pagination}
-     setPagination={setPagination}
-     rowsCount={rowsCount}
-     selectedContactUs={selectedContactUs}
-     setSelectedContactUs={setSelectedContactUs}
-     setOpenContactUsInfo={() => setOpenContactUsInfo(true)}
-    />
-   ) : (
-    <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
-     <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
-      {noItemsFound as string}
-     </p>
-    </div>
+  <>
+   {roleAccess.read && (
+    <section className='mb-8'>
+     <h2 className='font-bold text-2xl mb-4'>
+      {initialInfo.contactUs as string}
+     </h2>
+     <FormProvider {...filtersUseForm}>
+      <ContactUsFilters test='test' />
+     </FormProvider>
+     {contactUsList.length > 0 ? (
+      <ContactUsGrid
+       contactUsList={contactUsList}
+       isLoading={isLoading}
+       pagination={pagination}
+       setPagination={setPagination}
+       rowsCount={rowsCount}
+       selectedContactUs={selectedContactUs}
+       setSelectedContactUs={setSelectedContactUs}
+       setOpenContactUsInfo={() => setOpenContactUsInfo(true)}
+      />
+     ) : (
+      <div className='bg-background rounded-lg border border-neutral-300 dark:border-neutral-700 p-4 min-h-[18rem] flex items-center justify-center flex-col'>
+       <p className='text-center font-medium text-neutral-500 dark:text-neutral-400 text-lg'>
+        {noItemsFound as string}
+       </p>
+      </div>
+     )}
+    </section>
    )}
-  </section>
+  </>
  );
 }

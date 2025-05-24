@@ -155,6 +155,11 @@ export default function Company() {
        label={initialInfo.name as string}
        error={!!errors.ownerName}
        helperText={errors.ownerName?.message}
+       slotProps={{
+        inputLabel: {
+         shrink: true,
+        },
+       }}
       />
       <TextField
        {...register('nationalCode')}
@@ -162,12 +167,22 @@ export default function Company() {
        label={initialInfo.nationalCode as string}
        error={!!errors.nationalCode}
        helperText={errors.nationalCode?.message}
+       slotProps={{
+        inputLabel: {
+         shrink: true,
+        },
+       }}
       />
       <TextField
        {...register('email')}
        size='small'
        label={initialInfo.email as string}
        error={!!errors.email}
+       slotProps={{
+        inputLabel: {
+         shrink: true,
+        },
+       }}
       />
       <TextField
        {...register('fax')}
@@ -175,6 +190,11 @@ export default function Company() {
        label={initialInfo.faxNumber as string}
        error={!!errors.fax}
        helperText={errors.fax?.message}
+       slotProps={{
+        inputLabel: {
+         shrink: true,
+        },
+       }}
       />
       <TextField
        {...register('postalCode')}
@@ -182,6 +202,11 @@ export default function Company() {
        label={initialInfo.postalCode as string}
        error={!!errors.postalCode}
        helperText={errors.postalCode?.message}
+       slotProps={{
+        inputLabel: {
+         shrink: true,
+        },
+       }}
       />
       <TextField
        {...register('registerNo')}
@@ -189,6 +214,11 @@ export default function Company() {
        label={initialInfo.registerNo as string}
        error={!!errors.registerNo}
        helperText={errors.registerNo?.message}
+       slotProps={{
+        inputLabel: {
+         shrink: true,
+        },
+       }}
       />
      </div>
      <div className='grid grid-cols-3 gap-4'>
@@ -203,6 +233,11 @@ export default function Company() {
         error={
          !!errors[`telephone${(index + 1).toString()}` as keyof TCompanySchema]
         }
+        slotProps={{
+         inputLabel: {
+          shrink: true,
+         },
+        }}
        />
       ))}
      </div>
@@ -218,6 +253,11 @@ export default function Company() {
         error={
          !!errors[`cellPhone${(index + 1).toString()}` as keyof TCompanySchema]
         }
+        slotProps={{
+         inputLabel: {
+          shrink: true,
+         },
+        }}
        />
       ))}
      </div>
@@ -229,8 +269,18 @@ export default function Company() {
       size='small'
       label={initialInfo.address as string}
       error={!!errors.addressName}
+      slotProps={{
+       inputLabel: {
+        shrink: true,
+       },
+      }}
      />
      <TextField
+      slotProps={{
+       inputLabel: {
+        shrink: true,
+       },
+      }}
       {...register('descriptionName')}
       multiline
       rows={4}

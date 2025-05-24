@@ -7,8 +7,8 @@ export default function page() {
   <div className='p-4 mx-auto'>
    <AccessProvider formTitle='settings'>
     <UsersWrapper />
+    <ContactUsWrapper />
    </AccessProvider>
-   <ContactUsWrapper />
   </div>
  );
 }
