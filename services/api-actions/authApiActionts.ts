@@ -16,9 +16,9 @@ type Owner = {
  telephone1: string | null;
  telephone2: string | null;
  telephone3: string | null;
- cellPhone1: string | null;
- cellPhone2: string | null;
- cellPhone3: string | null;
+ cellphone1: string | null;
+ cellphone2: string | null;
+ cellphone3: string | null;
  fax: string | null;
  email: string | null;
  longitude: number | null;

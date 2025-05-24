@@ -79,9 +79,9 @@ export default function Company() {
    setValue('telephone1', owner.telephone1 || '');
    setValue('telephone2', owner.telephone2 || '');
    setValue('telephone3', owner.telephone3 || '');
-   setValue('cellPhone1', owner.cellPhone1 || '');
-   setValue('cellPhone2', owner.cellPhone2 || '');
-   setValue('cellPhone3', owner.cellPhone3 || '');
+   setValue('cellPhone1', owner.cellphone1 || '');
+   setValue('cellPhone2', owner.cellphone2 || '');
+   setValue('cellPhone3', owner.cellphone3 || '');
    return owner;
   },
  });
@@ -101,9 +101,9 @@ export default function Company() {
     telephone1: data.telephone1 || null,
     telephone2: data.telephone2 || null,
     telephone3: data.telephone3 || null,
-    cellPhone1: data.cellPhone1 || null,
-    cellPhone2: data.cellPhone2 || null,
-    cellPhone3: data.cellPhone3 || null,
+    cellphone1: data.cellPhone1 || null,
+    cellphone2: data.cellPhone2 || null,
+    cellphone3: data.cellPhone3 || null,
    });
   },
   onSuccess() {
