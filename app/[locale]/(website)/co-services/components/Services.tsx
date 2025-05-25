@@ -1,8 +1,13 @@
 'use client';
 import Link from 'next/link';
-import StorageIcon from '@mui/icons-material/Storage';
-import WifiIcon from '@mui/icons-material/Wifi';
-import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
+// import StorageIcon from '@mui/icons-material/Storage';
+// import WifiIcon from '@mui/icons-material/Wifi';
+// import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
+import {
+ getService,
+ getServiceCategories,
+} from '@/services/api-actions/globalApiActions';
+import { useQuery } from '@tanstack/react-query';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import { motion } from 'motion/react';
 import { useState } from 'react';
@@ -11,27 +16,34 @@ import {
  type ServiceCategory,
 } from '@/services/api-actions/globalApiActions';
 import { WithDictionary } from '@/localization/locales';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import { useAppConfig } from '@/services/app-config/appConfig';
 
 const iconSize = '2.2rem';
 const projects = [
  {
   type: 'technology',
   title: 'حوزه فناوری',
-  icon: <StorageIcon sx={{ fontSize: iconSize }} />,
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  // icon: <StorageIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-sky-600 dark:bg-sky-300',
  },
  {
   type: 'network',
   title: 'شبکه و سرور',
-  icon: <WifiIcon sx={{ fontSize: iconSize }} />,
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  // icon: <WifiIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
   type: 'surveillance',
   title: 'نظارت تصویری',
-  icon: (
-   <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
-  ),
+
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  // icon: (
+  //  <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
+  // ),
   color: 'bg-red-600 dark:bg-red-300',
  },
  {
@@ -43,63 +55,86 @@ const projects = [
 ] as const;
 
 type Props = {
- services: Service[];
- servicesCategories: ServiceCategory[];
+ serverServices: Service[];
+ serverServicesCategories: ServiceCategory[];
 } & WithDictionary;
 
-function Services({}: Props) {
- const [selectedService, setSelectedService] =
-  useState<(typeof projects)[number]['type']>('technology');
+function Services({ serverServices, serverServicesCategories }: Props) {
+ const { locale } = useAppConfig();
+ const [selectedCategoryID, setSelectedCategoryID] = useState<
+  ServiceCategory['id'] | null
+ >(null);
+
+ const { data: serviceCategories = serverServicesCategories } = useQuery({
+  queryKey: ['serviceCategories'],
+  queryFn({ signal }) {
+   return getServiceCategories({
+    locale,
+    signal,
+   }).then((res) => res.data.payload.ServiceCategories);
+  },
+ });
 
  return (
   <section className='my-12 mb-20'>
-   <section className='container mt-8 mb-20 border-b border-neutral-300 dark:border-neutral-700'>
-    <ul className='grid grid-cols-2 lg:grid-cols-4 gap-4'>
-     {projects.map((item) => (
-      <motion.li
-       initial={{
-        y: -20,
-        opacity: 0,
-       }}
-       animate={{
-        y: 0,
-        opacity: 1,
-       }}
-       viewport={{ amount: 'some' }}
-       transition={{
-        duration: 0.5,
-        ease: 'easeInOut',
-       }}
-       key={item.title}
-      >
-       <button
-        className='transition-colors rounded-lg w-full'
-        onClick={() => setSelectedService(item.type)}
+   <section className='container mt-8 mb-20'>
+    <Swiper
+     slidesPerView={2}
+     spaceBetween={20}
+     pagination
+     modules={[Pagination]}
+     breakpoints={{
+      1024: {
+       slidesPerView: 4,
+      },
+     }}
+     className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
+    >
+     {serviceCategories.map((item, i) => (
+      <SwiperSlide key={item.id}>
+       <motion.li
+        onClick={() => setSelectedCategoryID(item.id)}
+        initial={{
+         y: -20,
+         opacity: 0,
+        }}
+        animate={{
+         y: 0,
+         opacity: 1,
+        }}
+        viewport={{ amount: 'some' }}
+        transition={{
+         duration: 0.5,
+         ease: 'easeInOut',
+        }}
+        className='border-b border-neutral-300 dark:border-neutral-700'
        >
-        <div className='flex flex-col lg:flex-row items-center gap-4 pb-3'>
-         <div
-          className={`flex-shrink-0 aspect-square w-[4.8rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-600 ${
-           selectedService === item.type && item.color
-          } bg-gradient-to-b from-transparent to-black/20`}
-         >
-          {item.icon}
+        <button className='transition-colors rounded-lg w-full'>
+         <div className='flex flex-col lg:flex-row items-center gap-4 pb-3'>
+          <div
+           className={`flex-shrink-0 aspect-square w-[4.8rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-600 ${
+            selectedCategoryID === item.id && [projects[i].color]
+           } bg-gradient-to-b from-transparent to-black/20`}
+          >
+           {projects[i].icon}
+          </div>
+          <div className={`flex-grow`}>
+           <h3 className='font-medium text-base text-start'>{item.name}</h3>
+          </div>
          </div>
-         <div className={`flex-grow`}>
-          <h3 className='font-medium text-base text-start'>{item.title}</h3>
-         </div>
-        </div>
-        {/* use motion underline */}
-        {item.type === selectedService && (
-         <motion.div
-          className={`h-[2px] w-full ${item.color}`}
-          layoutId='underline'
-          id='underline'
-         />
-        )}
-       </button>
-      </motion.li>
+         {/* use motion underline */}
+         {selectedCategoryID === item.id && (
+          <motion.div
+           className={`h-[2px] w-full ${projects[i].color}`}
+           layoutId='underline'
+           id='underline'
+          />
+         )}
+        </button>
+       </motion.li>
+      </SwiperSlide>
      ))}
-    </ul>
+    </Swiper>
    </section>
    <section className='container grid justify-items-center lg:justify-items-start grid-cols-2 lg:grid-cols-4 gap-8'>
     {[1, 2, 3, 4, 5].map((item) => (

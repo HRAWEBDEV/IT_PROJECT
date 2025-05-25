@@ -48,47 +48,46 @@ export default async function page({
  let services: Service[] = [];
  const servicesParams = new URLSearchParams();
  servicesParams.set('lang', locale);
- servicesParams.set('blogStateID', '2');
+ servicesParams.set('serviceStateID', '2');
  if (categoryID) {
   servicesParams.set('serviceCategoryID', categoryID);
  }
  servicesParams.set('showForCard', 'true');
+ let servicesCategories: ServiceCategory[] = [];
+ const servicesCategoriesParams = new URLSearchParams();
+ servicesCategoriesParams.set('lang', locale);
  if (activeLocale.id) {
   try {
-   const servicesResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${servicesApi}?${servicesParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
+   const [servicesResult, servicesCategoriesResult] = await Promise.all([
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${servicesApi}?${servicesParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+   ]);
+
    if (servicesResult.ok) {
     const servicesPackage = (await servicesResult.json()) as ResponseShape<{
      Services: Service[];
     }>;
     services = servicesPackage.payload.Services;
    }
-  } catch {}
- }
 
- let servicesCategories: ServiceCategory[] = [];
- const servicesCategoriesParams = new URLSearchParams();
- servicesCategoriesParams.set('lang', locale);
- if (activeLocale.id) {
-  try {
-   const servicesCategoriesResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
    if (servicesCategoriesResult.ok) {
     const servicesCategoriesPackage =
      (await servicesCategoriesResult.json()) as ResponseShape<{
@@ -103,8 +102,8 @@ export default async function page({
   <div>
    <Services
     dic={dic}
-    services={services}
-    servicesCategories={servicesCategories}
+    serverServices={services}
+    serverServicesCategories={servicesCategories}
    />
    <Footer params={params} />
   </div>

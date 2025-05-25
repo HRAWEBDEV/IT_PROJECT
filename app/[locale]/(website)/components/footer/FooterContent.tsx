@@ -37,7 +37,7 @@ export default function FooterContent({
  return (
   <footer className='pt-8 bg-neutral-300 dark:bg-neutral-700'>
    <div className='container'>
-    <div className='flex justify-end'>
+    <div className='flex justify-end mb-4'>
      <Button
       variant='outlined'
       className='w-[10rem] !border-neutral-600 !text-neutral-600 dark:!border-neutral-400 dark:!text-neutral-400'
