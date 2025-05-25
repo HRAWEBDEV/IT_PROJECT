@@ -4,21 +4,17 @@ import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useEffect } from 'react';
 import ProfileMenu from './ProfileMenu';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import Footer from '../../../components/footer/Footer';
 import Button from '@mui/material/Button';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/services/auth/authContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useRouter } from 'next/navigation';
 import { useAuthCheck } from '@/services/auth/authCheckContext';
-import { AppParams } from '@/utils/appParams';
 
 export default function ProfileLayout({
  children,
- params,
 }: {
  children: React.ReactNode;
- params: Promise<AppParams>;
 }) {
  const { isLargeDevice } = useAppMonitorConfig();
  const { userInfo, isFetchingUser } = useAuthCheck();
@@ -58,8 +54,7 @@ export default function ProfileLayout({
      </div>
     </div>
    )}
-
-   <Footer params={params} />
+   {/* <Footer params={params} /> */}
   </>
  );
 }
