@@ -31,104 +31,102 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  blogsParams.set('lang', locale);
  blogsParams.set('blogStateID', '2');
  blogsParams.set('showForCard', 'true');
- if (activeLocale.id) {
-  try {
-   const blogsResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${blogsApi}?${blogsParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
-   if (blogsResult.ok) {
-    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-     Blogs: Blog[];
-    }>;
-    blogs = blogsPackage.payload.Blogs;
-   }
-  } catch {}
- }
 
  let projects: Project[] = [];
  const projectsParams = new URLSearchParams();
  projectsParams.set('lang', locale);
- projectsParams.set('blogStateID', '2');
+ projectsParams.set('projectStateID', '2');
  projectsParams.set('showForCard', 'true');
-
- // if (activeLocale.id) {
- //  try {
- //   const projectResult = await fetch(
- //    `${
- //     process.env.NEXT_PUBLIC_API_BASE_URL
- //    }${projectsApi}?${projectsParams.toString()}`,
- //    {
- //     headers: {
- //      languageID: activeLocale.id.toString(),
- //     },
- //    }
- //   );
- //   if (projectResult.ok) {
- //    const blogsPackage = (await projectResult.json()) as ResponseShape<{
- //     Projects: Project[];
- //    }>;
- //    projects = blogsPackage.payload.Projects;
- //   }
- //  } catch {}
- // }
 
  let services: Service[] = [];
  const servicesParams = new URLSearchParams();
  servicesParams.set('lang', locale);
  servicesParams.set('blogStateID', '2');
  servicesParams.set('showForCard', 'true');
- // if (activeLocale.id) {
- //  try {
- //   const servicesResult = await fetch(
- //    `${
- //     process.env.NEXT_PUBLIC_API_BASE_URL
- //    }${servicesApi}?${servicesParams.toString()}`,
- //    {
- //     headers: {
- //      languageID: activeLocale.id.toString(),
- //     },
- //    }
- //   );
- //   if (servicesResult.ok) {
- //    const servicesPackage = (await servicesResult.json()) as ResponseShape<{
- //     Services: Service[];
- //    }>;
- //    services = servicesPackage.payload.Services;
- //   }
- //  } catch {}
- // }
 
  let servicesCategories: ServiceCategory[] = [];
  const servicesCategoriesParams = new URLSearchParams();
  servicesCategoriesParams.set('lang', locale);
- // if (activeLocale.id) {
- //  try {
- //   const servicesCategoriesResult = await fetch(
- //    `${
- //     process.env.NEXT_PUBLIC_API_BASE_URL
- //    }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
- //    {
- //     headers: {
- //      languageID: activeLocale.id.toString(),
- //     },
- //    }
- //   );
- //   if (servicesCategoriesResult.ok) {
- //    const servicesCategoriesPackage =
- //     (await servicesCategoriesResult.json()) as ResponseShape<{
- //      ServiceCategories: ServiceCategory[];
- //     }>;
- //    servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
- //   }
- //  } catch {}
- // }
+
+ if (activeLocale.id) {
+  try {
+   const [
+    blogsResult,
+    projectsResult,
+    servicesResult,
+    servicesCategoriesResult,
+   ] = await Promise.all([
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${blogsApi}?${blogsParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${projectsApi}?${projectsParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${servicesApi}?${servicesParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+   ]);
+   if (blogsResult.ok) {
+    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
+     Blogs: Blog[];
+    }>;
+    blogs = blogsPackage.payload.Blogs;
+   }
+   if (projectsResult.ok) {
+    const projectsPackage = (await projectsResult.json()) as ResponseShape<{
+     Projects: Project[];
+    }>;
+    projects = projectsPackage.payload.Projects;
+   }
+
+   if (servicesResult.ok) {
+    const servicesPackage = (await servicesResult.json()) as ResponseShape<{
+     Services: Service[];
+    }>;
+    services = servicesPackage.payload.Services;
+   }
+
+   if (servicesCategoriesResult.ok) {
+    const servicesCategoriesPackage =
+     (await servicesCategoriesResult.json()) as ResponseShape<{
+      ServiceCategories: ServiceCategory[];
+     }>;
+    servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
+   }
+  } catch {}
+ }
+ console.log(projects);
 
  return (
   <div id='home-page'>

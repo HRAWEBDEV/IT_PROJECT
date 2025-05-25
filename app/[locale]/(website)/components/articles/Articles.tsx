@@ -9,20 +9,21 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { type Blog } from '@/services/api-actions/globalApiActions';
 import ImageWrapper from '@/components/ImageWrapper';
-
-const dateFormatter = new Intl.DateTimeFormat('fa', {
- year: 'numeric',
- month: 'long',
- day: 'numeric',
- hour: '2-digit',
- minute: '2-digit',
-});
+import { useAppConfig } from '@/services/app-config/appConfig';
 
 type Props = WithDictionary & {
  serverBlogs: Blog[];
 };
 
 export default function Articles({ dic, serverBlogs }: Props) {
+ const { locale } = useAppConfig();
+ const dateFormatter = new Intl.DateTimeFormat(locale, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+ });
  return (
   <section
    id='articles'
@@ -98,7 +99,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
           </div>
           <Button size='small' variant='outlined'>
            <div>
-            <span>{(dic.articles as Dic).more as string}</span>
+            <span>{(dic.articles as Dic).continue as string}</span>
            </div>
           </Button>
          </div>
@@ -111,14 +112,14 @@ export default function Articles({ dic, serverBlogs }: Props) {
      <Button
       LinkComponent={Link}
       href='/articles'
-      className='w-[10rem]'
+      className='min-w-[14rem]'
       size='large'
       variant='outlined'
       color='secondary'
      >
       <div className='flex gap-4'>
        <span className='font-medium'>
-        {(dic.articles as Dic).more as string}
+        {(dic.articles as Dic).viewAllArticles as string}
        </span>
        <div className='ltr:rotate-180'>
         <KeyboardBackspaceIcon />

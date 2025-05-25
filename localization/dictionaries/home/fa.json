@@ -10,10 +10,12 @@
  },
  "projects": {
   "title": "پروژه‌هـــا",
-  "more": "بیشتر"
+  "continue": "ادامه مطالب",
+  "viewAllProjects": "مشاهده همه پروژه‌ها"
  },
  "articles": {
   "title": "مقـــالات و اخبــار",
-  "more": "بیشتر"
+  "continue": "ادامه مطالب",
+  "viewAllArticles": "مشاهده همه مقالات"
  }
 }
