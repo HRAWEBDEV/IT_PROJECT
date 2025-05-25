@@ -4,7 +4,6 @@ import { GradientButton } from '@/components/Button/GradientButton';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type WithDictionary } from '@/localization/locales';
 import Skeleton from '@mui/material/Skeleton';
 import { useAppConfig } from '@/services/app-config/appConfig';
@@ -60,7 +59,7 @@ export default function ProjectsList({
      projects.map((item) => (
       <li key={item.id}>
        <Link
-        href='#'
+        href={`/projects/${item.id}?name=${item.header}`}
         style={{
          transition: 'transform 0.5s ease',
         }}
