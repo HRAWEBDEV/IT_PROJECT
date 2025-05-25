@@ -1,8 +1,16 @@
 {
  "title": "پروژه‌هــــا",
+ "description": "پروژه‌هــــا",
  "search": "جستجو",
  "categories": "دسته‌بندی‌ها",
  "show": "نمایش",
  "continue": "ادامه مطالب",
- "noItemFound": "هیچ پروژه‌ای یافت نشد"
+ "noItemFound": "هیچ پروژه‌ای یافت نشد",
+ "whyUs": "چرا ما ؟",
+ "professional": "تیم مجرب و متخصص",
+ "quality": "کیفیت",
+ "onlineSupport": "پشتیبانی آنلاین",
+ "improvePerformance": "بهبود عملکرد",
+ "tags": "تـــگ‌ها",
+ "publishedAt": "تاریخ انتشار: "
 }
