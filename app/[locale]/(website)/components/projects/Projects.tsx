@@ -113,12 +113,6 @@ export default function Projects({ dic, projects }: Props) {
             >
              <ShareOutlinedIcon />
             </IconButton>
-            <IconButton
-             color='error'
-             className='!bg-red-300/20 !dark:bg-red-700/20'
-            >
-             <FavoriteBorderOutlinedIcon />
-            </IconButton>
            </div>
            <GradientButton>
             <div className='flex gap-3 items-center'>
