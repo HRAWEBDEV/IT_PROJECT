@@ -157,7 +157,7 @@ export default function ArticlesGrid({
       flex: 3,
      },
      {
-      field: 'blogStateName',
+      field: 'projectStateName',
       headerName: projects.state as string,
       minWidth: 120,
      },
