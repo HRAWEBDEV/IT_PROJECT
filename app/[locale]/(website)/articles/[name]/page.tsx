@@ -44,41 +44,40 @@ export default async function page({
  let blog: Blog | null = null;
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
+ const blogTagsParams = new URLSearchParams();
+ blogTagsParams.set('lang', locale);
+ blogTagsParams.set('blogID', name);
  if (activeLocale.id) {
   try {
-   const blogsResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${blogsApi}/${name}?${blogsParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
+   const [blogsResult, blogTagsResult] = await Promise.all([
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${blogsApi}/${name}?${blogsParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${getBlogTagsApi}?${blogTagsParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+   ]);
    if (blogsResult.ok) {
     const blogsPackage = (await blogsResult.json()) as ResponseShape<{
      Blog: Blog;
     }>;
     blog = blogsPackage.payload.Blog;
    }
-  } catch {}
- }
- const blogTagsParams = new URLSearchParams();
- blogTagsParams.set('lang', locale);
- blogTagsParams.set('blogID', name);
- if (activeLocale.id) {
-  try {
-   const blogTagsResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${getBlogTagsApi}?${blogTagsParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
+
    if (blogTagsResult.ok) {
     const blogTagsPackage = (await blogTagsResult.json()) as ResponseShape<{
      BlogTags: BlogTag[];
