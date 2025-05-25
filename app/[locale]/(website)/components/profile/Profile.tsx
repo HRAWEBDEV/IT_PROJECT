@@ -32,11 +32,7 @@ export default function Profile({
 
  const profileList = [
   <MenuItem key={'profile'}>
-   <Link
-    onClick={onClose}
-    href={'/profile/user-info'}
-    className='w-full flex gap-3'
-   >
+   <Link href={'/profile/user-info'} className='w-full flex gap-3'>
     <AssignmentIndIcon color='primary' />
     <span>{userInfo?.User.personFullName}</span>
    </Link>
@@ -44,18 +40,14 @@ export default function Profile({
   <Divider key={'main-divider'} />,
   userInfo?.HasDashboard ? (
    <MenuItem key={'dashboard'}>
-    <Link onClick={onClose} href={'/dashboard'} className='w-full flex gap-3'>
+    <Link href={'/dashboard'} className='w-full flex gap-3'>
      <DashboardIcon color='secondary' />
      <span>{(dic.profile as Dic).dashboard as string}</span>
     </Link>
    </MenuItem>
   ) : null,
   <MenuItem key={'fav'}>
-   <Link
-    onClick={onClose}
-    href={'/profile/favorites'}
-    className='w-full flex gap-3'
-   >
+   <Link href={'/profile/favorites'} className='w-full flex gap-3'>
     <FavoriteIcon color='error' />
     <span>{(dic.profile as Dic).favorite as string}</span>
    </Link>
