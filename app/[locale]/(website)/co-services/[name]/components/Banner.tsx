@@ -12,14 +12,11 @@ export default function Banner({ service }: Props) {
  useEffect(() => {
   window.scrollTo(0, 0);
  }, []);
- const imageUrl = `${
-  (process.env.NEXT_PUBLIC_BASE_URL || '') + service?.imageUrl
- }`;
  return (
   <section className='h-[12rem] lg:h-[18rem] relative'>
    <div className='absolute inset-0 z-[-1]'>
     <img
-     src={imageUrl}
+     src='/services/security-camera-installation.jpg'
      alt='banner'
      className='w-full h-full object-cover object-center'
      draggable={false}
