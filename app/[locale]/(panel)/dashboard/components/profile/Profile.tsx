@@ -29,14 +29,14 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
  };
 
  const profileList = [
-  <MenuItem key={'user-name'}>
+  <MenuItem key={'user-name'} onClick={onClose}>
    <div className='flex gap-3'>
     <PersonIcon color='primary' />
     <span>{userInfo?.User.personFullName}</span>
    </div>
   </MenuItem>,
   <Divider key={'divider'} />,
-  <MenuItem key={'website'}>
+  <MenuItem key={'website'} onClick={onClose}>
    <Link href={'/'}>
     <div className='flex gap-3'>
      <WebAssetIcon color='primary' />
