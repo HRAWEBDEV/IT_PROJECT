@@ -9,21 +9,22 @@ import { type WithDictionary } from '@/localization/locales';
 import { type Blog } from '@/services/api-actions/globalApiActions';
 import ImageWrapper from '@/components/ImageWrapper';
 import Skeleton from '@mui/material/Skeleton';
+import { useAppConfig } from '@/services/app-config/appConfig';
 
 type Props = WithDictionary & {
  blogs: Blog[];
  isLoadingBlogs: boolean;
 };
 
-const dateFormatter = new Intl.DateTimeFormat('fa', {
- year: 'numeric',
- month: 'long',
- day: 'numeric',
- hour: '2-digit',
- minute: '2-digit',
-});
-
 export default function ArticlesList({ dic, blogs, isLoadingBlogs }: Props) {
+ const { locale } = useAppConfig();
+ const dateFormatter = new Intl.DateTimeFormat(locale, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+ });
  if (blogs.length === 0) {
   return (
    <div className='container mb-6'>

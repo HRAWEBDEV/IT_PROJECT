@@ -22,7 +22,7 @@ import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
 import { useState } from 'react';
 import Options from './Options';
 import Services from './Services';
-import Projects from './Projects';
+// import Projects from './Projects';
 import Language from '../language/Language';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { Tooltip } from '@mui/material';
@@ -32,7 +32,7 @@ export default function Header({ dic }: WithDictionary) {
  const { isLogedIn } = useAuth();
  const { userInfo } = useAuthCheck();
  const [showServiceOptions, setShowServiceOptions] = useState(false);
- const [showProjectOptions, setShowProjectOptions] = useState(false);
+ //  const [showProjectOptions, setShowProjectOptions] = useState(false);
  const { isQueryTrue: isProfileOpen, handleToggle: handleToggleProfile } =
   useQueryToggler('show-profile', false);
  const { isQueryTrue: isLanguageOpen, handleToggle: handleToggleLanguage } =
@@ -114,23 +114,14 @@ export default function Header({ dic }: WithDictionary) {
       </div>
      </li>
      <li className='flex'>
-      <div
-       role='button'
-       tabIndex={0}
+      <Link
+       href={'/projects'}
        className='relative transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
-       onMouseEnter={() => setShowProjectOptions(true)}
-       onFocus={() => setShowProjectOptions(true)}
-       onMouseLeave={() => setShowProjectOptions(false)}
-       onBlur={() => setShowProjectOptions(false)}
       >
        <div className='flex gap-1'>
         <span>{(dic.navigation as Dic).projects as string}</span>
-        <ArrowDropDownIcon />
        </div>
-       <Options isOpen={showProjectOptions}>
-        <Projects dic={dic} onClose={() => setShowProjectOptions(false)} />
-       </Options>
-      </div>
+      </Link>
      </li>
      <li className='flex'>
       <Link

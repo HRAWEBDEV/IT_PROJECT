@@ -18,7 +18,7 @@ import {
  type ProjectsFilters as ProjectsFiltersSchema,
  projectsFiltersSchema,
 } from '../../schemas/projectsFilters';
-import { useForm } from 'react-hook-form';
+import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 
@@ -48,51 +48,47 @@ export default function Projects({ dic, serverProjects }: Props) {
  const projectCategory = filtersUseForm.watch('category');
  const dbSearchValue = useDebounceValue(searchValue, 200);
 
- const {
-  data: projectCategories = [],
-  isLoading: projectCategoriesLoading,
-  isFetching: projectCategoriesFetching,
- } = useQuery({
-  queryKey: ['projectCategories'],
-  async queryFn() {
-   const result = await getProjectCategories({
-    locale,
-   });
-   const data = result.data.payload.ProjectCategories;
-   return data;
-  },
- });
+ const { data: projectCategories = [], isLoading: projectCategoriesLoading } =
+  useQuery({
+   queryKey: ['projectCategories'],
+   async queryFn() {
+    const result = await getProjectCategories({
+     locale,
+    });
+    const data = result.data.payload.ProjectCategories;
+    return data;
+   },
+  });
 
- const {
-  data: projects = serverProjects,
-  isLoading: projectsLoading,
-  isFetching: projectsFetching,
- } = useQuery({
-  queryKey: [
-   'projects',
-   dbSearchValue,
-   projectCategory?.id,
-   pagination.page,
-   pagination.pageSize,
-  ],
-  async queryFn() {
-   const result = await getProjects({
-    locale,
-    showForCards: false,
-    pagination: {
-     limit: pagination.pageSize,
-     offset: pagination.page,
-    },
-    searchText: dbSearchValue,
-    projectStateID: 2,
-    projectCategoryID: projectCategory ? Number(projectCategory.id) : undefined,
-   });
-   const pacakge = result.data.payload.Projects;
-   const data = pacakge.rows;
-   setRowsCount(pacakge.rowsCount);
-   return data;
-  },
- });
+ const { data: projects = serverProjects, isLoading: projectsLoading } =
+  useQuery({
+   queryKey: [
+    'projects',
+    dbSearchValue,
+    projectCategory?.id,
+    pagination.page,
+    pagination.pageSize,
+   ],
+   async queryFn() {
+    const result = await getProjects({
+     locale,
+     showForCards: false,
+     pagination: {
+      limit: pagination.pageSize,
+      offset: pagination.page,
+     },
+     searchText: dbSearchValue,
+     projectStateID: 2,
+     projectCategoryID: projectCategory
+      ? Number(projectCategory.id)
+      : undefined,
+    });
+    const pacakge = result.data.payload.Projects;
+    const data = pacakge.rows;
+    setRowsCount(pacakge.rowsCount);
+    return data;
+   },
+  });
 
  useEffect(() => {
   const newSearchParams = new URLSearchParams(searchParams.toString());
@@ -124,27 +120,39 @@ export default function Projects({ dic, serverProjects }: Props) {
 
  return (
   <section>
-   <ProjectsFilters dic={dic} />
-   <ProjectsList dic={dic} />
-   {rowsCount > paginationLimit && (
-    <div className='flex justify-center mb-8 text-lg font-medium'>
-     <Pagination
-      size='large'
-      shape='rounded'
-      count={Math.ceil(rowsCount / pagination.pageSize)}
-      page={pagination.page}
-      onChange={(_, value) => {
-       setPagination({ ...pagination, page: value });
-      }}
-      color='secondary'
-      sx={{
-       '& .MuiButtonBase-root': {
-        fontSize: 'inherit',
-       },
-      }}
-     />
-    </div>
-   )}
+   <FormProvider {...filtersUseForm}>
+    <ProjectsFilters
+     dic={dic}
+     ref={filtersRef}
+     filtersRef={filtersRef}
+     projectsCategories={projectCategories}
+     isLoadingProjectsCategories={projectCategoriesLoading}
+    />
+    <ProjectsList
+     dic={dic}
+     isLoadingProjects={projectsLoading}
+     projects={projects}
+    />
+    {rowsCount > paginationLimit && (
+     <div className='flex justify-center mb-8 text-lg font-medium'>
+      <Pagination
+       size='large'
+       shape='rounded'
+       count={Math.ceil(rowsCount / pagination.pageSize)}
+       page={pagination.page}
+       onChange={(_, value) => {
+        setPagination({ ...pagination, page: value });
+       }}
+       color='secondary'
+       sx={{
+        '& .MuiButtonBase-root': {
+         fontSize: 'inherit',
+        },
+       }}
+      />
+     </div>
+    )}
+   </FormProvider>
   </section>
  );
 }

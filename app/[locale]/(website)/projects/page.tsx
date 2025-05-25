@@ -47,8 +47,7 @@ export default async function page({
  let projects: Project[] = [];
  const projectsParams = new URLSearchParams();
  projectsParams.set('lang', locale);
- projectsParams.set('blogStateID', '2');
- projectsParams.set('showForCard', 'true');
+ projectsParams.set('projectStateID', '2');
  if (categoryID) {
   projectsParams.set('projectCategoryID', categoryID);
  }
@@ -75,6 +74,7 @@ export default async function page({
    }
   } catch {}
  }
+
  return (
   <div>
    <Hero dic={dic} />
