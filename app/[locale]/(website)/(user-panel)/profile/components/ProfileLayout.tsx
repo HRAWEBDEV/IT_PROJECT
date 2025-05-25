@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useAppMonitorConfig } from '@/services/app-monitor/appMonitor';
-import { PropsWithChildren, useEffect } from 'react';
+import { useEffect } from 'react';
 import ProfileMenu from './ProfileMenu';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Footer from '../../../components/footer/Footer';
@@ -11,8 +11,15 @@ import { useAuth } from '@/services/auth/authContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useRouter } from 'next/navigation';
 import { useAuthCheck } from '@/services/auth/authCheckContext';
+import { AppParams } from '@/utils/appParams';
 
-export default function ProfileLayout({ children }: PropsWithChildren) {
+export default function ProfileLayout({
+ children,
+ params,
+}: {
+ children: React.ReactNode;
+ params: Promise<AppParams>;
+}) {
  const { isLargeDevice } = useAppMonitorConfig();
  const { userInfo, isFetchingUser } = useAuthCheck();
  const pathname = usePathname();
@@ -52,7 +59,7 @@ export default function ProfileLayout({ children }: PropsWithChildren) {
     </div>
    )}
 
-   <Footer />
+   <Footer params={params} />
   </>
  );
 }

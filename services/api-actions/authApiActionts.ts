@@ -125,5 +125,6 @@ export {
  updateUserRole,
  getRoles,
  getOwner,
+ ownerApi,
  updateOwner,
 };

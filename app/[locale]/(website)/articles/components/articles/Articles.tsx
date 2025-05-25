@@ -95,7 +95,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
   newSearchParams.set('categoryID', blogCategory?.id || '');
   newSearchParams.set('categoryName', blogCategory?.name || '');
   if (pagination.page) newSearchParams.set('page', pagination.page.toString());
-  router.push(`${pathname}?${newSearchParams.toString()}`, {
+  router.replace(`${pathname}?${newSearchParams.toString()}`, {
    scroll: false,
   });
  }, [

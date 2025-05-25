@@ -137,7 +137,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
    />
    <Projects dic={dic} projects={projects} />
    <Articles dic={dic} serverBlogs={blogs} />
-   <Footer />
+   <Footer params={params} />
   </div>
  );
 }

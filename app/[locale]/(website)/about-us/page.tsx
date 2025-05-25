@@ -29,7 +29,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   <div>
    <Hero dic={dic} />
    <ContactUs dic={dic} />
-   <Footer />
+   <Footer params={params} />
   </div>
  );
 }

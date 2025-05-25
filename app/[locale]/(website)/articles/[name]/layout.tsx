@@ -47,7 +47,7 @@ export default async function layout({
     <>
      <Banner blog={blog} />
      {children}
-     <Footer />
+     <Footer params={params} />
     </>
    ) : (
     <NotFoundWrapper />

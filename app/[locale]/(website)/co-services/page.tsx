@@ -106,7 +106,7 @@ export default async function page({
     services={services}
     servicesCategories={servicesCategories}
    />
-   <Footer />
+   <Footer params={params} />
   </div>
  );
 }

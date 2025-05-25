@@ -79,7 +79,7 @@ export default async function page({
   <div>
    <Hero dic={dic} />
    <Projects dic={dic} serverProjects={projects} />
-   <Footer />
+   <Footer params={params} />
   </div>
  );
 }

@@ -95,7 +95,7 @@ export default function Projects({ dic, serverProjects }: Props) {
   newSearchParams.set('categoryID', projectCategory?.id || '');
   newSearchParams.set('categoryName', projectCategory?.name || '');
   if (pagination.page) newSearchParams.set('page', pagination.page.toString());
-  router.push(`${pathname}?${newSearchParams.toString()}`, {
+  router.replace(`${pathname}?${newSearchParams.toString()}`, {
    scroll: false,
   });
  }, [
