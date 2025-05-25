@@ -2,10 +2,10 @@ import WhyUs from './components/WhyUs';
 import Content from './components/Content';
 import { type AppParams } from '@/utils/appParams';
 import {
- type Blog,
- type BlogTag,
- blogsApi,
- getBlogTagsApi,
+ type Project,
+ type ProjectTag,
+ projectsApi,
+ projectTagsApi,
  ResponseShape,
 } from '@/services/api-actions/globalApiActions';
 import Tags from './components/Tags';
@@ -37,60 +37,64 @@ export default async function page({
  const activeLocale = locales[locale];
  const dic = await getDictionary({
   locale,
-  path: 'articles',
+  path: 'projects',
  });
- let blogTags: BlogTag[] = [];
- let blog: Blog | null = null;
- const blogsParams = new URLSearchParams();
- blogsParams.set('lang', locale);
+
+ let projectTags: ProjectTag[] = [];
+ let project: Project | null = null;
+
+ const projectTagsParams = new URLSearchParams();
+ projectTagsParams.set('lang', locale);
+ projectTagsParams.set('projectID', name);
+
+ const projectsParams = new URLSearchParams();
+ projectsParams.set('lang', locale);
  if (activeLocale.id) {
   try {
-   const blogsResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${blogsApi}/${name}?${blogsParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
-   if (blogsResult.ok) {
-    const blogsPackage = (await blogsResult.json()) as ResponseShape<{
-     Blog: Blog;
+   const [projectResult, projectTagsResult] = await Promise.all([
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${projectsApi}/${name}?${projectsParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+    fetch(
+     `${
+      process.env.NEXT_PUBLIC_API_BASE_URL
+     }${projectTagsApi}?${projectTagsParams.toString()}`,
+     {
+      headers: {
+       languageID: activeLocale.id.toString(),
+      },
+     }
+    ),
+   ]);
+   if (projectResult.ok) {
+    const projectsPackage = (await projectResult.json()) as ResponseShape<{
+     Project: Project;
     }>;
-    blog = blogsPackage.payload.Blog;
+    project = projectsPackage.payload.Project;
+   }
+
+   if (projectTagsResult.ok) {
+    const projectTagsPackage =
+     (await projectTagsResult.json()) as ResponseShape<{
+      ProjectTags: ProjectTag[];
+     }>;
+    projectTags = projectTagsPackage.payload.ProjectTags;
    }
   } catch {}
  }
- const blogTagsParams = new URLSearchParams();
- blogTagsParams.set('lang', locale);
- blogTagsParams.set('blogID', name);
- if (activeLocale.id) {
-  try {
-   const blogTagsResult = await fetch(
-    `${
-     process.env.NEXT_PUBLIC_API_BASE_URL
-    }${getBlogTagsApi}?${blogTagsParams.toString()}`,
-    {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
-    }
-   );
-   if (blogTagsResult.ok) {
-    const blogTagsPackage = (await blogTagsResult.json()) as ResponseShape<{
-     BlogTags: BlogTag[];
-    }>;
-    blogTags = blogTagsPackage.payload.BlogTags;
-   }
-  } catch {}
- }
+ console.log(project, projectTags);
 
  return (
   <section>
-   <Content blog={blog} dic={dic} />
-   <Tags tags={blogTags} dic={dic} />
+   <Content project={project} dic={dic} />
+   <Tags tags={projectTags} dic={dic} />
    <WhyUs dic={dic} />
   </section>
  );

@@ -1,10 +1,10 @@
-import { type BlogTag } from '@/services/api-actions/globalApiActions';
+import { type ProjectTag } from '@/services/api-actions/globalApiActions';
 import { type WithDictionary } from '@/localization/locales';
 import Chip from '@mui/material/Chip';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 type Props = {
- tags: BlogTag[];
+ tags: ProjectTag[];
 };
 
 const chipStyle = {

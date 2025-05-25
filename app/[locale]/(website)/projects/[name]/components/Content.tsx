@@ -1,13 +1,13 @@
 'use client';
-import { type Blog } from '@/services/api-actions/globalApiActions';
+import { type Project } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { WithDictionary } from '@/localization/locales';
 
 type Props = {
- blog: Blog | null;
+ project: Project | null;
 };
 
-export default function Content({ blog, dic }: Props & WithDictionary) {
+export default function Content({ project, dic }: Props & WithDictionary) {
  const { locale } = useAppConfig();
  const dateFormatter = new Intl.DateTimeFormat(locale, {
   year: 'numeric',
@@ -21,12 +21,12 @@ export default function Content({ blog, dic }: Props & WithDictionary) {
    <div className='mb-8'>
     <span>{dic.publishedAt as string}</span>
     <span className='font-medium'>
-     {dateFormatter.format(new Date(blog?.createDateTimeOffset || ''))}
+     {dateFormatter.format(new Date(project?.createDateTimeOffset || ''))}
     </span>
    </div>
    <article
     className='ck-content'
-    dangerouslySetInnerHTML={{ __html: blog?.body || '' }}
+    dangerouslySetInnerHTML={{ __html: project?.body || '' }}
    ></article>
   </section>
  );
