@@ -11,7 +11,7 @@ export default function Nav() {
  const { navIsVisible } = useNavigationContext();
  return (
   <nav
-   className={`fixed bg-background z-[1000] h-[calc(100vh-var(--dashboard-header-height))] lg:h-auto ${
+   className={`fixed bg-background z-[1000] h-[calc(100vh-var(--dashboard-header-height))] lg:h-auto flex-shrink-0 ${
     localeInfo.dir === 'rtl'
      ? 'translate-x-[--dashboard-nav-width]'
      : '-translate-x-[--dashboard-nav-width]'
