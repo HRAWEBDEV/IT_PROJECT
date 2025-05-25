@@ -73,7 +73,7 @@ export default function Projects({ dic, projects }: Props) {
       {projects.map((item) => (
        <SwiperSlide key={item.id} className='[&]:[--img-height:18rem]'>
         <Link
-         href={'#'}
+         href={`/projects/${item.id}?name=${item.header}`}
          className='group overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
         >
          <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>

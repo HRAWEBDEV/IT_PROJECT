@@ -121,7 +121,11 @@ export default function Services({ onClose, dic }: Props) {
        </div>
       ))}
 
-      <Link href='/co-services' className='flex gap-2 items-center'>
+      <Link
+       href='/co-services'
+       className='flex gap-2 items-center'
+       onClick={onClose}
+      >
        <div
         className={`flex-shrink-0 aspect-square w-[4rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-500  bg-gradient-to-b from-transparent to-black/20 transition-colors`}
        >
