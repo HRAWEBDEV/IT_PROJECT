@@ -13,7 +13,10 @@ import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { motion } from 'motion/react';
 import { type Dic, type WithDictionary } from '@/localization/locales';
-import { type ServiceCategory, type Service } from '@/services/api-actions/globalApiActions';
+import {
+ type ServiceCategory,
+ type Service,
+} from '@/services/api-actions/globalApiActions';
 
 const iconSize = '2.5rem';
 const projects = [
@@ -46,7 +49,7 @@ type Props = {
  servicesCategories: ServiceCategory[];
 } & WithDictionary;
 
-export default function Services({ dic }: Props) {
+export default function Services({ dic, services, servicesCategories }: Props) {
  return (
   <section id='services' className='mb-14'>
    <div>
@@ -135,8 +138,8 @@ export default function Services({ dic }: Props) {
        }}
        className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
       >
-       {[1, 2, 3, 4, 5].map((item) => (
-        <SwiperSlide key={item}>
+       {services.map((item) => (
+        <SwiperSlide key={item.id}>
          <Link href='#' className='block group'>
           <div className='overflow-hidden rounded-lg h-[10rem] lg:h-[13rem] mb-2 relative'>
            <div className='transition-all absolute top-[-5rem] group-hover:top-2 end-2 z-[2]'>
@@ -158,10 +161,9 @@ export default function Services({ dic }: Props) {
            />
           </div>
           <div>
-           <h3 className='font-medium text-lg mb-2'>نصب دوربین</h3>
+           <h3 className='font-medium text-lg mb-2'>{item.header}</h3>
            <p className='text-justify text-neutral-500 dark:text-neutral-200'>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با فیک
-            است، چاپگرها و متون بلکه روزنامه و مجله در
+            {item.description}
            </p>
           </div>
          </Link>

@@ -41,7 +41,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  let services: Service[] = [];
  const servicesParams = new URLSearchParams();
  servicesParams.set('lang', locale);
- servicesParams.set('blogStateID', '2');
+ servicesParams.set('serviceStateID', '2');
  servicesParams.set('showForCard', 'true');
 
  let servicesCategories: ServiceCategory[] = [];
@@ -126,7 +126,6 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
    }
   } catch {}
  }
- console.log(projects);
 
  return (
   <div id='home-page'>
