@@ -7,9 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import Link from 'next/link';
-import StorageIcon from '@mui/icons-material/Storage';
-import WifiIcon from '@mui/icons-material/Wifi';
-import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
+// import StorageIcon from '@mui/icons-material/Storage';
+// import WifiIcon from '@mui/icons-material/Wifi';
+// import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { motion } from 'motion/react';
 import { type Dic, type WithDictionary } from '@/localization/locales';
@@ -22,19 +22,22 @@ const iconSize = '2.5rem';
 const projects = [
  {
   title: 'حوزه فناوری',
-  icon: <StorageIcon sx={{ fontSize: iconSize }} />,
+  // icon: <StorageIcon sx={{ fontSize: iconSize }} />,
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-sky-600 dark:bg-sky-300',
  },
  {
   title: 'شبکه و سرور',
-  icon: <WifiIcon sx={{ fontSize: iconSize }} />,
+  // icon: <WifiIcon sx={{ fontSize: iconSize }} />,
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
   title: 'نظارت تصویری',
-  icon: (
-   <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
-  ),
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  // icon: (
+  //  <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
+  // ),
   color: 'bg-red-600 dark:bg-red-300',
  },
  {
@@ -82,7 +85,7 @@ export default function Services({ dic, services, servicesCategories }: Props) {
     </div>
     <div className='container mx-auto w-[min(100%,60rem)] mb-6'>
      <ul className='grid md:grid-cols-2'>
-      {projects.map((item, i) => (
+      {servicesCategories.slice(0, 4).map((item, i) => (
        <motion.li
         initial={{
          y: -20,
@@ -95,7 +98,7 @@ export default function Services({ dic, services, servicesCategories }: Props) {
          duration: 0.5,
          ease: 'easeInOut',
         }}
-        key={item.title}
+        key={item.id}
        >
         <Link
          className='flex gap-4 p-6 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
@@ -103,18 +106,17 @@ export default function Services({ dic, services, servicesCategories }: Props) {
         >
          <div
           className={`flex-shrink-0 aspect-square w-[5.5rem] rounded-lg grid place-content-center text-background shadow-lg ${
-           item.color
+           projects[i].color
           } bg-gradient-to-b from-transparent to-black/20 ${
            (i + 1) % 2 != 0 ? 'md:order-2' : ''
           }`}
          >
-          {item.icon}
+          {projects[i].icon}
          </div>
          <div className={`flex-grow ${(i + 1) % 2 != 0 ? 'md:order-1' : ''}`}>
-          <h3 className='font-medium text-lg'>{item.title}</h3>
+          <h3 className='font-medium text-lg'>{item.name}</h3>
           <p className='text-justify text-[0.85rem] text-neutral-500 dark:text-neutral-200'>
-           لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با فیک
-           است، چاپگرها و متون بلکه روزنامه و مجله در
+           {item.description}
           </p>
          </div>
         </Link>

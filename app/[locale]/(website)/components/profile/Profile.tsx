@@ -44,7 +44,6 @@ export default function Profile({
      <DashboardIcon color='secondary' />
      <span>{(dic.profile as Dic).dashboard as string}</span>
     </Link>
-    ,
    </MenuItem>
   ) : null,
   <MenuItem key={'fav'}>
