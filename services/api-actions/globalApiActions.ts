@@ -132,7 +132,7 @@ type ServiceCategory = {
  id: number;
  name: string;
  description: string;
- svgUrl:string;
+ svgUrl: string;
 };
 type ServiceState = {
  id: number;
@@ -968,24 +968,28 @@ function getServiceCategories<T extends { pagination?: PaginationProps }>(
  });
 }
 function createServiceCategory(
- props: ApiDefaultProps & Pick<ServiceCategory, 'id' | 'name' | 'description'>
+ props: ApiDefaultProps &
+  Pick<ServiceCategory, 'id' | 'name' | 'description' | 'svgUrl'>
 ) {
  const newServiceCategory = {
   id: props.id,
   lang: props.locale,
   name: props.name,
   description: props.description,
+  svgUrl: props.svgUrl,
  };
  return axios.post(serviceCategoriesApi, newServiceCategory);
 }
 function updateServiceCategory(
- props: ApiDefaultProps & Pick<ServiceCategory, 'id' | 'name' | 'description'>
+ props: ApiDefaultProps &
+  Pick<ServiceCategory, 'id' | 'name' | 'description' | 'svgUrl'>
 ) {
  const newServiceCategory = {
   id: props.id,
   lang: props.locale,
   name: props.name,
   description: props.description,
+  svgUrl: props.svgUrl,
  };
  return axios.put(serviceCategoriesApi, newServiceCategory);
 }
