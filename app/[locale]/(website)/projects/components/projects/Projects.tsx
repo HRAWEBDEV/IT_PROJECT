@@ -31,6 +31,7 @@ export default function Projects({ dic, serverProjects }: Props) {
  const router = useRouter();
  const pathname = usePathname();
  const searchParams = useSearchParams();
+ const searchText = searchParams.get('searchText');
  const { locale } = useAppConfig();
  const [rowsCount, setRowsCount] = useState(0);
  const [pagination, setPagination] = useState<GridPaginationModel>({
@@ -40,7 +41,7 @@ export default function Projects({ dic, serverProjects }: Props) {
  const filtersUseForm = useForm<ProjectsFiltersSchema>({
   resolver: zodResolver(projectsFiltersSchema),
   defaultValues: {
-   search: '',
+   search: searchText || '',
    category: null,
   },
  });

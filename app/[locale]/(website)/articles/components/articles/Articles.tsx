@@ -29,6 +29,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
  const pathname = usePathname();
  const searchParams = useSearchParams();
  const { locale } = useAppConfig();
+ const searchText = searchParams.get('searchText');
  const [rowsCount, setRowsCount] = useState(0);
  const [pagination, setPagination] = useState<GridPaginationModel>({
   page: 1,
@@ -37,7 +38,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
  const filtersUseForm = useForm<BlogFilters>({
   resolver: zodResolver(blogFiltersSchema),
   defaultValues: {
-   search: '',
+   search: searchText || '',
    category: null,
   },
  });

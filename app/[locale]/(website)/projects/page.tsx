@@ -34,9 +34,10 @@ export default async function page({
  searchParams: Promise<{
   offset?: string;
   categoryID?: string;
+  searchText?: string;
  }>;
 }) {
- const { offset, categoryID } = await searchParams;
+ const { offset, categoryID, searchText } = await searchParams;
  const { locale } = await params;
  const activeLocale = locales[locale];
  const dic = await getDictionary({
@@ -50,6 +51,9 @@ export default async function page({
  projectsParams.set('projectStateID', '2');
  if (categoryID) {
   projectsParams.set('projectCategoryID', categoryID);
+ }
+ if (searchText) {
+  projectsParams.set('searchText', searchText);
  }
  projectsParams.set('limit', paginationLimit.toString());
  projectsParams.set('offset', offset || '1');
