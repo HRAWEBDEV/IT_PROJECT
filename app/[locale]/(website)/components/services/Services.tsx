@@ -140,37 +140,50 @@ export default function Services({ dic, services, servicesCategories }: Props) {
        }}
        className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
       >
-       {services.map((item) => (
-        <SwiperSlide key={item.id}>
-         <Link href='#' className='block group'>
-          <div className='overflow-hidden rounded-lg h-[10rem] lg:h-[13rem] mb-2 relative'>
-           <div className='transition-all absolute top-[-5rem] group-hover:top-2 end-2 z-[2]'>
-            <IconButton
-             color='primary'
-             className='!transition-colors !bg-neutral-300 hover:!bg-neutral-100'
-            >
-             <ShareOutlinedIcon />
-            </IconButton>
+       {services.map((item) => {
+        const serviceLink = `/co-services/${item.id}?name=${item.header}`;
+        return (
+         <SwiperSlide key={item.id}>
+          <Link href={serviceLink} className='block group'>
+           <div className='overflow-hidden rounded-lg h-[10rem] lg:h-[13rem] mb-2 relative'>
+            <div className='transition-all absolute top-[-5rem] group-hover:top-2 end-2 z-[2]'>
+             <IconButton
+              color='primary'
+              className='!transition-colors !bg-neutral-300 hover:!bg-neutral-100'
+              onClick={(e) => {
+               e.preventDefault();
+               e.stopPropagation();
+               if (!navigator.share) return;
+               navigator.share({
+                title: item.header,
+                text: item.description,
+                url: serviceLink,
+               });
+              }}
+             >
+              <ShareOutlinedIcon />
+             </IconButton>
+            </div>
+            <img
+             style={{
+              transition: 'all 0.5s ease',
+             }}
+             loading='lazy'
+             className='h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100'
+             src='/services/security-camera-installation.jpg'
+             alt='services imageg'
+            />
            </div>
-           <img
-            style={{
-             transition: 'all 0.5s ease',
-            }}
-            loading='lazy'
-            className='h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100'
-            src='/services/security-camera-installation.jpg'
-            alt='services imageg'
-           />
-          </div>
-          <div>
-           <h3 className='font-medium text-lg mb-2'>{item.header}</h3>
-           <p className='text-justify text-neutral-500 dark:text-neutral-200'>
-            {item.description}
-           </p>
-          </div>
-         </Link>
-        </SwiperSlide>
-       ))}
+           <div>
+            <h3 className='font-medium text-lg mb-2'>{item.header}</h3>
+            <p className='text-justify text-neutral-500 dark:text-neutral-200'>
+             {item.description}
+            </p>
+           </div>
+          </Link>
+         </SwiperSlide>
+        );
+       })}
       </Swiper>
      </div>
      <div className='flex gap-4 justify-center'>
