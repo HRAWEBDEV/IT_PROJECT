@@ -67,7 +67,7 @@ export default function AddArticle({
   queryFn: async () => {
    const result = await getTags({
     locale,
-    tagTypeID: 1,
+    tagTypeID: 2,
    });
    const tags = result.data.payload.Tags;
    if (service && service.id && !tagOnce) {

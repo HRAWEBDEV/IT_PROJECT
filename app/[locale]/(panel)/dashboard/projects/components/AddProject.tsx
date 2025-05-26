@@ -67,7 +67,7 @@ export default function AddProject({
   queryFn: async () => {
    const result = await getTags({
     locale,
-    tagTypeID: 1,
+    tagTypeID: 3,
    });
    const tags = result.data.payload.Tags;
    if (project && project.id && !tagOnce) {
