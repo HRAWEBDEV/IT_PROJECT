@@ -249,6 +249,7 @@ export default function Search({ dic, onClose, isOpen }: Props) {
     <div className='p-4 sticky top-0 bg-background z-10'>
      <TextField
       name='search'
+      type='search'
       value={searchText}
       onChange={(e) => setSearchText(e.target.value)}
       sx={{
