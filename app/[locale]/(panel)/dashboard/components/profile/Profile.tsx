@@ -37,7 +37,7 @@ export default function Profile({ profileAnchor, onClose, isOpen }: Props) {
   </MenuItem>,
   <Divider key={'divider'} />,
   <MenuItem key={'website'}>
-   <Link href={'/'}>
+   <Link href={'/'} className='w-full'>
     <div className='flex gap-3'>
      <WebAssetIcon color='primary' />
      <span>{profile.returnToWebsite as string}</span>
