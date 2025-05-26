@@ -38,75 +38,87 @@ export default function Articles({ dic, serverBlogs }: Props) {
      </div>
     </div>
     <ul className='grid lg:grid-cols-2 mb-4'>
-     {serverBlogs.slice(0, 4).map((item) => (
-      <li key={item.id}>
-       <Link
-        href={`/articles/${item.id}`}
-        className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
-       >
-        <div className='shrink-0 rounded-lg overflow-hidden h-[14rem] lg:w-[12rem] lg:h-[10rem]'>
-         <ImageWrapper
-          img={{
-           style: {
-            transition: 'transform 0.3s ease',
-           },
-           loading: 'lazy',
-           className:
-            'h-full w-full object-cover object-center brightness-90 group-hover:scale-105',
-           src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
-           alt: 'services imageg',
-          }}
-          wrapper={{
-           className: 'h-full w-full',
-          }}
-         />
-        </div>
-        <div className='flex-grow'>
-         <h3 className='font-medium text-lg mb-2 text-primary-dark'>
-          {item.header}
-         </h3>
-         <div className='text-[0.7rem] flex gap-2 flex-wrap'>
-          <div className='flex gap-1 items-center text-secondary'>
-           <CalendarMonthIcon fontSize='small' />
-           <span>
-            {dateFormatter.format(new Date(item.createDateTimeOffset))}
-           </span>
-          </div>
-          <div></div>
-          <div></div>
+     {serverBlogs.slice(0, 4).map((item) => {
+      const articleLink = `/articles/${item.id}`;
+      return (
+       <li key={item.id}>
+        <Link
+         href={articleLink}
+         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
+        >
+         <div className='shrink-0 rounded-lg overflow-hidden h-[14rem] lg:w-[12rem] lg:h-[10rem]'>
+          <ImageWrapper
+           img={{
+            style: {
+             transition: 'transform 0.3s ease',
+            },
+            loading: 'lazy',
+            className:
+             'h-full w-full object-cover object-center brightness-90 group-hover:scale-105',
+            src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
+            alt: 'services imageg',
+           }}
+           wrapper={{
+            className: 'h-full w-full',
+           }}
+          />
          </div>
-         <p className='text-justify text-neutral-500 dark:text-neutral-200 mb-4'>
-          {item.description.length > 100
-           ? item.description.slice(0, 100) + '...'
-           : item.description}
-         </p>
-         <div className='flex justify-between'>
-          <div className='flex gap-1'>
-           <IconButton
-            size='small'
-            color='primary'
-            className='!bg-sky-300/20 !dark:bg-sky-700/20'
-           >
-            <ShareOutlinedIcon />
-           </IconButton>
-           <IconButton
-            size='small'
-            color='error'
-            className='!bg-red-300/20 !dark:bg-red-700/20'
-           >
-            <FavoriteBorderOutlinedIcon />
-           </IconButton>
-          </div>
-          <Button size='small' variant='outlined'>
-           <div>
-            <span>{(dic.articles as Dic).continue as string}</span>
+         <div className='flex-grow'>
+          <h3 className='font-medium text-lg mb-2 text-primary-dark'>
+           {item.header}
+          </h3>
+          <div className='text-[0.7rem] flex gap-2 flex-wrap'>
+           <div className='flex gap-1 items-center text-secondary'>
+            <CalendarMonthIcon fontSize='small' />
+            <span>
+             {dateFormatter.format(new Date(item.createDateTimeOffset))}
+            </span>
            </div>
-          </Button>
+           <div></div>
+           <div></div>
+          </div>
+          <p className='text-justify text-neutral-500 dark:text-neutral-200 mb-4'>
+           {item.description.length > 100
+            ? item.description.slice(0, 100) + '...'
+            : item.description}
+          </p>
+          <div className='flex justify-between'>
+           <div className='flex gap-1'>
+            <IconButton
+             size='small'
+             color='primary'
+             className='!bg-sky-300/20 !dark:bg-sky-700/20'
+             onClick={(e) => {
+              e.stopPropagation();
+              if (!navigator.share) return;
+              navigator.share({
+               title: item.header,
+               text: item.description,
+               url: articleLink,
+              });
+             }}
+            >
+             <ShareOutlinedIcon />
+            </IconButton>
+            <IconButton
+             size='small'
+             color='error'
+             className='!bg-red-300/20 !dark:bg-red-700/20'
+            >
+             <FavoriteBorderOutlinedIcon />
+            </IconButton>
+           </div>
+           <Button size='small' variant='outlined'>
+            <div>
+             <span>{(dic.articles as Dic).continue as string}</span>
+            </div>
+           </Button>
+          </div>
          </div>
-        </div>
-       </Link>
-      </li>
-     ))}
+        </Link>
+       </li>
+      );
+     })}
     </ul>
     <div className='flex justify-end'>
      <Button
