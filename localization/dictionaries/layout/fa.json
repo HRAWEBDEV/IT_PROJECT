@@ -1,5 +1,6 @@
 {
  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
+ "noItemFound": "هیچ آیتمی یافت نشد",
  "changesSavedSuccessfully": "عملیات با موفقیت انجام شد",
  "navigation": {
   "home": "خانه",
@@ -27,7 +28,10 @@
  },
  "search": {
   "title": "جستجو",
-  "placeholder": "جستجوی خدمات، پروژه‌ها، اخبار ...."
+  "placeholder": "جستجوی خدمات، پروژه‌ها، اخبار ....",
+  "articles": "اخبار و مقاله‌ها",
+  "projects": "پروژه‌ها",
+  "showAll": "مشاهده همه"
  },
  "userPanel": {
   "userInfo": "اطلاعات کاربر",
