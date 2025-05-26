@@ -90,6 +90,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
              className='!bg-sky-300/20 !dark:bg-sky-700/20'
              onClick={(e) => {
               e.stopPropagation();
+              e.preventDefault();
               if (!navigator.share) return;
               navigator.share({
                title: item.header,

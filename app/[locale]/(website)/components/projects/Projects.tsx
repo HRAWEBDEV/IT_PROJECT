@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { type Project } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
@@ -36,11 +35,6 @@ export default function Projects({ dic, projects }: Props) {
        {(dic.projects as Dic).title as string}
       </h2>
      </div>
-     {/* <p className='text-neutral-500 dark:text-neutral-200 w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
-      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
-      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-      که لازم است، و برای شرایط فعلی تکنولوژی
-     </p> */}
     </div>
     <div>
      <Swiper
@@ -70,63 +64,76 @@ export default function Projects({ dic, projects }: Props) {
         />
        </div>
       </SwiperSlide>
-      {projects.map((item) => (
-       <SwiperSlide key={item.id} className='[&]:[--img-height:18rem]'>
-        <Link
-         href={`/projects/${item.id}?name=${item.header}`}
-         className='group overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
-        >
-         <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>
-          <img
-           style={{
-            transition: 'transform 0.5s ease',
-           }}
-           loading='lazy'
-           className='h-full w-full object-cover object-center group-hover:scale-110'
-           src='/services/server-installation.jpg'
-           alt='projects image'
-          />
-         </div>
-         <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
-         <div className='p-4 relative z-[2] -mt-4'>
-          <div className='text-[0.7rem] flex gap-2 flex-wrap mb-3'>
-           <div className='flex gap-1 items-center text-neutral-500 dark:text-neutral-200'>
-            <CalendarMonthIcon fontSize='small' />
-            <span>
-             {dateFormatter.format(new Date(item.createDateTimeOffset))}
-            </span>
-           </div>
+      {projects.map((item) => {
+       const projectLink = `/projects/${item.id}?name=${item.header}`;
+       return (
+        <SwiperSlide key={item.id} className='[&]:[--img-height:18rem]'>
+         <Link
+          href={projectLink}
+          className='group overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
+         >
+          <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>
+           <img
+            style={{
+             transition: 'transform 0.5s ease',
+            }}
+            loading='lazy'
+            className='h-full w-full object-cover object-center group-hover:scale-110'
+            src='/services/server-installation.jpg'
+            alt='projects image'
+           />
           </div>
-          <div className='flex gap-2'>
-           <h3 className='text-lg font-medium text-primary-dark mb-2'>
-            {item.header}
-           </h3>
-          </div>
-          <p className='mb-8 text-neutral-500 dark:text-neutral-200 text-justify'>
-           {item.description}
-          </p>
-          <div className='flex justify-between gap-4'>
-           <div className='flex gap-1'>
-            <IconButton
-             color='primary'
-             className='!bg-sky-300/20 !dark:bg-sky-700/20'
-            >
-             <ShareOutlinedIcon />
-            </IconButton>
-           </div>
-           <GradientButton>
-            <div className='flex gap-3 items-center'>
-             <span>{(dic.projects as Dic).continue as string}</span>
-             <div className='text-neutral-300 group-hover:text-primary-foreground'>
-              <VisibilityIcon />
-             </div>
+          <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
+          <div className='p-4 relative z-[2] -mt-4'>
+           <div className='text-[0.7rem] flex gap-2 flex-wrap mb-3'>
+            <div className='flex gap-1 items-center text-neutral-500 dark:text-neutral-200'>
+             <CalendarMonthIcon fontSize='small' />
+             <span>
+              {dateFormatter.format(new Date(item.createDateTimeOffset))}
+             </span>
             </div>
-           </GradientButton>
+           </div>
+           <div className='flex gap-2'>
+            <h3 className='text-lg font-medium text-primary-dark mb-2'>
+             {item.header}
+            </h3>
+           </div>
+           <p className='mb-8 text-neutral-500 dark:text-neutral-200 text-justify'>
+            {item.description}
+           </p>
+           <div className='flex justify-between gap-4'>
+            <div className='flex gap-1'>
+             <IconButton
+              color='primary'
+              className='!bg-sky-300/20 !dark:bg-sky-700/20'
+              onClick={(e) => {
+               e.preventDefault();
+               e.stopPropagation();
+               if (!navigator.share) return;
+               navigator.share({
+                title: item.header,
+                text: item.description,
+                url: projectLink,
+               });
+              }}
+             >
+              <ShareOutlinedIcon />
+             </IconButton>
+            </div>
+            <GradientButton>
+             <div className='flex gap-3 items-center'>
+              <span>{(dic.projects as Dic).continue as string}</span>
+              <div className='text-neutral-300 group-hover:text-primary-foreground'>
+               <VisibilityIcon />
+              </div>
+             </div>
+            </GradientButton>
+           </div>
           </div>
-         </div>
-        </Link>
-       </SwiperSlide>
-      ))}
+         </Link>
+        </SwiperSlide>
+       );
+      })}
      </Swiper>
      <div className='flex justify-end'>
       <Button
