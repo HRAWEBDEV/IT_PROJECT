@@ -20,6 +20,7 @@ import ContactUsFilters from './ContactUsFilters';
 import ContactUsGrid from './ContactUsGrid';
 import { useAccessContext } from '../../../services/access/accessContext';
 import NoAccessGranted from '../../../components/NoAccessGranted';
+import ShowContactUs from './ShowContactUs';
 
 export default function ContactUsWrapper() {
  const { roleAccess } = useAccessContext();
@@ -113,6 +114,13 @@ export default function ContactUsWrapper() {
     </section>
    ) : (
     <NoAccessGranted />
+   )}
+   {selectedContactUs && (
+    <ShowContactUs
+     open={openContactUsInfo}
+     onClose={() => setOpenContactUsInfo(false)}
+     contactUs={selectedContactUs}
+    />
    )}
   </>
  );

@@ -1077,7 +1077,7 @@ const addContactUs = (newContactUs: ContactUs) => {
 const readContactUs = (contactUsID: number) => {
  const params = new URLSearchParams();
  params.append('contactUsID', contactUsID.toString());
- return axios.patch(`${contactUsApi}?${params.toString()}`);
+ return axios.patch(`${contactUsApi}/ReadMessage?${params.toString()}`);
 };
 //
 export {

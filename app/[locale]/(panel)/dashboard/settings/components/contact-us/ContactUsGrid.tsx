@@ -35,13 +35,10 @@ export default function UsersGrid({
  rowsCount,
  setSelectedContactUs,
  selectedContactUs,
- setOpenContactUsInfo
+ setOpenContactUsInfo,
 }: Props) {
  const queryClient = useQueryClient();
  const [openConfirmBox, setOpenConfirmBox] = useState(false);
- const [stateAction, setStateAction] = useState<'blackList' | 'disabled'>(
-  'blackList'
- );
  const {
   initialInfo,
   actionConfirmMessage,
@@ -115,6 +112,12 @@ export default function UsersGrid({
       minWidth: 250,
      },
      {
+      field: 'description',
+      headerName: initialInfo.description as string,
+      minWidth: 200,
+      flex: 1,
+     },
+     {
       field: 'isRead',
       headerName: initialInfo.isRead as string,
       width: 120,
@@ -134,12 +137,7 @@ export default function UsersGrid({
        return value ? <CheckIcon color='success' /> : '----';
       },
      },
-     {
-      field: 'description',
-      headerName: initialInfo.description as string,
-      minWidth: 200,
-      flex: 1,
-     },
+
      {
       type: 'actions',
       field: 'actions',
@@ -149,6 +147,7 @@ export default function UsersGrid({
        return [
         <GridActionsCellItem
          key='showInfo'
+         showInMenu
          label={initialInfo.showInfo as string}
          onClick={() => {
           setSelectedContactUs(row);
@@ -157,13 +156,18 @@ export default function UsersGrid({
          icon={<VisibilityIcon color='primary' />}
         />,
         <GridActionsCellItem
+         disabled={isChangingContactUsState}
          key='isRead'
+         showInMenu
          label={
           row.isRead
            ? (initialInfo.isRead as string)
            : (initialInfo.isNotRead as string)
          }
-         onClick={() => {}}
+         onClick={() => {
+          setSelectedContactUs(row);
+          setOpenConfirmBox(true);
+         }}
          icon={
           row.isRead ? (
            <MarkEmailReadIcon color='success' />
