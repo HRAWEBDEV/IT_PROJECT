@@ -1,4 +1,9 @@
 {
+ "invalidPhoneNoMessage": "Invalid phone number",
+ "editPhoneNo": "Edit phone number",
+ "invalidOtpMessage": "Invalid OTP",
+ "codeSentSuccessfully": "Code sent successfully",
+ "errorHappendTryAgainLater": "An error occurred, please try again later",
  "signIn": "Sign In",
  "signUp": "Sign Up",
  "userName": "User Name",
@@ -9,5 +14,7 @@
  "firstName": "First Name",
  "lastName": "Last Name",
  "phone": "Phone",
- "email": "Email"
+ "email": "Email",
+ "sendCode": "Send Code",
+ "loginCode": "Login Code"
 }

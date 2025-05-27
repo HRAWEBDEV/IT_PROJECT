@@ -1,25 +1,47 @@
 {
+ "errorTryAgainLater": "An error occurred while saving the data, please try again later",
+ "noItemFound": "No item found",
+ "changesSavedSuccessfully": "Operation completed successfully",
  "navigation": {
   "home": "Home",
   "services": "Services",
   "projects": "Projects",
-  "articles": "Articles",
+  "articles": "Articles and News",
   "contact": "Contact Us",
   "search": "Search",
   "menu": "Menu",
-  "viewAll": "View All"
+  "viewAll": "View All",
+  "login": "Login"
  },
  "profile": {
+  "profile": "Profile",
+  "dashboard": "Dashboard",
   "favorite": "Favorites",
   "exit": "Exit"
  },
  "footer": {
+  "projects": "Projects",
+  "services": "Services",
   "company": "Company",
   "allRightsReserved": "All rights reserved",
-  "goUp": "Go up"
+  "goUp": "Go Up"
  },
  "search": {
   "title": "Search",
-  "placeholder": "Search for services, projects, articles ...."
+  "placeholder": "Search for projects, news ....",
+  "articles": "Articles and News",
+  "projects": "Projects",
+  "showAll": "View All"
+ },
+ "userPanel": {
+  "userInfo": "User Information",
+  "favorites": "Favorites",
+  "exit": "Exit",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "cellPhone": "Cell Phone",
+  "email": "Email",
+  "updateUserInfo": "Update User Information",
+  "changeProfilePicture": "Change Profile Picture"
  }
 }

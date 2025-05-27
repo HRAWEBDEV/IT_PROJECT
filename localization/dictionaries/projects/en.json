@@ -1,7 +1,16 @@
 {
  "title": "Projects",
+ "description": "Projects",
  "search": "Search",
  "categories": "Categories",
  "show": "Show",
- "continue": "Continue"
+ "continue": "Continue",
+ "noItemFound": "No item found",
+ "whyUs": "Why Us ?",
+ "professional": "Professional and Experienced Team",
+ "quality": "Quality",
+ "onlineSupport": "Online Support",
+ "improvePerformance": "Improve Performance",
+ "tags": "Tags",
+ "publishedAt": "Published At: "
 }

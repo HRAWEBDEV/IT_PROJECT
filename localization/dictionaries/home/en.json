@@ -10,10 +10,12 @@
  },
  "projects": {
   "title": "Projects",
-  "more": "More"
+  "continue": "Continue",
+  "viewAllProjects": "View All Projects"
  },
  "articles": {
   "title": "Articles and News",
-  "more": "More"
+  "continue": "Continue",
+  "viewAllArticles": "View All Articles"
  }
 }
