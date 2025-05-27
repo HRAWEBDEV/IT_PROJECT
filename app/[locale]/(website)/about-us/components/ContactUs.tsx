@@ -195,6 +195,9 @@ export default function ContactUs({ dic, owner }: Props) {
        error={!!errors.firstName}
        label={dic.firstName as string}
        slotProps={{
+        input: {
+         readOnly: !!userInfo?.User,
+        },
         inputLabel: {
          shrink: !!firstName || undefined,
         },
@@ -205,6 +208,9 @@ export default function ContactUs({ dic, owner }: Props) {
        error={!!errors.lastName}
        label={dic.lastName as string}
        slotProps={{
+        input: {
+         readOnly: !!userInfo?.User,
+        },
         inputLabel: {
          shrink: !!lastName || undefined,
         },
@@ -215,6 +221,9 @@ export default function ContactUs({ dic, owner }: Props) {
        error={!!errors.phone}
        label={dic.phone as string}
        slotProps={{
+        input: {
+         readOnly: !!userInfo?.User,
+        },
         inputLabel: {
          shrink: !!phone || undefined,
         },
