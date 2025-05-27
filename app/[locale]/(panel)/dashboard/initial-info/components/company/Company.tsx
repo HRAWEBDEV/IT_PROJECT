@@ -154,7 +154,7 @@ export default function Company() {
        size='small'
        label={initialInfo.name as string}
        error={!!errors.ownerName}
-       helperText={errors.ownerName?.message}
+       required
        slotProps={{
         inputLabel: {
          shrink: true,
@@ -269,6 +269,7 @@ export default function Company() {
       size='small'
       label={initialInfo.address as string}
       error={!!errors.addressName}
+      required
       slotProps={{
        inputLabel: {
         shrink: true,
@@ -288,6 +289,7 @@ export default function Company() {
       size='small'
       label={initialInfo.description as string}
       error={!!errors.descriptionName}
+      required
      />
     </div>
     {roleAccess.update && (
