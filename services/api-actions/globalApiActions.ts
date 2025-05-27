@@ -53,6 +53,7 @@ type Blog = {
  createDateTimeOffset: string;
  showForCard: boolean;
  imageUrl?: string;
+ interested: boolean;
 };
 
 type BlogComment = {
@@ -329,6 +330,7 @@ function createBlogComment(
   | 'commentStateID'
   | 'commentStateName'
   | 'createDateTimeOffset'
+  | 'interested'
  >
 ) {
  return axios.post(blogCommentsApi, newComment);
@@ -336,7 +338,11 @@ function createBlogComment(
 function updateBlogComment(
  newComment: Omit<
   BlogComment,
-  'childs' | 'writerUserName' | 'commentStateName' | 'createDateTimeOffset'
+  | 'childs'
+  | 'writerUserName'
+  | 'commentStateName'
+  | 'createDateTimeOffset'
+  | 'interested'
  >
 ) {
  return axios.put(blogCommentsApi, newComment);
@@ -367,6 +373,13 @@ function changeBlogCommentState(
  });
 }
 
+const blogInterestedApi = '/blogInterested';
+const toggleBlogInterested = (props: ApiDefaultProps & { blogID: number }) => {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('blogID', props.blogID.toString());
+ return axios.post(`${blogInterestedApi}?${params.toString()}`);
+};
 // blog states
 const blogStatesApi = '/blogStates';
 function getBlogStates(props: ApiDefaultProps) {
@@ -1185,4 +1198,5 @@ export {
  socialsApi,
  getSocials,
  addSocial,
+ toggleBlogInterested
 };

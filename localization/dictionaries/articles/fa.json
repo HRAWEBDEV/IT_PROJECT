@@ -15,5 +15,7 @@
  "publishedAt": "تاریخ انتشار: ",
  "comments": "نظرات و دیدگــاه‌ها",
  "showAllComments": "نمایش همه نظرات",
- "send": "ارسال"
+ "send": "ارسال",
+ "addToFavorites": "افزودن به علاقه‌مندی‌ها",
+ "removeFromFavorites": "حذف از علاقه‌مندی‌ها"
 }

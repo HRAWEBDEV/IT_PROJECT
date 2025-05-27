@@ -4,7 +4,6 @@ import { GradientButton } from '@/components/Button/GradientButton';
 import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type WithDictionary } from '@/localization/locales';
 import { type Blog } from '@/services/api-actions/globalApiActions';
 import ImageWrapper from '@/components/ImageWrapper';
@@ -106,19 +105,13 @@ export default function ArticlesList({ dic, blogs, isLoadingBlogs }: Props) {
               e.stopPropagation();
               if (!navigator.share) return;
               navigator.share({
-                title: item.header,
-                text: item.description,
-                url: articleLink,
+               title: item.header,
+               text: item.description,
+               url: articleLink,
               });
-            }}  
+             }}
             >
              <ShareOutlinedIcon />
-            </IconButton>
-            <IconButton
-             color='error'
-             className='!bg-red-300/20 !dark:bg-red-700/20'
-            >
-             <FavoriteBorderOutlinedIcon />
             </IconButton>
            </div>
            <GradientButton>

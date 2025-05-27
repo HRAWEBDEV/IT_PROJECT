@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { type Blog } from '@/services/api-actions/globalApiActions';
 import ImageWrapper from '@/components/ImageWrapper';
@@ -44,7 +43,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
        <li key={item.id}>
         <Link
          href={articleLink}
-         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800'
+         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-100 focus:bg-neutral-100 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900'
         >
          <div className='shrink-0 rounded-lg overflow-hidden h-[14rem] lg:w-[12rem] lg:h-[10rem]'>
           <ImageWrapper
@@ -100,13 +99,6 @@ export default function Articles({ dic, serverBlogs }: Props) {
              }}
             >
              <ShareOutlinedIcon />
-            </IconButton>
-            <IconButton
-             size='small'
-             color='error'
-             className='!bg-red-300/20 !dark:bg-red-700/20'
-            >
-             <FavoriteBorderOutlinedIcon />
             </IconButton>
            </div>
            <Button size='small' variant='outlined'>
