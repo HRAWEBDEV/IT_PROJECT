@@ -5,11 +5,6 @@ import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrow
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import { FaPhoneSquareAlt } from 'react-icons/fa';
-import IconButton from '@mui/material/IconButton';
-import { FaTelegramPlane } from 'react-icons/fa';
-import { IoLogoWhatsapp } from 'react-icons/io';
-import { TfiInstagram } from 'react-icons/tfi';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import Link from 'next/link';
@@ -21,6 +16,7 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { Owner } from '@/services/api-actions/authApiActionts';
+import SocialMedias from '../social-medias/SocialMedias';
 
 type Props = {
  servicesCategories: ServiceCategory[];
@@ -120,20 +116,7 @@ export default function FooterContent({
         </div>
        </div>
        <article className='flex items-center gap-2'>
-        <div className='flex gap-2 flex-wrap'>
-         <IconButton color='warning'>
-          <FaPhoneSquareAlt fontSize={'1.5rem'} />
-         </IconButton>
-         <IconButton color='secondary'>
-          <IoLogoWhatsapp fontSize={'1.5rem'} />
-         </IconButton>
-         <IconButton color='error'>
-          <TfiInstagram fontSize={'1.5rem'} />
-         </IconButton>
-         <IconButton color='info'>
-          <FaTelegramPlane fontSize={'1.5rem'} />
-         </IconButton>
-        </div>
+        <SocialMedias />
        </article>
       </div>
      </div>

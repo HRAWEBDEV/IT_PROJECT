@@ -1,15 +1,11 @@
 'use client';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { GradientButton } from '@/components/Button/GradientButton';
-import { FaPhoneSquareAlt } from 'react-icons/fa';
-import { FaTelegramPlane } from 'react-icons/fa';
-import { IoLogoWhatsapp } from 'react-icons/io';
-import { TfiInstagram } from 'react-icons/tfi';
 import Link from 'next/link';
 import { motion, Variants } from 'motion/react';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { type Dic, type WithDictionary } from '@/localization/locales';
+import SocialMedias from '../social-medias/SocialMedias';
 
 const textVariants: Variants = {
  init: {
@@ -91,18 +87,7 @@ export default function Hero({ dic }: Props) {
      }}
      className='flex gap-4 flex-wrap mb-4'
     >
-     <IconButton color='warning'>
-      <FaPhoneSquareAlt fontSize={'2rem'} />
-     </IconButton>
-     <IconButton color='secondary'>
-      <IoLogoWhatsapp fontSize={'2rem'} />
-     </IconButton>
-     <IconButton color='error'>
-      <TfiInstagram fontSize={'2rem'} />
-     </IconButton>
-     <IconButton color='info'>
-      <FaTelegramPlane fontSize={'2rem'} />
-     </IconButton>
+     <SocialMedias />
     </motion.div>
     <div className='flex gap-4 flex-wrap mb-8'>
      <motion.div

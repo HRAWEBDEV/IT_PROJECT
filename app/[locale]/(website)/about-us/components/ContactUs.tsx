@@ -5,11 +5,6 @@ import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import { FaPhoneSquareAlt } from 'react-icons/fa';
-import IconButton from '@mui/material/IconButton';
-import { FaTelegramPlane } from 'react-icons/fa';
-import { IoLogoWhatsapp } from 'react-icons/io';
-import { TfiInstagram } from 'react-icons/tfi';
 import { GradientButton } from '@/components/Button/GradientButton';
 import TextField from '@mui/material/TextField';
 import { type WithDictionary } from '@/localization/locales';
@@ -24,6 +19,7 @@ import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { AxiosError } from 'axios';
 import { type Owner } from '@/services/api-actions/authApiActionts';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
+import SocialMedias from '../../components/social-medias/SocialMedias';
 
 type Props = WithDictionary & {
  owner: Owner | null;
@@ -110,20 +106,7 @@ export default function ContactUs({ dic, owner }: Props) {
   <section className='container mb-6'>
    <article className='flex items-center gap-2 mb-6'>
     <div className='flex-grow h-[2px] bg-orange-500 dark:bg-orange-700'></div>
-    <div className='flex gap-4 flex-wrap'>
-     <IconButton color='warning'>
-      <FaPhoneSquareAlt fontSize={'2rem'} />
-     </IconButton>
-     <IconButton color='secondary'>
-      <IoLogoWhatsapp fontSize={'2rem'} />
-     </IconButton>
-     <IconButton color='error'>
-      <TfiInstagram fontSize={'2rem'} />
-     </IconButton>
-     <IconButton color='info'>
-      <FaTelegramPlane fontSize={'2rem'} />
-     </IconButton>
-    </div>
+    <SocialMedias />
     <div className='flex-grow h-[2px] bg-orange-500 dark:bg-orange-700'></div>
    </article>
    <article className='grid lg:grid-cols-2 gap-4'>
