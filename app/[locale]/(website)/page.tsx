@@ -139,6 +139,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
     owner = ownerPackage;
    }
   } catch {}
+ }
 
  return (
   <div id='home-page'>
