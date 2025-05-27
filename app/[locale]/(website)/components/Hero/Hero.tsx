@@ -1,5 +1,4 @@
 'use client';
-import ScrollDownIcon from '@/components/icons/ScrollDownIcon';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import { GradientButton } from '@/components/Button/GradientButton';
@@ -155,15 +154,6 @@ export default function Hero({ dic }: Props) {
      </motion.div>
     </div>
    </article>
-   <div className='absolute bottom-0 start-0 end-0 flex justify-center pb-4'>
-    <IconButton
-     LinkComponent={Link}
-     href='#services'
-     className='!text-secondary'
-    >
-     <ScrollDownIcon width='1.8rem' fill='currentColor' />
-    </IconButton>
-   </div>
   </section>
  );
 }

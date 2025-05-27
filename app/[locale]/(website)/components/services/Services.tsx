@@ -187,19 +187,6 @@ export default function Services({ dic, services, servicesCategories }: Props) {
       </Swiper>
      </div>
      <div className='flex gap-4 justify-center'>
-      <Button
-       LinkComponent={Link}
-       href='/'
-       className='lg:w-[12rem] !bg-secondary-foreground'
-       size='large'
-       variant='outlined'
-       color='warning'
-      >
-       <div className='flex gap-2'>
-        <SupportAgentIcon />
-        <span>{(dic.services as Dic).servicesConsultation as string}</span>
-       </div>
-      </Button>
       <GradientButton
        LinkComponent={Link}
        href='/co-services'

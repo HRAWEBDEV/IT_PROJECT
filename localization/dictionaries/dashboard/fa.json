@@ -15,7 +15,7 @@
  },
  "navigation": {
   "settings": "تنظیمات",
-  "initialInfo": "اطلاعات اولیه",
+  "initialInfo": "اطلاعات سازمان",
   "tags": "تگ ها",
   "services": "خدمــات",
   "serviceList": "لیست خدمــات",
@@ -118,13 +118,13 @@
   "cancel": "انصراف"
  },
  "initialInfo": {
-  "title": "اطلاعات اولیه",
+  "title": "اطلاعات سازمان",
   "name": "نام",
   "address": "آدرس",
   "telePhoneNumber": "شماره تلفن",
   "mobileNumber": "شماره همراه",
   "faxNumber": "شماره فکس",
-  "nationalCode": "کد ملی",
+  "nationalCode": "شناسه ملی",
   "registerNo": "شناسه ثبت",
   "email": "ایمیل",
   "postalCode": "کد پستی",

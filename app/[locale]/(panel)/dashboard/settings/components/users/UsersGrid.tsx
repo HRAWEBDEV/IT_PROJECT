@@ -133,7 +133,7 @@ export default function UsersGrid({
       minWidth: 250,
      },
      {
-      field: 'phone',
+      field: 'cellPhone',
       headerName: users.phone as string,
       minWidth: 250,
      },
