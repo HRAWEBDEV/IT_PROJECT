@@ -83,7 +83,6 @@ export default function UserInfo() {
 
  return (
   <div className='mb-8'>
-   <h2 className='font-bold text-2xl mb-8'>{userPanel.userInfo as string}</h2>
    <div className='flex flex-col gap-4 justify-center items-center mb-8'>
     <Avatar
      alt='user profile image'
