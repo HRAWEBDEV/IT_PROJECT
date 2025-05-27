@@ -19,6 +19,7 @@ import {
  type ProjectCategory,
  type ServiceCategory,
 } from '@/services/api-actions/globalApiActions';
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { Owner } from '@/services/api-actions/authApiActionts';
 
 type Props = {
@@ -72,6 +73,10 @@ export default function FooterContent({
         <div className='flex gap-2 items-center mb-4'>
          <FmdGoodIcon fontSize='large' color='error' />
          <p className='font-medium'>{owner?.addressName}</p>
+        </div>
+        <div className='flex gap-2 items-center mb-4'>
+         <AlternateEmailIcon fontSize='large' color='error' />
+         <p className='font-medium'>{owner?.email}</p>
         </div>
         <div className='grid grid-cols-2 gap-2'>
          {owner?.telephone1 && (
