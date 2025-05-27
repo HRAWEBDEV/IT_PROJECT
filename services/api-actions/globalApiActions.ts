@@ -152,6 +152,7 @@ type ContactUs = {
  email: string | null;
  isRead: boolean;
  deleted: boolean;
+ description: string;
 };
 
 // blogs actions

@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -34,7 +35,9 @@ export default function ContactUs({ dic }: Props) {
  const {
   register,
   handleSubmit,
+  setValue,
   formState: { errors },
+  watch,
  } = useForm<ContactUsSchema>({
   resolver: zodResolver(contactUsSchema),
   defaultValues:
@@ -54,6 +57,12 @@ export default function ContactUs({ dic }: Props) {
        description: '',
       },
  });
+ const [firstName, lastName, phone, email] = watch([
+  'firstName',
+  'lastName',
+  'phone',
+  'email',
+ ]);
 
  const { mutate: addContactUsMutation, isPending } = useMutation({
   mutationFn: (data: ContactUsSchema) =>
@@ -64,6 +73,7 @@ export default function ContactUs({ dic }: Props) {
     email: data.email || null,
     cellPhone: data.phone,
     personID: userInfo?.User.personID || 0,
+    description: data.description,
     isRead: false,
     deleted: false,
    }),
@@ -72,6 +82,7 @@ export default function ContactUs({ dic }: Props) {
     message: changesSavedSuccessfully,
     variant: 'success',
    });
+   setValue('description', '');
   },
   onError: (err: AxiosError) => {
    enqueueSnackbar({
@@ -80,6 +91,15 @@ export default function ContactUs({ dic }: Props) {
    });
   },
  });
+
+ useEffect(() => {
+  if (userInfo?.User) {
+   setValue('firstName', userInfo.User.firstName);
+   setValue('lastName', userInfo.User.lastName);
+   setValue('phone', userInfo.User.cellPhone || '');
+   setValue('email', userInfo.User.email || '');
+  }
+ }, [userInfo?.User, setValue]);
 
  return (
   <section className='container mb-6'>
@@ -138,21 +158,41 @@ export default function ContactUs({ dic }: Props) {
        {...register('firstName')}
        error={!!errors.firstName}
        label={dic.firstName as string}
+       slotProps={{
+        inputLabel: {
+         shrink: !!firstName || undefined,
+        },
+       }}
       />
       <TextField
        {...register('lastName')}
        error={!!errors.lastName}
        label={dic.lastName as string}
+       slotProps={{
+        inputLabel: {
+         shrink: !!lastName || undefined,
+        },
+       }}
       />
       <TextField
        {...register('phone')}
        error={!!errors.phone}
        label={dic.phone as string}
+       slotProps={{
+        inputLabel: {
+         shrink: !!phone || undefined,
+        },
+       }}
       />
       <TextField
        {...register('email')}
        error={!!errors.email}
        label={dic.email as string}
+       slotProps={{
+        inputLabel: {
+         shrink: !!email || undefined,
+        },
+       }}
       />
       <TextField
        minRows={3}
