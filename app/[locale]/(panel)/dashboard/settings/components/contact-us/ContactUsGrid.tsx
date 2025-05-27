@@ -15,6 +15,7 @@ import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { readContactUs } from '@/services/api-actions/globalApiActions';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useAccessContext } from '../../../services/access/accessContext';
 
 type Props = {
  contactUsList: ContactUs[];
@@ -37,6 +38,7 @@ export default function UsersGrid({
  selectedContactUs,
  setOpenContactUsInfo,
 }: Props) {
+ const { roleAccess } = useAccessContext();
  const queryClient = useQueryClient();
  const [openConfirmBox, setOpenConfirmBox] = useState(false);
  const {
@@ -144,39 +146,47 @@ export default function UsersGrid({
       headerAlign: 'center',
       align: 'center',
       getActions({ row }) {
-       return [
-        <GridActionsCellItem
-         key='showInfo'
-         showInMenu
-         label={initialInfo.showInfo as string}
-         onClick={() => {
-          setSelectedContactUs(row);
-          setOpenContactUsInfo(true);
-         }}
-         icon={<VisibilityIcon color='primary' />}
-        />,
-        <GridActionsCellItem
-         disabled={isChangingContactUsState}
-         key='isRead'
-         showInMenu
-         label={
-          row.isRead
-           ? (initialInfo.isRead as string)
-           : (initialInfo.isNotRead as string)
-         }
-         onClick={() => {
-          setSelectedContactUs(row);
-          setOpenConfirmBox(true);
-         }}
-         icon={
-          row.isRead ? (
-           <MarkEmailReadIcon color='success' />
-          ) : (
-           <MarkEmailReadIcon color='error' />
-          )
-         }
-        />,
-       ];
+       const actions = [];
+       if (roleAccess.read) {
+        actions.push(
+         <GridActionsCellItem
+          key='showInfo'
+          showInMenu
+          label={initialInfo.showInfo as string}
+          onClick={() => {
+           setSelectedContactUs(row);
+           setOpenContactUsInfo(true);
+          }}
+          icon={<VisibilityIcon color='primary' />}
+         />
+        );
+       }
+       if (roleAccess.changeState) {
+        actions.push(
+         <GridActionsCellItem
+          disabled={isChangingContactUsState}
+          key='isRead'
+          showInMenu
+          label={
+           row.isRead
+            ? (initialInfo.isRead as string)
+            : (initialInfo.isNotRead as string)
+          }
+          onClick={() => {
+           setSelectedContactUs(row);
+           setOpenConfirmBox(true);
+          }}
+          icon={
+           row.isRead ? (
+            <MarkEmailReadIcon color='success' />
+           ) : (
+            <MarkEmailReadIcon color='error' />
+           )
+          }
+         />
+        );
+       }
+       return actions;
       },
      },
     ]}
