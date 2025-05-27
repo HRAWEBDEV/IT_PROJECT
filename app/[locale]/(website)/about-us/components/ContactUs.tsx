@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import ApartmentIcon from '@mui/icons-material/Apartment';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import { FaPhoneSquareAlt } from 'react-icons/fa';
 import IconButton from '@mui/material/IconButton';
@@ -21,10 +22,13 @@ import { addContactUs } from '@/services/api-actions/globalApiActions';
 import { useSnackbar } from 'notistack';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
 import { AxiosError } from 'axios';
+import { type Owner } from '@/services/api-actions/authApiActionts';
 
-type Props = WithDictionary;
+type Props = WithDictionary & {
+ owner: Owner | null;
+};
 
-export default function ContactUs({ dic }: Props) {
+export default function ContactUs({ dic, owner }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { changesSavedSuccessfully, errorTryAgainLater } =
   useWebsiteDictionary() as {
@@ -132,22 +136,54 @@ export default function ContactUs({ dic }: Props) {
        <span className='inline-block ms-4'> </span>
        <br className='hidden' />
        <span className='bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300 text-transparent bg-clip-text'>
-        ----
+        {owner?.ownerName}
        </span>
       </h1>
       <p className='w-[min(100%,32rem)] leading-7 mb-10'>
-       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-       از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-       سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی
+       {owner?.descriptionName}
       </p>
       <div>
        <div className='flex gap-2 items-center mb-4'>
         <FmdGoodIcon fontSize='large' color='error' />
-        <p className='font-medium'>ادرس شرکت ....</p>
+        <p className='font-medium'>{owner?.addressName}</p>
        </div>
-       <div className='flex gap-2 items-center'>
-        <PhoneEnabledIcon fontSize='large' color='secondary' />
-        <p className='font-medium'>شماره تماس شرکت ....</p>
+       <div className='grid grid-cols-2 gap-2'>
+        {owner?.telephone1 && (
+         <div className='flex gap-2 items-center'>
+          <PhoneAndroidIcon fontSize='large' color='secondary' />
+          <p className='font-medium'>{owner?.telephone1}</p>
+         </div>
+        )}
+        {owner?.telephone2 && (
+         <div className='flex gap-2 items-center'>
+          <PhoneAndroidIcon fontSize='large' color='secondary' />
+          <p className='font-medium'>{owner?.telephone2}</p>
+         </div>
+        )}
+        {owner?.telephone3 && (
+         <div className='flex gap-2 items-center'>
+          <PhoneAndroidIcon fontSize='large' color='secondary' />
+          <p className='font-medium'>{owner?.telephone3}</p>
+         </div>
+        )}
+        {owner?.cellphone1 && (
+         <div className='flex gap-2 items-center'>
+          <PhoneEnabledIcon fontSize='large' color='secondary' />
+          <p className='font-medium'>{owner?.cellphone1}</p>
+         </div>
+        )}
+        {owner?.cellphone2 && (
+         <div className='flex gap-2 items-center'>
+          <PhoneEnabledIcon fontSize='large' color='secondary' />
+          <p className='font-medium'>{owner?.cellphone2}</p>
+         </div>
+        )}
+        {owner?.cellphone3 && (
+         <div className='flex gap-2 items-center'>
+          <PhoneEnabledIcon fontSize='large' color='secondary' />
+          <p className='font-medium'>{owner?.cellphone3}</p>
+         </div>
+        )}
        </div>
       </div>
      </div>
