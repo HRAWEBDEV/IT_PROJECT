@@ -16,7 +16,6 @@ import {
 } from '../../schemas/companySchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
 
 const phoneNumberLimit = 3;
 const mobileNumberLimit = 3;
@@ -145,7 +144,7 @@ export default function Company() {
  }
 
  return (
-  <section>
+  <section className='mb-8'>
    <h1 className='font-bold text-2xl mb-4'>{initialInfo.title as string}</h1>
    <form className='bg-background border border-neutral-300 dark:border-neutral-700 rounded-lg p-4'>
     <div className='grid gap-4'>
@@ -222,7 +221,7 @@ export default function Company() {
        }}
       />
      </div>
-     <div className='grid grid-cols-3 gap-4'>
+     <div className='grid lg:grid-cols-3 gap-4'>
       {Array.from({ length: phoneNumberLimit }).map((_, index) => (
        <TextField
         key={index}
@@ -241,8 +240,6 @@ export default function Company() {
         }}
        />
       ))}
-     </div>
-     <div className='grid grid-cols-3 gap-4'>
       {Array.from({ length: mobileNumberLimit }).map((_, index) => (
        <TextField
         key={index}

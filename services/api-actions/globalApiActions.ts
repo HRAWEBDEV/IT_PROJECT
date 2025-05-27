@@ -117,7 +117,8 @@ type ProjectTag = {
 //
 type Social = {
  id: number;
- link: string;
+ link: string | null;
+ name: string;
 };
 // services
 type Service = {
@@ -1087,15 +1088,16 @@ const readContactUs = (contactUsID: number) => {
 // socials
 const socialsApi = '/social-media';
 const getSocials = () => {
- return axios.get<ResponseShape<{ Socials: Social[] }>>(socialsApi);
+ return axios.get<ResponseShape<{ SocialMedias: Social[] }>>(socialsApi);
 };
-const addSocial = (newSocial: Social) => {
+const addSocial = (newSocial: Pick<Social, 'id' | 'link'>[]) => {
  return axios.post(socialsApi, newSocial);
 };
 //
 export {
  type ResponseShape,
  type TagCategory,
+ type Social,
  type Tag,
  type BlogCategory,
  type Blog,

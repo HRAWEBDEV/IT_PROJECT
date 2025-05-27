@@ -141,6 +141,11 @@
   "deleted": "حذف شده",
   "showInfo": "نمایش اطلاعات"
  },
+ "socials": {
+  "title": "شبکه‌های اجتماعی",
+  "confirm": "ثبت"
+ },
+
  "projects": {
   "title": "پروژه‌هــــا",
   "category": "دسته بندی",
