@@ -115,7 +115,8 @@
   "access": "دسترسی‌ها",
   "changeState": "تغییر وضعیت",
   "confirm": "تایید",
-  "cancel": "انصراف"
+  "cancel": "انصراف",
+  "loginDate": "تاریخ عضویت"
  },
  "initialInfo": {
   "title": "اطلاعات سازمان",

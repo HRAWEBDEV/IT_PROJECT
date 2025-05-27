@@ -19,6 +19,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import { useAccessContext } from '../../../services/access/accessContext';
+import { useAppConfig } from '@/services/app-config/appConfig';
 
 type Props = {
  usersList: User[];
@@ -41,6 +42,14 @@ export default function UsersGrid({
  selectedUser,
  setShowUserRole,
 }: Props) {
+ const { locale } = useAppConfig();
+ const dateFormatter = new Intl.DateTimeFormat(locale, {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+ });
  const { roleAccess } = useAccessContext();
  const queryClient = useQueryClient();
  const [openConfirmBox, setOpenConfirmBox] = useState(false);
@@ -110,6 +119,16 @@ export default function UsersGrid({
     rows={usersList}
     getRowId={(row) => row.personID}
     columns={[
+     {
+      field: 'createDateTimeOffset',
+      headerName: users.loginDate as string,
+      minWidth: 150,
+      headerAlign: 'center',
+      align: 'center',
+      valueFormatter(value) {
+       return dateFormatter.format(new Date(value));
+      },
+     },
      {
       field: 'userName',
       headerName: users.userName as string,
