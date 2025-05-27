@@ -16,11 +16,13 @@ import { usePathname } from 'next/navigation';
 
 export default function MobileBottomNav({ dic }: WithDictionary) {
  const { mobileBottomNavIsVisible } = useNavigationContext();
- const [activeTab, setActiveTab] = useState('home');
+ const [activeTab, setActiveTab] = useState('');
  const pathname = usePathname();
 
  useEffect(() => {
   const activeMenu = pathname.split('/')[2];
+  console.log(activeMenu);
+
   switch (activeMenu) {
    case undefined:
     setActiveTab('home');
@@ -28,14 +30,14 @@ export default function MobileBottomNav({ dic }: WithDictionary) {
    case 'menu':
     setActiveTab('menu');
     break;
-   case 'services':
-    setActiveTab('services');
+   case 'co-services':
+    setActiveTab('co-services');
     break;
-   case 'news':
-    setActiveTab('news');
+   case 'articles':
+    setActiveTab('articles');
     break;
-   case 'support':
-    setActiveTab('support');
+   case 'about-us':
+    setActiveTab('about-us');
     break;
   }
  }, [pathname]);
@@ -91,21 +93,21 @@ export default function MobileBottomNav({ dic }: WithDictionary) {
      <Tab
       LinkComponent={Link}
       href='/co-services'
-      value='services'
+      value='co-services'
       icon={<EngineeringOutlinedIcon fontSize='small' />}
       label={(dic.navigation as Dic).services as string}
      />
      <Tab
       LinkComponent={Link}
       href='/articles'
-      value='news'
+      value='articles'
       icon={<NewspaperOutlinedIcon fontSize='small' />}
       label={(dic.navigation as Dic).articles as string}
      />
      <Tab
       LinkComponent={Link}
       href='/about-us'
-      value='support'
+      value='about-us'
       icon={<SupportAgentOutlinedIcon fontSize='small' />}
       label={(dic.navigation as Dic).contact as string}
      />
