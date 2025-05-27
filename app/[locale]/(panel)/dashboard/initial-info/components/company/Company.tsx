@@ -16,6 +16,7 @@ import {
 } from '../../schemas/companySchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 
 const phoneNumberLimit = 3;
 const mobileNumberLimit = 3;

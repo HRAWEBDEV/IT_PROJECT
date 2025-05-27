@@ -114,6 +114,11 @@ type ProjectTag = {
  tagID: number;
  tagName: string;
 };
+//
+type Social = {
+ id: number;
+ link: string;
+};
 // services
 type Service = {
  id: number;
@@ -1079,6 +1084,14 @@ const readContactUs = (contactUsID: number) => {
  params.append('contactUsID', contactUsID.toString());
  return axios.patch(`${contactUsApi}/ReadMessage?${params.toString()}`);
 };
+// socials
+const socialsApi = '/social-media';
+const getSocials = () => {
+ return axios.get<ResponseShape<{ Socials: Social[] }>>(socialsApi);
+};
+const addSocial = (newSocial: Social) => {
+ return axios.post(socialsApi, newSocial);
+};
 //
 export {
  type ResponseShape,
@@ -1166,4 +1179,7 @@ export {
  getContactUs,
  addContactUs,
  readContactUs,
+ socialsApi,
+ getSocials,
+ addSocial,
 };
