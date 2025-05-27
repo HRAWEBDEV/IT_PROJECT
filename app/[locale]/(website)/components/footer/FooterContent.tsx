@@ -74,10 +74,12 @@ export default function FooterContent({
          <FmdGoodIcon fontSize='large' color='error' />
          <p className='font-medium'>{owner?.addressName}</p>
         </div>
-        <div className='flex gap-2 items-center mb-4'>
-         <AlternateEmailIcon fontSize='large' color='error' />
-         <p className='font-medium'>{owner?.email}</p>
-        </div>
+        {owner?.email && (
+         <div className='flex gap-2 items-center mb-4'>
+          <AlternateEmailIcon fontSize='large' color='error' />
+          <p className='font-medium'>{owner?.email}</p>
+         </div>
+        )}
         <div className='grid grid-cols-2 gap-2'>
          {owner?.telephone1 && (
           <div className='flex gap-2 items-center'>
