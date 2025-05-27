@@ -16,6 +16,7 @@ import {
  servicesApi,
  serviceCategoriesApi,
 } from '@/services/api-actions/globalApiActions';
+import { type Owner, ownerApi } from '@/services/api-actions/authApiActionts';
 import { locales } from '@/localization/locales';
 
 export default async function page({ params }: { params: Promise<AppParams> }) {
@@ -48,6 +49,8 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  const servicesCategoriesParams = new URLSearchParams();
  servicesCategoriesParams.set('lang', locale);
 
+ let owner: Owner | null = null;
+
  if (activeLocale.id) {
   try {
    const [
@@ -55,6 +58,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
     projectsResult,
     servicesResult,
     servicesCategoriesResult,
+    ownerResult,
    ] = await Promise.all([
     fetch(
      `${
@@ -96,6 +100,11 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
       },
      }
     ),
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${ownerApi}`, {
+     headers: {
+      languageID: activeLocale.id.toString(),
+     },
+    }),
    ]);
    if (blogsResult.ok) {
     const blogsPackage = (await blogsResult.json()) as ResponseShape<{
@@ -124,12 +133,16 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
      }>;
     servicesCategories = servicesCategoriesPackage.payload.ServiceCategories;
    }
+
+   if (ownerResult.ok) {
+    const ownerPackage = (await ownerResult.json()) as Owner;
+    owner = ownerPackage;
+   }
   } catch {}
- }
 
  return (
   <div id='home-page'>
-   <Hero dic={dic} />
+   <Hero dic={dic} owner={owner} />
    <Services
     dic={dic}
     services={services}
