@@ -1043,9 +1043,9 @@ function getContactUs<T extends { pagination?: PaginationProps }>(
   ResponseShape<
    T['pagination'] extends PaginationProps
     ? {
-       ContactUs: PagedResponse<ContactUs[]>;
+       ContactUsList: PagedResponse<ContactUs[]>;
       }
-    : { ContactUs: ContactUs[] }
+    : { ContactUsList: ContactUs[] }
   >
  >
 > {

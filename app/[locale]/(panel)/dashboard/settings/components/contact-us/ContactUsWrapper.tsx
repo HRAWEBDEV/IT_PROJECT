@@ -76,7 +76,7 @@ export default function ContactUsWrapper() {
     searchText: debouncedSearch,
     isRead,
     deleted,
-   }).then((res) => res.data.payload.ContactUs);
+   }).then((res) => res.data.payload.ContactUsList);
    setRowsCount(res.rowsCount);
    return res.rows;
   },
@@ -84,7 +84,7 @@ export default function ContactUsWrapper() {
 
  return (
   <>
-   {roleAccess.read && (
+   {roleAccess.read ? (
     <section className='mb-8'>
      <h2 className='font-bold text-2xl mb-4'>
       {initialInfo.contactUs as string}
@@ -92,7 +92,7 @@ export default function ContactUsWrapper() {
      <FormProvider {...filtersUseForm}>
       <ContactUsFilters test='test' />
      </FormProvider>
-     {contactUsList.length > 0 ? (
+     {!!contactUsList.length ? (
       <ContactUsGrid
        contactUsList={contactUsList}
        isLoading={isLoading}
@@ -111,6 +111,8 @@ export default function ContactUsWrapper() {
       </div>
      )}
     </section>
+   ) : (
+    <NoAccessGranted />
    )}
   </>
  );
