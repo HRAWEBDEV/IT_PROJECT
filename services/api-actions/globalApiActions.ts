@@ -170,6 +170,7 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
   T & {
    blogStateID: number;
    blogCategoryID?: number;
+   interested?: boolean;
    searchText?: string;
   }
 ): Promise<
@@ -197,6 +198,9 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
   params.append('searchText', props.searchText);
  }
  params.append('blogStateID', props.blogStateID.toString());
+ if (props.interested !== undefined) {
+  params.append('interested', props.interested.toString());
+ }
  return axios.get(`${blogsApi}?${params.toString()}`, {
   signal: props.signal,
  });
@@ -1198,5 +1202,5 @@ export {
  socialsApi,
  getSocials,
  addSocial,
- toggleBlogInterested
+ toggleBlogInterested,
 };
