@@ -39,7 +39,13 @@ export default function Content({ blog, dic }: Props & WithDictionary) {
 
  return (
   <section className='container mt-6 mb-12'>
-   <div className='mb-8 flex flex-wrap gap-4 items-center'>
+   <div className='mb-8 flex flex-wrap gap-4 items-center justify-between'>
+    <div>
+     <span>{dic.publishedAt as string}</span>
+     <span className='font-medium'>
+      {dateFormatter.format(new Date(blog?.createDateTimeOffset || ''))}
+     </span>
+    </div>
     {userInfo && (
      <div>
       <Button
@@ -61,13 +67,6 @@ export default function Content({ blog, dic }: Props & WithDictionary) {
       </Button>
      </div>
     )}
-
-    <div>
-     <span>{dic.publishedAt as string}</span>
-     <span className='font-medium'>
-      {dateFormatter.format(new Date(blog?.createDateTimeOffset || ''))}
-     </span>
-    </div>
    </div>
    <article
     className='ck-content'
