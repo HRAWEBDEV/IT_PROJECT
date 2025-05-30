@@ -7,14 +7,19 @@ export type NavigationItem = {
 
 export const navigationList: NavigationItem[] = [
  {
+  type: 'initial-info',
+  title: 'initialInfo',
+  href: '/dashboard/initial-info',
+ },
+ {
   type: 'settings',
   title: 'users',
   href: '/dashboard/settings',
  },
  {
-  type: 'initial-info',
-  title: 'initialInfo',
-  href: '/dashboard/initial-info',
+  type: 'contact-us',
+  title: 'contactUs',
+  href: '/dashboard/contact-us',
  },
  {
   type: 'tags',

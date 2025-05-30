@@ -4,11 +4,13 @@ import Socials from './components/socials/Socials';
 
 export default function page() {
  return (
-  <AccessProvider formTitle='initialInfo'>
-   <div className='w-[min(100%,50rem)] mx-auto p-4'>
+  <div className='w-[min(100%,50rem)] mx-auto p-4'>
+   <AccessProvider formTitle='initialInfo'>
     <Company />
+   </AccessProvider>
+   <AccessProvider formTitle='SocialMedia'>
     <Socials />
-   </div>
-  </AccessProvider>
+   </AccessProvider>
+  </div>
  );
 }
