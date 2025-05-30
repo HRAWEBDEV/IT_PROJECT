@@ -1164,7 +1164,7 @@ function getAboutUs() {
  return axios.get<ResponseShape<{ AboutUs: AboutUs }>>(aboutUsApi);
 }
 function updateAboutUs(newAboutUs: AboutUs) {
- return axios.put(aboutUsApi, newAboutUs);
+ return axios.post(aboutUsApi, newAboutUs);
 }
 //
 export {
