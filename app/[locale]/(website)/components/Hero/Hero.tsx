@@ -65,7 +65,6 @@ export default function Hero({ dic, owner }: Props) {
      <span className='dark:bg-gradient-to-br dark:from-sky-600 dark:to-teal-400 dark:text-transparent dark:bg-clip-text'>
       {owner?.ownerName} {(dic.hero as Dic).title as string}
      </span>
-     <span className='hidden lg:inline-block ms-4'> </span>
      <br />
      <span className='bg-gradient-to-br from-sky-600 to-teal-400 dark:from-sky-400 dark:to-teal-300 text-transparent bg-clip-text'>
       {(dic.hero as Dic).it as string}
