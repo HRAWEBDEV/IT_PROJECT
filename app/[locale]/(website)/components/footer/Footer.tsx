@@ -9,6 +9,8 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export default async function Footer({
  params,
@@ -25,6 +27,12 @@ export default async function Footer({
  servicesCategoriesParams.set('lang', locale);
 
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [servicesCategoriesResult, projectCategoriesResult, ownerResult] =
     await Promise.all([
@@ -33,9 +41,7 @@ export default async function Footer({
        process.env.NEXT_PUBLIC_API_BASE_URL
       }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
       {
-       headers: {
-        languageID: activeLocale.id.toString(),
-       },
+       headers: fetchHeaders,
       }
      ),
      fetch(
@@ -43,15 +49,11 @@ export default async function Footer({
        process.env.NEXT_PUBLIC_API_BASE_URL
       }${projectCategoriesApi}?${servicesCategoriesParams.toString()}`,
       {
-       headers: {
-        languageID: activeLocale.id.toString(),
-       },
+       headers: fetchHeaders,
       }
      ),
      fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${ownerApi}`, {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }),
     ]);
    if (servicesCategoriesResult.ok) {

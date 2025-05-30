@@ -11,6 +11,8 @@ import Tags from './components/Tags';
 import { getDictionary } from '@/localization/getDic';
 import { locales } from '@/localization/locales';
 import WhyUs from '@/app/[locale]/(website)/components/WhyUs';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export const generateMetadata = async ({
  params,
@@ -50,6 +52,12 @@ export default async function page({
  const projectsParams = new URLSearchParams();
  projectsParams.set('lang', locale);
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [projectResult, projectTagsResult] = await Promise.all([
     fetch(
@@ -57,9 +65,7 @@ export default async function page({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${projectsApi}/${name}?${projectsParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
     fetch(
@@ -67,9 +73,7 @@ export default async function page({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${projectTagsApi}?${projectTagsParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
    ]);
@@ -89,7 +93,6 @@ export default async function page({
    }
   } catch {}
  }
- console.log(project, projectTags);
 
  return (
   <section>

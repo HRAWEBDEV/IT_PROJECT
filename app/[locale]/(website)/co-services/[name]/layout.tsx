@@ -9,6 +9,8 @@ import {
 import { AppParams } from '@/utils/appParams';
 import NotFoundWrapper from '@/app/[locale]/[...not-found]/components/NotFoundWrapper';
 import { locales } from '@/localization/locales';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export default async function layout({
  children,
@@ -22,6 +24,12 @@ export default async function layout({
  serviceParams.set('lang', locale);
 
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [serviceResult] = await Promise.all([
     fetch(
@@ -29,9 +37,7 @@ export default async function layout({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${servicesApi}/${name}?${serviceParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
    ]);

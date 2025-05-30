@@ -5,6 +5,8 @@ import { getDictionary } from '@/localization/getDic';
 import { type Owner, ownerApi } from '@/services/api-actions/authApiActionts';
 import { type AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export const generateMetadata = async ({
  params,
@@ -34,12 +36,16 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  servicesCategoriesParams.set('lang', locale);
 
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [ownerResult] = await Promise.all([
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${ownerApi}`, {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
+     headers: fetchHeaders,
     }),
    ]);
    if (ownerResult.ok) {

@@ -9,6 +9,8 @@ import {
 import { type AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
 import Content from './components/Content';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export const generateMetadata = async ({
  params,
@@ -38,12 +40,16 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  aboutUsParams.set('lang', locale);
 
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [aboutUsResult] = await Promise.all([
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${aboutUsApi}`, {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
+     headers: fetchHeaders,
     }),
    ]);
    if (aboutUsResult.ok) {

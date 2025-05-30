@@ -10,6 +10,8 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { locales } from '@/localization/locales';
 import { paginationLimit } from './utils/blogsPaginationInfo';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export const generateMetadata = async ({
  params,
@@ -59,15 +61,19 @@ export default async function page({
  projectsParams.set('offset', offset || '1');
 
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const projectResult = await fetch(
     `${
      process.env.NEXT_PUBLIC_API_BASE_URL
     }${projectsApi}?${projectsParams.toString()}`,
     {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
+     headers: fetchHeaders,
     }
    );
    if (projectResult.ok) {

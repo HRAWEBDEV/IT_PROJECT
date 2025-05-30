@@ -12,6 +12,8 @@ import Tags from './components/Tags';
 import { getDictionary } from '@/localization/getDic';
 import { locales } from '@/localization/locales';
 import WhyUs from '@/app/[locale]/(website)/components/WhyUs';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export const generateMetadata = async ({
  params,
@@ -48,6 +50,12 @@ export default async function page({
  blogTagsParams.set('lang', locale);
  blogTagsParams.set('blogID', name);
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [blogsResult, blogTagsResult] = await Promise.all([
     fetch(
@@ -55,9 +63,7 @@ export default async function page({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${blogsApi}/${name}?${blogsParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
     fetch(
@@ -65,9 +71,7 @@ export default async function page({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${getBlogTagsApi}?${blogTagsParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
    ]);

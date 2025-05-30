@@ -10,6 +10,8 @@ import {
  servicesApi,
 } from '@/services/api-actions/globalApiActions';
 import { locales } from '@/localization/locales';
+import { cookies } from 'next/headers';
+import { authCookieName } from '@/services/auth/userToken';
 
 export const generateMetadata = async ({
  params,
@@ -57,6 +59,12 @@ export default async function page({
  const servicesCategoriesParams = new URLSearchParams();
  servicesCategoriesParams.set('lang', locale);
  if (activeLocale.id) {
+  const cookieStore = await cookies();
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [servicesResult, servicesCategoriesResult] = await Promise.all([
     fetch(
@@ -64,9 +72,7 @@ export default async function page({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${servicesApi}?${servicesParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
     fetch(
@@ -74,9 +80,7 @@ export default async function page({
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
    ]);

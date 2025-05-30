@@ -18,8 +18,11 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { type Owner, ownerApi } from '@/services/api-actions/authApiActionts';
 import { locales } from '@/localization/locales';
+import { authCookieName } from '@/services/auth/userToken';
+import { cookies } from 'next/headers';
 
 export default async function page({ params }: { params: Promise<AppParams> }) {
+ const cookieStore = await cookies();
  const { locale } = await params;
  const activeLocale = locales[locale];
 
@@ -52,6 +55,11 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
  let owner: Owner | null = null;
 
  if (activeLocale.id) {
+  const userToken = cookieStore.get(authCookieName)?.value;
+  const fetchHeaders = {
+   languageID: activeLocale.id.toString(),
+   Authorization: userToken ? `Bearer ${userToken}` : '',
+  };
   try {
    const [
     blogsResult,
@@ -65,9 +73,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${blogsApi}?${blogsParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
     fetch(
@@ -85,9 +91,7 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${servicesApi}?${servicesParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
     fetch(
@@ -95,15 +99,11 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
       process.env.NEXT_PUBLIC_API_BASE_URL
      }${serviceCategoriesApi}?${servicesCategoriesParams.toString()}`,
      {
-      headers: {
-       languageID: activeLocale.id.toString(),
-      },
+      headers: fetchHeaders,
      }
     ),
     fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${ownerApi}`, {
-     headers: {
-      languageID: activeLocale.id.toString(),
-     },
+     headers: fetchHeaders,
     }),
    ]);
    if (blogsResult.ok) {
