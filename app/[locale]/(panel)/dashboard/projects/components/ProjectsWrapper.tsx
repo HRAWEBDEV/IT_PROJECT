@@ -172,7 +172,7 @@ export default function ArticlesWrapper() {
        </div>
       )}
      </FormProvider>
-     {openAddImage && (
+     {openEditProject && (
       <AddProject
        open={openEditProject}
        project={selectedProject}
