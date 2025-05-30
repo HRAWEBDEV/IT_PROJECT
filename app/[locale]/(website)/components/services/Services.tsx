@@ -12,6 +12,7 @@ import {
  type ServiceCategory,
  type Service,
 } from '@/services/api-actions/globalApiActions';
+import ImageWrapper from '@/components/ImageWrapper';
 
 const iconSize = '2.5rem';
 const projects = [
@@ -167,14 +168,20 @@ export default function Services({ dic, services, servicesCategories }: Props) {
               <ShareOutlinedIcon />
              </IconButton>
             </div>
-            <img
-             style={{
-              transition: 'all 0.5s ease',
+            <ImageWrapper
+             img={{
+              style: {
+               transition: 'all 0.5s ease',
+              },
+              loading: 'lazy',
+              className:
+               'h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100',
+              src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
+              alt: 'services imageg',
              }}
-             loading='lazy'
-             className='h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100'
-             src='/services/security-camera-installation.jpg'
-             alt='services imageg'
+             wrapper={{
+              className: 'h-full w-full',
+             }}
             />
            </div>
            <div>

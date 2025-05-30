@@ -12,6 +12,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import { type Project } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
+import ImageWrapper from '@/components/ImageWrapper';
 
 type Props = {
  projects: Project[];
@@ -73,18 +74,24 @@ export default function Projects({ dic, projects }: Props) {
           className='group overflow-hidden relative block border border-neutral-300 dark:border-neutral-700 rounded-[1.5rem]'
          >
           <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[--img-height]'>
-           <img
-            style={{
-             transition: 'transform 0.5s ease',
+           <ImageWrapper
+            img={{
+             style: {
+              transition: 'transform 0.5s ease',
+             },
+             loading: 'lazy',
+             className:
+              'h-full w-full object-cover object-center group-hover:scale-110',
+             src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
+             alt: 'projects image',
             }}
-            loading='lazy'
-            className='h-full w-full object-cover object-center group-hover:scale-110'
-            src='/services/server-installation.jpg'
-            alt='projects image'
+            wrapper={{
+             className: 'h-full w-full',
+            }}
            />
           </div>
-          <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[1]'></div>
-          <div className='p-4 relative z-[2] -mt-4'>
+          <div className='absolute start-[%50] -translate-y-[calc(var(--img-height)/8)] w-full h-full p-4 -skew-y-[7deg] rounded-ss-[3rem] bg-neutral-100 dark:bg-neutral-800 z-[3]'></div>
+          <div className='p-4 relative z-[4] -mt-4'>
            <div className='text-[0.7rem] flex gap-2 flex-wrap mb-3'>
             <div className='flex gap-1 items-center text-neutral-500 dark:text-neutral-200'>
              <CalendarMonthIcon fontSize='small' />
