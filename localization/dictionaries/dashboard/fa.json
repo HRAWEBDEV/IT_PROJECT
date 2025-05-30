@@ -221,7 +221,8 @@
   "changeState": "تغییر وضعیت",
   "preview": "پیش نمایش",
   "noPreview": "عدم نمایش",
-  "comments": "نظرات"
+  "comments": "نظرات",
+  "addIcon": "افزودن آیکون"
  },
  "servicesCategories": {
   "title": "دسته بندی خدمـــات",

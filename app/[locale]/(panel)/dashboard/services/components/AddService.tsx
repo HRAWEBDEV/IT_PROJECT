@@ -30,6 +30,8 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { AxiosError } from 'axios';
+import AddIcon from './AddIcon';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
@@ -46,6 +48,8 @@ export default function AddArticle({
  serviceCategories,
  onClose,
 }: Props) {
+ const [iconsSvg, setIconsSvg] = useState<string>('');
+ const [showAddIcon, setShowAddIcon] = useState(false);
  const [tagOnce, setTagOnce] = useState(false);
  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
  const { enqueueSnackbar } = useSnackbar();
@@ -115,6 +119,7 @@ export default function AddArticle({
     description: data.description,
     body: service?.body || '',
     serviceTags: tagServices,
+    svgUrl: iconsSvg,
    };
    return service
     ? updateService({
@@ -194,33 +199,49 @@ export default function AddArticle({
     </div>
    </DialogTitle>
    <DialogContent dividers>
+    {iconsSvg && (
+     <div className='flex items-center justify-center mb-4 border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 text-neutral-500 dark:text-neutral-400 relative'>
+      <i className={`${iconsSvg} text-[4rem]`}></i>
+      <div className='absolute top-0 end-0'>
+       <IconButton onClick={() => setIconsSvg('')}>
+        <DeleteIcon color='error' />
+       </IconButton>
+      </div>
+     </div>
+    )}
     <div className='grid gap-4'>
-     <Controller
-      control={control}
-      name='category'
-      render={({ field }) => (
-       <Autocomplete
-        {...field}
-        disableClearable={true}
-        value={field.value || null}
-        onChange={(_, newValue) => field.onChange(newValue)}
-        size='small'
-        options={serviceCategories.map((item) => ({
-         id: item.id.toString(),
-         name: item.name,
-        }))}
-        getOptionLabel={(option) => option.name}
-        renderInput={(params) => (
-         <TextField
-          {...params}
-          label={services.category as string}
-          error={!!errors.category}
-          required
-         />
-        )}
-       />
-      )}
-     />
+     <div className='flex gap-4'>
+      <Controller
+       control={control}
+       name='category'
+       render={({ field }) => (
+        <Autocomplete
+         className='flex-grow'
+         {...field}
+         disableClearable={true}
+         value={field.value || null}
+         onChange={(_, newValue) => field.onChange(newValue)}
+         size='small'
+         options={serviceCategories.map((item) => ({
+          id: item.id.toString(),
+          name: item.name,
+         }))}
+         getOptionLabel={(option) => option.name}
+         renderInput={(params) => (
+          <TextField
+           {...params}
+           label={services.category as string}
+           error={!!errors.category}
+           required
+          />
+         )}
+        />
+       )}
+      />
+      <Button variant='outlined' onClick={() => setShowAddIcon(true)}>
+       {services.addIcon as string}
+      </Button>
+     </div>
      <TextField
       size='small'
       label={services.serviceTitle as string}
@@ -287,6 +308,11 @@ export default function AddArticle({
      {services.save as string}
     </Button>
    </DialogActions>
+   <AddIcon
+    open={showAddIcon}
+    onClose={() => setShowAddIcon(false)}
+    setIcon={setIconsSvg}
+   />
   </Dialog>
  );
 }

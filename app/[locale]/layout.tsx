@@ -14,6 +14,7 @@ import ToastrProvider from '@/services/notifications/ToastrProvider';
 import AuthProvider from '@/services/auth/AuthProvider';
 import AuthCheck from '@/services/auth/AuthCheck';
 import '../globals.css';
+import '../icons.css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';

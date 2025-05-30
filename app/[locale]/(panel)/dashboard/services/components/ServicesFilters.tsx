@@ -82,7 +82,7 @@ export default function ServicesFilters({
      />
     )}
    />
-   {true && (
+   {roleAccess.write && (
     <div className='flex items-center gap-2 justify-end'>
      <Button
       variant='outlined'
