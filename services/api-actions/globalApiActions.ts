@@ -1215,6 +1215,7 @@ export {
  getSocials,
  addSocial,
  toggleBlogInterested,
+ aboutUsApi,
  getAboutUs,
  updateAboutUs,
 };
