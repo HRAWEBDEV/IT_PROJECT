@@ -11,47 +11,40 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import CircularProgress from '@mui/material/CircularProgress';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const iconSize = '1.8rem';
 const projects = [
  {
-  type: 'tech',
-  title: 'حوزه فناوری',
-  // icon: <StorageIcon sx={{ fontSize: iconSize }} />,
+  title: '1',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: '!bg-sky-600 !dark:bg-sky-300',
+  color: 'bg-sky-600 dark:bg-sky-300',
  },
  {
-  type: 'server',
-  title: 'شبکه و سرور',
-  // icon: <WifiIcon sx={{ fontSize: iconSize }} />,
+  title: '2',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: '!bg-teal-600 !dark:bg-teal-300',
+  color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
-  type: 'security',
-  title: 'نظارت تصویری',
+  title: '3',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  // icon: (
-  //  <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
-  // ),
-  color: '!bg-red-600 !dark:bg-red-300',
+  color: 'bg-red-600 dark:bg-red-300',
  },
  {
-  type: 'support',
-  title: 'پشتیبانی و نگهداری',
+  title: '4',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: '!bg-orange-600 !dark:bg-orange-300',
+  color: 'bg-blue-600 dark:bg-blue-300',
  },
  {
-  type: 'all',
-  title: 'همه سرویس ها',
-  icon: <MoreVertIcon sx={{ fontSize: iconSize }} />,
-  color: '!bg-orange-600 !dark:bg-orange-300',
+  title: '5',
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-purple-600 dark:bg-purple-300',
+ },
+ {
+  title: '6',
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-yellow-600 dark:bg-yellow-300',
  },
 ];
-
 type Props = {
  onClose: () => void;
 } & WithDictionary;
@@ -100,26 +93,29 @@ export default function Services({ onClose, dic }: Props) {
    ) : (
     <>
      <div className='border-e border-neutral-300 dark:border-neutral-700 grid content-start gap-4 pe-6'>
-      {serviceCategories.map((item, i) => (
-       <div
-        onMouseEnter={() => setSelectedServiceCategoryID(item.id)}
-        onFocus={() => setSelectedServiceCategoryID(item.id)}
-        role='button'
-        key={item.id}
-        className='flex gap-2 items-center'
-       >
+      {serviceCategories.map((item, i) => {
+       const targeProject = projects[i] || projects[0];
+       return (
         <div
-         className={`flex-shrink-0 aspect-square w-[4rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-500  bg-gradient-to-b from-transparent to-black/20 transition-colors ${
-          item.id === selectedServiceCategoryID ? projects[i].color : ''
-         }`}
+         onMouseEnter={() => setSelectedServiceCategoryID(item.id)}
+         onFocus={() => setSelectedServiceCategoryID(item.id)}
+         role='button'
+         key={item.id}
+         className='flex gap-2 items-center'
         >
-         {projects[i].icon}
+         <div
+          className={`flex-shrink-0 aspect-square w-[4rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-500  bg-gradient-to-b from-transparent to-black/20 transition-colors ${
+           item.id === selectedServiceCategoryID ? targeProject.color : ''
+          }`}
+         >
+          {targeProject.icon}
+         </div>
+         <div className={`flex-grow`}>
+          <h3 className='font-medium text-[0.78rem]'>{item.name}</h3>
+         </div>
         </div>
-        <div className={`flex-grow`}>
-         <h3 className='font-medium text-[0.78rem]'>{item.name}</h3>
-        </div>
-       </div>
-      ))}
+       );
+      })}
      </div>
      {isServicesLoading ? (
       <div className='grid place-items-center h-full'>
@@ -127,7 +123,7 @@ export default function Services({ onClose, dic }: Props) {
       </div>
      ) : (
       <div className='flex gap-6 flex-wrap px-4 items-start justify-center'>
-       {services.slice(0, 5).map((item) => (
+       {services.slice(0, 8).map((item) => (
         <Link
          key={item.id}
          href={`/co-services/${item.id}?name=${item.header}`}

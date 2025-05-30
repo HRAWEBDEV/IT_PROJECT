@@ -16,29 +16,34 @@ import {
 const iconSize = '2.5rem';
 const projects = [
  {
-  title: 'حوزه فناوری',
-  // icon: <StorageIcon sx={{ fontSize: iconSize }} />,
+  title: '1',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-sky-600 dark:bg-sky-300',
  },
  {
-  title: 'شبکه و سرور',
-  // icon: <WifiIcon sx={{ fontSize: iconSize }} />,
+  title: '2',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
-  title: 'نظارت تصویری',
+  title: '3',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  // icon: (
-  //  <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
-  // ),
   color: 'bg-red-600 dark:bg-red-300',
  },
  {
-  title: 'پشتیبانی و نگهداری',
+  title: '4',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-orange-600 dark:bg-orange-300',
+  color: 'bg-blue-600 dark:bg-blue-300',
+ },
+ {
+  title: '5',
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-purple-600 dark:bg-purple-300',
+ },
+ {
+  title: '6',
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-yellow-600 dark:bg-yellow-300',
  },
 ];
 
@@ -80,43 +85,46 @@ export default function Services({ dic, services, servicesCategories }: Props) {
     </div>
     <div className='container mx-auto w-[min(100%,60rem)] mb-6'>
      <ul className='grid md:grid-cols-2'>
-      {servicesCategories.map((item, i) => (
-       <motion.li
-        initial={{
-         y: -20,
-        }}
-        whileInView={{
-         y: 0,
-        }}
-        viewport={{ amount: 'some' }}
-        transition={{
-         duration: 0.5,
-         ease: 'easeInOut',
-        }}
-        key={item.id}
-       >
-        <Link
-         className='flex gap-4 p-6 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
-         href='/co-services'
+      {servicesCategories.map((item, i) => {
+       const targeProject = projects[i] || projects[0];
+       return (
+        <motion.li
+         initial={{
+          y: -20,
+         }}
+         whileInView={{
+          y: 0,
+         }}
+         viewport={{ amount: 'some' }}
+         transition={{
+          duration: 0.5,
+          ease: 'easeInOut',
+         }}
+         key={item.id}
         >
-         <div
-          className={`flex-shrink-0 aspect-square w-[5.5rem] rounded-lg grid place-content-center text-background shadow-lg ${
-           projects[i].color
-          } bg-gradient-to-b from-transparent to-black/20 ${
-           (i + 1) % 2 != 0 ? 'md:order-2' : ''
-          }`}
+         <Link
+          className='flex gap-4 p-6 transition-colors hover:bg-neutral-200 focus:bg-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 rounded-lg'
+          href='/co-services'
          >
-          {projects[i].icon}
-         </div>
-         <div className={`flex-grow ${(i + 1) % 2 != 0 ? 'md:order-1' : ''}`}>
-          <h3 className='font-medium text-lg'>{item.name}</h3>
-          <p className='text-justify text-[0.85rem] text-neutral-500 dark:text-neutral-200'>
-           {item.description}
-          </p>
-         </div>
-        </Link>
-       </motion.li>
-      ))}
+          <div
+           className={`flex-shrink-0 aspect-square w-[5.5rem] rounded-lg grid place-content-center text-background shadow-lg ${
+            targeProject.color
+           } bg-gradient-to-b from-transparent to-black/20 ${
+            (i + 1) % 2 != 0 ? 'md:order-2' : ''
+           }`}
+          >
+           {targeProject.icon}
+          </div>
+          <div className={`flex-grow ${(i + 1) % 2 != 0 ? 'md:order-1' : ''}`}>
+           <h3 className='font-medium text-lg'>{item.name}</h3>
+           <p className='text-justify text-[0.85rem] text-neutral-500 dark:text-neutral-200'>
+            {item.description}
+           </p>
+          </div>
+         </Link>
+        </motion.li>
+       );
+      })}
      </ul>
     </div>
     <div className='bg-neutral-100 dark:bg-neutral-800 py-8'>

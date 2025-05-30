@@ -1,8 +1,5 @@
 'use client';
 import Link from 'next/link';
-// import StorageIcon from '@mui/icons-material/Storage';
-// import WifiIcon from '@mui/icons-material/Wifi';
-// import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
 import {
  getServiceCategories,
  getServices,
@@ -24,36 +21,36 @@ import CircularProgress from '@mui/material/CircularProgress';
 const iconSize = '2.2rem';
 const projects = [
  {
-  type: 'technology',
-  title: 'حوزه فناوری',
+  title: '1',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  // icon: <StorageIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-sky-600 dark:bg-sky-300',
  },
  {
-  type: 'network',
-  title: 'شبکه و سرور',
+  title: '2',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  // icon: <WifiIcon sx={{ fontSize: iconSize }} />,
   color: 'bg-teal-600 dark:bg-teal-300',
  },
  {
-  type: 'surveillance',
-  title: 'نظارت تصویری',
-
+  title: '3',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  // icon: (
-  //  <SecurityCameraIcon width={iconSize} height={iconSize} fill='currentColor' />
-  // ),
   color: 'bg-red-600 dark:bg-red-300',
  },
  {
-  type: 'support',
-  title: 'پشتیبانی و نگهداری',
+  title: '4',
   icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-orange-600 dark:bg-orange-300',
+  color: 'bg-blue-600 dark:bg-blue-300',
  },
-] as const;
+ {
+  title: '5',
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-purple-600 dark:bg-purple-300',
+ },
+ {
+  title: '6',
+  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
+  color: 'bg-yellow-600 dark:bg-yellow-300',
+ },
+];
 
 type Props = {
  serverServices: Service[];
@@ -119,50 +116,53 @@ function Services({ serverServices, serverServicesCategories }: Props) {
        }}
        className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
       >
-       {serviceCategories.map((item, i) => (
-        <SwiperSlide key={item.id}>
-         <motion.li
-          onClick={() => setSelectedCategoryID(item.id)}
-          initial={{
-           y: -20,
-           opacity: 0,
-          }}
-          animate={{
-           y: 0,
-           opacity: 1,
-          }}
-          viewport={{ amount: 'some' }}
-          transition={{
-           duration: 0.5,
-           ease: 'easeInOut',
-          }}
-          className='border-b border-neutral-300 dark:border-neutral-700'
-         >
-          <button className='transition-colors rounded-lg w-full'>
-           <div className='flex flex-col lg:flex-row items-center gap-4 pb-3'>
-            <div
-             className={`flex-shrink-0 aspect-square w-[4.8rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-600 ${
-              selectedCategoryID === item.id && [projects[i].color]
-             } bg-gradient-to-b from-transparent to-black/20`}
-            >
-             {projects[i].icon}
+       {serviceCategories.map((item, i) => {
+        const targeProject = projects[i] || projects[0];
+        return (
+         <SwiperSlide key={item.id}>
+          <motion.li
+           onClick={() => setSelectedCategoryID(item.id)}
+           initial={{
+            y: -20,
+            opacity: 0,
+           }}
+           animate={{
+            y: 0,
+            opacity: 1,
+           }}
+           viewport={{ amount: 'some' }}
+           transition={{
+            duration: 0.5,
+            ease: 'easeInOut',
+           }}
+           className='border-b border-neutral-300 dark:border-neutral-700'
+          >
+           <button className='transition-colors rounded-lg w-full'>
+            <div className='flex flex-col lg:flex-row items-center gap-4 pb-3'>
+             <div
+              className={`flex-shrink-0 aspect-square w-[4.8rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-600 ${
+               selectedCategoryID === item.id && targeProject.color
+              } bg-gradient-to-b from-transparent to-black/20`}
+             >
+              {targeProject.icon}
+             </div>
+             <div className={`flex-grow`}>
+              <h3 className='font-medium text-base text-start'>{item.name}</h3>
+             </div>
             </div>
-            <div className={`flex-grow`}>
-             <h3 className='font-medium text-base text-start'>{item.name}</h3>
-            </div>
-           </div>
-           {/* use motion underline */}
-           {selectedCategoryID === item.id && (
-            <motion.div
-             className={`h-[2px] w-full ${projects[i].color}`}
-             layoutId='underline'
-             id='underline'
-            />
-           )}
-          </button>
-         </motion.li>
-        </SwiperSlide>
-       ))}
+            {/* use motion underline */}
+            {selectedCategoryID === item.id && (
+             <motion.div
+              className={`h-[2px] w-full ${targeProject.color}`}
+              layoutId='underline'
+              id='underline'
+             />
+            )}
+           </button>
+          </motion.li>
+         </SwiperSlide>
+        );
+       })}
       </Swiper>
      </section>
      {servicesLoading ? (
@@ -175,7 +175,7 @@ function Services({ serverServices, serverServicesCategories }: Props) {
         <Link
          key={item.id}
          href={`/co-services/${item.id}?name=${item.header}`}
-         className='grid gap-2 group'
+         className='gap-2 w-[8.5rem] flex flex-col group items-center'
         >
          <div className='rounded-full bg-gradient-to-b from-red-700 to-red-950 dark:from-red-600 dark:to-red-900 w-[8rem] h-[8rem] lg:w-[11rem] lg:h-[11rem] p-1'>
           <div className='h-full bg-background rounded-full overflow-hidden'>
@@ -190,7 +190,7 @@ function Services({ serverServices, serverServicesCategories }: Props) {
            />
           </div>
          </div>
-         <p className='text-center text-base font-medium w-[8rem] lg:w-[11rem]'>
+         <p className='text-center text-base font-medium leading-6'>
           {item.header}
          </p>
         </Link>
