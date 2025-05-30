@@ -73,6 +73,13 @@ export default function AddContent({ open, onClose, project }: Props) {
     body: content,
     showForCard: project.showForCard,
     projectStateID: project.projectStateID,
+    projectImage: project.imageUrl
+     ? {
+        imageUrl: project.imageUrl,
+        lang: locale,
+        projectID: project.id,
+       }
+     : undefined,
     projectTags: result.data.payload.ProjectTags.map((item) => ({
      tagID: item.tagID,
      lang: locale,

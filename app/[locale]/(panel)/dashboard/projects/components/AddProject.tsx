@@ -122,6 +122,13 @@ export default function AddProject({
        ...newProject,
        projectStateID: project.projectStateID,
        showForCard: project.showForCard,
+       projectImage: project.imageUrl
+        ? {
+           imageUrl: project.imageUrl,
+           lang: locale,
+           projectID: project.id,
+          }
+        : undefined,
       })
     : createProject(newProject);
   },

@@ -3,11 +3,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import {
- type Service,
- getServiceImages,
- createServiceImage,
- updateService,
- getServiceTags,
+ type Project,
+ getProjectImages,
+ createProjectImage,
+ updateProject,
+ getProjectTags,
 } from '@/services/api-actions/globalApiActions';
 import CloseIcon from '@mui/icons-material/Close';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
@@ -26,7 +26,7 @@ import { AxiosError } from 'axios';
 
 type Props = {
  open: boolean;
- service: Service;
+ project: Project;
  onClose: () => void;
 };
 
@@ -36,13 +36,13 @@ function formatFileSize(size: number): number {
  return Math.ceil(size / 1000);
 }
 
-export default function AddImage({ open, onClose, service }: Props) {
+export default function AddImage({ open, onClose, project }: Props) {
  const { isLargeDevice } = useAppMonitorConfig();
  const { locale } = useAppConfig();
  const snackbar = useSnackbar();
- const { services, errorTryAgainLater, changesSavedSuccessfully } =
+ const { projects, errorTryAgainLater, changesSavedSuccessfully } =
   useWebsiteDictionary() as {
-   services: Dic;
+   projects: Dic;
    errorTryAgainLater: string;
    changesSavedSuccessfully: string;
   };
@@ -53,7 +53,7 @@ export default function AddImage({ open, onClose, service }: Props) {
  const { mutate: mutateImage, isPending: isUploading } = useMutation({
   onSuccess() {
    queryClient.invalidateQueries({
-    queryKey: ['services-images', service.id],
+    queryKey: ['projects-images', project.id],
    });
    snackbar.enqueueSnackbar({
     message: changesSavedSuccessfully as string,
@@ -68,30 +68,29 @@ export default function AddImage({ open, onClose, service }: Props) {
    });
   },
   mutationFn: async (formData: FormData) => {
-   const result = await createServiceImage(formData);
-   const tagResult = await getServiceTags({
+   const result = await createProjectImage(formData);
+   const tagResult = await getProjectTags({
     locale,
-    serviceID: service!.id,
+    projectID: project!.id,
    });
-   return updateService({
+   return updateProject({
     locale,
-    id: service.id,
-    body: service.body,
-    serviceCategoryID: service.serviceCategoryID,
-    header: service.header,
-    description: service.description,
-    serviceStateID: service.serviceStateID,
-    showForCard: service.showForCard,
-    serviceImage: {
+    id: project.id,
+    body: project.body,
+    projectCategoryID: project.projectCategoryID,
+    header: project.header,
+    description: project.description,
+    projectStateID: project.projectStateID,
+    showForCard: project.showForCard,
+    projectImage: {
      lang: locale,
      imageUrl: result.data,
-     serviceID: service.id,
+     projectID: project.id,
     },
-
-    serviceTags: tagResult.data.payload.ServiceTags.map((item) => ({
+    projectTags: tagResult.data.payload.ProjectTags.map((item) => ({
      tagID: item.tagID,
      lang: locale,
-     serviceID: service.id,
+     projectID: project.id,
     })),
    });
   },
@@ -102,10 +101,10 @@ export default function AddImage({ open, onClose, service }: Props) {
   isLoading,
   isFetching,
  } = useQuery({
-  queryKey: ['service-images', service.id],
+  queryKey: ['project-images', project.id],
   queryFn: () =>
-   getServiceImages({ serviceID: service.id, locale }).then(
-    (res) => res.data.payload.ServiceImages
+   getProjectImages({ projectID: project.id, locale }).then(
+    (res) => res.data.payload.ProjectImages
    ),
  });
 
@@ -124,8 +123,8 @@ export default function AddImage({ open, onClose, service }: Props) {
    <DialogTitle>
     <div className='flex items-center justify-between'>
      <div>
-      <span className='text-base font-bold'>{services.images as string}</span>
-      <span className='ms-4 text-primary font-medium'>{service.header}</span>
+      <span className='text-base font-bold'>{projects.images as string}</span>
+      <span className='ms-4 text-primary font-medium'>{project.header}</span>
      </div>
      <IconButton color='error' onClick={onClose} disabled={isUploading}>
       <CloseIcon />
@@ -162,8 +161,8 @@ export default function AddImage({ open, onClose, service }: Props) {
      </div>
     )}
     <ul className='list-disc list-inside'>
-     <li className='mb-2 font-medium'>{services.fileLimitMessage as string}</li>
-     <li className='mb-2 font-medium'>{services.fileExtension as string}</li>
+     <li className='mb-2 font-medium'>{projects.fileLimitMessage as string}</li>
+     <li className='mb-2 font-medium'>{projects.fileExtension as string}</li>
     </ul>
     <div className='bg-background rounded-lg p-4 border border-neutral-300 dark:border-neutral-700'>
      <div
@@ -198,14 +197,14 @@ export default function AddImage({ open, onClose, service }: Props) {
          if (size > 5000) {
           snackbar.enqueueSnackbar({
            variant: 'error',
-           message: services.fileLimitMessage as string,
+           message: projects.fileLimitMessage as string,
           });
           return;
          }
          if (!validFileExtensions.includes(extenstion.split('.')[1])) {
           snackbar.enqueueSnackbar({
            variant: 'error',
-           message: services.fileExtension as string,
+           message: projects.fileExtension as string,
           });
           return;
          }
@@ -219,7 +218,7 @@ export default function AddImage({ open, onClose, service }: Props) {
       <div className='absolute inset-0 flex flex-col items-center justify-center gap-4'>
        <div className='text-center'>
         <p className='text-base'>
-         {services.dragFileOrClickToUpload as string}
+         {projects.dragFileOrClickToUpload as string}
         </p>
        </div>
        {isLoading || isFetching || isUploading ? (

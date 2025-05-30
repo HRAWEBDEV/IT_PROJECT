@@ -24,12 +24,14 @@ import ChangeState from './ChangeState';
 import AddContent from './AddContent';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
+import AddImage from './AddImage';
 
 export default function ArticlesWrapper() {
  const { roleAccess } = useAccessContext();
  const [filterModel, setFilterModel] = useState<GridFilterModel>({
   items: [],
  });
+ const [openAddImage, setOpenAddImage] = useState(false);
  const [openChangeState, setOpenChangeState] = useState(false);
  const [openProjectContent, setOpenProjectContent] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
@@ -141,6 +143,7 @@ export default function ArticlesWrapper() {
       />
       {projectCategories.length ? (
        <ProjectsGrid
+        setOpenAddImage={() => setOpenAddImage(true)}
         projectsList={projectsList}
         isLoading={isLoading || isFetching}
         pagination={pagination}
@@ -169,15 +172,17 @@ export default function ArticlesWrapper() {
        </div>
       )}
      </FormProvider>
-     <AddProject
-      open={openEditProject}
-      project={selectedProject}
-      projectCategories={projectCategories}
-      onClose={() => {
-       setOpenEditProject(false);
-       setSelectedProject(null);
-      }}
-     />
+     {openAddImage && (
+      <AddProject
+       open={openEditProject}
+       project={selectedProject}
+       projectCategories={projectCategories}
+       onClose={() => {
+        setOpenEditProject(false);
+        setSelectedProject(null);
+       }}
+      />
+     )}
      <AddCategory
       open={openAddCategory}
       category={null}
@@ -203,6 +208,13 @@ export default function ArticlesWrapper() {
         setOpenProjectContent(false);
         setSelectedProject(null);
        }}
+       project={selectedProject}
+      />
+     )}
+     {openAddImage && selectedProject && (
+      <AddImage
+       open={openAddImage}
+       onClose={() => setOpenAddImage(false)}
        project={selectedProject}
       />
      )}

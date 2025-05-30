@@ -122,6 +122,13 @@ export default function AddArticle({
        ...newService,
        serviceStateID: service.serviceStateID,
        showForCard: service.showForCard,
+       serviceImage: service.imageUrl
+        ? {
+           imageUrl: service.imageUrl,
+           lang: locale,
+           serviceID: service.id,
+          }
+        : undefined,
       })
     : createService(newService);
   },

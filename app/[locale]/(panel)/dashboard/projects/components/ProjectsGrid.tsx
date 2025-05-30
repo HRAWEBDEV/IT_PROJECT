@@ -21,6 +21,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AxiosError } from 'axios';
 import { useAccessContext } from '../../services/access/accessContext';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 type Props = {
  projectsList: Project[];
@@ -34,6 +35,7 @@ type Props = {
  setPagination: (pagination: GridPaginationModel) => void;
  setOpenProjectContent: () => void;
  setOpenChangeState: () => void;
+ setOpenAddImage: () => void;
  rowCount: number;
 };
 
@@ -48,6 +50,7 @@ export default function ArticlesGrid({
  selectedProject,
  setOpenProjectContent,
  setOpenChangeState,
+ setOpenAddImage,
  filterModel,
  setFilterModel,
 }: Props) {
@@ -190,6 +193,16 @@ export default function ArticlesGrid({
           onClick={() => {
            setSelectedProject(row);
            setOpenAddProject();
+          }}
+          showInMenu
+         />,
+         <GridActionsCellItem
+          key={'images'}
+          label={projects.images as string}
+          icon={<ImageOutlinedIcon color='warning' />}
+          onClick={() => {
+           setSelectedProject(row);
+           setOpenAddImage();
           }}
           showInMenu
          />,

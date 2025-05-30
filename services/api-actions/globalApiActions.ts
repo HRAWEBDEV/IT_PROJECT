@@ -720,6 +720,7 @@ function updateProject(
   lang: props.locale,
   projectTags: props.projectTags || null,
   id: props.id,
+  projectImage: props.projectImage || null,
  };
  return axios.put(projectsApi, newProject);
 }
@@ -762,9 +763,9 @@ function getProjectImages(props: ApiDefaultProps & { projectID: number }) {
  params.append('projectID', props.projectID.toString());
  return axios.get<
   ResponseShape<{
-   ServiceImages: { imageUrl: string; serviceID: number }[];
+   ProjectImages: { imageUrl: string; projectID: number }[];
   }>
- >(`${serviceImageApi}?${params.toString()}`, {
+ >(`${projectImagesApi}?${params.toString()}`, {
   signal: props.signal,
  });
 }
