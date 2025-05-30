@@ -24,10 +24,12 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import Chip from '@mui/material/Chip';
+import HelpIcon from '@mui/icons-material/Help';
 
 type Props = {
  open: boolean;
  user: User;
+ setShowRoleAccessHelp: (value: boolean) => void;
  onClose: () => void;
 };
 
@@ -37,7 +39,12 @@ const checkedIcon = <CheckBoxIcon fontSize='small' />;
 // fix options of roles
 const fixedOptions = [1, 2];
 
-export default function AddTag({ open, onClose, user }: Props) {
+export default function AddTag({
+ open,
+ onClose,
+ setShowRoleAccessHelp,
+ user,
+}: Props) {
  const queryClient = useQueryClient();
  const [userRoles, setUserRoles] = useState<Role[]>([]);
  const { enqueueSnackbar } = useSnackbar();
@@ -91,7 +98,7 @@ export default function AddTag({ open, onClose, user }: Props) {
   <Dialog
    open={open}
    fullWidth
-   maxWidth='xs'
+   maxWidth='md'
    onClose={onClose}
    component={'form'}
    onSubmit={(e) => {
@@ -107,49 +114,66 @@ export default function AddTag({ open, onClose, user }: Props) {
     </div>
    </DialogTitle>
    <DialogContent dividers>
-    <Autocomplete
-     multiple
-     getOptionDisabled={(option) => fixedOptions.includes(option.id)}
-     loading={isLoadingRoles}
-     size='small'
-     isOptionEqualToValue={(option, value) => option.id === value.id}
-     getOptionLabel={(option) => option.name}
-     value={userRoles}
-     options={roles || []}
-     onChange={(_, newValue) => {
-      setUserRoles(newValue);
-     }}
-     renderTags={(value, getTagProps) => {
-      return value.map((option, index) => {
-       const { key, ...tagProps } = getTagProps({ index });
+    <div className='flex flex-col lg:flex-row gap-4'>
+     <Autocomplete
+      className='flex-grow'
+      multiple
+      disableClearable
+      getOptionDisabled={(option) => fixedOptions.includes(option.id)}
+      loading={isLoadingRoles}
+      size='small'
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      getOptionLabel={(option) => option.name}
+      value={userRoles}
+      options={roles || []}
+      onChange={(_, newValue) => {
+       setUserRoles(newValue);
+      }}
+      renderTags={(value, getTagProps) => {
+       return value.map((option, index) => {
+        const { key, ...tagProps } = getTagProps({ index });
+        return (
+         <Chip
+          key={key}
+          label={option.name}
+          {...tagProps}
+          disabled={fixedOptions.includes(option.id)}
+         />
+        );
+       });
+      }}
+      renderInput={(params) => (
+       <TextField {...params} label={users.access as string} />
+      )}
+      renderOption={(props, option, { selected }) => {
+       const { key, ...optionProps } = props;
        return (
-        <Chip
-         key={key}
-         label={option.name}
-         {...tagProps}
-         disabled={fixedOptions.includes(option.id)}
-        />
+        <li key={key} {...optionProps}>
+         <Checkbox
+          icon={icon}
+          checkedIcon={checkedIcon}
+          style={{ marginRight: 8 }}
+          checked={selected}
+         />
+         {option.name}
+        </li>
        );
-      });
-     }}
-     renderInput={(params) => (
-      <TextField {...params} label={users.access as string} />
-     )}
-     renderOption={(props, option, { selected }) => {
-      const { key, ...optionProps } = props;
-      return (
-       <li key={key} {...optionProps}>
-        <Checkbox
-         icon={icon}
-         checkedIcon={checkedIcon}
-         style={{ marginRight: 8 }}
-         checked={selected}
-        />
-        {option.name}
-       </li>
-      );
-     }}
-    />
+      }}
+     />
+     <Button
+      size='large'
+      variant='outlined'
+      color='warning'
+      onClick={() => {
+       setShowRoleAccessHelp(true);
+      }}
+     >
+      <div className='flex items-center gap-2'>
+       <HelpIcon />
+       {users.rolesHelp as string}
+      </div>
+     </Button>
+    </div>
    </DialogContent>
    <DialogActions>
     <Button

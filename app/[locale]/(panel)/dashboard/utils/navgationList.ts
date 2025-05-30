@@ -8,7 +8,7 @@ export type NavigationItem = {
 export const navigationList: NavigationItem[] = [
  {
   type: 'settings',
-  title: 'settings',
+  title: 'users',
   href: '/dashboard/settings',
  },
  {

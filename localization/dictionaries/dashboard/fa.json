@@ -116,7 +116,13 @@
   "changeState": "تغییر وضعیت",
   "confirm": "تایید",
   "cancel": "انصراف",
-  "loginDate": "تاریخ عضویت"
+  "loginDate": "تاریخ عضویت",
+  "rolesHelp": "راهنمای نقش‌ها",
+  "read": "خواندن",
+  "write": "نوشتن",
+  "remove": "حذف",
+  "update": "ویرایش",
+  "formName": "نام فرم"
  },
  "initialInfo": {
   "title": "اطلاعات سازمان",

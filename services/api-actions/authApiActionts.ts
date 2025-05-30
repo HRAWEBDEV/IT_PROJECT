@@ -103,6 +103,23 @@ function getRoles({ signal }: { signal?: AbortSignal }) {
   }>
  >(roleApi, { signal });
 }
+const roleAccessApi = '/RoleAccesses';
+function getRoleAccesses({
+ signal,
+ roleID,
+}: {
+ signal?: AbortSignal;
+ roleID: number;
+}) {
+ const params = new URLSearchParams({
+  roleID: roleID.toString(),
+ });
+ return axios.get<
+  ResponseShape<{
+   RoleAccesses: RoleAccess[];
+  }>
+ >(`${roleAccessApi}?${params.toString()}`, { signal });
+}
 //
 const ownerApi = '/Owner';
 function getOwner({ signal }: { signal?: AbortSignal }) {
@@ -127,4 +144,5 @@ export {
  getOwner,
  ownerApi,
  updateOwner,
+ getRoleAccesses,
 };

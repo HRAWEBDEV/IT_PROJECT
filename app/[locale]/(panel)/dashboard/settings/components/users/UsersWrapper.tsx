@@ -18,9 +18,11 @@ import { useDebounceValue } from '@/hooks/useDebounceValue';
 import UserRole from './UserRole';
 import { useAccessContext } from '../../../services/access/accessContext';
 import NoAccessGranted from '../../../components/NoAccessGranted';
+import RoleAccessHelp from './RoleAccessHelp';
 
 export default function UsersWrapper() {
  const { roleAccess } = useAccessContext();
+ const [showRolesHelp, setShowRolesHelp] = useState(false);
  const [showUserRole, setShowUserRole] = useState(false);
  const [selectedUser, setSelectedUser] = useState<User | null>(null);
  const usersFilters = useForm<UsersFiltersSchema>({
@@ -86,7 +88,7 @@ export default function UsersWrapper() {
     <section className='mb-8'>
      <h2 className='font-bold text-2xl mb-4'>{users.title as string}</h2>
      <FormProvider {...usersFilters}>
-      <UsersFilters test='test' />
+      <UsersFilters setShowRolesHelp={setShowRolesHelp} />
       {usersList.length > 0 ? (
        <UsersGrid
         usersList={usersList}
@@ -110,6 +112,7 @@ export default function UsersWrapper() {
       <UserRole
        open={showUserRole}
        user={selectedUser}
+       setShowRoleAccessHelp={setShowRolesHelp}
        onClose={() => setShowUserRole(false)}
       />
      )}
@@ -117,6 +120,10 @@ export default function UsersWrapper() {
    ) : (
     <NoAccessGranted />
    )}
+   <RoleAccessHelp
+    open={showRolesHelp}
+    onClose={() => setShowRolesHelp(false)}
+   />
   </>
  );
 }
