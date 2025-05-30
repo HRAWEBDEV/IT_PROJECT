@@ -34,6 +34,7 @@ function Services({ serverServices, serverServicesCategories }: Props) {
   data: serviceCategories = serverServicesCategories,
   isLoading: serviceCategoriesLoading,
  } = useQuery({
+  initialData: serverServicesCategories,
   queryKey: ['serviceCategories'],
   async queryFn({ signal }) {
    const servicesCategories = await getServiceCategories({
@@ -49,6 +50,7 @@ function Services({ serverServices, serverServicesCategories }: Props) {
 
  const { data: services = serverServices, isLoading: servicesLoading } =
   useQuery({
+   initialData: serverServices,
    enabled: !!selectedCategoryID,
    queryKey: ['services', selectedCategoryID],
    queryFn({ signal }) {

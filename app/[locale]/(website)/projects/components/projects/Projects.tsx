@@ -63,6 +63,7 @@ export default function Projects({ dic, serverProjects }: Props) {
 
  const { data: projects = serverProjects, isLoading: projectsLoading } =
   useQuery({
+   initialData: serverProjects,
    queryKey: [
     'projects',
     dbSearchValue,

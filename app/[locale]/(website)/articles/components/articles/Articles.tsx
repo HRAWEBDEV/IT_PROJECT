@@ -66,6 +66,7 @@ export default function Articles({ dic, serverBlogs }: Props) {
   isLoading: blogsLoading,
   isFetching: blogsFetching,
  } = useQuery({
+  initialData: serverBlogs,
   queryKey: [
    'blogs',
    dbSearchValue,
