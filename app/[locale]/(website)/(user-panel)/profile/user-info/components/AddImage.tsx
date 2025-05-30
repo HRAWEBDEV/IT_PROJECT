@@ -128,12 +128,14 @@ export default function AddImage({ open, onClose }: Props) {
            variant: 'error',
            message: articles.fileLimitMessage as string,
           });
+          return;
          }
          if (!validFileExtensions.includes(extenstion.split('.')[1])) {
           snackbar.enqueueSnackbar({
            variant: 'error',
            message: articles.fileExtension as string,
           });
+          return;
          }
          setFileValue(e.target.value);
          const formData = new FormData();
