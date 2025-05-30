@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -24,6 +24,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from './AddIcon';
 
 type Props = {
  open: boolean;
@@ -34,6 +36,8 @@ type Props = {
 export default function AddCategory({ open, category, onClose }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
+ const [iconsSvg, setIconsSvg] = useState<string>(category?.svgUrl || '');
+ const [showAddIcon, setShowAddIcon] = useState(false);
  const { servicesCategories, errorTryAgainLater, changesSavedSuccessfully } =
   useWebsiteDictionary() as {
    servicesCategories: Dic;
@@ -65,7 +69,7 @@ export default function AddCategory({ open, category, onClose }: Props) {
     locale,
     name: data.title,
     description: data.description,
-    svgUrl: '',
+    svgUrl: iconsSvg || null,
    };
    return category
     ? updateServiceCategory(newCategory)
@@ -122,16 +126,31 @@ export default function AddCategory({ open, category, onClose }: Props) {
     </div>
    </DialogTitle>
    <DialogContent dividers>
+    {iconsSvg && (
+     <div className='flex items-center justify-center mb-4 border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 text-neutral-500 dark:text-neutral-400 relative'>
+      <i className={`${iconsSvg} text-[4rem]`}></i>
+      <div className='absolute top-0 end-0'>
+       <IconButton onClick={() => setIconsSvg('')}>
+        <DeleteIcon color='error' />
+       </IconButton>
+      </div>
+     </div>
+    )}
     <div className='mb-4'>
-     <TextField
-      fullWidth
-      size='small'
-      {...register('title')}
-      label={servicesCategories.categoryTitle as string}
-      error={!!errors.title}
-      helperText={errors.title?.message}
-      required
-     />
+     <div className='flex gap-2'>
+      <TextField
+       className='flex-grow'
+       size='small'
+       {...register('title')}
+       label={servicesCategories.categoryTitle as string}
+       error={!!errors.title}
+       helperText={errors.title?.message}
+       required
+      />
+      <Button variant='outlined' onClick={() => setShowAddIcon(true)}>
+       {servicesCategories.addIcon as string}
+      </Button>
+     </div>
     </div>
     <TextField
      fullWidth
@@ -164,6 +183,11 @@ export default function AddCategory({ open, category, onClose }: Props) {
      {servicesCategories.save as string}
     </Button>
    </DialogActions>
+   <AddIcon
+    open={showAddIcon}
+    onClose={() => setShowAddIcon(false)}
+    setIcon={setIconsSvg}
+   />
   </Dialog>
  );
 }

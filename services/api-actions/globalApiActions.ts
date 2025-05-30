@@ -138,13 +138,12 @@ type Service = {
  createDateTimeOffset: string;
  showForCard: boolean;
  imageUrl?: string;
- svgUrl: string;
 };
 type ServiceCategory = {
  id: number;
  name: string;
  description: string;
- svgUrl: string;
+ svgUrl: string | null;
 };
 type ServiceState = {
  id: number;
@@ -908,7 +907,7 @@ function getServices<T extends { pagination?: PaginationProps }>(
 }
 function createService(
  props: ApiDefaultProps &
-  Pick<Service, 'serviceCategoryID' | 'header' | 'description' | 'svgUrl'> & {
+  Pick<Service, 'serviceCategoryID' | 'header' | 'description'> & {
    serviceTags?: { tagID: number; lang: SupportedLocales; serviceID: number }[];
   }
 ) {
@@ -921,7 +920,6 @@ function createService(
   serviceStateID: 1,
   lang: props.locale,
   serviceTags: props.serviceTags || null,
-  svgUrl: props.svgUrl,
  };
  return axios.post(servicesApi, newService);
 }
@@ -936,7 +934,6 @@ function updateService(
    | 'body'
    | 'serviceStateID'
    | 'showForCard'
-   | 'svgUrl'
   > & {
    serviceImage?: {
     imageUrl: string;
@@ -957,7 +954,6 @@ function updateService(
   serviceTags: props.serviceTags || null,
   id: props.id,
   serviceImage: props.serviceImage || null,
-  svgUrl: props.svgUrl,
  };
  return axios.put(servicesApi, newService);
 }

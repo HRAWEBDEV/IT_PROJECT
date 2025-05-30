@@ -221,8 +221,7 @@
   "changeState": "تغییر وضعیت",
   "preview": "پیش نمایش",
   "noPreview": "عدم نمایش",
-  "comments": "نظرات",
-  "addIcon": "افزودن آیکون"
+  "comments": "نظرات"
  },
  "servicesCategories": {
   "title": "دسته بندی خدمـــات",
@@ -235,6 +234,7 @@
   "cancel": "انصراف",
   "save": "ثبت",
   "description": "توضیحات",
-  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید"
+  "errorTryAgainLater": "مشکلی در ثبت اطلاعات رخ داده است، لطفا دوباره تلاش کنید",
+  "addIcon": "افزودن آیکون"
  }
 }

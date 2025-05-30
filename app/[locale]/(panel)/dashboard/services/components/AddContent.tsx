@@ -73,7 +73,6 @@ export default function AddContent({ open, onClose, service }: Props) {
     body: content,
     showForCard: service.showForCard,
     serviceStateID: service.serviceStateID,
-    svgUrl: service.svgUrl,
     serviceImage: service.imageUrl
      ? {
         imageUrl: service.imageUrl,

@@ -30,8 +30,6 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import Checkbox from '@mui/material/Checkbox';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { AxiosError } from 'axios';
-import AddIcon from './AddIcon';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
@@ -48,8 +46,6 @@ export default function AddArticle({
  serviceCategories,
  onClose,
 }: Props) {
- const [iconsSvg, setIconsSvg] = useState<string>('');
- const [showAddIcon, setShowAddIcon] = useState(false);
  const [tagOnce, setTagOnce] = useState(false);
  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
  const { enqueueSnackbar } = useSnackbar();
@@ -119,7 +115,6 @@ export default function AddArticle({
     description: data.description,
     body: service?.body || '',
     serviceTags: tagServices,
-    svgUrl: iconsSvg,
    };
    return service
     ? updateService({
@@ -199,16 +194,6 @@ export default function AddArticle({
     </div>
    </DialogTitle>
    <DialogContent dividers>
-    {iconsSvg && (
-     <div className='flex items-center justify-center mb-4 border border-neutral-300 dark:border-neutral-700 rounded-lg p-4 text-neutral-500 dark:text-neutral-400 relative'>
-      <i className={`${iconsSvg} text-[4rem]`}></i>
-      <div className='absolute top-0 end-0'>
-       <IconButton onClick={() => setIconsSvg('')}>
-        <DeleteIcon color='error' />
-       </IconButton>
-      </div>
-     </div>
-    )}
     <div className='grid gap-4'>
      <div className='flex gap-4'>
       <Controller
@@ -238,9 +223,6 @@ export default function AddArticle({
         />
        )}
       />
-      <Button variant='outlined' onClick={() => setShowAddIcon(true)}>
-       {services.addIcon as string}
-      </Button>
      </div>
      <TextField
       size='small'
@@ -308,11 +290,6 @@ export default function AddArticle({
      {services.save as string}
     </Button>
    </DialogActions>
-   <AddIcon
-    open={showAddIcon}
-    onClose={() => setShowAddIcon(false)}
-    setIcon={setIconsSvg}
-   />
   </Dialog>
  );
 }

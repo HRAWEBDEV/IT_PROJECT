@@ -82,7 +82,6 @@ export default function AddImage({ open, onClose, service }: Props) {
     description: service.description,
     serviceStateID: service.serviceStateID,
     showForCard: service.showForCard,
-    svgUrl: service.svgUrl,
     serviceImage: {
      lang: locale,
      imageUrl: result.data,

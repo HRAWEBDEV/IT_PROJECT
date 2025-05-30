@@ -52,8 +52,8 @@ const iconClasses = [
 ];
 
 export default function AddIcon({ open, onClose, setIcon }: Props) {
- const { services } = useWebsiteDictionary() as {
-  services: Dic;
+ const { servicesCategories } = useWebsiteDictionary() as {
+  servicesCategories: Dic;
  };
  return (
   <Dialog
@@ -68,7 +68,9 @@ export default function AddIcon({ open, onClose, setIcon }: Props) {
   >
    <DialogTitle>
     <div className='flex items-center justify-between'>
-     <span className='text-base font-bold'>{services.addIcon as string}</span>
+     <span className='text-base font-bold'>
+      {servicesCategories.addIcon as string}
+     </span>
      <IconButton color='error' onClick={onClose}>
       <CloseIcon />
      </IconButton>
