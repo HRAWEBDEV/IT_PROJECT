@@ -51,7 +51,8 @@ export default function Socials() {
    return addSocial(
     socialsList.map((item) => {
      let validLink = item.link;
-     if (item.link && !item.link.startsWith('https://')) {
+     const social = socialsMap.find((social) => social.id === item.id);
+     if (item.link && !item.link.startsWith('https://') && social?.name !== 'phone') {
       validLink = `https://${item.link}`;
      }
      return {
