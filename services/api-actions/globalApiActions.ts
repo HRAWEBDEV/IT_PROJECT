@@ -753,6 +753,28 @@ function getProject(props: ApiDefaultProps & { projectID: number }) {
   signal: props.signal,
  });
 }
+
+// project images
+const projectImagesApi = 'projectImages';
+function getProjectImages(props: ApiDefaultProps & { projectID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('projectID', props.projectID.toString());
+ return axios.get<
+  ResponseShape<{
+   ServiceImages: { imageUrl: string; serviceID: number }[];
+  }>
+ >(`${serviceImageApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createProjectImage(formData: FormData) {
+ return axios.post<string>(projectImagesApi, formData, {
+  headers: {
+   'Content-Type': 'multipart/form-data',
+  },
+ });
+}
 // project categories
 const projectCategoriesApi = '/project-categories';
 function getProjectCategories<T extends { pagination?: PaginationProps }>(
@@ -963,6 +985,28 @@ function getService(props: ApiDefaultProps & { serviceID: number }) {
   signal: props.signal,
  });
 }
+//
+const serviceImageApi = 'serviceImages';
+function getServiceImages(props: ApiDefaultProps & { serviceID: number }) {
+ const params = new URLSearchParams();
+ params.append('lang', props.locale);
+ params.append('serviceID', props.serviceID.toString());
+ return axios.get<
+  ResponseShape<{
+   ServiceImages: { imageUrl: string; serviceID: number }[];
+  }>
+ >(`${serviceImageApi}?${params.toString()}`, {
+  signal: props.signal,
+ });
+}
+function createServiceImage(formData: FormData) {
+ return axios.post<string>(serviceImageApi, formData, {
+  headers: {
+   'Content-Type': 'multipart/form-data',
+  },
+ });
+}
+
 // service categories
 const serviceCategoriesApi = '/service-categories';
 function getServiceCategories<T extends { pagination?: PaginationProps }>(
@@ -1183,6 +1227,8 @@ export {
  createProject,
  updateProject,
  patchProject,
+ getProjectImages,
+ createProjectImage,
  projectCategoriesApi,
  getProjectCategories,
  createProjectCategory,
@@ -1198,6 +1244,8 @@ export {
  updateService,
  patchService,
  getService,
+ getServiceImages,
+ createServiceImage,
  serviceCategoriesApi,
  getServiceCategories,
  createServiceCategory,
