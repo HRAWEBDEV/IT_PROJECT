@@ -36,7 +36,7 @@ type Props = {
 export default function AddCategory({ open, category, onClose }: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
- const [iconsSvg, setIconsSvg] = useState<string>(category?.svgUrl || '');
+ const [iconsSvg, setIconsSvg] = useState<string>('');
  const [showAddIcon, setShowAddIcon] = useState(false);
  const { servicesCategories, errorTryAgainLater, changesSavedSuccessfully } =
   useWebsiteDictionary() as {
@@ -93,9 +93,11 @@ export default function AddCategory({ open, category, onClose }: Props) {
   if (category) {
    setValue('title', category.name);
    setValue('description', category.description);
+   setIconsSvg(category.svgUrl || '');
   } else {
    setValue('title', '');
    setValue('description', '');
+   setIconsSvg('');
   }
  }, [category, setValue, open]);
 
