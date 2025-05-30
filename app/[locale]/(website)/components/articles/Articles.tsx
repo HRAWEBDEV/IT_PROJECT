@@ -36,14 +36,14 @@ export default function Articles({ dic, serverBlogs }: Props) {
       </h2>
      </div>
     </div>
-    <ul className='grid lg:grid-cols-2 mb-4'>
+    <ul className='grid lg:grid-cols-2 mb-4 gap-4'>
      {serverBlogs.slice(0, 4).map((item) => {
       const articleLink = `/articles/${item.id}`;
       return (
        <li key={item.id}>
         <Link
          href={articleLink}
-         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-100 focus:bg-neutral-100 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900'
+         className='group transition-colors flex flex-col lg:flex-row gap-4 lg:items-start p-4 rounded-lg hover:bg-neutral-100 focus:bg-neutral-100 dark:hover:bg-neutral-900 dark:focus:bg-neutral-900 border border-transparent hover:border-neutral-300 hover:dark:border-neutral-900'
         >
          <div className='shrink-0 rounded-lg overflow-hidden h-[14rem] lg:w-[12rem] lg:h-[10rem]'>
           <ImageWrapper
