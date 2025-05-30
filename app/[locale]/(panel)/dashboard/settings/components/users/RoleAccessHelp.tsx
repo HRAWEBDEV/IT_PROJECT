@@ -127,15 +127,14 @@ export default function RoleAccessHelp({ open, onClose }: Props) {
    getRoles({ signal }).then((res) => res.data.payload.Roles),
  });
 
- const { isLoading: isRoleAccessesLoading, isSuccess: isRoleAccessesSuccess } =
-  useQuery({
-   enabled: !!selectedRole,
-   queryKey: ['roles-help', 'role-accesses', selectedRole?.id],
-   queryFn: ({ signal }) =>
-    getRoleAccesses({ signal, roleID: selectedRole?.id as number }).then(
-     (res) => res.data.payload.RoleAccesses
-    ),
-  });
+ const { isLoading: isRoleAccessesLoading } = useQuery({
+  enabled: !!selectedRole,
+  queryKey: ['roles-help', 'role-accesses', selectedRole?.id],
+  queryFn: ({ signal }) =>
+   getRoleAccesses({ signal, roleID: selectedRole?.id as number }).then(
+    (res) => res.data.payload.RoleAccesses
+   ),
+ });
 
  const { users } = useWebsiteDictionary() as {
   users: Dic;
@@ -185,18 +184,16 @@ export default function RoleAccessHelp({ open, onClose }: Props) {
           </div>
          </AccordionSummary>
          <AccordionDetails>
-          {isRoleAccessesSuccess && (
-           <RoleAccessGrid
-            isLoading={isRoleAccessesLoading}
-            roleAccesses={
-             queryClient.getQueryData([
-              'roles-help',
-              'role-accesses',
-              role.id,
-             ]) as RoleAccess[]
-            }
-           />
-          )}
+          <RoleAccessGrid
+           isLoading={isRoleAccessesLoading}
+           roleAccesses={
+            queryClient.getQueryData([
+             'roles-help',
+             'role-accesses',
+             role.id,
+            ]) as RoleAccess[]
+           }
+          />
          </AccordionDetails>
         </Accordion>
        );
