@@ -143,7 +143,7 @@ type ServiceCategory = {
  id: number;
  name: string;
  description: string;
- svgUrl: string | null;
+ svgUrl: string;
 };
 type ServiceState = {
  id: number;

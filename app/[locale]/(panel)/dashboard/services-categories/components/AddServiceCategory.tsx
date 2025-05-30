@@ -69,7 +69,7 @@ export default function AddCategory({ open, category, onClose }: Props) {
     locale,
     name: data.title,
     description: data.description,
-    svgUrl: iconsSvg || null,
+    svgUrl: iconsSvg,
    };
    return category
     ? updateServiceCategory(newCategory)
