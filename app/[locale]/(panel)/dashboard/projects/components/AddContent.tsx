@@ -125,6 +125,7 @@ export default function AddContent({ open, onClose, project }: Props) {
    <DialogContent dividers>
     <div className='[&_.ck-content]:h-[26rem]'>
      <Editor
+      type='project'
       ref={editorRef}
       data={content}
       onChange={(_, e) => {

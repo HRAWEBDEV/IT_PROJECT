@@ -12,16 +12,38 @@ import type {
  UploadAdapter,
  UploadResponse,
 } from '@ckeditor/ckeditor5-upload';
-import { createBlogImage } from '@/services/api-actions/globalApiActions';
+import {
+ createBlogImage,
+ createServiceImage,
+ createProjectImage,
+} from '@/services/api-actions/globalApiActions';
+
+function getUploadFunction(type: ContentEditorProps['type']) {
+ if (type === 'article') {
+  return createBlogImage;
+ }
+ if (type === 'project') {
+  return createProjectImage;
+ }
+ if (type === 'service') {
+  return createServiceImage;
+ }
+ return createBlogImage;
+}
 
 // Custom upload adapter
 class CustomUploadAdapter implements UploadAdapter {
  private loader: FileLoader;
  private editor: Editor;
-
- constructor(loader: FileLoader, editor: Editor) {
+ private type: ContentEditorProps['type'];
+ constructor(
+  loader: FileLoader,
+  editor: Editor,
+  type: ContentEditorProps['type']
+ ) {
   this.loader = loader;
   this.editor = editor;
+  this.type = type;
  }
 
  upload(): Promise<UploadResponse> {
@@ -35,7 +57,7 @@ class CustomUploadAdapter implements UploadAdapter {
      }
      const formData = new FormData();
      formData.append('FormFile', file as Blob);
-     createBlogImage(formData)
+     getUploadFunction(this.type)(formData)
       .then((response) => {
        resolve({
         default: (process.env.NEXT_PUBLIC_BASE_URL || '') + response.data,
@@ -66,28 +88,31 @@ class CustomUploadAdapter implements UploadAdapter {
 }
 
 // Plugin that registers the custom upload adapter
-function CustomUploadAdapterPlugin(editor: Editor): void {
- editor.plugins.get('FileRepository').createUploadAdapter = (
-  loader: FileLoader
- ): UploadAdapter => {
-  return new CustomUploadAdapter(loader, editor);
- };
-}
-
 type ContentEditorProps = Omit<
  React.ComponentProps<typeof CKEditorType>,
  'editor'
->;
+> & {
+ type?: 'article' | 'project' | 'service';
+};
 
 const ContentEditor = forwardRef<
  CKEditorType<ClassicEditor>,
  ContentEditorProps
 >(function ContentEditor(props, ref) {
  const { locale } = useAppConfig();
+ const { type = 'article' } = props;
  const cloud = useCKEditorCloud({
   version: '45.0.0',
   premium: false,
  });
+
+ function CustomUploadAdapterPlugin(editor: Editor): void {
+  editor.plugins.get('FileRepository').createUploadAdapter = (
+   loader: FileLoader
+  ): UploadAdapter => {
+   return new CustomUploadAdapter(loader, editor, type);
+  };
+ }
 
  if (cloud.status === 'error') {
   return <div>Error!</div>;
