@@ -3,8 +3,10 @@ import ContactUsWrapper from './components/contact-us/ContactUsWrapper';
 
 export default function page() {
  return (
-  <AccessProvider formTitle='contactUs'>
-   <ContactUsWrapper />
-  </AccessProvider>
+  <div className='p-4 mx-auto'>
+   <AccessProvider formTitle='contactUs'>
+    <ContactUsWrapper />
+   </AccessProvider>
+  </div>
  );
 }
