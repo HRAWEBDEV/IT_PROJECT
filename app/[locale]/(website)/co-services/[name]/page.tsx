@@ -1,4 +1,3 @@
-import WhyUs from './components/WhyUs';
 import Content from './components/Content';
 import { type AppParams } from '@/utils/appParams';
 import {
@@ -11,6 +10,7 @@ import {
 import Tags from './components/Tags';
 import { getDictionary } from '@/localization/getDic';
 import { locales } from '@/localization/locales';
+import WhyUs from '@/app/[locale]/(website)/components/WhyUs';
 
 export const generateMetadata = async ({
  params,
@@ -92,7 +92,7 @@ export default async function page({
   <section>
    <Content service={service} dic={dic} />
    <Tags tags={servicesCategories} dic={dic} />
-   <WhyUs dic={dic} />
+   <WhyUs />
   </section>
  );
 }
