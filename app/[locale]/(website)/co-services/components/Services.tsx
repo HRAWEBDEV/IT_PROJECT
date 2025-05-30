@@ -113,7 +113,7 @@ function Services({ serverServices, serverServicesCategories }: Props) {
                selectedCategoryID === item.id && targeProject.color
               } bg-gradient-to-b from-transparent to-black/20`}
              >
-              {targeProject.icon}
+              <i className={`${item.svgUrl || 'icon-cogs'} text-[2.5rem]`}></i>
              </div>
              <div className={`flex-grow`}>
               <h3 className='font-medium text-base text-start'>{item.name}</h3>

@@ -76,7 +76,7 @@ export default function Services({ onClose, dic }: Props) {
            item.id === selectedServiceCategoryID ? targeProject.color : ''
           }`}
          >
-          {targeProject.icon}
+          <i className={`${item.svgUrl || 'icon-cogs'} text-[2.5rem]`}></i>
          </div>
          <div className={`flex-grow`}>
           <h3 className='font-medium text-[0.78rem]'>{item.name}</h3>

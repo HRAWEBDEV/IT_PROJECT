@@ -80,7 +80,7 @@ export default function Services({ dic, services, servicesCategories }: Props) {
             (i + 1) % 2 != 0 ? 'md:order-2' : ''
            }`}
           >
-           {targeProject.icon}
+           <i className={`${item.svgUrl || 'icon-cogs'} text-[2.5rem]`}></i>
           </div>
           <div className={`flex-grow ${(i + 1) % 2 != 0 ? 'md:order-1' : ''}`}>
            <h3 className='font-medium text-lg'>{item.name}</h3>
