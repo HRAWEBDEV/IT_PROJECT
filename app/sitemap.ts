@@ -27,10 +27,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
    priority: 4,
   },
   {
-   url: '/about-us',
+   url: '/contact-us',
    lastModified: new Date(),
    changeFrequency: 'daily',
    priority: 5,
+  },
+  {
+   url: '/about-us',
+   lastModified: new Date(),
+   changeFrequency: 'daily',
+   priority: 6,
   },
  ];
 }

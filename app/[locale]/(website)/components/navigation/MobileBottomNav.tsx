@@ -36,8 +36,8 @@ export default function MobileBottomNav({ dic }: WithDictionary) {
    case 'articles':
     setActiveTab('articles');
     break;
-   case 'about-us':
-    setActiveTab('about-us');
+   case 'contact-us':
+    setActiveTab('contact-us');
     break;
   }
  }, [pathname]);
@@ -106,8 +106,8 @@ export default function MobileBottomNav({ dic }: WithDictionary) {
      />
      <Tab
       LinkComponent={Link}
-      href='/about-us'
-      value='about-us'
+      href='/contact-us'
+      value='contact-us'
       icon={<SupportAgentOutlinedIcon fontSize='small' />}
       label={(dic.navigation as Dic).contact as string}
      />

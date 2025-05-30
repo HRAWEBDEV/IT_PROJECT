@@ -135,7 +135,7 @@ export default function Header({ dic }: WithDictionary) {
      </li>
      <li className='flex'>
       <Link
-       href={'/about-us'}
+       href={'/contact-us'}
        className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
       >
        <div className='flex gap-1'>
@@ -143,7 +143,18 @@ export default function Header({ dic }: WithDictionary) {
        </div>
       </Link>
      </li>
+     <li className='flex'>
+      <Link
+       href={'/about-us'}
+       className='transition-colors flex items-center p-4 px-3 text-base font-medium hover:text-secondary focus:text-secondary'
+      >
+       <div className='flex gap-1'>
+        <span>{(dic.navigation as Dic).aboutUs as string}</span>
+       </div>
+      </Link>
+     </li>
     </menu>
+
     <div className='basis-0 flex-grow flex justify-end gap-2 lg:flex-grow-0 items-center self-stretch'>
      <div className='relative hidden lg:flex self-stretch items-center'>
       <TextField

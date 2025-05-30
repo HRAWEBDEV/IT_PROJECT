@@ -125,7 +125,7 @@ export default function Hero({ dic, owner }: Props) {
       <Button
        size='large'
        LinkComponent={Link}
-       href='/about-us'
+       href='/contact-us'
        className='!bg-background'
        sx={{
         minWidth: '10rem',
