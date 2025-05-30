@@ -27,7 +27,8 @@
   "articlesCategories": "دسته بندی اخبار و مقاله‌ها",
   "articlesList": "لیست اخبار و مقاله‌ها",
   "users": "کاربران",
-  "contactUs": "تماس با ما"
+  "contactUs": "تماس با ما",
+  "aboutUs": "درباره ما"
  },
  "tags": {
   "title": "تگ‌هـــا",
@@ -153,7 +154,10 @@
   "title": "شبکه‌های اجتماعی",
   "confirm": "ثبت"
  },
-
+ "aboutUs": {
+  "title": "درباره ما",
+  "confirm": "ثبت"
+ },
  "projects": {
   "title": "پروژه‌هــــا",
   "category": "دسته بندی",

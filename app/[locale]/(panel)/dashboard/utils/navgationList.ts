@@ -22,6 +22,11 @@ export const navigationList: NavigationItem[] = [
   href: '/dashboard/contact-us',
  },
  {
+  type: 'about-us',
+  title: 'aboutUs',
+  href: '/dashboard/about-us',
+ },
+ {
   type: 'tags',
   title: 'tags',
   href: '/dashboard/tags',

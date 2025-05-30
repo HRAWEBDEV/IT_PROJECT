@@ -22,6 +22,9 @@ type PaginationProps = {
  limit: number;
  offset: number;
 };
+type AboutUs = {
+ name: string;
+} | null;
 type TagCategory = {
  id: number;
  name: string;
@@ -1111,11 +1114,20 @@ const getSocials = () => {
 const addSocial = (newSocial: Pick<Social, 'id' | 'link'>[]) => {
  return axios.post(socialsApi, newSocial);
 };
+// about us
+const aboutUsApi = '/about-us';
+function getAboutUs() {
+ return axios.get<ResponseShape<{ AboutUs: AboutUs }>>(aboutUsApi);
+}
+function updateAboutUs(newAboutUs: AboutUs) {
+ return axios.put(aboutUsApi, newAboutUs);
+}
 //
 export {
  type ResponseShape,
  type TagCategory,
  type Social,
+ type AboutUs,
  type Tag,
  type BlogCategory,
  type Blog,
@@ -1203,4 +1215,6 @@ export {
  getSocials,
  addSocial,
  toggleBlogInterested,
+ getAboutUs,
+ updateAboutUs,
 };

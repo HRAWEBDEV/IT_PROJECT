@@ -14,7 +14,7 @@
   "exit": "Exit"
  },
  "navigation": {
-  "settings": "Settings",
+  "settings": "Users",
   "initialInfo": "Organization Information",
   "tags": "Tags",
   "services": "Services",
@@ -26,7 +26,9 @@
   "articles": "Articles and News",
   "articlesCategories": "Articles and News Categories",
   "articlesList": "Articles and News List",
-  "users": "Users"
+  "users": "Users",
+  "contactUs": "Contact Us",
+  "aboutUs": "About Us"
  },
  "tags": {
   "title": "Tags",
@@ -39,6 +41,10 @@
   "cancel": "Cancel",
   "save": "Save",
   "errorTryAgainLater": "An error occurred while saving the information, please try again later"
+ },
+ "aboutUs": {
+  "title": "About Us",
+  "confirm": "Save"
  },
  "articlesCategories": {
   "title": "Articles and News Categories",
