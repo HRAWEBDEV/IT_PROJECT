@@ -72,7 +72,7 @@ export default function Company() {
    setValue('nationalCode', owner.nationalCode || '');
    setValue('email', owner.email || '');
    setValue('fax', owner.fax || '');
-   setValue('addressName', owner.addressName || '');
+   setValue('addressName', owner.address || '');
    setValue('descriptionName', owner.descriptionName || '');
    setValue('registerNo', owner.registerNo || '');
    setValue('postalCode', owner.postalCode || '');
@@ -94,7 +94,7 @@ export default function Company() {
     nationalCode: data.nationalCode || null,
     email: data.email || null,
     fax: data.fax || null,
-    addressName: data.addressName || null,
+    address: data.addressName || null,
     descriptionName: data.descriptionName || null,
     registerNo: data.registerNo || null,
     postalCode: data.postalCode || null,

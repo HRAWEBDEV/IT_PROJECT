@@ -129,7 +129,7 @@ export default function ContactUs({ dic, owner }: Props) {
       <div>
        <div className='flex gap-2 items-center mb-4'>
         <FmdGoodIcon fontSize='large' color='error' />
-        <p className='font-medium'>{owner?.addressName}</p>
+        <p className='font-medium'>{owner?.address}</p>
        </div>
        {owner?.email && (
         <div className='flex gap-2 items-center mb-4'>

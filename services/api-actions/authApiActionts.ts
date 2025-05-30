@@ -11,7 +11,7 @@ type Owner = {
  ownerName: string | null;
  nationalCode: string | null;
  registerNo: string | null;
- addressName: string | null;
+ address: string | null;
  descriptionName: string | null;
  telephone1: string | null;
  telephone2: string | null;
