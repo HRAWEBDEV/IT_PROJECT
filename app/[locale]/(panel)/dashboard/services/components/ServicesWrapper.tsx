@@ -24,12 +24,14 @@ import AddContent from './AddContent';
 import ChangeState from './ChangeState';
 import { useAccessContext } from '../../services/access/accessContext';
 import NoAccessGranted from '../../components/NoAccessGranted';
+import AddImage from './AddImage';
 
 export default function ArticlesWrapper() {
  const { roleAccess } = useAccessContext();
  const [filterModel, setFilterModel] = useState<GridFilterModel>({
   items: [],
  });
+ const [openAddImage, setOpenAddImage] = useState(false);
  const [openChangeState, setOpenChangeState] = useState(false);
  const [openServiceContent, setOpenServiceContent] = useState(false);
  const [openAddCategory, setOpenAddCategory] = useState(false);
@@ -144,6 +146,7 @@ export default function ArticlesWrapper() {
         servicesList={servicesList}
         isLoading={isLoading || isFetching}
         pagination={pagination}
+        setOpenAddImage={() => setOpenAddImage(true)}
         setPagination={setPagination}
         rowCount={rowCount}
         filterModel={filterModel}
@@ -169,15 +172,17 @@ export default function ArticlesWrapper() {
        </div>
       )}
      </FormProvider>
-     <AddService
-      open={openEditService}
-      service={selectedService}
-      serviceCategories={serviceCategories}
-      onClose={() => {
-       setOpenEditService(false);
-       setSelectedService(null);
-      }}
-     />
+     {openEditService && (
+      <AddService
+       open={openEditService}
+       service={selectedService}
+       serviceCategories={serviceCategories}
+       onClose={() => {
+        setOpenEditService(false);
+        setSelectedService(null);
+       }}
+      />
+     )}
      <AddCategory
       open={openAddCategory}
       category={null}
@@ -204,6 +209,13 @@ export default function ArticlesWrapper() {
        }}
        service={selectedService}
        serviceStates={serviceStates}
+      />
+     )}
+     {openAddImage && selectedService && (
+      <AddImage
+       open={openAddImage}
+       onClose={() => setOpenAddImage(false)}
+       service={selectedService}
       />
      )}
     </div>

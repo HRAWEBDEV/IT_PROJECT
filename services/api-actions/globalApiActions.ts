@@ -952,6 +952,7 @@ function updateService(
   lang: props.locale,
   serviceTags: props.serviceTags || null,
   id: props.id,
+  serviceImage: props.serviceImage || null,
  };
  return axios.put(servicesApi, newService);
 }

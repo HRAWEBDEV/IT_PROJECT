@@ -21,6 +21,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { AxiosError } from 'axios';
 import { useAccessContext } from '../../services/access/accessContext';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 
 type Props = {
  servicesList: Service[];
@@ -34,6 +35,7 @@ type Props = {
  setPagination: (pagination: GridPaginationModel) => void;
  setOpenServiceContent: () => void;
  setOpenChangeState: () => void;
+ setOpenAddImage: () => void;
  rowCount: number;
 };
 
@@ -50,6 +52,7 @@ export default function ArticlesGrid({
  setOpenChangeState,
  filterModel,
  setFilterModel,
+ setOpenAddImage,
 }: Props) {
  const { roleAccess } = useAccessContext();
  const queryClient = useQueryClient();
@@ -190,6 +193,16 @@ export default function ArticlesGrid({
           onClick={() => {
            setSelectedService(row);
            setOpenAddService();
+          }}
+          showInMenu
+         />,
+         <GridActionsCellItem
+          key={'images'}
+          label={services.images as string}
+          icon={<ImageOutlinedIcon color='warning' />}
+          onClick={() => {
+           setSelectedService(row);
+           setOpenAddImage();
           }}
           showInMenu
          />,

@@ -11,6 +11,7 @@ import {
 } from '@/services/api-actions/globalApiActions';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import CircularProgress from '@mui/material/CircularProgress';
+import ImageWrapper from '@/components/ImageWrapper';
 
 const iconSize = '1.8rem';
 const projects = [
@@ -132,14 +133,21 @@ export default function Services({ onClose, dic }: Props) {
         >
          <div className='rounded-full bg-gradient-to-b from-red-700 to-red-950 dark:from-red-600 dark:to-red-900 w-[5.5rem] h-[5.5rem] p-1'>
           <div className='h-full bg-background rounded-full overflow-hidden'>
-           <img
-            style={{
-             transition: 'all 0.5s ease',
+           <ImageWrapper
+            img={{
+             style: {
+              transition: 'all 0.5s ease',
+             },
+             loading: 'lazy',
+             className:
+              'h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100',
+             src: item.imageUrl,
+             alt: item.header,
             }}
-            loading='lazy'
-            className='h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100'
-            src='/services/security-camera-installation.jpg'
-            alt='services imageg'
+            wrapper={{
+             className: 'h-full w-full',
+            }}
+            noImageIconFontSize='2rem'
            />
           </div>
          </div>

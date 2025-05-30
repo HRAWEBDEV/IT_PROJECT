@@ -73,6 +73,13 @@ export default function AddContent({ open, onClose, service }: Props) {
     body: content,
     showForCard: service.showForCard,
     serviceStateID: service.serviceStateID,
+    serviceImage: service.imageUrl
+     ? {
+        imageUrl: service.imageUrl,
+        lang: locale,
+        serviceID: service.id,
+       }
+     : undefined,
     serviceTags: result.data.payload.ServiceTags.map((item) => ({
      tagID: item.tagID,
      lang: locale,

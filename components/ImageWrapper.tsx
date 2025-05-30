@@ -15,6 +15,7 @@ type Props = {
  showLoading?: boolean;
  showError?: boolean;
  showPlaceholder?: boolean;
+ noImageIconFontSize?: string;
 };
 
 export default function ImageWrapper({
@@ -23,6 +24,7 @@ export default function ImageWrapper({
  showLoading = true,
  showError = true,
  showPlaceholder = true,
+ noImageIconFontSize = '5rem',
 }: Props) {
  const [isLoading, setIsLoading] = useState(true);
  const [isError, setIsError] = useState(false);
@@ -40,7 +42,7 @@ export default function ImageWrapper({
      <div className='absolute inset-0 z-[2] bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center text-neutral-600'>
       <HideImageOutlinedIcon
        sx={{
-        fontSize: '5rem',
+        fontSize: noImageIconFontSize,
        }}
       />
      </div>
