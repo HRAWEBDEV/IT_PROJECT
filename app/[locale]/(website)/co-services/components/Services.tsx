@@ -17,6 +17,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import CircularProgress from '@mui/material/CircularProgress';
+import ImageWrapper from '@/components/ImageWrapper';
 
 const iconSize = '2.2rem';
 const projects = [
@@ -179,14 +180,20 @@ function Services({ serverServices, serverServicesCategories }: Props) {
         >
          <div className='rounded-full bg-gradient-to-b from-red-700 to-red-950 dark:from-red-600 dark:to-red-900 w-[8rem] h-[8rem] lg:w-[11rem] lg:h-[11rem] p-1'>
           <div className='h-full bg-background rounded-full overflow-hidden'>
-           <img
-            style={{
-             transition: 'all 0.5s ease',
+           <ImageWrapper
+            img={{
+             style: {
+              transition: 'all 0.5s ease',
+             },
+             loading: 'lazy',
+             className:
+              'h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100',
+             src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
+             alt: 'services imageg',
             }}
-            loading='lazy'
-            className='h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100'
-            src='/services/security-camera-installation.jpg'
-            alt='services imageg'
+            wrapper={{
+             className: 'h-full w-full',
+            }}
            />
           </div>
          </div>

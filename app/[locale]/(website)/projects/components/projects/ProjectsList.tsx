@@ -8,6 +8,7 @@ import { type WithDictionary } from '@/localization/locales';
 import Skeleton from '@mui/material/Skeleton';
 import { useAppConfig } from '@/services/app-config/appConfig';
 import { type Project } from '@/services/api-actions/globalApiActions';
+import ImageWrapper from '@/components/ImageWrapper';
 
 type Props = WithDictionary & {
  isLoadingProjects: boolean;
@@ -69,10 +70,15 @@ export default function ProjectsList({
         >
          <div className='p-2'>
           <div className='relative after:content-* after:absolute after:inset-0 after:bg-black/10 dark:after:bg-black/20 h-[16rem]'>
-           <img
-            src='/services/security-camera-installation.jpg'
-            alt='aritcle-imgage'
-            className='w-full h-full object-cover object-center rounded-lg'
+           <ImageWrapper
+            img={{
+             src: `${process.env.NEXT_PUBLIC_BASE_URL}/${item.imageUrl}`,
+             alt: 'aritcle-imgage',
+             className: 'w-full h-full object-cover object-center rounded-lg',
+            }}
+            wrapper={{
+             className: 'h-full w-full',
+            }}
            />
           </div>
          </div>
