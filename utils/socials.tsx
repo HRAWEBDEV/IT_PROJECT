@@ -35,7 +35,7 @@ export const socials = [
   id: 4,
   name: 'phone',
   urlPrefix: 'tel:',
-  placeholder: '',
+  placeholder: 'tel:',
   icon: <FaPhoneSquareAlt fontSize={fontSize} />,
   color: 'warning',
  },
