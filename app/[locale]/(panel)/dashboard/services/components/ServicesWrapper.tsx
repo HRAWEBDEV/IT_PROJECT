@@ -214,7 +214,10 @@ export default function ArticlesWrapper() {
      {openAddImage && selectedService && (
       <AddImage
        open={openAddImage}
-       onClose={() => setOpenAddImage(false)}
+       onClose={() => {
+        setOpenAddImage(false);
+        setSelectedService(null);
+       }}
        service={selectedService}
       />
      )}

@@ -214,7 +214,10 @@ export default function ArticlesWrapper() {
      {openAddImage && selectedProject && (
       <AddImage
        open={openAddImage}
-       onClose={() => setOpenAddImage(false)}
+       onClose={() => {
+        setOpenAddImage(false);
+        setSelectedProject(null);
+       }}
        project={selectedProject}
       />
      )}
