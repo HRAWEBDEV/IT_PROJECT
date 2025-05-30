@@ -150,7 +150,7 @@ export default function Services({ dic, services, servicesCategories }: Props) {
          <SwiperSlide key={item.id}>
           <Link href={serviceLink} className='block group'>
            <div className='overflow-hidden rounded-lg h-[10rem] lg:h-[13rem] mb-2 relative'>
-            <div className='transition-all absolute top-[-5rem] group-hover:top-2 end-2 z-[2]'>
+            <div className='transition-all absolute top-[-5rem] group-hover:top-2 end-2 z-[5]'>
              <IconButton
               color='primary'
               className='!transition-colors !bg-neutral-300 hover:!bg-neutral-100'
