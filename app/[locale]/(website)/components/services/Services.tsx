@@ -4,7 +4,6 @@ import { Pagination } from 'swiper/modules';
 import { GradientButton } from '@/components/Button/GradientButton';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import IconButton from '@mui/material/IconButton';
-import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { type Dic, type WithDictionary } from '@/localization/locales';
@@ -13,40 +12,7 @@ import {
  type Service,
 } from '@/services/api-actions/globalApiActions';
 import ImageWrapper from '@/components/ImageWrapper';
-
-const iconSize = '2.5rem';
-const projects = [
- {
-  title: '1',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-sky-600 dark:bg-sky-300',
- },
- {
-  title: '2',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-teal-600 dark:bg-teal-300',
- },
- {
-  title: '3',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-red-600 dark:bg-red-300',
- },
- {
-  title: '4',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-blue-600 dark:bg-blue-300',
- },
- {
-  title: '5',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-purple-600 dark:bg-purple-300',
- },
- {
-  title: '6',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-yellow-600 dark:bg-yellow-300',
- },
-];
+import { projects } from '@/app/[locale]/(website)/utils/servicesColors';
 
 type Props = {
  services: Service[];

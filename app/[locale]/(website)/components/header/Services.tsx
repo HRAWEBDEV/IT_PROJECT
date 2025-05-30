@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import Link from 'next/link';
 import { type Dic, type WithDictionary } from '@/localization/locales';
@@ -12,40 +11,8 @@ import {
 import { useAppConfig } from '@/services/app-config/appConfig';
 import CircularProgress from '@mui/material/CircularProgress';
 import ImageWrapper from '@/components/ImageWrapper';
+import { projects } from '@/app/[locale]/(website)/utils/servicesColors';
 
-const iconSize = '1.8rem';
-const projects = [
- {
-  title: '1',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-sky-600 dark:bg-sky-300',
- },
- {
-  title: '2',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-teal-600 dark:bg-teal-300',
- },
- {
-  title: '3',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-red-600 dark:bg-red-300',
- },
- {
-  title: '4',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-blue-600 dark:bg-blue-300',
- },
- {
-  title: '5',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-purple-600 dark:bg-purple-300',
- },
- {
-  title: '6',
-  icon: <MiscellaneousServicesIcon sx={{ fontSize: iconSize }} />,
-  color: 'bg-yellow-600 dark:bg-yellow-300',
- },
-];
 type Props = {
  onClose: () => void;
 } & WithDictionary;
