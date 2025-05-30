@@ -14,7 +14,7 @@ const chipStyle = {
 
 export default function Tags({ dic, tags }: Props & WithDictionary) {
  return (
-  <section className='container flex gap-4'>
+  <section className='container flex gap-4 mb-6'>
    <div className='flex gap-2'>
     <LocalOfferIcon />
     <h6 className='text-lg font-medium'>{dic.tags as string}: </h6>
