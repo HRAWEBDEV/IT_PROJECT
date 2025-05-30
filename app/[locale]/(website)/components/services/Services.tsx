@@ -4,13 +4,8 @@ import { Pagination } from 'swiper/modules';
 import { GradientButton } from '@/components/Button/GradientButton';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
 import Link from 'next/link';
-// import StorageIcon from '@mui/icons-material/Storage';
-// import WifiIcon from '@mui/icons-material/Wifi';
-// import SecurityCameraIcon from '@/components/icons/SecurityCameraIcon';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { motion } from 'motion/react';
 import { type Dic, type WithDictionary } from '@/localization/locales';
 import {
@@ -85,7 +80,7 @@ export default function Services({ dic, services, servicesCategories }: Props) {
     </div>
     <div className='container mx-auto w-[min(100%,60rem)] mb-6'>
      <ul className='grid md:grid-cols-2'>
-      {servicesCategories.slice(0, 4).map((item, i) => (
+      {servicesCategories.map((item, i) => (
        <motion.li
         initial={{
          y: -20,

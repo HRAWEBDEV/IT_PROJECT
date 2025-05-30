@@ -100,7 +100,7 @@ export default function Services({ onClose, dic }: Props) {
    ) : (
     <>
      <div className='border-e border-neutral-300 dark:border-neutral-700 grid content-start gap-4 pe-6'>
-      {serviceCategories.slice(0, 5).map((item, i) => (
+      {serviceCategories.map((item, i) => (
        <div
         onMouseEnter={() => setSelectedServiceCategoryID(item.id)}
         onFocus={() => setSelectedServiceCategoryID(item.id)}
@@ -120,23 +120,6 @@ export default function Services({ onClose, dic }: Props) {
         </div>
        </div>
       ))}
-
-      <Link
-       href='/co-services'
-       className='flex gap-2 items-center'
-       onClick={onClose}
-      >
-       <div
-        className={`flex-shrink-0 aspect-square w-[4rem] rounded-lg grid place-content-center text-background shadow-lg bg-neutral-400 dark:bg-neutral-500  bg-gradient-to-b from-transparent to-black/20 transition-colors`}
-       >
-        {projects[projects.length - 1].icon}
-       </div>
-       <div className={`flex-grow`}>
-        <h3 className='font-medium text-[0.78rem]'>
-         {(dic.navigation as Dic).viewAll as string}
-        </h3>
-       </div>
-      </Link>
      </div>
      {isServicesLoading ? (
       <div className='grid place-items-center h-full'>
