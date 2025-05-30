@@ -15,12 +15,14 @@ export default function Banner({ service }: Props) {
  return (
   <section className='h-[12rem] lg:h-[18rem] relative'>
    <div className='absolute inset-0 z-[-1]'>
-    <img
-     src='/services/security-camera-installation.jpg'
-     alt='banner'
-     className='w-full h-full object-cover object-center'
-     draggable={false}
-    />
+    {service?.imageUrl && (
+     <img
+      src={`${process.env.NEXT_PUBLIC_BASE_URL}/${service.imageUrl}`}
+      alt='banner'
+      className='w-full h-full object-cover object-center'
+      draggable={false}
+     />
+    )}
    </div>
    <div className='h-full flex flex-col justify-center bg-gradient-to-b from-black/20 to-black/65'>
     <h1 className='text-center font-bold text-4xl lg:text-6xl text-primary-foreground mb-8  bg-cover bg-center'>
