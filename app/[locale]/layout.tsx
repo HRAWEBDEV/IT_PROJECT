@@ -77,6 +77,7 @@ export async function generateMetadata({
   openGraph: {
    title: dic.title as string,
    description: dic.description as string,
+   locale: locale,
    images: [
     {
      url: '/favs/icon512_maskable.png',
