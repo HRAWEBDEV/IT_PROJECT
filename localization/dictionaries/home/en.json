@@ -8,7 +8,8 @@
  "services": {
   "title": "Services",
   "viewAllServices": "View All Services",
-  "servicesConsultation": "Consultation"
+  "servicesConsultation": "Consultation",
+  "servicesDescription": ""
  },
  "projects": {
   "title": "Projects",

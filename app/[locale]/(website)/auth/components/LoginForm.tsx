@@ -237,8 +237,12 @@ export default function LoginForm({ dic }: Props) {
 
  return (
   <div className='mt-4 p-4 w-[min(25rem,100%)] mx-auto'>
-   <div className='w-[8rem] aspect-square mx-auto border border-primary-dark rounded-lg grid place-content-center mb-20'>
-    LOGO
+   <div className='w-[8rem] aspect-square mx-auto rounded-lg grid place-content-center mb-20'>
+    <img
+     src='/images/logo.png'
+     alt='website logo'
+     className='w-[8rem] lg:w-[9rem] dark:brightness-200'
+    />
    </div>
    {loginStep === 1 ? register : verify}
   </div>
