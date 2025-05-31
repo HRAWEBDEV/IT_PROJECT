@@ -72,7 +72,27 @@ export async function generateMetadata({
   locale,
   path: 'meta',
  });
- return dic;
+ return {
+  ...dic,
+  openGraph: {
+   title: dic.title as string,
+   description: dic.description as string,
+   images: [
+    {
+     url: '/favs/icon512_maskable.png',
+    },
+   ],
+  },
+  twitter: {
+   title: dic.title as string,
+   description: dic.description as string,
+   images: [
+    {
+     url: '/favs/icon512_maskable.png',
+    },
+   ],
+  },
+ };
 }
 
 export default async function RootLayout({

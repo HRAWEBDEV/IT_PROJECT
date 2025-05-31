@@ -5,7 +5,7 @@ import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
 
 export const metadata: Metadata = {
- title: 'آیتی نترا |‌ فناوری و اطلاعات | احراز هویت',
+ title: 'آی تی نترا |‌ فناوری و اطلاعات | احراز هویت',
 };
 
 export default async function layout({

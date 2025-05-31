@@ -22,8 +22,8 @@ const manifest = (): MetadataRoute.Manifest => {
   display: 'standalone',
   dir: 'auto',
   lang: 'fa-IR',
-  name: 'نرم افزار آیتی نترا',
-  short_name: 'آیتی نترا',
+  name: 'نرم افزار آی تی نترا',
+  short_name: 'آی تی نترا',
   start_url: '/',
   scope: '.',
  };

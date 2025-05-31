@@ -3,7 +3,7 @@ import ProfileLayout from './components/ProfileLayout';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
- title: 'آیتی نترا |‌ فناوری و اطلاعات | پروفایل',
+ title: 'آی تی نترا |‌ فناوری و اطلاعات | پروفایل',
 };
 
 const layout = async ({ children }: PropsWithChildren) => {

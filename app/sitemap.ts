@@ -1,42 +1,62 @@
 import { type MetadataRoute } from 'next';
+import { locales } from '@/localization/locales';
+
+// Get base URL from environment variables
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
+
+const fixedPagesInfo = [
+ {
+  url: '',
+  lastModified: new Date(),
+  changeFrequency: 'daily',
+  priority: 1,
+ },
+ {
+  url: '/co-services',
+  lastModified: new Date(),
+  changeFrequency: 'daily',
+  priority: 0.8,
+ },
+ {
+  url: '/projects',
+  lastModified: new Date(),
+  changeFrequency: 'daily',
+  priority: 0.8,
+ },
+ {
+  url: '/articles',
+  lastModified: new Date(),
+  changeFrequency: 'daily',
+  priority: 0.7,
+ },
+ {
+  url: '/contact-us',
+  lastModified: new Date(),
+  changeFrequency: 'monthly',
+  priority: 0.6,
+ },
+ {
+  url: '/about-us',
+  lastModified: new Date(),
+  changeFrequency: 'monthly',
+  priority: 0.6,
+ },
+];
+
+const fixedPagesSiteMap: MetadataRoute.Sitemap = [];
+
+Object.keys(locales).forEach((locale) => {
+ fixedPagesInfo.forEach((page) => {
+  fixedPagesSiteMap.push({
+   url: `${baseUrl}/${locale}${page.url}`,
+   lastModified: page.lastModified,
+   changeFrequency:
+    page.changeFrequency as MetadataRoute.Sitemap[number]['changeFrequency'],
+   priority: page.priority,
+  });
+ });
+});
 
 export default function sitemap(): MetadataRoute.Sitemap {
- return [
-  {
-   url: '',
-   lastModified: new Date(),
-   changeFrequency: 'daily',
-   priority: 1,
-  },
-  {
-   url: '/co-services',
-   lastModified: new Date(),
-   changeFrequency: 'daily',
-   priority: 2,
-  },
-  {
-   url: '/projects',
-   lastModified: new Date(),
-   changeFrequency: 'daily',
-   priority: 3,
-  },
-  {
-   url: '/articles',
-   lastModified: new Date(),
-   changeFrequency: 'daily',
-   priority: 4,
-  },
-  {
-   url: '/contact-us',
-   lastModified: new Date(),
-   changeFrequency: 'daily',
-   priority: 5,
-  },
-  {
-   url: '/about-us',
-   lastModified: new Date(),
-   changeFrequency: 'daily',
-   priority: 6,
-  },
- ];
+ return [...fixedPagesSiteMap];
 }
