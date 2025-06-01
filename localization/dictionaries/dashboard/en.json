@@ -229,6 +229,7 @@
   "cancel": "Cancel",
   "save": "Save",
   "description": "Description",
-  "errorTryAgainLater": "An error occurred while saving the information, please try again later"
+  "errorTryAgainLater": "An error occurred while saving the information, please try again later",
+  "addIcon": "Add Icon"
  }
 }
