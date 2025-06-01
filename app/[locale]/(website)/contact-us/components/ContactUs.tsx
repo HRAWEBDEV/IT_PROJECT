@@ -109,7 +109,7 @@ export default function ContactUs({ dic, owner }: Props) {
     <SocialMedias />
     <div className='flex-grow h-[2px] bg-orange-500 dark:bg-orange-700'></div>
    </article>
-   <article className='grid lg:grid-cols-2 gap-4'>
+   <article className='grid lg:grid-cols-2 gap-8'>
     <div>
      <div>
       <h1 className='text-2xl font-bold mb-2'>
@@ -178,7 +178,7 @@ export default function ContactUs({ dic, owner }: Props) {
       </div>
      </div>
     </div>
-    <form>
+    <form className='border-t border-orange-500 dark:border-orange-700 pt-8 lg:border-t-0'>
      <div className='grid gap-4 grid-cols-2 mb-4'>
       <TextField
        {...register('firstName')}
