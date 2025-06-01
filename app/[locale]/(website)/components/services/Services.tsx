@@ -44,11 +44,6 @@ export default function Services({ dic, services, servicesCategories }: Props) {
        {(dic.services as Dic).title as string}
       </motion.h1>
      </div>
-     <p className='text-neutral-500 dark:text-neutral-200 w-[min(100%,40rem)] text-center leading-7 mb-10 container lg:text-base lg:leading-7'>
-      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
-      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-      که لازم است، و برای شرایط فعلی تکنولوژی
-     </p>
     </div>
     <div className='container mx-auto w-[min(100%,60rem)] mb-6'>
      <ul className='grid md:grid-cols-2'>
