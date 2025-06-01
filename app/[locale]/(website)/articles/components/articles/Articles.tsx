@@ -21,16 +21,17 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 type Props = WithDictionary & {
  serverBlogs: Blog[];
+ serverRowsCount: number;
 };
 
-export default function Articles({ dic, serverBlogs }: Props) {
+export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
  const filtersRef = useRef<HTMLDivElement>(null);
  const router = useRouter();
  const pathname = usePathname();
  const searchParams = useSearchParams();
  const { locale } = useAppConfig();
  const searchText = searchParams.get('searchText');
- const [rowsCount, setRowsCount] = useState(0);
+ const [rowsCount, setRowsCount] = useState(serverRowsCount);
  const [pagination, setPagination] = useState<GridPaginationModel>({
   page: 1,
   pageSize: paginationLimit,

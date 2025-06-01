@@ -24,16 +24,21 @@ import { useQuery } from '@tanstack/react-query';
 
 type Props = {
  serverProjects: Project[];
+ serverRowsCount: number;
 } & WithDictionary;
 
-export default function Projects({ dic, serverProjects }: Props) {
+export default function Projects({
+ dic,
+ serverProjects,
+ serverRowsCount,
+}: Props) {
  const filtersRef = useRef<HTMLDivElement>(null);
  const router = useRouter();
  const pathname = usePathname();
  const searchParams = useSearchParams();
  const searchText = searchParams.get('searchText');
  const { locale } = useAppConfig();
- const [rowsCount, setRowsCount] = useState(0);
+ const [rowsCount, setRowsCount] = useState(serverRowsCount);
  const [pagination, setPagination] = useState<GridPaginationModel>({
   page: 1,
   pageSize: paginationLimit,

@@ -51,6 +51,7 @@ export default async function page({
  });
 
  let blogs: Blog[] = [];
+ let rowsCount = 0;
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
  blogsParams.set('blogStateID', '1');
@@ -83,6 +84,7 @@ export default async function page({
      Blogs: PagedResponse<Blog[]>;
     }>;
     blogs = blogsPackage.payload.Blogs.rows;
+    rowsCount = blogsPackage.payload.Blogs.rowsCount;
    }
   } catch {}
  }
@@ -90,7 +92,7 @@ export default async function page({
  return (
   <div>
    <Hero dic={dic} />
-   <Articles dic={dic} serverBlogs={blogs} />
+   <Articles dic={dic} serverBlogs={blogs} serverRowsCount={rowsCount} />
    <Footer params={params} />
   </div>
  );

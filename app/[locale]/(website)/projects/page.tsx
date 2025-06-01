@@ -1,10 +1,9 @@
-import Footer from '../components/footer/Footer';
-import Hero from './components/Hero';
 import Projects from './components/projects/Projects';
 import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
 import {
  type Project,
+ type PagedResponse,
  projectsApi,
  ResponseShape,
 } from '@/services/api-actions/globalApiActions';
@@ -12,6 +11,8 @@ import { locales } from '@/localization/locales';
 import { paginationLimit } from './utils/blogsPaginationInfo';
 import { cookies } from 'next/headers';
 import { authCookieName } from '@/services/auth/userToken';
+import Hero from './components/Hero';
+import Footer from '../components/footer/Footer';
 
 export const generateMetadata = async ({
  params,
@@ -48,6 +49,7 @@ export default async function page({
  });
  //
  let projects: Project[] = [];
+ let rowsCount = 0;
  const projectsParams = new URLSearchParams();
  projectsParams.set('lang', locale);
  projectsParams.set('projectStateID', '2');
@@ -78,9 +80,10 @@ export default async function page({
    );
    if (projectResult.ok) {
     const blogsPackage = (await projectResult.json()) as ResponseShape<{
-     Projects: Project[];
+     Projects: PagedResponse<Project[]>;
     }>;
-    projects = blogsPackage.payload.Projects;
+    projects = blogsPackage.payload.Projects.rows;
+    rowsCount = blogsPackage.payload.Projects.rowsCount;
    }
   } catch {}
  }
@@ -88,7 +91,7 @@ export default async function page({
  return (
   <div>
    <Hero dic={dic} />
-   <Projects dic={dic} serverProjects={projects} />
+   <Projects dic={dic} serverProjects={projects} serverRowsCount={rowsCount} />
    <Footer params={params} />
   </div>
  );
