@@ -55,16 +55,6 @@ export default function Projects({ dic, projects }: Props) {
       }}
       className='!pb-10 [&]:[--swiper-pagination-bullet-inactive-color:hsl(var(--foreground))] [&]:[--swiper-pagination-color:hsl(var(--foreground))]'
      >
-      <SwiperSlide key='intro' className='!hidden lg:!block self-center'>
-       <div className='lg:flex items-center'>
-        <img
-         className='w-full max-w-[20rem]'
-         src='/images/projects.png'
-         alt='about-us-image'
-         draggable={false}
-        />
-       </div>
-      </SwiperSlide>
       {projects.map((item) => {
        const projectLink = `/projects/${item.id}?name=${item.header}`;
        return (
