@@ -16,11 +16,11 @@ import {
  InputOTPGroup,
  InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import Button from '@mui/material/Button';
 import { useAuth } from '@/services/auth/authContext';
 import { useRouter } from 'next/navigation';
 import { useTimer } from '@/hooks/useTimer';
+import { numberReplacer } from '@/utils/numberReplacer';
 
 type Props = WithDictionary;
 const phoneNoDigitsCount = 11;
@@ -108,7 +108,7 @@ export default function LoginForm({ dic }: Props) {
      required
      value={phoneNo}
      onChange={(e) => {
-      const value = e.target.value;
+      const value = numberReplacer(e.target.value);
       if (value.length > phoneNoDigitsCount) {
        return;
       }
@@ -173,15 +173,16 @@ export default function LoginForm({ dic }: Props) {
      </label>
      <div style={{ direction: 'ltr' }}>
       <InputOTP
-       pattern={REGEXP_ONLY_DIGITS}
        maxLength={5}
        autoFocus
        id='login-code'
        value={otp}
        onChange={(value) => {
-        setOtp(value);
-        if (value.length === 5 && !isAuthPending) {
-         handleAuth(value);
+        const newValue = numberReplacer(value);
+        if (newValue !== '' && newValue !== '0' && !Number(newValue)) return;
+        setOtp(newValue);
+        if (newValue.length === 5 && !isAuthPending) {
+         handleAuth(newValue);
         }
        }}
       >

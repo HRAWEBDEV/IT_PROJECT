@@ -17,6 +17,7 @@ import { socials as socialsMap } from '@/utils/socials';
 import IconButton from '@mui/material/IconButton';
 import { useSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
+import { numberReplacer } from '@/utils/numberReplacer';
 
 export default function Socials() {
  const { enqueueSnackbar } = useSnackbar();
@@ -52,7 +53,11 @@ export default function Socials() {
     socialsList.map((item) => {
      let validLink = item.link;
      const social = socialsMap.find((social) => social.id === item.id);
-     if (item.link && !item.link.startsWith('https://') && social?.name !== 'phone') {
+     if (
+      item.link &&
+      !item.link.startsWith('https://') &&
+      social?.name !== 'phone'
+     ) {
       validLink = `https://${item.link}`;
      }
      return {
@@ -119,7 +124,7 @@ export default function Socials() {
             setSocialsList(
              socialsList.map((social) =>
               social.id === item.id
-               ? { ...social, link: e.target.value }
+               ? { ...social, link: numberReplacer(e.target.value) }
                : social
              )
             );

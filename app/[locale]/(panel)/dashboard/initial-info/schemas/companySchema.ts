@@ -1,3 +1,4 @@
+import { numberReplacer } from '@/utils/numberReplacer';
 import { z } from 'zod';
 
 const companySchema = z.object({
@@ -7,12 +8,12 @@ const companySchema = z.object({
  registerNo: z.string(),
  addressName: z.string().min(1),
  descriptionName: z.string().min(1),
- telephone1: z.string(),
- telephone2: z.string(),
- telephone3: z.string(),
- cellPhone1: z.string(),
- cellPhone2: z.string(),
- cellPhone3: z.string(),
+ telephone1: z.string().transform(numberReplacer),
+ telephone2: z.string().transform(numberReplacer),
+ telephone3: z.string().transform(numberReplacer),
+ cellPhone1: z.string().transform(numberReplacer),
+ cellPhone2: z.string().transform(numberReplacer),
+ cellPhone3: z.string().transform(numberReplacer),
  fax: z.string(),
  email: z.string(),
 });
