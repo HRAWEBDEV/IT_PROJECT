@@ -162,7 +162,39 @@ export default function ArticlesGrid({
      {
       field: 'blogStateName',
       headerName: articles.state as string,
+      minWidth: 110,
+      headerAlign: 'center',
+      align: 'center',
+     },
+     {
+      field: 'createdCount',
+      headerName: articles.commentsCount as string,
       minWidth: 120,
+      headerAlign: 'center',
+      align: 'center',
+      valueFormatter(value) {
+       return value ? value : '0';
+      },
+     },
+     {
+      field: 'confirmedCount',
+      headerName: articles.confirmCommentsCount as string,
+      minWidth: 120,
+      headerAlign: 'center',
+      align: 'center',
+      valueFormatter(value) {
+       return value ? value : '0';
+      },
+     },
+     {
+      field: 'deletedCount',
+      headerName: articles.rejectCommentsCount as string,
+      minWidth: 130,
+      headerAlign: 'center',
+      align: 'center',
+      valueFormatter(value) {
+       return value ? value : '0';
+      },
      },
      {
       field: 'showForCard',
@@ -218,7 +250,6 @@ export default function ArticlesGrid({
          />
         );
        }
-
        actions.push(
         <GridActionsCellItem
          key={'comments'}

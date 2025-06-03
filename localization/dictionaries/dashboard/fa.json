@@ -79,7 +79,10 @@
   "changeState": "تغییر وضعیت",
   "preview": "پیش نمایش",
   "noPreview": "عدم نمایش",
-  "comments": "نظرات"
+  "comments": "نظرات",
+  "commentsCount": "تعداد نظرات",
+  "confirmCommentsCount": "نظرات تایید شده",
+  "rejectCommentsCount": "نظرات تایید نشده"
  },
  "articlesComments": {
   "title": "نظرات و دیدگاه‌هــا",

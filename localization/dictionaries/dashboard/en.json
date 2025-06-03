@@ -83,7 +83,10 @@
   "changeState": "Change State",
   "preview": "Preview",
   "noPreview": "No Preview",
-  "comments": "Comments"
+  "comments": "Comments",
+  "commentsCount": "Comments Count",
+  "confirmCommentsCount": "Confirmed Comments",
+  "rejectCommentsCount": "Rejected Comments"
  },
  "articlesComments": {
   "title": "Comments and Reviews",

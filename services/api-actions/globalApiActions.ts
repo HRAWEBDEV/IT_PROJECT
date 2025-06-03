@@ -57,6 +57,9 @@ type Blog = {
  showForCard: boolean;
  imageUrl?: string;
  interested: boolean;
+ createdCount: number | null;
+ confirmedCount: number | null;
+ deletedCount: number | null;
 };
 
 type BlogComment = {
