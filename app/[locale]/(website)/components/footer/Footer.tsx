@@ -10,7 +10,6 @@ import {
 import { AppParams } from '@/utils/appParams';
 import { locales } from '@/localization/locales';
 import { cookies } from 'next/headers';
-import { headers } from 'next/headers';
 import { authCookieName } from '@/services/auth/userToken';
 
 export default async function Footer({
@@ -20,28 +19,13 @@ export default async function Footer({
 }) {
  const { locale } = await params;
  const activeLocale = locales[locale];
- const headersList = await headers();
- let showFooter = true;
- const referer = headersList.get('referer');
- const excludeFooterPaths = [`/${locale}/auth`];
- if (referer) {
-  const url = new URL(referer);
-  const pathname = url.pathname;
-  for (const path of excludeFooterPaths) {
-   if (pathname.startsWith(path)) {
-    showFooter = false;
-    break;
-   }
-  }
- }
-
  let servicesCategories: ServiceCategory[] = [];
  let projectCategories: ProjectCategory[] = [];
  let owner: Owner | null = null;
  const servicesCategoriesParams = new URLSearchParams();
  servicesCategoriesParams.set('lang', locale);
 
- if (activeLocale.id && showFooter) {
+ if (activeLocale.id) {
   const cookieStore = await cookies();
   const userToken = cookieStore.get(authCookieName)?.value;
   const fetchHeaders = {
@@ -94,13 +78,11 @@ export default async function Footer({
 
  return (
   <div>
-   {showFooter && (
-    <FooterContent
-     servicesCategories={servicesCategories}
-     projectCategories={projectCategories}
-     owner={owner}
-    />
-   )}
+   <FooterContent
+    servicesCategories={servicesCategories}
+    projectCategories={projectCategories}
+    owner={owner}
+   />
   </div>
  );
 }
