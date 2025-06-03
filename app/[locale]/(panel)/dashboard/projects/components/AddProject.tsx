@@ -37,6 +37,7 @@ type Props = {
  open: boolean;
  project: Project | null;
  projectCategories: ProjectCategory[];
+ defaultCategory: AddProjectSchema['category'] | null;
  onClose: () => void;
 };
 
@@ -45,6 +46,7 @@ export default function AddProject({
  project,
  projectCategories,
  onClose,
+ defaultCategory,
 }: Props) {
  const [tagOnce, setTagOnce] = useState(false);
  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -157,15 +159,17 @@ export default function AddProject({
     name: project.projectCategoryName,
    });
   } else {
-   if (!projectCategories.length) return;
+   const activeCategory = defaultCategory || projectCategories[0];
    setValue('title', '');
    setValue('description', '');
-   setValue('category', {
-    id: projectCategories[0].id.toString(),
-    name: projectCategories[0].name,
-   });
+   if (activeCategory) {
+    setValue('category', {
+     id: activeCategory.id.toString(),
+     name: activeCategory.name,
+    });
+   }
   }
- }, [project, projectCategories, setValue, open]);
+ }, [project, projectCategories, setValue, open, defaultCategory]);
 
  return (
   <Dialog

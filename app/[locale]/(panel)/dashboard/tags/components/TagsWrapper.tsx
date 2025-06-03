@@ -123,6 +123,7 @@ export default function TagsWrapper() {
       open={openEditTag}
       tag={selectedTag}
       tagCategories={tagCategories}
+      defaultCategory={tagCategory}
       onClose={() => {
        setOpenEditTag(false);
        setSelectedTag(null);

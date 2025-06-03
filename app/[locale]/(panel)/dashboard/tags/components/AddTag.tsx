@@ -28,10 +28,17 @@ type Props = {
  open: boolean;
  tag: Tag | null;
  tagCategories: TagCategory[];
+ defaultCategory: AddTagSchema['category'] | null;
  onClose: () => void;
 };
 
-export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
+export default function AddTag({
+ open,
+ tag,
+ tagCategories,
+ onClose,
+ defaultCategory,
+}: Props) {
  const { enqueueSnackbar } = useSnackbar();
  const { locale } = useAppConfig();
  const { tags, errorTryAgainLater, changesSavedSuccessfully } =
@@ -94,14 +101,16 @@ export default function AddTag({ open, tag, tagCategories, onClose }: Props) {
     name: tag.tagTypeName,
    });
   } else {
-   if (!tagCategories.length) return;
+   const activeCategory = defaultCategory || tagCategories[0];
    setValue('title', '');
-   setValue('category', {
-    id: tagCategories[0].id.toString(),
-    name: tagCategories[0].name,
-   });
+   if (activeCategory) {
+    setValue('category', {
+     id: activeCategory.id.toString(),
+     name: activeCategory.name,
+    });
+   }
   }
- }, [tag, tagCategories, setValue, open]);
+ }, [tag, tagCategories, setValue, open, defaultCategory]);
 
  return (
   <Dialog

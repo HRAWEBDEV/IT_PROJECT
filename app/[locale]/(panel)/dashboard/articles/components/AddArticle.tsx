@@ -38,6 +38,7 @@ type Props = {
  open: boolean;
  article: Blog | null;
  articleCategories: BlogCategory[];
+ defaultCategory: AddArticleSchema['category'] | null;
  onClose: () => void;
 };
 
@@ -46,6 +47,7 @@ export default function AddArticle({
  article,
  articleCategories,
  onClose,
+ defaultCategory,
 }: Props) {
  const [tagOnce, setTagOnce] = useState(false);
  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -165,15 +167,17 @@ export default function AddArticle({
     name: article.blogCategoryName,
    });
   } else {
-   if (!articleCategories.length) return;
+   const activeCategory = defaultCategory || articleCategories[0];
    setValue('title', '');
    setValue('description', '');
-   setValue('category', {
-    id: articleCategories[0].id.toString(),
-    name: articleCategories[0].name,
-   });
+   if (activeCategory) {
+    setValue('category', {
+     id: activeCategory.id.toString(),
+     name: activeCategory.name,
+    });
+   }
   }
- }, [article, articleCategories, setValue, open]);
+ }, [article, articleCategories, setValue, open, defaultCategory]);
 
  return (
   <Dialog

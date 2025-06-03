@@ -37,6 +37,7 @@ type Props = {
  open: boolean;
  service: Service | null;
  serviceCategories: ServiceCategory[];
+ defaultCategory: AddServiceSchema['category'] | null;
  onClose: () => void;
 };
 
@@ -45,6 +46,7 @@ export default function AddArticle({
  service,
  serviceCategories,
  onClose,
+ defaultCategory,
 }: Props) {
  const [tagOnce, setTagOnce] = useState(false);
  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -157,15 +159,17 @@ export default function AddArticle({
     name: service.serviceCategoryName,
    });
   } else {
-   if (!serviceCategories.length) return;
+   const activeCategory = defaultCategory || serviceCategories[0];
    setValue('title', '');
    setValue('description', '');
-   setValue('category', {
-    id: serviceCategories[0].id.toString(),
-    name: serviceCategories[0].name,
-   });
+   if (activeCategory) {
+    setValue('category', {
+     id: activeCategory.id.toString(),
+     name: activeCategory.name,
+    });
+   }
   }
- }, [service, serviceCategories, setValue, open]);
+ }, [service, serviceCategories, setValue, open, defaultCategory]);
 
  return (
   <Dialog

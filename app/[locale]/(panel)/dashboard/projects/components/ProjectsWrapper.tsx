@@ -177,6 +177,7 @@ export default function ArticlesWrapper() {
        open={openEditProject}
        project={selectedProject}
        projectCategories={projectCategories}
+       defaultCategory={tagCategory}
        onClose={() => {
         setOpenEditProject(false);
         setSelectedProject(null);

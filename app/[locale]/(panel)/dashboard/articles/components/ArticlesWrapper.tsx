@@ -179,6 +179,7 @@ export default function ArticlesWrapper() {
       open={openEditArticle}
       article={selectedArticle}
       articleCategories={articleCategories}
+      defaultCategory={tagCategory}
       onClose={() => {
        setOpenEditArticle(false);
        setSelectedArticle(null);

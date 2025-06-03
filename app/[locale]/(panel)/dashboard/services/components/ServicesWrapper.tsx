@@ -177,6 +177,7 @@ export default function ArticlesWrapper() {
        open={openEditService}
        service={selectedService}
        serviceCategories={serviceCategories}
+       defaultCategory={serviceCategory}
        onClose={() => {
         setOpenEditService(false);
         setSelectedService(null);
