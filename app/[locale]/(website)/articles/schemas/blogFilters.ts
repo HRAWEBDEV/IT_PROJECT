@@ -7,6 +7,12 @@ const blogFiltersSchema = z.object({
    name: z.string(),
   })
   .nullable(),
+ tag: z
+  .object({
+   id: z.string(),
+   name: z.string(),
+  })
+  .nullable(),
  search: z.string(),
 });
 

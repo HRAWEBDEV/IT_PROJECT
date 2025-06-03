@@ -175,6 +175,7 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
    blogCategoryID?: number;
    interested?: boolean;
    searchText?: string;
+   tagID?: number;
   }
 ): Promise<
  AxiosResponse<
@@ -199,6 +200,9 @@ function getBlogs<T extends { pagination?: PaginationProps }>(
  }
  if (props.searchText) {
   params.append('searchText', props.searchText);
+ }
+ if (props.tagID) {
+  params.append('tagID', props.tagID.toString());
  }
  params.append('blogStateID', props.blogStateID.toString());
  if (props.interested !== undefined) {

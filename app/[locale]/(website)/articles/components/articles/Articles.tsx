@@ -14,6 +14,7 @@ import {
  type Blog,
  getBlogs,
  getBlogCategories,
+ getTags,
 } from '@/services/api-actions/globalApiActions';
 import { useQuery } from '@tanstack/react-query';
 import { paginationLimit } from '../../utils/blogsPaginationInfo';
@@ -41,10 +42,12 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
   defaultValues: {
    search: searchText || '',
    category: null,
+   tag: null,
   },
  });
  const searchValue = filtersUseForm.watch('search');
  const blogCategory = filtersUseForm.watch('category');
+ const blogTag = filtersUseForm.watch('tag');
  const dbSearchValue = useDebounceValue(searchValue, 200);
 
  const {
@@ -63,6 +66,23 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
  });
 
  const {
+  data: blogTags = [],
+  isLoading: blogTagsLoading,
+  isFetching: blogTagsFetching,
+ } = useQuery({
+  queryKey: ['blogTags'],
+  async queryFn({ signal }) {
+   const result = await getTags({
+    locale,
+    signal,
+    tagTypeID: 1,
+   });
+   const data = result.data.payload.Tags;
+   return data;
+  },
+ });
+
+ const {
   data: blogs = serverBlogs,
   isLoading: blogsLoading,
   isFetching: blogsFetching,
@@ -72,6 +92,7 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
    'blogs',
    dbSearchValue,
    blogCategory?.id,
+   blogTag?.id,
    pagination.page,
    pagination.pageSize,
   ],
@@ -85,6 +106,7 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
     searchText: dbSearchValue,
     blogStateID: 2,
     blogCategoryID: blogCategory ? Number(blogCategory.id) : undefined,
+    tagID: blogTag ? Number(blogTag.id) : undefined,
    });
    const pacakge = result.data.payload.Blogs;
    const data = pacakge.rows;
@@ -97,6 +119,8 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
   const newSearchParams = new URLSearchParams(searchParams.toString());
   newSearchParams.set('categoryID', blogCategory?.id || '');
   newSearchParams.set('categoryName', blogCategory?.name || '');
+  newSearchParams.set('tagID', blogTag?.id || '');
+  newSearchParams.set('tagName', blogTag?.name || '');
   if (pagination.page) newSearchParams.set('page', pagination.page.toString());
   router.replace(`${pathname}?${newSearchParams.toString()}`, {
    scroll: false,
@@ -108,15 +132,22 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
   blogCategory,
   pagination.page,
   searchParams,
+  blogTag,
  ]);
 
  useEffect(() => {
   const categoryID = searchParams.get('categoryID');
   const categoryName = searchParams.get('categoryName');
+  const tagID = searchParams.get('tagID');
+  const tagName = searchParams.get('tagName');
   const page = searchParams.get('page');
   filtersUseForm.setValue(
    'category',
    categoryID && categoryName ? { id: categoryID, name: categoryName } : null
+  );
+  filtersUseForm.setValue(
+   'tag',
+   tagID && tagName ? { id: tagID, name: tagName } : null
   );
   if (page) setPagination((prev) => ({ ...prev, page: Number(page) }));
  }, [searchParams, filtersUseForm]);
@@ -130,6 +161,8 @@ export default function Articles({ dic, serverBlogs, serverRowsCount }: Props) {
      ref={filtersRef}
      blogCategories={blogCategories}
      isLoadingBlogCategory={blogCategoriesLoading || blogCategoriesFetching}
+     blogTags={blogTags}
+     isLoadingBlogTags={blogTagsLoading || blogTagsFetching}
     />
     <ArticlesList
      dic={dic}

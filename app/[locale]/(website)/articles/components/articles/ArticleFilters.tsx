@@ -7,21 +7,34 @@ import Autocomplete from '@mui/material/Autocomplete';
 import { type BlogFilters } from '../../schemas/blogFilters';
 import { useFormContext, Controller } from 'react-hook-form';
 import { type WithDictionary } from '@/localization/locales';
-import { type BlogCategory } from '@/services/api-actions/globalApiActions';
+import {
+ type Tag,
+ type BlogCategory,
+} from '@/services/api-actions/globalApiActions';
 
 type Props = WithDictionary & {
  blogCategories: BlogCategory[];
  isLoadingBlogCategory: boolean;
  filtersRef: RefObject<HTMLDivElement | null>;
+ blogTags: Tag[];
+ isLoadingBlogTags: boolean;
 };
 
 const ArticleFilters = forwardRef<HTMLDivElement, Props>(
  function ArticleFilters(
-  { dic, blogCategories, isLoadingBlogCategory, filtersRef },
+  {
+   dic,
+   blogCategories,
+   isLoadingBlogCategory,
+   filtersRef,
+   blogTags,
+   isLoadingBlogTags,
+  },
   ref
  ) {
   const { register, control, watch } = useFormContext<BlogFilters>();
   const category = watch('category');
+  const tag = watch('tag');
   const search = watch('search');
 
   return (
@@ -80,6 +93,38 @@ const ArticleFilters = forwardRef<HTMLDivElement, Props>(
           slotProps={{
            inputLabel: {
             shrink: !!category || undefined,
+           },
+          }}
+         />
+        )}
+       />
+      )}
+     />
+     <Controller
+      control={control}
+      name='tag'
+      render={({ field }) => (
+       <Autocomplete
+        {...field}
+        loading={isLoadingBlogTags}
+        value={field.value || null}
+        getOptionLabel={(option) => option.name}
+        onChange={(_, value) => {
+         field.onChange(value);
+         filtersRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }}
+        options={blogTags.map((item) => ({
+         id: item.id.toString(),
+         name: item.name,
+        }))}
+        size='small'
+        renderInput={(params) => (
+         <TextField
+          {...params}
+          label={dic.tags as string}
+          slotProps={{
+           inputLabel: {
+            shrink: !!tag || undefined,
            },
           }}
          />

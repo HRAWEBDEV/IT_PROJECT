@@ -39,26 +39,29 @@ export default async function page({
   offset?: string;
   categoryID?: string;
   searchText?: string;
+  tagID?: string;
  }>;
 }) {
- const { offset, categoryID, searchText } = await searchParams;
+ const { offset, categoryID, searchText, tagID } = await searchParams;
  const { locale } = await params;
  const activeLocale = locales[locale];
  const dic = await getDictionary({
   locale,
   path: 'articles',
  });
-
  let blogs: Blog[] = [];
  let rowsCount = 0;
  const blogsParams = new URLSearchParams();
  blogsParams.set('lang', locale);
- blogsParams.set('blogStateID', '1');
+ blogsParams.set('blogStateID', '2');
  if (categoryID) {
   blogsParams.set('blogCategoryID', categoryID);
  }
  if (searchText) {
   blogsParams.set('searchText', searchText);
+ }
+ if (tagID) {
+  blogsParams.set('tagID', tagID);
  }
  blogsParams.set('limit', paginationLimit.toString());
  blogsParams.set('offset', offset || '1');
