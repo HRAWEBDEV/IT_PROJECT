@@ -22,7 +22,7 @@ export const generateMetadata = async ({
   path: 'about-us',
  });
  return {
-  title: dic.title,
+  title: dic.aboutUs,
  };
 };
 
