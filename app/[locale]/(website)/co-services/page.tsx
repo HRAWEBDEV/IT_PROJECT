@@ -25,7 +25,7 @@ export const generateMetadata = async ({
  });
 
  return {
-  title: dic.titles as string,
+  title: dic.title as string,
  };
 };
 
@@ -100,7 +100,6 @@ export default async function page({
    }
   } catch {}
  }
-
  return (
   <div>
    <Services
