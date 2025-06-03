@@ -171,6 +171,7 @@ type ContactUs = {
 
 // blogs actions
 const blogsApi = '/blogs';
+const blogsIdsApi = '/Blogs/BlogIDs';
 function getBlogs<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
@@ -641,6 +642,7 @@ function changeUserState(props: {
 }
 // projects
 const projectsApi = '/projects';
+const projectsIdsApi = '/Projects/ProjectIDs';
 function getProjects<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
@@ -874,6 +876,7 @@ function getProjectTags(props: ApiDefaultProps & { projectID: number }) {
 }
 // services
 const servicesApi = '/services';
+const servicesIdsApi = '/Services/ServiceIDs';
 function getServices<T extends { pagination?: PaginationProps }>(
  props: ApiDefaultProps &
   T & {
@@ -1275,4 +1278,7 @@ export {
  aboutUsApi,
  getAboutUs,
  updateAboutUs,
+ blogsIdsApi,
+ projectsIdsApi,
+ servicesIdsApi,
 };
