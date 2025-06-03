@@ -7,6 +7,7 @@ import { getDictionary } from '@/localization/getDic';
 import { type AppParams } from '@/utils/appParams';
 import WebsiteDictionaryProvider from '@/services/dictionary/DictionaryProvider';
 import Footer from './components/footer/Footer';
+import Floats from './components/floats/Floats';
 
 export default async function layout({
  children,
@@ -30,6 +31,7 @@ export default async function layout({
     <Header dic={dic} />
     <Main>{children}</Main>
     <MobileBottomNav dic={dic} />
+    <Floats />
     <Footer params={params} />
    </NavigationProvider>
   </WebsiteDictionaryProvider>

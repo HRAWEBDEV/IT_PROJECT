@@ -5,6 +5,7 @@
 @layer base {
  :root {
   scroll-behavior: smooth;
+  --container-width: 1300px;
   /* color pallete */
   /* #0369a0 */
   --primary: 200.41 98% 39%;
@@ -190,13 +191,13 @@ svg #wheel {
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+ -webkit-appearance: none;
+ margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+ -moz-appearance: textfield;
 }
 
 @layer base {
