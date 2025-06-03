@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react';
 import Banner from './components/Banner';
-import Footer from '../../components/footer/Footer';
 import {
  blogsApi,
  ResponseShape,
@@ -53,7 +52,6 @@ export default async function layout({
     <>
      <Banner blog={blog} />
      {children}
-     <Footer params={params} />
     </>
    ) : (
     <NotFoundWrapper />

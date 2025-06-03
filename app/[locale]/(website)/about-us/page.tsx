@@ -1,5 +1,4 @@
 import Hero from './components/Hero';
-import Footer from '../components/footer/Footer';
 import { getDictionary } from '@/localization/getDic';
 import {
  type AboutUs,
@@ -65,7 +64,6 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   <div>
    <Hero dic={dic} />
    <Content aboutUs={aboutUs} />
-   <Footer params={params} />
   </div>
  );
 }

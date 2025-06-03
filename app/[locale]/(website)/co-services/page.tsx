@@ -1,5 +1,4 @@
 import Services from './components/Services';
-import Footer from '../components/footer/Footer';
 import { getDictionary } from '@/localization/getDic';
 import { AppParams } from '@/utils/appParams';
 import {
@@ -109,7 +108,6 @@ export default async function page({
     serverServices={services}
     serverServicesCategories={servicesCategories}
    />
-   <Footer params={params} />
   </div>
  );
 }

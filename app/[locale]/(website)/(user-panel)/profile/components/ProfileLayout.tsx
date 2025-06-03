@@ -54,7 +54,6 @@ export default function ProfileLayout({
      </div>
     </div>
    )}
-   {/* <Footer params={params} /> */}
   </>
  );
 }

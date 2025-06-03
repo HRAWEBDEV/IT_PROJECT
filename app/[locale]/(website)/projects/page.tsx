@@ -12,7 +12,6 @@ import { paginationLimit } from './utils/blogsPaginationInfo';
 import { cookies } from 'next/headers';
 import { authCookieName } from '@/services/auth/userToken';
 import Hero from './components/Hero';
-import Footer from '../components/footer/Footer';
 
 export const generateMetadata = async ({
  params,
@@ -92,7 +91,6 @@ export default async function page({
   <div>
    <Hero dic={dic} />
    <Projects dic={dic} serverProjects={projects} serverRowsCount={rowsCount} />
-   <Footer params={params} />
   </div>
  );
 }

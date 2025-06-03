@@ -105,11 +105,10 @@ export default async function RootLayout({
 }>) {
  const { locale } = await params;
  const localeInfo = locales[locale];
-
  return (
   <html
    lang={locale}
-   dir={localeInfo.dir}
+   dir={localeInfo?.dir || 'rtl'}
    className={`${irs.variable} ${enRoboto.variable}`}
   >
    <body

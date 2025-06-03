@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react';
 import Banner from './components/Banner';
-import Footer from '../../components/footer/Footer';
 import {
  type Project,
  projectsApi,
@@ -53,7 +52,6 @@ export default async function layout({
     <>
      <Banner project={project} />
      {children}
-     <Footer params={params} />
     </>
    ) : (
     <NotFoundWrapper />

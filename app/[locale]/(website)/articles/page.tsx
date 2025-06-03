@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Footer from '../components/footer/Footer';
 import Hero from './components/Hero';
 import Articles from './components/articles/Articles';
 import { getDictionary } from '@/localization/getDic';
@@ -93,7 +92,6 @@ export default async function page({
   <div>
    <Hero dic={dic} />
    <Articles dic={dic} serverBlogs={blogs} serverRowsCount={rowsCount} />
-   <Footer params={params} />
   </div>
  );
 }

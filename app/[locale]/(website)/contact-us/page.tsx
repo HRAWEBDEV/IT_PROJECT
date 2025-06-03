@@ -1,6 +1,5 @@
 import Hero from './components/Hero';
 import ContactUs from './components/ContactUs';
-import Footer from '../components/footer/Footer';
 import { getDictionary } from '@/localization/getDic';
 import { type Owner, ownerApi } from '@/services/api-actions/authApiActionts';
 import { type AppParams } from '@/utils/appParams';
@@ -59,7 +58,6 @@ export default async function page({ params }: { params: Promise<AppParams> }) {
   <div>
    <Hero dic={dic} />
    <ContactUs dic={dic} owner={owner} />
-   <Footer params={params} />
   </div>
  );
 }

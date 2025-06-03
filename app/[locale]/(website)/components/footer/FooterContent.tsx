@@ -1,11 +1,9 @@
 'use client';
-import Button from '@mui/material/Button';
 import PhoneEnabledIcon from '@mui/icons-material/PhoneEnabled';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import Link from 'next/link';
 import { useWebsiteDictionary } from '@/services/dictionary/dictionaryContext';
@@ -34,21 +32,7 @@ export default function FooterContent({
  return (
   <footer className='pt-8 bg-neutral-300 dark:bg-neutral-700'>
    <div className='container'>
-    <div className='flex justify-end mb-4'>
-     <Button
-      variant='outlined'
-      className='w-[10rem] !border-neutral-600 !text-neutral-600 dark:!border-neutral-400 dark:!text-neutral-400'
-      onClick={() => {
-       document.documentElement.scrollTop = 0;
-      }}
-     >
-      <div className='flex gap-2 items-center'>
-       <span>{(dic.footer as Dic).goUp as string}</span>
-       <ArrowUpwardIcon fontSize='small' />
-      </div>
-     </Button>
-    </div>
-    <section className='grid gap-10 lg:grid-cols-3'>
+    <section className='grid gap-10 lg:grid-cols-[2fr_1fr_1fr]'>
      <div>
       <div>
        <h4 className='text-2xl font-bold mb-2'>
@@ -79,37 +63,37 @@ export default function FooterContent({
         <div className='grid grid-cols-2 gap-2'>
          {owner?.telephone1 && (
           <div className='flex gap-2 items-center'>
-           <PhoneAndroidIcon fontSize='large' color='secondary' />
+           <PhoneEnabledIcon fontSize='large' color='secondary' />
            <p className='font-medium'>{owner?.telephone1}</p>
           </div>
          )}
          {owner?.telephone2 && (
           <div className='flex gap-2 items-center'>
-           <PhoneAndroidIcon fontSize='large' color='secondary' />
+           <PhoneEnabledIcon fontSize='large' color='secondary' />
            <p className='font-medium'>{owner?.telephone2}</p>
           </div>
          )}
          {owner?.telephone3 && (
           <div className='flex gap-2 items-center'>
-           <PhoneAndroidIcon fontSize='large' color='secondary' />
+           <PhoneEnabledIcon fontSize='large' color='secondary' />
            <p className='font-medium'>{owner?.telephone3}</p>
           </div>
          )}
          {owner?.cellphone1 && (
           <div className='flex gap-2 items-center'>
-           <PhoneEnabledIcon fontSize='large' color='secondary' />
+           <PhoneAndroidIcon fontSize='large' color='secondary' />
            <p className='font-medium'>{owner?.cellphone1}</p>
           </div>
          )}
          {owner?.cellphone2 && (
           <div className='flex gap-2 items-center'>
-           <PhoneEnabledIcon fontSize='large' color='secondary' />
+           <PhoneAndroidIcon fontSize='large' color='secondary' />
            <p className='font-medium'>{owner?.cellphone2}</p>
           </div>
          )}
          {owner?.cellphone3 && (
           <div className='flex gap-2 items-center'>
-           <PhoneEnabledIcon fontSize='large' color='secondary' />
+           <PhoneAndroidIcon fontSize='large' color='secondary' />
            <p className='font-medium'>{owner?.cellphone3}</p>
           </div>
          )}
