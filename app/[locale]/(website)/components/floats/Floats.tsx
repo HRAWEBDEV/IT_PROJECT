@@ -33,7 +33,7 @@ export default function Floats() {
 
  useEffect(() => {
   const windowHeight = window.innerHeight;
-  const visibleLimit = windowHeight + 100;
+  const visibleLimit = windowHeight + 40;
   function getBodyTopPosition() {
    return Math.abs(document.body.getBoundingClientRect().top);
   }

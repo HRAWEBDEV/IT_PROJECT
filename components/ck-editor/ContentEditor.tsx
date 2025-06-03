@@ -158,6 +158,7 @@ const ContentEditor = forwardRef<
   Autosave,
   TextTransformation,
   Strikethrough,
+  HtmlEmbed,
  } = cloud.CKEditor;
 
  return (
@@ -189,6 +190,7 @@ const ContentEditor = forwardRef<
      ImageUpload,
      CustomUploadAdapterPlugin,
      Indent,
+     HtmlEmbed,
      IndentBlock,
      Italic,
      Link,
@@ -234,6 +236,7 @@ const ContentEditor = forwardRef<
      'insertTable',
      'blockQuote',
      'mediaEmbed',
+     'htmlEmbed',
      '|',
      'bulletedList',
      'numberedList',
