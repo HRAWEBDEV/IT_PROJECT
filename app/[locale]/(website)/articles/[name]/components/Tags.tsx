@@ -2,6 +2,7 @@ import { type BlogTag } from '@/services/api-actions/globalApiActions';
 import { type WithDictionary } from '@/localization/locales';
 import Chip from '@mui/material/Chip';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import Link from 'next/link';
 
 type Props = {
  tags: BlogTag[];
@@ -22,7 +23,12 @@ export default function Tags({ dic, tags }: Props & WithDictionary) {
    <ul className='flex gap-4 items-center flex-wrap'>
     {tags.map((tag) => (
      <li key={tag.tagID}>
-      <Chip sx={chipStyle} label={tag.tagName} size='medium' />
+      <Link
+       href={`/articles?tagID=${tag.tagID}&tagName=${tag.tagName}`}
+       className='w-full'
+      >
+       <Chip sx={chipStyle} label={tag.tagName} size='medium' />
+      </Link>
      </li>
     ))}
    </ul>
