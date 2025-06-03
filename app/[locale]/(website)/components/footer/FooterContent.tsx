@@ -164,8 +164,8 @@ export default function FooterContent({
      <div className='py-2 mt-2 border-t border-neutral-400 dark:border-neutral-600'>
       <div className='text-center'>
        <CopyrightIcon />
+       {new Date().getFullYear()} {owner?.ownerName} <span> - </span>
        <span>{(dic.footer as Dic).allRightsReserved as string}</span>
-       {new Date().getFullYear()}
       </div>
      </div>
     </footer>
