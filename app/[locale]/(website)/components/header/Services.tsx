@@ -108,7 +108,7 @@ export default function Services({ onClose, dic }: Props) {
              loading: 'lazy',
              className:
               'h-full w-full object-cover object-center group-hover:scale-110 brightness-90 group-hover:brightness-100',
-             src: item.imageUrl,
+             src: `${process.env.NEXT_PUBLIC_BASE_URL}${item.imageUrl}`,
              alt: item.header,
             }}
             wrapper={{
