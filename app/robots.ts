@@ -1,6 +1,7 @@
 import { type MetadataRoute } from 'next';
 import { locales } from '@/localization/locales';
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://itnetra.com/';
 const disallowedPaths = ['/dashboard', '/profile'];
 const disallowedPathsWithLocale: string[] = [];
 disallowedPaths.forEach((path) => {
@@ -10,8 +11,6 @@ disallowedPaths.forEach((path) => {
 });
 
 export default function robots(): MetadataRoute.Robots {
- const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
-
  return {
   rules: {
    userAgent: '*',

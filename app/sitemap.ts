@@ -1,9 +1,7 @@
 import { type MetadataRoute } from 'next';
 import { locales } from '@/localization/locales';
-
 // Get base URL from environment variables
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yourdomain.com';
-
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://itnetra.com/';
 const fixedPagesInfo = [
  {
   url: '',
